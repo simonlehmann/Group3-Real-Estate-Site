@@ -1,6 +1,7 @@
 # PropertyDome
 ## Contributions
 To work on this project, you will need to set up your local development environment. Refer to the below guides for setting up your local development environment for your platform.
+> The project already has everything required to work on both Windows and Mac OS X development environments.
 
 ### Windows
 #### Installing Sublime Text 3
@@ -50,3 +51,13 @@ Coming soon...
 8. Sass (syntax highlighting)
 9. Terminal (Shortcut to open terminal in project folder)
 10. ColorPicker (highlight a colour and the ctrl+shift+c and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
+
+## Server Information
+During the development of the application, it will be hosted on the Web24 VPS provided by Central Institute of Technology. 
+> Login details will be provided
+
+This server will have the following capabilities:
+* Web Server (to host the application)
+* MySQL Server (to host the applications database)
+* Mail Server (to send emails from the bought-and-payed-for domain e.g no-reply@propertydome.com)
+
