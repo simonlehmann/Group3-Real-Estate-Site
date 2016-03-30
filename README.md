@@ -1,5 +1,5 @@
 # PropertyDome
-## Project Information
+## :clipboard: Project Information
 Please refer to te folloring links for 
 * Trello Board - https://trello.com/b/9OhPluxC/real-estate-website
 * Google Drive - https://drive.google.com/drive/u/0/folders/0BzjvBNtNDEyNS1p1THUyY1lnXzQ
@@ -7,7 +7,7 @@ Please refer to te folloring links for
 
 > Let me know if any of the links are broken :stuck_out_tongue_winking_eye:
 
-## Contributions
+## :pencil: Contributions
 To work on this project, you will need to set up your local development environment. Refer to the below guides for setting up your local development environment for your platform.
 > The project already has everything required to work on both Windows and Mac OS X development environments.
 
@@ -60,13 +60,13 @@ Coming soon...
 9. Terminal (Shortcut to open terminal in project folder)
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
-## Server Information
+## :computer: Server Information
 During the development of the application, it will be hosted on the Web24 VPS provided by Central Institute of Technology. 
-> Login details will be provided here...
+> :key: Login details will be provided here...
 
 This server will have the following capabilities:
 * Web Server (to host the application)
 * MySQL Server (to host the applications database)
 * Mail Server (to send emails from the bought-and-payed-for domain e.g no-reply@propertydome.com)
 
-## Now let's win this thing! :trophy:
+## :checkered_flag: Now let's win this thing! :trophy:
