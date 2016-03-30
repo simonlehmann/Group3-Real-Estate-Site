@@ -1,6 +1,6 @@
 # PropertyDome
 ## :clipboard: Project Information
-Please refer to te folloring links for 
+Please refer to te folloring links for any project information:
 * Trello Board - https://trello.com/b/9OhPluxC/real-estate-website
 * Google Drive - https://drive.google.com/drive/u/0/folders/0BzjvBNtNDEyNS1p1THUyY1lnXzQ
 * Slack Team - https://zapdome.slack.com
