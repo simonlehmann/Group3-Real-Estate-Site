@@ -11,6 +11,23 @@ Please refer to the folloring links for any project information:
 To work on this project, you will need to set up your local development environment. Refer to the below guides for setting up your local development environment for your platform.
 > The project already has everything required to work on both Windows and Mac OS X development environments.
 
+## Get Repository
+To get this repository into a local directory you'll need to do the following
+* Create a project folder
+* cd into this folder using your terminal i.e ```cd /path/to/project/folder```
+* Type ```git init```
+* Type ```git remote add origin https://github.com/slehmann36/Group3-Real-Estate-Site.git```
+* To pull the branch you want to work on type ```git pull origin branch`` replacing <branch> with the branch tag (like feature1)
+* Work on feature branch then if you want to commit your changes type ```git add .``` or ```git add --all``` (NB. type ```git status``` to see what changes you need to track)
+* Once they're added type ```git commit -m "Enter your commit message here"```
+* To push to your branch you enter ```git push origin branch```
+
+Try and limit the work you do on the master branch, all development should be done on a branch you created for your feature. These can be created on the web easier than via command line)
+
+Get into the habit of pulling before you do any work on your branch, incase someone has committed to it beforehand.
+
+> Note, to run the server you'll need to run ```bundle install``` first on your local machine.
+
 ### Coding Standards
 Please make every effort to ensure that any code submitted to this repository follows the coding standards as set out in the document linked below.
 > [Project Coding Standards] (https://drive.google.com/open?id=18F52kEOdb0eG1TtQPi_kskgJIjToppe2-23_J8VWmzw "Coding Standards")
