@@ -1,3 +1,14 @@
-<header>
-	<p>header</p>
+<header class="nav-buy">
+	<div class="ui secondary menu">
+		<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo"), buy_path %>
+		<%= link_to "Buy", buy_path, class: "active item" %>
+		<%= link_to "Sell", buy_path, class: "item" %>
+		<%= link_to "My Activity", buy_path, class: "item" %>
+		<section class="menu right">
+			<%= link_to buy_path, class: "ui item" do %>
+				<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
+				Ron Swanson
+			<% end %>
+		</section>
+	</div>
 </header>
