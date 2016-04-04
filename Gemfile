@@ -16,6 +16,9 @@ gem 'coffee-script-source', '1.8.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Gem for semantic-ui
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
