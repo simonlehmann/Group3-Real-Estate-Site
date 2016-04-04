@@ -1,14 +1,23 @@
-<header class="nav-buy">
-	<div class="ui secondary menu">
-		<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo"), buy_path %>
-		<%= link_to "Buy", buy_path, class: "active item" %>
-		<%= link_to "Sell", buy_path, class: "item" %>
-		<%= link_to "My Activity", buy_path, class: "item" %>
-		<section class="menu right">
-			<%= link_to buy_path, class: "ui item" do %>
-				<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
-				Ron Swanson
-			<% end %>
-		</section>
-	</div>
+<header class="nav-buy segment">
+		<div class="ui secondary pointing menu ">
+			<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo"), buy_path %>
+			<div class="center menu">
+				<%= link_to "Buy", buy_path, class: "active item " %>
+				<%= link_to "Sell", buy_path, class: "item" %>
+				<%= link_to "My Activity", buy_path, class: "item" %>
+			</div>
+			<div class="right menu">
+				<div class="ui simple dropdown item">
+					<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
+					<%= link_to "Ron Swanson", buy_path %> <i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item">My Activity</div>
+						<div class="item">My Messages</div>
+						<div class="item">Favourites</div>
+						<div class="item">Account Settings</div>
+						<div class="item">Logout</div>
+						</div>
+				</div>
+			</div>
+		</div>
 </header>
