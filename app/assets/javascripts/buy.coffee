@@ -16,7 +16,7 @@ $(document).ready ->
 			$('header').removeClass('nav-sell')
 			$('header').removeClass('nav-dashboard')
 $(window).bind 'scroll', ->
-	if $(window).scrollTop() > 1
+	if $(window).scrollTop() > 200
 		$('header').addClass 'nav-fixed'
 	else
 		$('header').removeClass 'nav-fixed'
