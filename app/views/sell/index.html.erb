@@ -1,12 +1,63 @@
-<!-- 
-	Created: Daniel Swain
-	Date: 04/04/2016
+<%
+#   Created: Daniel Swain
+#   Date: 04/04/2016
+#   
+#   The sell page for the site.
+#   
+#   NB. The comment block is in an erb tag so it's not rendered into html.
+ %>
 
-	The sell page for the site.
+<% # Banner %>
+<div class="sell-banner">
+	<div class="ui center aligned container">
+		<h1 class="ui inverted header">LOOKING TO SELL YOUR HOME?</h1>
+		
+		<% # Search dropdown with multiselect and custom data enabled %>
+		<!-- <div class="ui fluid multiple search selection dropdown">
+			<input name="tags" type="hidden">
+			<i class="dropdown icon"></i>
+			<div class="default text">Skills</div>
+			<div class="menu">
+				<div class="item" data-value="angular">Angular</div>
+				<div class="item" data-value="javascript">Javascript</div>
+				<div class="item" data-value="css">CSS</div>
+				<div class="item" data-value="sass">Sass</div>
+				<div class="item" data-value="android">Android</div>
+			</div>
+		</div> -->
+		
+		<% 
+		# Link to the sell#new action using the new_sell_path resource helper
+		# NB. A content tag is required to include an icon in the link body (via the code block)
+		%>
+		<%= link_to new_sell_path, class: "ui large right labeled icon button" do  %>
+			<%= content_tag(:i, "", class: "plus icon") %>
+  			Add Your Property
+		<% end %>
+	</div>
+</div>
 
- -->
-
-<div class="ui container">
-	<h1>Sell#index</h1>
-	<p>Find me in app/views/sell/index.html.erb</p>
+<% 
+# Advertising why to sell with us.
+# This contains three center aligned columns, each with an image, header and descriptive text.
+%>
+<div class="ui center aligned container">
+	<h1 class="ui header padding-top">Why You Should Sell With Us!</h1>
+	<div class="ui three column grid padding-top-half">
+		<div class="ui column">
+			<%= image_tag "300x300.png", class: "ui centered medium circular image" %>
+			<h2 class="ui header sell-red padding-top-half">Agents Favourite</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+		<div class="ui column">
+			<%= image_tag "300x300.png", class: "ui centered medium circular image" %>
+			<h2 class="ui header sell-red padding-top-half">Be Found Easier</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+		<div class="ui column">
+			<%= image_tag "300x300.png", class: "ui centered medium circular image" %>
+			<h2 class="ui header sell-red padding-top-half">Proven Results</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
 </div>
