@@ -17,7 +17,7 @@ gem 'coffee-script-source', '1.8.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Gem for semantic-ui
-gem 'semantic-ui-sass', git: 'http://github.com/doabit/semantic-ui-sass'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
