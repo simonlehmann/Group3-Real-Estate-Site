@@ -16,8 +16,11 @@ gem 'coffee-script-source', '1.8.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Gem for semantic-ui
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+# Gem for semantic-ui, using https:... 
+# To enable installation on TAFE computers. open Git bash (as you need git) and run the following:
+# export PATH=$PATH:/c/Ruby22-x64/bin
+# You can then use bundle install from the git bash (when you're in the project directory) it'll then work.
+gem 'semantic-ui-sass', git: 'https://www.github.com/doabit/semantic-ui-sass'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
