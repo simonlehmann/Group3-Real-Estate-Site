@@ -17,3 +17,12 @@
 //
 // Loads all Semantic javascripts
 //= require semantic-ui
+$(document).ready(function() {
+	//Declare variables/arrays etc
+	var mapOptions = {
+		zoom: 5,
+		center: new google.maps.LatLng(37.09024, -100.712891)
+	};
+
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+});
