@@ -1,5 +1,7 @@
 #TODO move location add remove header class in a main file
 $(document).ready ->
+	$('.ui.dropdown').dropdown allowAdditions: true
+	
 	loc = window.location.href
 	console.log loc
 	switch loc.includes

@@ -1,11 +1,22 @@
-$base-color: #AD141E
 header
-	color: white
+	z-index: 100
+	color: $white-primary
 	height: 60px
 	width: 100%
+	padding-top: 0.5em
 	top: 0px
 	background-color: transparent
 	transition: background-color 0.5s ease
+	.ui.circular.labels .label, .ui.circular.label
+		color: $white-primary
+		padding-right: 1em !important
+		background-color: $green-saturated
+	a.ui.circular.label:hover
+		background-color: $green-primary
+	.ui.action.input:not([class*="left action"]) > .button
+		color: $white-primary
+		background-color: $green-primary
+
 .propertydome-logo
 	height: 2.8em
 	width: auto
@@ -23,6 +34,9 @@ a
 a:hover,
 a:active
 	color: $white-hover
+a.item:hover
+	color: $white-hover
+
 .nav-links
 	a:not(:first-child)
 		padding-left: 20%
@@ -31,7 +45,7 @@ a:active
 	position: fixed
 	top: 0px
 .nav-fixed.nav-buy
-	background-color: $green-primary
+	background-color: $green-secondary
 .nav-fixed.nav-sell
 	background-color: $red-primary
 .nav-fixed.nav-dashboard
