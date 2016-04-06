@@ -5,19 +5,27 @@
 
 $red-primary: #e74c3c
 $red-primary-hover: #c0392b
+$grey-primary: #1d2327
+$grey-primary-hover: #21272b
+$white-primary: #FFFFFF
 
 .sell-banner
 	margin-top: -60px
-	padding-top: 10em
+	padding-top: 5em
 	width: 100%
-	height: 700px
+	height: 80vh
+	max-height: 700px
 	background: url(image_path('sell-header.png')) no-repeat
 	background-size: 100%
 	.ui.inverted.header
 		padding-top: 3em
+	.icon.button
+		margin-top: 2.5em
 	a.button
 		background-color: $red-primary
-	a.button:hover
+	a.button:hover, 
+	a.button:active,
+	a.button:focus
 		background-color: $red-primary-hover
 
 .padding-top
@@ -28,3 +36,25 @@ $red-primary-hover: #c0392b
 
 .sell-red
 	color: $red-primary !important
+
+.manage-table-header
+	margin-top: 2em !important
+	background-color: $grey-primary !important
+	color: $white-primary !important
+	.ui.buttons
+		.button
+			background-color: $grey-primary !important
+			color: $white-primary !important
+		.button:hover,
+		.button:active,
+		.button:focus
+			background-color: $grey-primary-hover !important
+
+	a.button
+		background-color: $red-primary
+		color: $white-primary
+	a.button:hover, 
+	a.button:active,
+	a.button:focus
+		background-color: $red-primary-hover
+		color: $white-primary

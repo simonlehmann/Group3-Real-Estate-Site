@@ -17,6 +17,10 @@ class SellController < ApplicationController
 	# Show the main sell page view
 	# GET /sell
 	def index
+		# For testing, I've set user has property to true
+		user_has_property = true
+		render template: "sell/manage" if user_has_property
+
 	end
 
 	# Show the add/edit form ready for user input and adding a new property

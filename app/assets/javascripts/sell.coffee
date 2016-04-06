@@ -2,5 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-	$('.ui.dropdown').dropdown allowAdditions: true
+	# Sort dropdown for manage page
+	$('#manage-filter').dropdown action: 'combo'
+	$('.ui.sticky').sticky()
+
 	return
