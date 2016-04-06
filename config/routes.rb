@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root 'buy#index'
+  get 'map/index'
+
+  root 'map#index'
   get 'buy/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
