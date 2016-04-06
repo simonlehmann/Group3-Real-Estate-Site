@@ -6,7 +6,7 @@ header
 	padding-top: 0.5em
 	top: 0px
 	background-color: transparent
-	transition: background-color 0.5s ease
+	transition: all 0.4s ease
 	.ui.circular.labels .label, .ui.circular.label
 		color: $white-primary
 		padding-right: 1em !important
@@ -16,27 +16,33 @@ header
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
-
-.propertydome-logo
-	height: 2.8em
-	width: auto
-.ui.secondary.pointing.menu
-	border-bottom: 0px transparent
-.ui.menu .item,
-.ui.secondary.pointing.menu .active.item
-	color: $white-primary
-	border-color: $white-primary
-.ui.menu .menu
-	text-align: center
-a
-	color: $white-primary
-	font-weight: bold
-a:hover,
-a:active
-	color: $white-hover
-a.item:hover
-	color: $white-hover
-
+	.propertydome-logo
+		height: 2.8em
+		width: auto
+	.ui.secondary.pointing.menu
+		border-bottom: 0px transparent
+	.ui.menu .item,
+	.ui.secondary.pointing.menu .active.item
+		font-weight: bolder
+		color: $white-primary
+		border-color: $white-primary
+	.ui.secondary.pointing.menu .active.item
+		border-bottom-width: 3px
+	.ui.secondary.pointing.menu .item:hover
+	.ui.secondary.pointing.menu .active.item:hover
+		color: $white-hover
+		border-color: $white-hover
+	.ui.menu .menu
+		text-align: center
+	.ui.secondary.pointing.menu .item
+		font-weight: bold
+	.ui.secondary.pointing.menu .item:hover
+		color: $white-hover
+		.item:hover
+			color: $white-hover !important
+	a:hover,
+	a:active
+		color: $white-hover
 .nav-links
 	a:not(:first-child)
 		padding-left: 20%

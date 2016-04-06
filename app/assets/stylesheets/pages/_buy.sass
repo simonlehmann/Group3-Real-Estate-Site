@@ -8,7 +8,6 @@
 	background-size: 100%
 	.ui.inverted.header
 		padding-top: 3em
-
 		h1
 			font-size: 4em
 			text-align: center
@@ -25,16 +24,20 @@
 		margin-left: -15px
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
-
 	.ui.labeled.input:not([class*="corner labeled"]) .label:first-child
 		width: 7%
 		background-color: $white-primary
 		vertical-align: middle
-	.ui.action.input:not([class*="left action"]) > .dropdown, .ui.action.input:not([class*="left action"]) > .button, .ui.action.input:not([class*="left action"]) > .buttons > .button
+	.ui.action.input:not([class*="left action"]) > .dropdown, .ui.action.input:not([class*="left action"]) > .button,
+	.ui.action.input:not([class*="left action"]) > .buttons > .button
 		border: none
 	.search-action
 		width: 5em
 .favourites-section
 	height: 30vh
 	max-height: 300px
+	padding-top: 5px
 	background-color: $grey-primary
+	h2
+		color: $white-primary
+		text-align: left
