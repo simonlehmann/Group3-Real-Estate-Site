@@ -4,7 +4,8 @@
 #   
 #   The sell page for the site.
 #   
-#   NB. The comment block is in an erb tag so it's not rendered into html.
+#   Partials:
+#   	* index_advertising: Bring in the advertising section for the page.
  %>
 
 <% # Banner %>
@@ -15,7 +16,7 @@
 		# Link to the sell#new action using the new_sell_path resource helper
 		# NB. A content tag is required to include an icon in the link body (via the code block)
 		%>
-		<%= link_to new_sell_path, class: "ui big right labeled icon button" do  %>
+		<%= link_to new_sell_path, class: "ui big right labeled icon button sell-red-button" do  %>
 			<%= content_tag(:i, "", class: "plus icon") %>
   			Add Your Property
 		<% end %>

@@ -1,14 +1,16 @@
 // Created: Daniel Swain
 // Date: 05/04/2016
 // 
-// Set the css classes used for the sales pages.
+// The following styles are for all sales pages.
 
+//--------- Colours and variables
 $red-primary: #e74c3c
 $red-primary-hover: #c0392b
 $grey-primary: #1d2327
 $grey-primary-hover: #21272b
 $white-primary: #FFFFFF
 
+//--------- The banner on the sell page and all it's elements
 .sell-banner
 	margin-top: -60px
 	padding-top: 5em
@@ -21,22 +23,28 @@ $white-primary: #FFFFFF
 		padding-top: 3em
 	.icon.button
 		margin-top: 2.5em
-	a.button
-		background-color: $red-primary
-	a.button:hover, 
-	a.button:active,
-	a.button:focus
-		background-color: $red-primary-hover
 
-.padding-top
+//--------- Margin and padding for elements
+.margin-top
 	margin-top: 30px !important
-
-.padding-top-half
+.margin-top-half
 	margin-top: 15px !important
 
-.sell-red
+//--------- Set text/background colours for sell elements
+// Text
+.sell-red-text
 	color: $red-primary !important
 
+// Buttons
+.sell-red-button
+	background-color: $red-primary !important
+	color: $white-primary !important
+.sell-red-button:hover,
+.sell-red-button:active,
+.sell-red-button:focus
+	background-color: $red-primary-hover !important
+
+//--------- Manage property table header
 .manage-table-header
 	margin-top: 2em !important
 	background-color: $grey-primary !important
@@ -50,11 +58,22 @@ $white-primary: #FFFFFF
 		.button:focus
 			background-color: $grey-primary-hover !important
 
-	a.button
-		background-color: $red-primary
-		color: $white-primary
-	a.button:hover, 
-	a.button:active,
-	a.button:focus
-		background-color: $red-primary-hover
-		color: $white-primary
+//--------- Send element to bottom of container
+.manage-property-bottom
+	position: absolute
+	bottom: 1rem
+	left: 1rem
+	span
+		padding-right: 1rem
+.manage-property-bottom-right
+	position: absolute
+	bottom: 1rem
+	right: 1rem
+
+//--------- Disable the cursor: pointer that Semantic-UI uses for a star icon
+.star.icon
+	cursor: default !important
+
+//--------- Add margin to next element after sticky to prevent overlap
+.ui.fixed.sticky + .ui.cards
+	margin-top: 5em

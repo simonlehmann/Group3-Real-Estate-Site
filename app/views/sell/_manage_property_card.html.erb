@@ -2,13 +2,86 @@
 #   Created: Daniel Swain
 #   Date: 06/04/2016
 #   
-#   Partial representing the property that will be manigable by the user
+#   Partial erb used by the manage page.
 #   
-#   NB. The comment block is in an erb tag so it's not rendered into html.
+#   This represents a property that will be manigable by the user, it might be rendered multiple times
+#   
+#   Local variables (i.e. can be refered to just by 'name' not '@name' in pe tags:
+#   	* id: The id of the property
+#   	* address: The property address
+#   	* status: The property's status
+#   	* image_path: The path for the property's main image
+#   	* description: The property's description
+#   	* counts: A hash of the property's stats. Hash structure is below
+#   		NB. Each key is also used as the icon class:
+#   		 	unhide: 	[Number of views, Text to append to value]
+#   		 	star: 		[Number of favourites, Text to append to value]
+#   		 	comments: 	[Number of comments, Text to append to value]
+#   		 	wait: 		[Weeks until expiry of listing, Text to append to value]
+#   
+#   Todo:
+#   	* Build edit status modal and pull in the info for the property the button was clicked on
+#   	* Prompt/Dialog/Modal for the delete button
  %>
 
+<% # A property management card, the local variables are filled by the sell_controller %>
 <div class="ui fluid card">
-	<div class="ui content">
-		<%= content %>
+	<div class="content">
+		<% # Header containing address and property status %>
+		<div class="header">
+			<h2>
+				<span class="left floated left aligned"><%= address %></span>
+				<span class="right floated right aligned sell-red-text">Status: <%= status %></span>
+			</h2>
+		</div>
+
+		<% # The property body %>
+		<div class="description">
+			<div class="ui three column centered grid">
+				<% # Property main image %>
+				<div class="four wide column">
+					<%= image_tag "#{image_path}", class: "ui centered medium image" %>
+				</div>
+				
+				<% # Description and information block %>
+				<div class="nine wide column">
+					<% # The Description %>
+					<p><b>Description: </b><%= description %></p>
+
+					<% # The bottom info bar showing views, comments, favourites and expiry %>
+					<div class="manage-property-bottom">
+						<% counts.each do |key, value| %>
+							<span>
+								<%= content_tag(:i, "", class: "#{key.to_s} icon") %>
+								<%= value[0] %> <%= value[1] %>
+							</span>
+						<% end %>
+					</div>
+				</div>
+				
+				<% # Buttons block %>
+				<div class="three wide right aligned column">
+					<% # Edit Status Button %>
+					<%= link_to new_sell_path, class: "ui small right labeled icon button sell-red-button" do  %>
+						<%= content_tag(:i, "", class: "write icon") %>
+			  			Edit Status
+					<% end %>
+
+					<% # Edit Listing Button %>
+					<%= link_to edit_sell_path(id), class: "ui small right labeled icon button sell-red-button margin-top-half" do  %>
+						<%= content_tag(:i, "", class: "write icon") %>
+			  			Edit Listing
+					<% end %>
+
+					<% # Delete Property button %>
+					<div class="manage-property-bottom-right">
+						<%= link_to sell_path(id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button" do  %>
+							<%= content_tag(:i, "", class: "trash icon") %>
+				  			Delete
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

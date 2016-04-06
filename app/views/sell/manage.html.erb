@@ -2,13 +2,26 @@
 #   Created: Daniel Swain
 #   Date: 04/04/2016
 #   
-#   The template the user will see when they are logged in and have a property.
+#   Main Manage page template the user will see when they are logged in and have a property.
 #   
-#   NB. The comment block is in an erb tag so it's not rendered into html.
+#   This contains a table whos header is a sticky element fixed to the bottom of the nav bar
+#   A table of cards containing each property is shown under the header.
+#   
+#   Partials:
+#   	* manage_property_card: Used to generate each property to be managed
+#   
+#   Collections:
+#   	* @properties: An array of property hashes, which are passed to the manage_property_card partials.
+#   
+#   Todo:
+#   	* Change sort icon to ascending/descending icon default to ???
+#   	* Implement sort in ascending and descending order (clicking icon changes sort method between the two)
+#   	* Currently when you click any of the buttons in the property card the table header overflows it's container, 
+#   	  investigate why this happens and if it goes away when those buttons actually redirect to actions.
  %>
 <div class="ui container">
 	<% # Manage Properties table %>
-	<div class="ui center aligned fluid card fixed sticky manage-table-header">
+	<div class="ui fixed sticky center aligned fluid card manage-table-header">
 		<div class="content">
 			<div class="ui centered middle aligned three column grid">
 				<% # Table header %>
@@ -34,7 +47,7 @@
 				</div>
 				<% # Add Property Button %>
 				<div class="right floated right aligned column">
-					<%= link_to new_sell_path, class: "ui right labeled icon button" do  %>
+					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
 						<%= content_tag(:i, "", class: "plus icon") %>
 			  			Add Your Property
 					<% end %>
@@ -45,8 +58,25 @@
 	
 	<% # The properties the user has %>
 	<div class="ui cards">
-		<%= 20.times do |content| %>
-			<%= render 'sell/manage_property_card', content: content %>
+		<% # properties are sent from the controller as an array of hashes of each property the user has listed. %>
+		<% @properties.each do |property| %>
+			<%= render 'sell/manage_property_card', {
+					id: property[:id],
+					address: property[:address],
+					status: property[:status],
+					image_path: property[:image_path],
+					description: property[:description],
+					counts: property[:counts]
+				} %>
 		<% end %>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
