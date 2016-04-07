@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   resources :sell, except: [:show]
 
 
+  # Sell Pages routes
+  resources :sell, except: [:show]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
