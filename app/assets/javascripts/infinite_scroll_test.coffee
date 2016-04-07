@@ -6,6 +6,7 @@
 # Trigger a new page load
 tester = ->
 	$('.infinite-table').infinitePages
+		buffer: 100 # Auto scroll when 100px from bottom of window
 		loading: ->
 			$(this).text 'Loading next page...'
 		error: ->
