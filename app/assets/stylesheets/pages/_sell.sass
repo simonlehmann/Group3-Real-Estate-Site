@@ -10,9 +10,41 @@ $grey-primary: #1d2327
 $grey-primary-hover: #21272b
 $white-primary: #FFFFFF
 
-//--------- The banner on the sell page and all it's elements
+//--------- Margin and padding for elements
+.margin-top
+	margin-top: 2em !important
+.margin-top-half
+	margin-top: 1em !important
+
+//--------- Set text/background colours for sell elements
+// Text
+.sell-red-text
+	color: $red-primary !important
+
+// Buttons
+.sell-red-button,
+.sell-red-ribbon
+	background-color: $red-primary !important
+	color: $white-primary !important
+.sell-red-button:hover,
+.sell-red-button:active,
+.sell-red-button:focus,
+.sell-red-ribbon:hover,
+.sell-red-ribbon:active,
+.sell-red-ribbon:focus
+	background-color: $red-primary-hover !important
+
+.sell-red-ribbon
+	border-color: $red-primary-hover !important
+
+//--------- Disable the cursor: pointer that Semantic-UI uses for a star icon
+.star.icon
+	cursor: default !important
+
+//--------- Index Page Styles
+//--------- The banner on the index sell page and all it's elements
 .sell-banner
-	margin-top: -60px
+	margin-top: -4em
 	padding-top: 5em
 	width: 100%
 	height: 80vh
@@ -24,26 +56,7 @@ $white-primary: #FFFFFF
 	.icon.button
 		margin-top: 2.5em
 
-//--------- Margin and padding for elements
-.margin-top
-	margin-top: 30px !important
-.margin-top-half
-	margin-top: 15px !important
-
-//--------- Set text/background colours for sell elements
-// Text
-.sell-red-text
-	color: $red-primary !important
-
-// Buttons
-.sell-red-button
-	background-color: $red-primary !important
-	color: $white-primary !important
-.sell-red-button:hover,
-.sell-red-button:active,
-.sell-red-button:focus
-	background-color: $red-primary-hover !important
-
+//--------- Manage Property Styles
 //--------- Manage property table header
 .manage-table-header
 	margin-top: 2em !important
@@ -58,22 +71,35 @@ $white-primary: #FFFFFF
 		.button:focus
 			background-color: $grey-primary-hover !important
 
-//--------- Send element to bottom of container
-.manage-property-bottom
-	position: absolute
-	bottom: 1rem
-	left: 1rem
-	span
-		padding-right: 1rem
-.manage-property-bottom-right
-	position: absolute
-	bottom: 1rem
-	right: 1rem
-
-//--------- Disable the cursor: pointer that Semantic-UI uses for a star icon
-.star.icon
-	cursor: default !important
-
 //--------- Add margin to next element after sticky to prevent overlap
 .ui.fixed.sticky + .ui.cards
 	margin-top: 5em
+
+//--------- Change the pointer for the status ribbon
+.manage-status.ribbon
+	cursor: pointer
+
+//--------- Change the status modal input sizes
+.manage-status.modal
+	.status-date.input
+		max-width: 10em
+	.status-time.input
+		max-width: 7em
+
+//--------- Send element to bottom of container (were all rem's)
+.manage-property-bottom
+	position: absolute
+	bottom: 1em
+	left: 1em
+	span
+		padding-right: 1em
+.manage-property-bottom-right
+	position: absolute
+	bottom: 1em
+	right: 1em
+
+//--------- Add-Edit Page styles
+//--------- Remove bottom border from tabular menu
+.add-edit.tabular.menu
+	border-bottom-style: none !important
+

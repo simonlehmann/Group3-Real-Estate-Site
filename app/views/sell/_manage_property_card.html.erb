@@ -20,19 +20,29 @@
 #   		 	wait: 		[Weeks until expiry of listing, Text to append to value]
 #   
 #   Todo:
-#   	* Build edit status modal and pull in the info for the property the button was clicked on
 #   	* Prompt/Dialog/Modal for the delete button
+#   	* Property Features formatting/grab info from database
  %>
 
 <% # A property management card, the local variables are filled by the sell_controller %>
 <div class="ui fluid card">
 	<div class="content">
-		<% # Header containing address and property status %>
+		<% # Header containing address and edit listing button %>
 		<div class="header">
-			<h2>
-				<span class="left floated left aligned"><%= address %></span>
-				<span class="right floated right aligned sell-red-text">Status: <%= status %></span>
-			</h2>
+			<div class="ui two column grid">
+				<% # The address %>
+				<div class="ui left floated left aligned column">
+					<h2><%= address %></h2>
+				</div>
+
+				<% # The Edit listing Button %>
+				<div class="ui right floated right aligned column">
+					<%= link_to edit_sell_path(id), class: "ui small right labeled icon button sell-red-button" do  %>
+						<%= content_tag(:i, "", class: "write icon") %>
+			  			Edit Listing
+					<% end %>
+				</div>
+			</div>
 		</div>
 
 		<% # The property body %>
@@ -40,7 +50,16 @@
 			<div class="ui three column centered grid">
 				<% # Property main image %>
 				<div class="four wide column">
-					<%= image_tag "#{image_path}", class: "ui centered medium image" %>
+					<div class="ui image">
+						<% # The main image %>
+						<%= image_tag "#{image_path}", class: "ui centered medium image" %>
+
+						<% # Status ribbon, clicking this will open the edit modal. %>
+						<div class="ui label sell-red-ribbon manage-status ribbon">
+							<%= status %>
+							<div class="detail"><i class="write icon"></i></div>
+						</div>
+					</div>
 				</div>
 				
 				<% # Description and information block %>
@@ -59,19 +78,13 @@
 					</div>
 				</div>
 				
-				<% # Buttons block %>
+				<% # Features and Delete Button block %>
 				<div class="three wide right aligned column">
-					<% # Edit Status Button %>
-					<%= link_to new_sell_path, class: "ui small right labeled icon button sell-red-button" do  %>
-						<%= content_tag(:i, "", class: "write icon") %>
-			  			Edit Status
-					<% end %>
-
-					<% # Edit Listing Button %>
-					<%= link_to edit_sell_path(id), class: "ui small right labeled icon button sell-red-button margin-top-half" do  %>
-						<%= content_tag(:i, "", class: "write icon") %>
-			  			Edit Listing
-					<% end %>
+					<% # Property features %>
+ 					<p>3 Bedrooms</p>
+ 					<p>2 Bathrooms</p>
+ 					<p>2 Carports</p>
+ 					<p>450sqm</p>
 
 					<% # Delete Property button %>
 					<div class="manage-property-bottom-right">

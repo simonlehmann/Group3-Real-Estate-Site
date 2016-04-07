@@ -24,7 +24,7 @@ class SellController < ApplicationController
 			20.times do |i|
 				property = {
 					id: i,
-					address: "21 Shackles Street",
+					address: "21 Shackles Street, Suburbia, Stateland",
 					status: "Home open Saturday 10am - 12pm",
 					image_path: "300x300.png",
 					description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -37,16 +37,17 @@ class SellController < ApplicationController
 				}
 				@properties << property
 			end
-			render template: "sell/manage"
+			render "sell/manage"
 		else
-			render template: "sell/index"
+			render "sell/index"
 		end
 	end
 
 	# Show the add/edit form ready for user input and adding a new property
 	# GET /sell/new
 	def new
-		redirect_to action: :index
+		# Add logic for new stuff if required?
+		render "sell/add_edit"
 	end
 
 	# Add the property from the completed userform
@@ -58,7 +59,8 @@ class SellController < ApplicationController
 	# Show the add/edit form ready for user input to edit an existing property
 	# GET /sell/:id/edit
 	def edit
-		redirect_to action: :index
+		# handle edits
+		render "sell/add_edit"
 	end
 
 	# Update the property from the completed userform
