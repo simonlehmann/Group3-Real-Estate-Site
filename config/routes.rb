@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   # Infinite Scroll It's for testing only
   get '/scroll' => 'infinite_scroll_test#infinite_scroll_test'
 
+  # Sell Pages routes
+  resources :sell, except: [:show]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
