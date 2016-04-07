@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  
+  root 'buy#index'
+  get '/buy' => 'buy#index'
   
   # Infinite Scroll It's for testing only
   get '/scroll' => 'infinite_scroll_test#infinite_scroll_test'
@@ -7,9 +8,6 @@ Rails.application.routes.draw do
   # Sell Pages routes
   resources :sell, except: [:show]
 
-
-  # Sell Pages routes
-  resources :sell, except: [:show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
