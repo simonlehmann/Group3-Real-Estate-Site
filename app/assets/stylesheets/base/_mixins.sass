@@ -1,0 +1,19 @@
+=triangle($width: 100px, $height: 40px, $direction: down, $triangle-color: purple)
+	width: 0
+	height: 0
+	@if $direction == right
+		border-top: $height/2 solid transparent
+		border-bottom: $height/2 solid transparent
+		border-left: $width solid $triangle-color
+	@if $direction == left
+		border-top: $height/2 solid transparent
+		border-bottom: $height/2 solid transparent
+		border-right: $width solid $triangle-color
+	@if $direction == up
+		border-left: $width/2 solid transparent
+		border-right: $width/2 solid transparent
+		border-bottom: $height solid $triangle-color
+	@if $direction == down
+		border-left: $width/2 solid transparent
+		border-right: $width/2 solid transparent
+		border-top: $height solid $triangle-color
