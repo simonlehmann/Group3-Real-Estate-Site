@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'buy#index'
-  get 'buy/index'
+  get '/buy' => 'buy#index'
 
   # Sell Pages routes
   resources :sell, except: [:show]
