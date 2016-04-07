@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+1000.times do |i|
+	Test.create(name: "Test name #{i}", address: "https://www.google.com/#q=#{i}")
+end

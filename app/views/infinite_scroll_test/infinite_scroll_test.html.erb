@@ -1,0 +1,29 @@
+<%
+#   Created: Daniel Swain
+#   Date: 07/04/2016
+#   
+#   Testing out infinite scrolling/pagination.
+#   
+%>
+
+<div class="ui center aligned container">
+	<h1>Infinite Scroll Test</h1>
+	<p>
+		The table below has 1000 data records. They should load as you get close to the end of the table.
+		There is a link to manually load more. The page shouldn't reload.
+	</p>
+
+	<% # Table for testing pagination %>
+	<div class="infinite-table centered">
+		<table>
+			<tr>
+				<th>Data(name:id)</th>
+				<th>Address</th>
+			</tr>
+			<%= render partial: 'infinite_scroll_test/data_item', object: @tests %>
+		</table>
+		<p class="pagination">
+			<%= link_to_next_page(@tests, 'Next Page', remote: true) %>
+		</p>
+	</div>
+</div>

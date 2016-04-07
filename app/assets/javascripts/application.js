@@ -17,3 +17,6 @@
 //
 // Loads all Semantic javascripts
 //= require semantic-ui
+// 
+// Infinite Scolling/Pagination using Jquery
+//= require jquery.infinite-pages

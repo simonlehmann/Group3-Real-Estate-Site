@@ -1,0 +1,15 @@
+<%
+#   Created: Daniel Swain
+#   Date: 07/04/2016
+#   
+#   Testing out infinite scrolling/pagination.
+#   
+%>
+
+<% # The data item filled in the table %>
+<% @tests.each do |test| %>
+	<tr>
+		<td><%= test.name %> (<%= test.id %>)</td>
+		<td><%= link_to "Find me here", test.address %></td>
+	</tr>
+<% end %>

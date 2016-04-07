@@ -1,0 +1,11 @@
+// This is to append new data to the table in infinit_scroll_test
+
+// Append new data
+$("<%=j render(partial: 'infinite_scroll_test/data_item', object: @tests) %>").appendTo($(".infinite-table table"));
+
+// Update pagination link
+<% if @tests.last_page? %>
+	$('.pagination').html("That's all, folks!");
+<% else %>
+	$('.pagination').html("<%=j link_to_next_page(@tests, 'Next Page', remote: true) %>");
+<% end %>
