@@ -1,0 +1,29 @@
+<%
+#   Created: Daniel Swain
+#   Date: 04/04/2016
+#   
+#   The sell page for the site.
+#   
+#   Partials:
+#   	* index_advertising: Bring in the advertising section for the page.
+ %>
+
+<% # Banner %>
+<div class="sell-banner">
+	<div class="ui center aligned container">
+		<h1 class="ui inverted header">LOOKING TO SELL YOUR HOME?</h1>
+		<% 
+		# Link to the sell#new action using the new_sell_path resource helper
+		# NB. A content tag is required to include an icon in the link body (via the code block)
+		%>
+		<%= link_to new_sell_path, class: "ui big right labeled icon button sell-red-button" do  %>
+			<%= content_tag(:i, "", class: "plus icon") %>
+  			Add Your Property
+		<% end %>
+	</div>
+</div>
+
+<% # Main Page container %>
+<div class="ui center aligned container">
+	<%= render "sell/index_advertising" %>
+</div>

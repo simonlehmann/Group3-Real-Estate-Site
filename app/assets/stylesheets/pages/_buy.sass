@@ -1,3 +1,53 @@
-// Place all the styles related to the buy controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+.search-section
+	margin-top: -60px
+	padding-top: 5em
+	width: 100%
+	height: 80vh
+	max-height: 700px
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: 100%
+	.ui.inverted.header
+		padding-top: 3em
+		h1
+			font-size: 4em
+			text-align: center
+	.ui.action.input:not([class*="left action"]) > .button
+		background-color: $green-primary
+		color: $white-primary
+		width: 18%
+	.ui.action.input:not([class*="left action"]) > .button:hover
+		background-color: $green-secondary
+	.ui[class*="right labeled"].icon.button
+		color: $white-primary
+		margin-top: 2.4em
+		background-color: $blue-primary
+		margin-left: -15px
+	.ui[class*="right labeled"].icon.button:hover
+		background-color: $blue-secondary
+	.ui.labeled.input:not([class*="corner labeled"]) .label:first-child
+		width: 7%
+		background-color: $white-primary
+		vertical-align: middle
+	.ui.action.input:not([class*="left action"]) > .dropdown, .ui.action.input:not([class*="left action"]) > .button,
+	.ui.action.input:not([class*="left action"]) > .buttons > .button
+		border: none
+	.search-action
+		width: 5em
+div.lead-in.ui.one.wide.column.triangle-lead
+	padding-left: 0px
+	padding-right: 0px
+.triangle-lead
+	+triangle(125px, 45px, down, $grey-primary)
+	text-align: center
+	
+.favourites-section
+	height: 30vh
+	max-height: 300px
+	padding-top: 1.2%
+	background-color: $grey-primary
+	h2
+		color: $white-primary !important
+		text-align: left
+.twitter-feed
+	.twitter
+		color: $blue-twitter
