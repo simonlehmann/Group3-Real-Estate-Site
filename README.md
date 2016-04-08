@@ -87,8 +87,19 @@ You can confirm the install using the same commands as for windows in your termi
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
 ## :computer: Server Information
-During the development of the application, it will be hosted on the Web24 VPS provided by Central Institute of Technology. 
-> :key: Login details will be provided here...
+During the development of the application, it will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
+###:key: Login Details
+#### Application Access
+URL: ```db.slehmann36.com```  
+Username: ```Comming Soon...```  
+Password: ```Comming Soon...```
+
+####PhpMyAdmin
+URL: ```https://db.slehmann36.com/phpmyadmin/```  
+Username: ```admin```  
+Password: ```MhalliF123```
+
+:exclamation:Don't you bastards break my server!
 
 This server will have the following capabilities:
 * Web Server (to host the application)
