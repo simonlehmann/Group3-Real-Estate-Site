@@ -54,6 +54,7 @@ ready = ->
 		]							# Set the maximum time (5 pm)
 	
 	# Assign date and time pickers to the modal objects, customise the defualts from above if you want to here
+	# Container specifies the dom element to attach the picker to (needed here as the label fields are too small)
 	$('.manage-status.modal input[name="home-date"]').pickadate container: '.manage-status.modal #home-date-container'
 	$('.manage-status.modal input[name="home-start-time"]').pickatime container: '.manage-status.modal #home-start-time-container'
 	$('.manage-status.modal input[name="home-end-time"]').pickatime container: '.manage-status.modal #home-end-time-container'
