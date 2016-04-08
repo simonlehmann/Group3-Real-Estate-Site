@@ -2,10 +2,23 @@
 // Date: 07/08/2016
 // 
 // Testing out Infinite Scrolling
-
-a
-	color: #000000 !important
-a:hover,
-a:active,
-a:focus
-	color: #000000 !important
+.container
+	a
+		color: #000000 !important
+	a:hover,
+	a:active,
+	a:focus
+		color: #000000 !important
+.loading-anim
+	p
+		font-weight: bold
+	ul#progress
+		list-style: none
+		width: 125px
+		margin: 0 auto
+		padding-top: 50px
+		padding-bottom: 50px
+		li
+			display: inline
+	.circle
+		+circle(15px, #999)
