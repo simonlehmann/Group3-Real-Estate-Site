@@ -2,14 +2,10 @@
 // Date: 05/04/2016
 // 
 // The following styles are for all sales pages.
-
-//--------- Colours and variables
-$red-primary: #e74c3c
-$red-primary-hover: #c0392b
-$grey-primary: #1d2327
-$grey-primary-hover: #21272b
-$white-primary: #FFFFFF
-
+.manage-container
+	margin-top: 5em
+.manage-properties
+	z-index: 99
 //--------- Margin and padding for elements
 .margin-top
 	margin-top: 2em !important
@@ -44,8 +40,6 @@ $white-primary: #FFFFFF
 //--------- Index Page Styles
 //--------- The banner on the index sell page and all it's elements
 .sell-banner
-	margin-top: -4em
-	padding-top: 5em
 	width: 100%
 	height: 80vh
 	max-height: 700px
@@ -59,7 +53,6 @@ $white-primary: #FFFFFF
 //--------- Manage Property Styles
 //--------- Manage property table header
 .manage-table-header
-	margin-top: 2em !important
 	background-color: $grey-primary !important
 	color: $white-primary !important
 	.ui.buttons
@@ -73,7 +66,7 @@ $white-primary: #FFFFFF
 
 //--------- Add margin to next element after sticky to prevent overlap
 .ui.fixed.sticky + .ui.cards
-	margin-top: 5em
+	//margin-top: 5em !important
 
 //--------- Change the pointer for the status ribbon
 .manage-status.ribbon

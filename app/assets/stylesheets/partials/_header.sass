@@ -5,14 +5,9 @@ header
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
-	background-color: transparent
-	transition: all 0.4s ease
-	.ui.circular.labels .label, .ui.circular.label
-		color: $white-primary
-		padding-right: 1em !important
-		background-color: $green-saturated
-	a.ui.circular.label:hover
-		background-color: $green-primary
+	:not(.nav-fixed)
+		background-color: transparent
+		transition: all 0.4s ease
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
@@ -53,6 +48,27 @@ header
 .nav-fixed.nav-buy
 	background-color: $green-secondary
 .nav-fixed.nav-sell
-	background-color: $red-primary
+	background-color: $red-secondary
 .nav-fixed.nav-dashboard
-	background-color: $purple-primary
+	background-color: $purple-secondary
+.nav-buy
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $green-saturated
+	.alert-badge:hover
+		background-color: $green-primary !important
+.nav-sell
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $red-saturated
+	.alert-badge:hover
+		background-color: $red-primary !important
+.nav-dashboard
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $purple-saturated
+	.alert-badge:hover
+		background-color: $purple-primary !important
