@@ -5,8 +5,9 @@ header
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
-	background-color: transparent
-	transition: all 0.4s ease
+	:not(.nav-fixed)
+		background-color: transparent
+		transition: all 0.4s ease
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
