@@ -7,11 +7,10 @@
 ready = ->
 	# Sort dropdown for manage page, combo action replaces previous elements text with selection from dropdown
 	$('#manage-filter').dropdown action: 'combo'
-
 	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
 	console.log(window.location.pathname)
 	$('.ui.sticky').sticky
-		offset: 80
+		offset: 60
 		context: '.ui.cards'	
 	
 	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
