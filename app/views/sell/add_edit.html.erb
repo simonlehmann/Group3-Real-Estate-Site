@@ -1,0 +1,37 @@
+<%
+#   Created: Daniel Swain
+#   Date: 07/04/2016
+#   
+#   Add/Edit page template the user will see when they are logged in and adding/editing a property.
+#   
+#   Partials:
+#   	* 
+#   
+#   Collections:
+#   	* @property: the property to be edited
+#   
+#   Todo:
+#   	* Design the tabs
+#   	* Bring in Jayden's search results property partial to preview
+#   	* Live update the preview
+ %>
+
+ <% # Main container %>
+ <div class="ui container">
+ 	<div class="ui middle aligned grid container">
+ 		<div class="ui centered pointing secondary add-edit tabular menu row">
+ 			<a class="item active" data-tab="add-edit-1">Listing Information</a>
+	 		<a class="item" data-tab="add-edit-2">Photographs</a>
+	 		<a class="item" data-tab="add-edit-3">Extras</a>
+ 		</div>
+ 	</div>
+ 	<div class="ui tab segment active" data-tab="add-edit-1">
+		Tab 1
+	</div>
+	<div class="ui tab segment" data-tab="add-edit-2">
+		Tab 2
+	</div>
+	<div class="ui tab segment" data-tab="add-edit-3">
+		Tab 3
+	</div>
+ </div>

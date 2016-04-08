@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  get 'contact/index'
-  get 'buy/index'
-  root 'contact#index'
+  root 'buy#index'
+  get '/buy' => 'buy#index'
+  get '/contact' => 'contact#index'
+
+  # Sell Pages routes
+  resources :sell, except: [:show]
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
