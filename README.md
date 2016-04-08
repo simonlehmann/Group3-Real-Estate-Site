@@ -92,7 +92,7 @@ During the development of the application, it will be hosted on ~~the Web24 VPS 
 #### Application Access
 URL: ```db.slehmann36.com```  
 Username: ```pdappuser```  
-Password: ```MhalliF123...```
+Password: ```MhalliF123...```  
 Require SSL ```True```
 
 ####PhpMyAdmin
