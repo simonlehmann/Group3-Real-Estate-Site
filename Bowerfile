@@ -1,0 +1,7 @@
+# A sample Bowerfile
+# Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
+
+# The files below will be put into /vendor/assets/bower_components
+
+# Date/time picker using jQuery https://github.com/amsul/pickadate.js
+asset "pickadate"

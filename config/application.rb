@@ -24,5 +24,8 @@ module Propertydome
     config.active_record.raise_in_transactional_callbacks = true
     # Set prefered file type for sass to .sass over .scss
     config.sass.preferred_syntax = :sass
+
+    # Add Bower Assets to the asset path
+    config.assets.paths << Rails.root.join(* %w(vendor assets bower_components))
   end
 end
