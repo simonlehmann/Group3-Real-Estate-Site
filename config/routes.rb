@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'buy#index'
+  get 'contact/index'
   get 'buy/index'
+  root 'contact#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
