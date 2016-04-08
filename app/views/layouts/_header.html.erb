@@ -5,10 +5,10 @@
 				<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
 			</div>
 			<div class="center aligned column">
-				<div class="ui secondary pointing compact menu">
-					<%= link_to "Buy", buy_path, class: "active item " %>
-					<%= link_to "Sell", buy_path, class: "item" %>
-					<%= link_to "My Activity", buy_path, class: "item" %>
+				<div class="ui secondary pointing compact menu main-nav">
+					<%= link_to "Buy", buy_path, class: "buy-item active item " %>
+					<%= link_to "Sell", sell_index_path, class: "sell-item item" %>
+					<%= link_to "My Activity", buy_path, class: "activity-item item" %>
 				</div>
 			</div>
 			<div class="right floated middle aligned column">
@@ -23,7 +23,7 @@
 						<div class="item">Logout</div>
 					</div>
 				</div>
-				<a class="ui circular label"><i class="alarm icon"></i>2 </a>
+				<a class="ui circular label alert-badge"><i class="alarm icon"></i>2 </a>
 			</div>
 		</div>
 	</div>
