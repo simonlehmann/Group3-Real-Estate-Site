@@ -2,15 +2,16 @@
 // Date: 05/04/2016
 // 
 // The following styles are for all sales pages.
-.manage-container
-	margin-top: 5em
-.manage-properties
-	z-index: 99
+
 //--------- Margin and padding for elements
 .margin-top
 	margin-top: 2em !important
 .margin-top-half
 	margin-top: 1em !important
+
+//--------- Margin for sell container to place it under header. Only for sell-pages without banner
+.sell-container
+	margin-top: 5em
 
 //--------- Set text/background colours for sell elements
 // Text
@@ -40,6 +41,8 @@
 //--------- Index Page Styles
 //--------- The banner on the index sell page and all it's elements
 .sell-banner
+	margin-top: -60px
+	padding-top: 5em
 	width: 100%
 	height: 80vh
 	max-height: 700px
@@ -47,10 +50,13 @@
 	background-size: 100%
 	.ui.inverted.header
 		padding-top: 3em
+		h1
+			font-size: 4em
+			text-align: center
 	.icon.button
 		margin-top: 2.5em
 
-//--------- Manage Property Styles
+//--------- Manage Property Page Styles
 //--------- Manage property table header
 .manage-table-header
 	background-color: $grey-primary !important
@@ -65,6 +71,9 @@
 			background-color: $grey-primary-hover !important
 
 //--------- Add margin to next element after sticky to prevent overlap
+.manage-properties
+	z-index: 99
+
 .ui.fixed.sticky + .ui.cards
 	//margin-top: 5em !important
 
