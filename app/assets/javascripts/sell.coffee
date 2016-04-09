@@ -26,7 +26,13 @@ ready = ->
 	# Accordian trigger change
 	$('.manage-status.modal .accordion').accordion selector: trigger: '.title'
 	# Attach a trigger event to the checkbox radio's so that the checkbox label also triggers it.
-	$('.manage-status.modal .accordion .ui.checkbox').checkbox 'attach events', $('.manage-status.modal .accordion .ui.checkbox .label')
+	$('.manage-status.modal .checkbox').checkbox 'attach events', $('.manage-status.modal .checkbox label')
+	# Attach a trigger event to the checkbox radio's so that the accordion title also triggers it.
+	# Done as an each loop so it only attaches the event for the title and checkbox that are together.
+	$('.manage-status.modal .title').each ->
+		$(this).children('.checkbox').checkbox 'attach events', $(this)
+		return
+
 
 	# Configure the date/time pickers for the status modals.
 	# Extend the DatePicker Defaults, which will apply to all date pickers
