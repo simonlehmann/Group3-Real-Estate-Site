@@ -33,7 +33,6 @@ ready = ->
 		$(this).children('.checkbox').checkbox 'attach events', $(this)
 		return
 
-
 	# Configure the date/time pickers for the status modals.
 	# Extend the DatePicker Defaults, which will apply to all date pickers
 	$.extend $.fn.pickadate.defaults,

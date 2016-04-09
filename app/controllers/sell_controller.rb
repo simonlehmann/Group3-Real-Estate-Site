@@ -21,7 +21,7 @@ class SellController < ApplicationController
 		user_has_property = true
 		if user_has_property
 			@properties = []
-			20.times do |i|
+			5.times do |i|
 				property = {
 					id: i,
 					address: "21 Shackles Street, Suburbia, Stateland",
