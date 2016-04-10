@@ -4,3 +4,23 @@
 #   
 #   Partial for adding/editing photos in the add_edit property flow
 %>
+
+<div class="ui one column grid">
+	<% # Header %>
+	<div class="ui centered row">
+		<h3 class="header">Listing Photographs</h3>
+	</div>
+
+
+	<% # The button container %>
+	<div class="ui right aligned column">
+		<% # Cancel button %>
+		<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
+		
+		<% # Preview button %>
+		<div class="ui button">Preview</div>
+
+		<% # Post button %>
+		<%= link_to "Post", sell_index_path, method: :post, class: "ui button sell-red-button" %>
+	</div>
+</div>
