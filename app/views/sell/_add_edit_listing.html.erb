@@ -15,10 +15,177 @@
 
 <% # Main content, in this case the extra premium feature option checkboxes. %>
 <div class="ui two column row">
+	<% # Left hand side column %>
 	<div class="ui eight wide column">
-		column 1 To be completed
+		<% # Main form with all listing information %>
+		<form action="" class="ui form">
+			<% # Dividing header %>
+			<h4 class="ui dividing header">Property Information</h4>
+
+			<% # Street Address input %>
+			<div class="field">
+				<label>Street Address</label>
+				<input type="text" name="street[address]" placeholder="Street Address">
+			</div>
+
+			<% # Suburb and State Input %>
+			<div class="two fields">
+				<% # Suburb search field %>
+				<div class="field">
+					<label>Suburb</label>
+					<div class="ui fluid search selection dropdown">
+						<input type="hidden" name="suburb">
+						<i class="dropdown icon"></i>
+						<div class="default text">Select Suburb</div>
+						<div class="menu">
+							<div class="item" data-value="perth_6000">Perth, 6000</div>
+							<div class="item" data-value="n_perth_6000">North Perth, 6000</div>
+							<div class="item" data-value="w_perth_6000">West Perth, 6000</div>
+							<div class="item" data-value="s_perth_6000">South Perth, 6000</div>
+						</div>
+					</div>
+				</div>
+
+				<% # State dropdown field %>
+				<div class="field">
+					<label>State</label>
+					<select class="ui fluid dropdown">
+						<option value="">State</option>
+						<option value="ACT">Australian Capital Territory</option>
+						<option value="NSW">New South Wales</option>
+						<option value="NT">Northern Territory</option>
+						<option value="QLD">Queensland</option>
+						<option value="SA">South Australia</option>
+						<option value="TAS">Tasmania</option>
+						<option value="VIC">Victoria</option>
+						<option value="WA">Western Australia</option>
+					</select>
+				</div>
+			</div>
+
+			<% # Bedrooms, Bathrooms, Carbays, Land Size %>
+			<div class="four fields">
+				<div class="field">
+					<label>Bedrooms</label>
+					<input type="text" name="bedrooms[number]" placeholder="Bedrooms">
+				</div>
+				<div class="field">
+					<label>Bathrooms</label>
+					<input type="text" name="bathrooms[number]" placeholder="Bathrooms">
+				</div>
+				<div class="field">
+					<label>Carbays</label>
+					<input type="text" name="carbays[number]" placeholder="Carbays">
+				</div>
+				<div class="field">
+					<label>Lot Size (sqm)</label>
+					<input type="text" name="landsize[number]" placeholder="Lot Size">
+				</div>
+			</div>
+
+			<% # Price (either one single price or a ranged price) %>
+			<div class="two fields">
+				<div class="field">
+					<label>Price Type</label>
+					<select class="ui fluid dropdown" id="add-edit-price-dropdown">
+						<option value="F">Fixed Price</option>
+						<option value="R">Ranged (Min/Max)</option>
+					</select>
+				</div>
+				<div class="field" id="price-field-fixed">
+					<label>Listing Price</label>
+					<input type="text" name="fixedprice[number]" placeholder="Listing Price">
+				</div>
+				<div class="field" id="price-field-min">
+					<label>Minimum</label>
+					<input type="text" name="minprice[number]" placeholder="Minimum Price">
+				</div>
+				<div class="field" id="price-field-max">
+					<label>Maximum</label>
+					<input type="text" name="maxprice[number]" placeholder="Maximum Price">
+				</div>
+			</div>
+
+			<% # Description %>
+			<div class="field">
+				<label>Description</label>
+				<textarea rows="10"></textarea>
+			</div>
+		</form>
 	</div>
+
+	<% # Right hand side column %>
 	<div class="ui eight wide column">
-		column 2 To be completed
+
+		<% # Additional information form %>
+		<form action="" class="ui form">
+			<% # Dividing header %>
+			<h4 class="ui dividing header">Additional Information</h4>
+
+			<% # Search Result Info %>
+			<div class="field">
+				<label>Search Result Title</label>
+				<input type="text" name="listing-title" placeholder="Enter a descriptive listing title">
+			</div>
+			<div class="field">
+				<label>Search Result Subtitle</label>
+				<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
+			</div>
+
+			<% # Optional Tags %>
+			<div class="field">
+				<% # The tag area where new tags are added into %>
+				<label>Additional Feature Tags</label>
+				<select class="ui selection multiple dropdown" multiple="" id="add-edit-additional-tags"></select>
+			</div>
+			<div class="field">
+				<% # The add a tag form which lets you add custom tags %>
+				<label>Add a tag</label>
+				<div class="ui action input">
+					<% # The tag type dropdown %>
+					<select class="ui compact selection dropdown" id="add-edit-additional-tags-dropdown">
+						<option value="Pool">Pool</option>
+						<option value="HT">Theatre Room</option>
+					</select>
+
+					<% # The tag value input field %>
+					<input type="text" placeholder="Enter Qty or Value" id="add-edit-additional-tags-input">
+
+					<% # The add tag button %>
+					<div class="ui icon button" id="add-edit-additional-tags-button">
+						<i class="plus icon"></i>
+					</div>
+				</div>
+			</div>
+			
+			<% # Optional Seller Information %>
+			<h4 class="ui dividing header">Seller Information</h4>
+			<div class="field">
+				<label>Company Name</label>
+				<input type="text" name="seller-company" placeholder="Enter your agency or company name">
+			</div>
+			<% # The upload actions for the seller logo and agent image. %>
+			<div class="two fields">
+				<% # Company Logo %>
+				<div class="field">
+					<div class="ui action input">
+						<input type="text" placeholder="Upload a company logo">
+						<button class="ui icon button">
+							<i class="upload icon"></i>
+						</button>
+					</div>
+				</div>
+
+				<% # Agent Image %>
+				<div class="field">
+					<div class="ui action input">
+						<input type="text" placeholder="Upload your agent image">
+						<button class="ui icon button">
+							<i class="upload icon"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
