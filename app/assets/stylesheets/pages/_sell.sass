@@ -42,12 +42,12 @@
 .sell-red-ribbon
 	border-color: $red-primary-hover !important
 
-//--------- Disable the cursor: pointer that Semantic-UI uses for a star icon
+// Disable the cursor: pointer that Semantic-UI uses for a star icon
 .star.icon
 	cursor: default !important
 
 //--------- Index Page Styles
-//--------- The banner on the index sell page and all it's elements
+// The banner on the index sell page and all it's elements
 .sell-banner
 	margin-top: -60px
 	padding-top: 5em
@@ -65,7 +65,7 @@
 		margin-top: 2.5em
 
 //--------- Manage Property Page Styles
-//--------- Manage property table header
+// Manage property table header
 .manage-table-header
 	background-color: $grey-primary !important
 	color: $white-primary !important
@@ -78,25 +78,25 @@
 		.button:focus
 			background-color: $grey-primary-hover !important
 
-//--------- Add margin to next element after sticky to prevent overlap
+// Add margin to next element after sticky to prevent overlap
 .manage-properties
 	z-index: 99
 
 .ui.fixed.sticky + .ui.cards
 	//margin-top: 5em !important
 
-//--------- Change the pointer for the status ribbon
+// Change the pointer for the status ribbon
 .manage-status.ribbon
 	cursor: pointer
 
-//--------- Change the status modal input sizes
+// Change the status modal input sizes
 .manage-status.modal
 	.status-date.input
 		max-width: 10em
 	.status-time.input
 		max-width: 7em
 
-//--------- Send element to bottom of container (were all rem's)
+// Send element to bottom of container (were all rem's)
 .manage-property-bottom
 	position: absolute
 	bottom: 1em
@@ -109,6 +109,26 @@
 	right: 1em
 
 //--------- Add-Edit Page styles
-//--------- Remove bottom border from tabular menu
+// Remove bottom border from tabular menu
 .add-edit.tabular.menu
 	border-bottom-style: none !important
+
+// Styling for add edit property card
+// It positions the delete button in the top right and styles the button
+// It also styles the bottom attached label
+.add-edit.property-card.delete
+	position: absolute
+	top: 0.3em
+	right: 0.1em
+	.button
+		background-color: $grey-primary-hover !important
+		color: $white-primary !important
+	.button:hover,
+	.button:active,
+	.button:focus
+		background-color: $grey-primary !important
+.add-edit.property-card.bottom.attached.label
+	background-color: $grey-primary !important
+	color: $white-primary !important
+	text-align: center
+

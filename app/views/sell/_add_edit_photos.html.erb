@@ -3,24 +3,47 @@
 #   Date: 09/04/2016
 #   
 #   Partial for adding/editing photos in the add_edit property flow
+#   
+#   Collections:
+#   	@property: the property being editted (only if editing)
+#   
+#   ToDo:
+#   	* Build an add/image function and dynamically add image cards to the cards layout
+#   	* Make dlete property image button remove that image
+#   	* Order images when they are imported so that the main image is first and then label it.
+#   	* Add check for > 10 images and show warning if that is true
+#   	* Import and use Jaydens search and property partials for the preview button
 %>
 
-<div class="ui one column grid">
-	<% # Header %>
-	<div class="ui centered row">
-		<h3 class="header">Listing Photographs</h3>
-	</div>
+<% # Header %>
+<div class="ui centered row">
+	<h3 class="header">Listing Photographs</h3>
+</div>
 
-
-	<% # The button container %>
-	<div class="ui right aligned column">
-		<% # Cancel button %>
-		<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
-		
-		<% # Preview button %>
-		<div class="ui button">Preview</div>
-
-		<% # Post button %>
-		<%= link_to "Post", sell_index_path, method: :post, class: "ui button sell-red-button" %>
+<% # The listing photos %>
+<div class="ui centered fourteen wide column">
+	<% # Place property image cards in a five wide cards layout %>
+	<div class="ui five cards">
+		<% counter = 1 %>
+		<% @property[:images].each do |image| %>
+			<% # The card %>
+			<div class="ui card">
+				<% # Single image for entire layout %>
+				<div class="ui image">
+					<%= image_tag "#{image}" %>
+					<% # If it's the first image it should have a main image label %>
+					<% if counter == 1 %>
+						<div class="ui add-edit property-card bottom attached label">Main Image</div>
+					<% end %>
+				</div>
+				<% # The delete photo button %>
+				<div class="add-edit property-card delete">
+					<button class="circular ui tiny icon button">
+						<i class="remove icon"></i>
+					</button>
+				</div>
+			</div>
+			<% counter += 1 %>
+		<% end %>
 	</div>
 </div>

@@ -14,6 +14,8 @@
 #   
 #   Todo:
 #   	* Design the tabs
+#   	* Move the buttons from the tabs to this page so they only have to be edited/created once.
+#   	* Make cancel, preview and post buttons work
 #   	* Bring in Jayden's search results property partial to preview
 #   	* Live update the preview
 %>
@@ -28,12 +30,54 @@
 		</div>
 	</div>
 	<div class="ui tab segment active" data-tab="add-edit-1">
-		<%= render 'sell/add_edit_listing' %>
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit listing tab %>
+			<%= render 'sell/add_edit_listing' %>
+
+			<% # The button container for the add/edit listing tab %>
+			<div class="ui right aligned column">
+				<% # Cancel button %>
+				<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
+				
+				<% # Preview button %>
+				<div class="ui button">Preview</div>
+			</div>
+		</div>
 	</div>
 	<div class="ui tab segment" data-tab="add-edit-2">
-		<%= render 'sell/add_edit_photos' %>
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit photos tab %>
+			<%= render 'sell/add_edit_photos' %>
+
+			<% # The button container for the photos tab %>
+			<div class="ui right aligned column">
+				<% # Cancel button %>
+				<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
+				
+				<% # Preview button %>
+				<div class="ui button">Preview</div>
+
+				<% # Post button %>
+				<%= link_to "Post", sell_index_path, method: :post, class: "ui button sell-red-button" %>
+			</div>
+		</div>
 	</div>
 	<div class="ui tab segment" data-tab="add-edit-3">
-		<%= render 'sell/add_edit_extras' %>
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit extras tab %>
+			<%= render 'sell/add_edit_extras' %>
+
+			<% # The button container for the add/edit extras tab %>
+			<div class="ui right aligned column">
+				<% # Cancel button %>
+				<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
+				
+				<% # Preview button %>
+				<div class="ui button">Preview</div>
+
+				<% # Post button %>
+				<%= link_to "Post", sell_index_path, method: :post, class: "ui button sell-red-button" %>
+			</div>
+		</div>
 	</div>
 </div>
