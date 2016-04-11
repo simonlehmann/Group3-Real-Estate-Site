@@ -29,15 +29,3 @@ geocodeAddress = (geocoder, resultsMap, address) ->
       alert 'Geocode was not successful for the following reason: ' + status
     return
   return
-
-///getCoordinates = (address, callback) ->
-  coordinates = undefined
-  geocoder.geocode { address: address }, (results, status) ->
-    coords_obj = results[0].geometry.location
-    coordinates = [
-      coords_obj.nb
-      coords_obj.ob
-    ]
-    callback coordinates
-    return
-  return///
