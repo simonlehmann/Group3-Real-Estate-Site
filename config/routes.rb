@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Sell Pages routes
   resources :sell, except: [:show]
 
+  resources :map, except: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

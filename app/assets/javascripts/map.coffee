@@ -1,7 +1,43 @@
+map = undefined
+geocoder = undefined
+
 $(document).ready ->
   #Declare variables/arrays etc
   mapOptions = 
-    zoom: 5
-    center: new (google.maps.LatLng)(37.09024, -100.712891)
+    zoom: 8
+    center:
+      lat: -34.397
+      lng: 150.644
   map = new (google.maps.Map)(document.getElementById('map-canvas'), mapOptions)
+  geocoder = new (google.maps.Geocoder)
   return
+
+$(document).ready ->
+  $('#addr_submit').click ->
+    address = $('#addr_box').val()
+    geocodeAddress geocoder, map, address
+    return
+
+geocodeAddress = (geocoder, resultsMap, address) ->
+  geocoder.geocode { 'address': address }, (results, status) ->
+    if status == google.maps.GeocoderStatus.OK
+      resultsMap.setCenter results[0].geometry.location
+      marker = new (google.maps.Marker)(
+        map: resultsMap
+        position: results[0].geometry.location)
+    else
+      alert 'Geocode was not successful for the following reason: ' + status
+    return
+  return
+
+///getCoordinates = (address, callback) ->
+  coordinates = undefined
+  geocoder.geocode { address: address }, (results, status) ->
+    coords_obj = results[0].geometry.location
+    coordinates = [
+      coords_obj.nb
+      coords_obj.ob
+    ]
+    callback coordinates
+    return
+  return///
