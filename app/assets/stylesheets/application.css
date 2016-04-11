@@ -2,4 +2,9 @@
 	*= require_self
 	//main.sass imports all files
 	*= require main
+	
+	// Bower component themes
+	*= require pickadate/lib/themes/classic
+	*= require pickadate/lib/themes/classic.date
+	*= require pickadate/lib/themes/classic.time
  */

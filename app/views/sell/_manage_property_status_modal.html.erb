@@ -11,8 +11,7 @@
 #   	* status: The property's status
 #   
 #   Todo:
-#   	* Add date and time pickers to date and time fields
-#   	* Save action
+#   	* Save choices you make in the modal to the database object
 %>
 
 <% # The staus modal %>
@@ -26,7 +25,7 @@
 
 	<% # Modal content %>
 	<div class="content">
-		<% # The modal is made up of accordians for each selection, clicking the checkbox opens up that accordian and hides the others %>
+		<% # The modal is made up of accordions for each selection, clicking the checkbox opens up that accordion and hides the others %>
 		<div class="ui accordion">
 
 			<% # Home Open Accordian %>
@@ -42,33 +41,33 @@
 
 				<% # Date and time pickers %>
 				<div class="ui three column grid">
-					<div class="left floated column">
+					<div class="left floated column" id="home-date-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Date:
 							</div>
 							<div class="ui status-date input" >
-								<input type="text" name="homeDate" placeholder="DD-MM-YYYY">
+								<input type="text" name="home-date" placeholder="DD-MM-YYYY">
 							</div>
 						</div>
 					</div>
-					<div class="centered column">
+					<div class="centered column" id="home-start-time-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Start Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="homeStartTime" placeholder="HH:MM">
+								<input type="text" name="home-start-time" placeholder="HH:MM">
 							</div>
 						</div>
 					</div>
-					<div class="right floated column">
+					<div class="right floated column" id="home-end-time-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								End Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="homeEndTime" placeholder="HH:MM">
+								<input type="text" name="home-end-time" placeholder="HH:MM">
 							</div>
 						</div>
 					</div>
@@ -88,33 +87,33 @@
 				
 				<% # Date and time pickers %>
 				<div class="ui three column grid">
-					<div class="left floated column">
+					<div class="left floated column" id="auction-date-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Date:
 							</div>
-							<div class="ui status-date input" >
-								<input type="text" name="auctionDate" placeholder="DD-MM-YYYY">
+							<div class="ui status-date input">
+								<input type="text" name="auction-date" placeholder="DD-MM-YYYY">
 							</div>
 						</div>
 					</div>
-					<div class="centered column">
+					<div class="centered column" id="auction-start-time-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Start Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="auctionStartTime" placeholder="HH:MM">
+								<input type="text" name="auction-start-time" placeholder="HH:MM">
 							</div>
 						</div>
 					</div>
-					<div class="right floated column">
+					<div class="right floated column" id="auction-end-time-container">
 						<div class="ui labeled input">
 							<div class="ui label">
 								End Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="auctionEndTime" placeholder="HH:MM">
+								<input type="text" name="auction-end-time" placeholder="HH:MM">
 							</div>
 						</div>
 					</div>

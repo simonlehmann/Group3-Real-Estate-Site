@@ -22,6 +22,9 @@ gem 'coffee-script-source', '1.8.0'
 # You can then use bundle install from the git bash (when you're in the project directory) it'll then work.
 gem 'semantic-ui-sass', git: 'https://www.github.com/doabit/semantic-ui-sass'
 
+# Gem for bower-rails. Used to install bower components (JS,CSS,JQuery) in the project in /vendor/assets/bower-components
+gem "bower-rails", "~> 0.10.0"
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

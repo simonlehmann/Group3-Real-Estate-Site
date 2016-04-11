@@ -17,3 +17,8 @@
 //
 // Loads all Semantic javascripts
 //= require semantic-ui
+//
+// Load Bower Packages (note, if we want to support old browser we should add pickadate/legacy to this list)
+//= require pickadate/lib/picker
+//= require pickadate/lib/picker.date
+//= require pickadate/lib/picker.time
