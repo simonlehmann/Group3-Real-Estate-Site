@@ -29,4 +29,3 @@ geocodeAddress = (geocoder, resultsMap, address) ->
       alert 'Geocode was not successful for the following reason: ' + status
     return
   return
-  #fake commit
