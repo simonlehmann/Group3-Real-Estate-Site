@@ -132,3 +132,10 @@
 	color: $white-primary !important
 	text-align: center
 
+// Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
+// Using min-height so it can grow if a lot of tags are added.
+.add-edit.custom-tags
+	min-height: 10em !important
+	.dropdown.icon
+		display: none !important
+

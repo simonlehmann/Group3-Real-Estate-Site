@@ -68,19 +68,25 @@ ready = ->
 	$('.manage-status.modal input[name="auction-end-time"]').pickatime container: '.manage-status.modal #auction-end-time-container'
 
 	# Change the sell price type input fields based upon the dropdown selection
-	# Define a function to change the form fields that are available based upon the price dropdown value
+	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
 	price_dropdown_selection_change = (value) ->
 		if value == 'F'
 			# Fixed Price
 			$('#price-field-fixed').show()
+			$('#price-field-fixed').addClass 'required'
 			$('#price-field-max').hide()
 			$('#price-field-min').hide()
+			$('#price-field-max').removeClass 'required'
+			$('#price-field-min').removeClass 'required'
 		else if value == 'R'
 			# Ranged Price
 			console.log value
 			$('#price-field-fixed').hide()
+			$('#price-field-fixed').removeClass 'required'
 			$('#price-field-max').show()
 			$('#price-field-min').show()
+			$('#price-field-max').addClass 'required'
+			$('#price-field-min').addClass 'required'
 	# Set what is displayed based upon the initial value
 	price_dropdown_selection_change($('#add-edit-price-dropdown').val())
 	# Set what is displayed based upon the selected value
@@ -102,7 +108,7 @@ ready = ->
 		selection = additional_dropdown.children("option").filter(":selected").text()
 		if value != ''
 			# Add the tag to the tag area if the value isn't empty
-			new_tag_value = value + selection
+			new_tag_value = value + "_" + selection
 			new_tag_text = value + " " + selection
 			# Add an option to the selection box with the new tag value and text
 			additional_tag_area.html('<option value="' + new_tag_value + '">' + new_tag_text + '</option>')

@@ -5,7 +5,13 @@
 #   Partial for adding/editing the listing information in the add_edit property flow
 #   
 #   Todo:
-#   	* Build this layout
+#   	* Form validation
+#   	* Get suburbs (with postcodes) from external source
+#   	* Get tag types for additional property feature tag widget selector from database/remote source.
+#   	* Update names for input fields to be consistent and follow the Semantic-ui form validation
+#   	* Tie agent upload fields to upload function
+#   	* Keeo up to date with the database fields
+#   	* Use jQuery/JS for formatting of some of the fields (i.e. convert price fields to a $100,000 number type when data inputed)
 %>
 
 <% # Header %>
@@ -23,7 +29,7 @@
 			<h4 class="ui dividing header">Property Information</h4>
 
 			<% # Street Address input %>
-			<div class="field">
+			<div class="required field">
 				<label>Street Address</label>
 				<input type="text" name="street[address]" placeholder="Street Address">
 			</div>
@@ -31,7 +37,7 @@
 			<% # Suburb and State Input %>
 			<div class="two fields">
 				<% # Suburb search field %>
-				<div class="field">
+				<div class="required field">
 					<label>Suburb</label>
 					<div class="ui fluid search selection dropdown">
 						<input type="hidden" name="suburb">
@@ -47,7 +53,7 @@
 				</div>
 
 				<% # State dropdown field %>
-				<div class="field">
+				<div class="required field">
 					<label>State</label>
 					<select class="ui fluid dropdown">
 						<option value="">State</option>
@@ -65,27 +71,27 @@
 
 			<% # Bedrooms, Bathrooms, Carbays, Land Size %>
 			<div class="four fields">
-				<div class="field">
+				<div class="required field">
 					<label>Bedrooms</label>
-					<input type="text" name="bedrooms[number]" placeholder="Bedrooms">
+					<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms">
 				</div>
-				<div class="field">
+				<div class="required field">
 					<label>Bathrooms</label>
-					<input type="text" name="bathrooms[number]" placeholder="Bathrooms">
+					<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms">
 				</div>
-				<div class="field">
+				<div class="required field">
 					<label>Carbays</label>
-					<input type="text" name="carbays[number]" placeholder="Carbays">
+					<input type="number" min="1" name="carbays[number]" placeholder="Carbays">
 				</div>
-				<div class="field">
+				<div class="required field">
 					<label>Lot Size (sqm)</label>
-					<input type="text" name="landsize[number]" placeholder="Lot Size">
+					<input type="number" min="1" name="landsize[number]" placeholder="Lot Size">
 				</div>
 			</div>
 
 			<% # Price (either one single price or a ranged price) %>
 			<div class="two fields">
-				<div class="field">
+				<div class="required field">
 					<label>Price Type</label>
 					<select class="ui fluid dropdown" id="add-edit-price-dropdown">
 						<option value="F">Fixed Price</option>
@@ -94,22 +100,23 @@
 				</div>
 				<div class="field" id="price-field-fixed">
 					<label>Listing Price</label>
-					<input type="text" name="fixedprice[number]" placeholder="Listing Price">
+					<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price">
 				</div>
 				<div class="field" id="price-field-min">
 					<label>Minimum</label>
-					<input type="text" name="minprice[number]" placeholder="Minimum Price">
+					<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price">
 				</div>
 				<div class="field" id="price-field-max">
 					<label>Maximum</label>
-					<input type="text" name="maxprice[number]" placeholder="Maximum Price">
+					<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price">
 				</div>
 			</div>
 
 			<% # Description %>
-			<div class="field">
+			<div class="required field">
 				<label>Description</label>
-				<textarea rows="10"></textarea>
+				<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. erb is required to acheive this. %>
+				<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."></textarea>
 			</div>
 		</form>
 	</div>
@@ -132,24 +139,28 @@
 				<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
 			</div>
 
-			<% # Optional Tags %>
+			<% # Optional Feature Tags %>
 			<div class="field">
 				<% # The tag area where new tags are added into %>
-				<label>Additional Feature Tags</label>
-				<select class="ui selection multiple dropdown" multiple="" id="add-edit-additional-tags"></select>
+				<label>Additional Property Feature Tags</label>
+				<select class="ui selection multiple dropdown add-edit custom-tags" multiple="" id="add-edit-additional-tags">
+					<option value="" selected>
+						Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)
+					</option>
+				</select>
 			</div>
 			<div class="field">
 				<% # The add a tag form which lets you add custom tags %>
-				<label>Add a tag</label>
+				<label>Add A Property Feature Tag</label>
 				<div class="ui action input">
 					<% # The tag type dropdown %>
-					<select class="ui compact selection dropdown" id="add-edit-additional-tags-dropdown">
+					<select class="ui selection dropdown" id="add-edit-additional-tags-dropdown">
 						<option value="Pool">Pool</option>
 						<option value="HT">Theatre Room</option>
 					</select>
 
 					<% # The tag value input field %>
-					<input type="text" placeholder="Enter Qty or Value" id="add-edit-additional-tags-input">
+					<input type="number" min="1" placeholder="Enter Qty or Value" id="add-edit-additional-tags-input">
 
 					<% # The add tag button %>
 					<div class="ui icon button" id="add-edit-additional-tags-button">
@@ -161,15 +172,16 @@
 			<% # Optional Seller Information %>
 			<h4 class="ui dividing header">Seller Information</h4>
 			<div class="field">
-				<label>Company Name</label>
+				<label>Agency Name</label>
 				<input type="text" name="seller-company" placeholder="Enter your agency or company name">
 			</div>
 			<% # The upload actions for the seller logo and agent image. %>
 			<div class="two fields">
 				<% # Company Logo %>
 				<div class="field">
+					<label>Agency Logo</label>
 					<div class="ui action input">
-						<input type="text" placeholder="Upload a company logo">
+						<input type="text" placeholder="Upload your agency logo">
 						<button class="ui icon button">
 							<i class="upload icon"></i>
 						</button>
@@ -178,6 +190,7 @@
 
 				<% # Agent Image %>
 				<div class="field">
+					<label>Agent Image</label>
 					<div class="ui action input">
 						<input type="text" placeholder="Upload your agent image">
 						<button class="ui icon button">
