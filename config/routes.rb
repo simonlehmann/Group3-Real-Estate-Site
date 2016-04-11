@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   root 'buy#index'
   get '/buy' => 'buy#index'
+  get '/map' => 'map#index'
 
   # Sell Pages routes
   resources :sell, except: [:show]
-
-  resources :map, except: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

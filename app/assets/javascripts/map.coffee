@@ -4,7 +4,7 @@ geocoder = undefined
 $(document).ready ->
   #Declare variables/arrays etc
   mapOptions = 
-    zoom: 8
+    zoom: 14
     center:
       lat: -34.397
       lng: 150.644
