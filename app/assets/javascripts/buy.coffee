@@ -2,7 +2,7 @@
 nav_delay = true
 ready = ->
 	#search dropdown
-	$('.ui.dropdown').dropdown allowAdditions: true
+	$('.search-section .ui.dropdown').dropdown allowAdditions: true
 	#remove nav active class
 	$('.main-nav a').removeClass('active')
 	#get page location (changed from href to pathname to check for root url during testing. In prod will probably change back to href)
