@@ -5,10 +5,15 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN97vIMbPrdzFRBtV1RvTtWHf2ruG4J34"></script>
 </head>
 <body>
-<%= render "layouts/header" %>
-<%= yield %>
-<%= render "layouts/footer" %>
+<div id="wrapper">
+	<%= render "layouts/header" %>
+	<div id="content">
+		<%= yield %>
+	</div>
+	<%= render "layouts/footer" %>
+</div>
 </body>
 </html>
