@@ -17,7 +17,7 @@ To get this repository into a local directory you'll need to do the following
 * cd into this folder using your terminal i.e ```cd /path/to/project/folder```
 * Type ```git init```
 * Type ```git remote add origin https://github.com/slehmann36/Group3-Real-Estate-Site.git```
-* To pull the branch you want to work on type ```git pull origin branch`` replacing <branch> with the branch tag (like feature1)
+* To pull the branch you want to work on type ```git pull origin branch``` replacing <branch> with the branch tag (like feature1)
 * Work on feature branch then if you want to commit your changes type ```git add .``` or ```git add --all``` (NB. type ```git status``` to see what changes you need to track)
 * Once they're added type ```git commit -m "Enter your commit message here"```
 * To push to your branch you enter ```git push origin branch```
