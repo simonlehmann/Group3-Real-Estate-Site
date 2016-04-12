@@ -1,11 +1,12 @@
 footer
+	position: relative // For footer to be fixed to bottom
 	margin: 0 !important
 	min-height: 18vh
+	// The margin top fills the padding bottom from the wrapper (which is currently 18vh + 50px) so this -18vh leaves a 50px gap above the footer and the wrapper.
+	margin-top: -18vh !important // needs to be negative of the footer height (removing !important replicates the bug/issue Simon has in safari on chrome.)
 	width: 100%
-	//position: absolute //if you want the footer on the bottom of the page
-	bottom: 0
-	left: 0
 	background-color: $grey-blue-primary
+	clear: both //Added this
 	.ui.link.list .item
 		color: $white-secondary
 	.ui.link.list .item:hover

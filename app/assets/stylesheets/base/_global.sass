@@ -3,8 +3,12 @@ html
 body
 	height: 100%
 #wrapper
-	min-height: 100%
+	min-height: 100% !important
 	position: relative
+	height: auto !important // This turned out to be what fixed the page refresh issue. The height was changing on a refresh, causing the position to go funky
+	padding-bottom: -webkit-calc(18vh + 50px) // I'm adding some gap. So 18vh is for the footer's height and 100px is a buffer above it to the content
+	padding-bottom: -moz-calc(18vh + 50px) // Change 100px if you want more/less gap between bottom of wrapper and top of footer.
+	padding-bottom: calc(18vh + 50px) //This creates an area that the footer can fill using it's margin-top value.
 a
 	color: $white-primary
 a:hover,
