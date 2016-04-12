@@ -11,7 +11,7 @@ Please refer to the folloring links for any project information:
 To work on this project, you will need to set up your local development environment. Refer to the below guides for setting up your local development environment for your platform.
 > The project already has everything required to work on both Windows and Mac OS X development environments.
 
-## Get Repository
+### Get Repository
 To get this repository into a local directory you'll need to do the following
 * Create a project folder
 * cd into this folder using your terminal i.e ```cd /path/to/project/folder```
