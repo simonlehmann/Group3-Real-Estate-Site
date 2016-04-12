@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'buy#index'
+  root 'contact#index'
   get '/buy' => 'buy#index'
   get '/contact' => 'contact#index'
 

@@ -1,3 +1,17 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+# Created by Erdal Erkilic
+# 13/4/16
+# This is all javascript realated to the contact page
+
+
+$('.ui.form')
+  .form({
+    name: {
+      identifier  : 'name',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your name'
+        }
+      ]
+    }
+    });

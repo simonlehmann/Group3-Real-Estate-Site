@@ -1,47 +1,55 @@
 <section class="contact-container">
 	<h1 id="welcome">Get In Touch</h1>
-	<div class="ui horizontal segments">
-		<div id="contact-section-1" class="ui segment">
+	<div class="ui grid nice">
+		<div id="contact-section-1" class="eight wide column">
 			<div class="ui inverted form">
-				<div class="ui inverted segment">
 				<h1>Send a Message</h1>
-					<div class="fields">
-						<div class="two wide field">
-							<label>First Name</label>
-							<input placeholder="First Name" type="text">
-						</div>
-						<div class="two wide field">
-							<label>Last Name</label>
-							<input placeholder="Last Name" type="text">
-						</div>
+				<div class="fields">
+					<div class="six wide field required field">
+						<label>First Name</label>
+						<input placeholder="First Name" name="name" type="text">
 					</div>
-					<div class="four wide field">
-						<label>Email</label>
-						<input placeholder="Email" type="text">
+					<div class="six wide field">
+						<label>Last Name</label>
+						<input placeholder="Last Name" type="text">
 					</div>
-					<div class="four wide field">
-					<label>Subject</label>
-						<select>
-							<option value="0">General Enquiry</option>
-							<option value="1">Report Bug</option>
-							<option value="2">Something Else</option>
-						</select>
-					</div>
-					<div class="eight wide field">
-						<label>Text</label>
-						<textarea></textarea>
-					</div>
-					<div class="ui submit button">Submit</div>
 				</div>
+				<div class="twelve wide field required field">
+					<label>Email</label>
+					<input placeholder="Email" type="text">
+				</div>
+				<div class="twelve wide field required field">
+				<label>Subject</label>
+					<select>
+						<option value="0">General Enquiry</option>
+						<option value="1">Report Bug</option>
+						<option value="2">Something Else</option>
+					</select>
+				</div>
+				<div class="sixteen wide field required field">
+					<label>Text</label>
+					<textarea></textarea>
+				</div>
+				<div class="ui submit button">Submit</div>
 			</div>
 		</div>
-		<div id="contact-section-2" class="ui segment">
-			<div class="ui inverted segment">
-				<h1>Contact Information</h1>
-				<p>Email:</p>
-				<p>contact@propertydome.com</p>
-				<p>Phone:</p>
-				<p>(12)345 678 90</p>
+		<div id="contact-section-2" class="eight wide column">
+			<h1>Contact Information</h1>
+			<p>Email:</p>
+			<p>contact@propertydome.com</p>
+			<p>Phone:</p>
+			<p>(12)345 678 90</p>
+
+			<div class="ui three wide center aligned column">
+				<button class="ui big circular facebook icon button">
+					<i class="facebook icon"></i>
+				</button>
+				<button class="ui big circular twitter icon button">
+					<i class="twitter icon"></i>
+				</button>
+				<button class="ui big circular google plus icon button">
+					<i class="google plus icon"></i>
+				</button>
 			</div>
 		</div>
 	</div>
