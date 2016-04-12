@@ -2,13 +2,6 @@ html
 	font-family: $roboto
 body
 	height: 100%
-#wrapper
-	min-height: 100% !important
-	position: relative
-	height: auto !important // This turned out to be what fixed the page refresh issue. The height was changing on a refresh, causing the position to go funky
-	padding-bottom: -webkit-calc(18vh + 50px) // I'm adding some gap. So 18vh is for the footer's height and 100px is a buffer above it to the content
-	padding-bottom: -moz-calc(18vh + 50px) // Change 100px if you want more/less gap between bottom of wrapper and top of footer.
-	padding-bottom: calc(18vh + 50px) //This creates an area that the footer can fill using it's margin-top value.
 a
 	color: $white-primary
 a:hover,
@@ -18,3 +11,18 @@ a:focus
 	color: $yellow-primary
 header
 	z-index: 100
+
+// The following fix the footer issues so the footer is on the bottom even if the site has less content
+.site
+	display: flex
+	flex-direction: column
+	min-height: 100% // Needs to be % not vh
+
+.site-content
+	flex: 1 0 auto
+.site-content::after
+	content: '\00a0'
+	display: block
+	height: 0px
+	visibility: hidden
+	margin-top: 1.5em

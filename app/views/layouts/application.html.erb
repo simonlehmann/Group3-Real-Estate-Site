@@ -7,13 +7,12 @@
   <%= csrf_meta_tags %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN97vIMbPrdzFRBtV1RvTtWHf2ruG4J34"></script>
 </head>
-<body>
-	<div id="wrapper">
-		<div id="content">
+	<!-- site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block -->
+	<body class="site">
+		<div class="site-content">
 			<%= render "layouts/header" %>
 			<%= yield %>
 		</div>
-	</div>
-	<%= render "layouts/footer" %>
-</body>
+		<%= render "layouts/footer" %>
+	</body>
 </html>
