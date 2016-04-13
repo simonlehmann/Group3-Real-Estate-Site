@@ -126,7 +126,6 @@ ready = ->
 	# buffer: XXX <- where XXX is the integer value from the screen bottom the loading will trigger from.
 	# Default is 1000 (i.e. 1000px) and seems good enough.
 	$('.infinite-table').infinitePages
-		debug: true
 		# Change the state of the pagination link on loading and error.
 		loading: ->
 			# Change the link text
