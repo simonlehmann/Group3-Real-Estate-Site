@@ -88,6 +88,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    mysql2 (0.4.3-x86-mingw32)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.2-x64-mingw32)
@@ -175,6 +176,7 @@ DEPENDENCIES
   jquery-infinite-pages
   jquery-rails
   kaminari
+  mysql2 (>= 0.3.13, < 0.5)
   rails (= 4.2.5)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
