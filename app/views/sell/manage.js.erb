@@ -1,0 +1,11 @@
+// This is to append new data to the table in main-layout (or whatever you call it, I called it infinite_scroll_test)
+
+// Append new data
+$("<%=j render(partial: 'sell/manage_property_card', object: @listings %>").appendTo($(".infinite-table .ui.cards"));
+
+// Update pagination link
+<% if @listings.last_page? %>
+    $('.pagination').html("That's all, folks!");
+<% else %>
+    $('.pagination').html("<%=j link_to_next_page(@listings, 'Next Page', remote: true) %>");
+<% end %>

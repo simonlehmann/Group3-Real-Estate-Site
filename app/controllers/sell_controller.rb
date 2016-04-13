@@ -20,23 +20,41 @@ class SellController < ApplicationController
 		# For testing, I've set user has property to true and have some fake properties
 		user_has_property = true
 		if user_has_property
-			@properties = []
-			5.times do |i|
-				property = {
-					id: i,
-					address: "21 Shackles Street, Suburbia, Stateland",
-					status: "Home open Saturday 10am - 12pm",
-					image_path: "300x300.png",
-					description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-					counts: {
-						unhide: [450, "Views"],
-						star: [30, "Favourites"],
-						comments: [5, "Comments"],
-						wait: [6, "Weeks Until Expired"]
-					}
-				}
-				@properties << property
-			end
+			@listings = Listing.order(:created_at).page params[:page]
+			@counts = {
+	 			unhide: [450, "Views"],
+	 			star: [30, "Favourites"],
+	 			comments: [5, "Comments"],
+	 			wait: [6, "Weeks Until Expired"]
+			}
+			@status = "Home open Saturday 10am - 12pm"
+			# @properties = []
+			# 20.times do |i|
+			# 	page = 1
+			# 	if i > 5 and i <= 10
+			# 		page = 2
+			# 	elsif i > 10 and i <= 15
+			# 		page = 3
+			# 	elsif i > 15
+			# 		page = 4
+			# 	end
+
+			# 	property = {
+			# 		id: i,
+			# 		the_page: page, 
+			# 		address: "21 Shackles Street, Suburbia, Stateland",
+			# 		status: "Home open Saturday 10am - 12pm",
+			# 		image_path: "300x300.png",
+			# 		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+			# 		counts: {
+			# 			unhide: [450, "Views"],
+			# 			star: [30, "Favourites"],
+			# 			comments: [5, "Comments"],
+			# 			wait: [6, "Weeks Until Expired"]
+			# 		}
+			# 	}
+			# 	@properties << property
+			# end
 			render "sell/manage"
 		else
 			render "sell/index"

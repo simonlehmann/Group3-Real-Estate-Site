@@ -121,6 +121,14 @@ ready = ->
 			# Otherwise send an alert
 			alert "No value entered, please try again"
 
+	# Hanlde infinite scroll of manage properties
+	$('.infinite-table').infinitePages
+		buffer: 100 # Auto scroll when 100px from bottom of window
+		loading: ->
+			$(this).text 'Loading next page...'
+		error: ->
+			$(this).text 'There was an error, please try again'
+
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 

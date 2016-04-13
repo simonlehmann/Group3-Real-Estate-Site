@@ -57,26 +57,16 @@
 		</div>
 	</div>
 	
-	<% # The properties the user has %>
-	<div class="ui cards">
-		<% # properties are sent from the controller as an array of hashes of each property the user has listed. %>
-		<% @properties.each do |property| %>
-			<% # Render the manager_property_card with the property values %>
-			<%= render 'sell/manage_property_card', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status],
-					image_path: property[:image_path],
-					description: property[:description],
-					counts: property[:counts]
-				} %>
-
-			<% # Render the manager_property_status modals with the appropriate settings %>
-			<%= render 'sell/manage_property_status_modal', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status]
-				} %>
-		<% end %>
+	<% # The properties the user has. Now using infinite scroll%>
+	<div class="infinite-table">
+		<div class="ui cards">
+			<% # properties are sent from the controller as an array of hashes of each property the user has listed. %>
+			<%= render 'sell/manage_property_card', object: @listings %>
+			
+		</div>
+		<p class="pagination">
+			<%= link_to_next_page(@listings, 'Next Page', remote: true) %>
+		</p>
 	</div>
+	
 </div>
