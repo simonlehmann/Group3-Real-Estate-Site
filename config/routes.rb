@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   get '/map' => 'map#index'
 
   # Sell Pages routes
-  concern :paginatable do
-    get '(page/:page)', :action => :index, :on => :collection, :as => ''
-  end
-  resources :sell, except: [:show], concerns: :paginatable
+  resources :sell, except: [:show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

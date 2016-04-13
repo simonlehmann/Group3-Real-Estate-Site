@@ -82,9 +82,6 @@
 .manage-properties
 	z-index: 99
 
-.ui.fixed.sticky + .ui.cards
-	//margin-top: 5em !important
-
 // Change the pointer for the status ribbon
 .manage-status.ribbon
 	cursor: pointer
@@ -107,6 +104,10 @@
 	position: absolute
 	bottom: 1em
 	right: 1em
+
+// Override the colour of the pagination class links so they can be seen
+.pagination a
+	color: #000000
 
 //--------- Add-Edit Page styles
 // Remove bottom border from tabular menu
@@ -138,4 +139,3 @@
 	min-height: 10em !important
 	.dropdown.icon
 		display: none !important
-
