@@ -2,9 +2,6 @@ html
 	font-family: $roboto
 body
 	height: 100%
-#wrapper
-	min-height: 100%
-	position: relative
 a
 	color: $white-primary
 a:hover,
@@ -14,3 +11,17 @@ a:focus
 	color: $yellow-primary
 header
 	z-index: 100
+
+// The following fix the footer issues so the footer is on the bottom even if the site has less content
+.site
+	display: flex
+	flex-direction: column
+	min-height: 100% // Needs to be % not vh
+.site-content
+	flex: 1 0 auto
+.site-content::after
+	content: '\00a0'
+	display: block
+	height: 0px
+	visibility: hidden
+	margin-top: 1.5em
