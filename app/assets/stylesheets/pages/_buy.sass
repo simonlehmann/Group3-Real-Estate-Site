@@ -2,20 +2,21 @@
 	margin-top: -60px
 	padding-top: 5em
 	width: 100%
-	height: 80vh
-	max-height: 700px
+	min-height: 70vh
+	//height: 100% // Leaving these in doesn't work in Firefox, but does in Chrome + Safari, Removing works in all 3
+	//max-height: 100% // Leaving these in doesn't work in Firefox, but does in Chrome + Safari, Removing works in all 3
 	background: url(image_path('landing-header.png')) no-repeat
-	background-size: 100%
+	background-size: auto 120%
 	.ui.inverted.header
 		padding-top: 3em
 		h1
 			font-size: 4em
 			text-align: center
-	.ui.action.input:not([class*="left action"]) > .button
+	.ui.action.input > .button
 		background-color: $green-primary
 		color: $white-primary
 		width: 18%
-	.ui.action.input:not([class*="left action"]) > .button:hover
+	.ui.action.input > .button:hover
 		background-color: $green-secondary
 	.ui[class*="right labeled"].icon.button
 		color: $white-primary
@@ -24,15 +25,16 @@
 		margin-left: -15px
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
-	.ui.labeled.input:not([class*="corner labeled"]) .label:first-child
+	.ui.labeled.input .label:first-child
 		width: 7%
 		background-color: $white-primary
 		vertical-align: middle
-	.ui.action.input:not([class*="left action"]) > .dropdown, .ui.action.input:not([class*="left action"]) > .button,
-	.ui.action.input:not([class*="left action"]) > .buttons > .button
+	.ui.action.input > .dropdown, .ui.action.input > .button,
+	.ui.action.input > .buttons > .button
 		border: none
 	.search-action
 		width: 5em
+		font-size: 1.2em
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
 	padding-right: 0px

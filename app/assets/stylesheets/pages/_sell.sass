@@ -2,22 +2,23 @@
 // Date: 05/04/2016
 // 
 // The following styles are for all sales pages.
-.manage-container
-	margin-top: 5em
-.manage-properties
-	z-index: 99
+
 //--------- Margin and padding for elements
 .margin-top
 	margin-top: 2em !important
 .margin-top-half
 	margin-top: 1em !important
 
+//--------- Margin for sell container to place it under header. Only for sell-pages without banner
+.sell-container
+	margin-top: 5em
+
 //--------- Set text/background colours for sell elements
 // Text
 .sell-red-text
 	color: $red-primary !important
 
-// Buttons
+// Buttons & Ribbon
 .sell-red-button,
 .sell-red-ribbon
 	background-color: $red-primary !important
@@ -29,17 +30,27 @@
 .sell-red-ribbon:active,
 .sell-red-ribbon:focus
 	background-color: $red-primary-hover !important
+.sell-red-button-alt
+	background-color: $red-primary-hover !important
+	color: $white-primary !important
+.sell-red-button-alt:hover,
+.sell-red-button-alt:active,
+.sell-red-button-alt:focus
+	background-color: $red-primary !important
 
+// The Ribbon border handles the ribbon fold
 .sell-red-ribbon
 	border-color: $red-primary-hover !important
 
-//--------- Disable the cursor: pointer that Semantic-UI uses for a star icon
+// Disable the cursor: pointer that Semantic-UI uses for a star icon
 .star.icon
 	cursor: default !important
 
 //--------- Index Page Styles
-//--------- The banner on the index sell page and all it's elements
+// The banner on the index sell page and all it's elements
 .sell-banner
+	margin-top: -60px
+	padding-top: 5em
 	width: 100%
 	height: 80vh
 	max-height: 700px
@@ -47,11 +58,14 @@
 	background-size: 100%
 	.ui.inverted.header
 		padding-top: 3em
+		h1
+			font-size: 4em
+			text-align: center
 	.icon.button
 		margin-top: 2.5em
 
-//--------- Manage Property Styles
-//--------- Manage property table header
+//--------- Manage Property Page Styles
+// Manage property table header
 .manage-table-header
 	background-color: $grey-primary !important
 	color: $white-primary !important
@@ -64,22 +78,25 @@
 		.button:focus
 			background-color: $grey-primary-hover !important
 
-//--------- Add margin to next element after sticky to prevent overlap
+// Add margin to next element after sticky to prevent overlap
+.manage-properties
+	z-index: 99
+
 .ui.fixed.sticky + .ui.cards
 	//margin-top: 5em !important
 
-//--------- Change the pointer for the status ribbon
+// Change the pointer for the status ribbon
 .manage-status.ribbon
 	cursor: pointer
 
-//--------- Change the status modal input sizes
+// Change the status modal input sizes
 .manage-status.modal
 	.status-date.input
 		max-width: 10em
 	.status-time.input
 		max-width: 7em
 
-//--------- Send element to bottom of container (were all rem's)
+// Send element to bottom of container (were all rem's)
 .manage-property-bottom
 	position: absolute
 	bottom: 1em
@@ -92,7 +109,33 @@
 	right: 1em
 
 //--------- Add-Edit Page styles
-//--------- Remove bottom border from tabular menu
+// Remove bottom border from tabular menu
 .add-edit.tabular.menu
 	border-bottom-style: none !important
+
+// Styling for add edit property card
+// It positions the delete button in the top right and styles the button
+// It also styles the bottom attached label
+.add-edit.property-card.delete
+	position: absolute
+	top: 0.3em
+	right: 0.1em
+	.button
+		background-color: $grey-primary-hover !important
+		color: $white-primary !important
+	.button:hover,
+	.button:active,
+	.button:focus
+		background-color: $grey-primary !important
+.add-edit.property-card.bottom.attached.label
+	background-color: $grey-primary !important
+	color: $white-primary !important
+	text-align: center
+
+// Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
+// Using min-height so it can grow if a lot of tags are added.
+.add-edit.custom-tags
+	min-height: 10em !important
+	.dropdown.icon
+		display: none !important
 

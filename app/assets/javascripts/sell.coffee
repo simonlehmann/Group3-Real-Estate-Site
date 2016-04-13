@@ -26,7 +26,12 @@ ready = ->
 	# Accordian trigger change
 	$('.manage-status.modal .accordion').accordion selector: trigger: '.title'
 	# Attach a trigger event to the checkbox radio's so that the checkbox label also triggers it.
-	$('.manage-status.modal .accordion .ui.checkbox').checkbox 'attach events', $('.manage-status.modal .accordion .ui.checkbox .label')
+	$('.manage-status.modal .checkbox').checkbox 'attach events', $('.manage-status.modal .checkbox label')
+	# Attach a trigger event to the checkbox radio's so that the accordion title also triggers it.
+	# Done as an each loop so it only attaches the event for the title and checkbox that are together.
+	$('.manage-status.modal .title').each ->
+		$(this).children('.checkbox').checkbox 'attach events', $(this)
+		return
 
 	# Configure the date/time pickers for the status modals.
 	# Extend the DatePicker Defaults, which will apply to all date pickers
@@ -61,6 +66,60 @@ ready = ->
 	$('.manage-status.modal input[name="auction-date"]').pickadate container: '.manage-status.modal #auction-date-container'
 	$('.manage-status.modal input[name="auction-start-time"]').pickatime container: '.manage-status.modal #auction-start-time-container'
 	$('.manage-status.modal input[name="auction-end-time"]').pickatime container: '.manage-status.modal #auction-end-time-container'
+
+	# Change the sell price type input fields based upon the dropdown selection
+	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
+	price_dropdown_selection_change = (value) ->
+		if value == 'F'
+			# Fixed Price
+			$('#price-field-fixed').show()
+			$('#price-field-fixed').addClass 'required'
+			$('#price-field-max').hide()
+			$('#price-field-min').hide()
+			$('#price-field-max').removeClass 'required'
+			$('#price-field-min').removeClass 'required'
+		else if value == 'R'
+			# Ranged Price
+			console.log value
+			$('#price-field-fixed').hide()
+			$('#price-field-fixed').removeClass 'required'
+			$('#price-field-max').show()
+			$('#price-field-min').show()
+			$('#price-field-max').addClass 'required'
+			$('#price-field-min').addClass 'required'
+	# Set what is displayed based upon the initial value
+	price_dropdown_selection_change($('#add-edit-price-dropdown').val())
+	# Set what is displayed based upon the selected value
+	$('#add-edit-price-dropdown').change ->
+		value = @value
+		price_dropdown_selection_change(value)
+
+	# Add tags to the selection field based upon the entered info in the add-edit-additional-tags-dropdown
+	# Get the tag area, the tag type dropdown, the tag input value and the add button
+	additional_tag_area = $('#add-edit-additional-tags')
+	additional_tag_area.dropdown allowAdditions: true
+	additional_dropdown = $('#add-edit-additional-tags-dropdown')
+	additional_input = $('#add-edit-additional-tags-input')
+	additional_button = $('#add-edit-additional-tags-button')
+	# Add a click function to the add tag button
+	additional_button.on 'click', ->
+		# Get the input value and the dropdown selection
+		value = additional_input.val()
+		selection = additional_dropdown.children("option").filter(":selected").text()
+		if value != ''
+			# Add the tag to the tag area if the value isn't empty
+			new_tag_value = value + "_" + selection
+			new_tag_text = value + " " + selection
+			# Add an option to the selection box with the new tag value and text
+			additional_tag_area.html('<option value="' + new_tag_value + '">' + new_tag_text + '</option>')
+			# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
+			setTimeout (->
+				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
+				additional_tag_area.dropdown 'set selected', new_tag_value # Select the new option based upon it's value
+			), 1
+		else
+			# Otherwise send an alert
+			alert "No value entered, please try again"
 
 	return
 

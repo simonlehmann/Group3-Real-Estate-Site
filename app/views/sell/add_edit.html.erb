@@ -5,33 +5,54 @@
 #   Add/Edit page template the user will see when they are logged in and adding/editing a property.
 #   
 #   Partials:
-#   	* 
+#   	* add_edit_listing: the parial for the edit listing information tab
+#   	* add_edit_photos: the partial for adding/editing photos
+#   	* add_edit_extras: the parital for the extra paid features
+#   	* add_edit_buttons: the partial with the action buttons that save the additions/edits.
 #   
 #   Collections:
 #   	* @property: the property to be edited
 #   
 #   Todo:
-#   	* Design the tabs
 #   	* Bring in Jayden's search results property partial to preview
 #   	* Live update the preview
- %>
+#   	* Show dummy data in the preview when adding a new listing if the form fields aren't entered.
+%>
 
- <% # Main container %>
- <div class="ui container">
- 	<div class="ui middle aligned grid container">
- 		<div class="ui centered pointing secondary add-edit tabular menu row">
- 			<a class="item active" data-tab="add-edit-1">Listing Information</a>
-	 		<a class="item" data-tab="add-edit-2">Photographs</a>
-	 		<a class="item" data-tab="add-edit-3">Extras</a>
- 		</div>
- 	</div>
- 	<div class="ui tab segment active" data-tab="add-edit-1">
-		Tab 1
+<% # Main container %>
+<div class="ui container sell-container">
+	<div class="ui middle aligned grid container">
+		<div class="ui centered pointing secondary add-edit tabular menu row">
+			<a class="item active" data-tab="add-edit-1">Listing Information</a>
+			<a class="item" data-tab="add-edit-2">Photographs</a>
+			<a class="item" data-tab="add-edit-3">Extras</a>
+		</div>
+	</div>
+	<div class="ui tab segment active" data-tab="add-edit-1">
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit listing tab %>
+			<%= render 'sell/add_edit_listing' %>
+
+			<% # The button container for the add/edit listing tab (Don't show the save button) %>
+			<%= render 'sell/add_edit_buttons', { show_save_button: false } %>
+		</div>
 	</div>
 	<div class="ui tab segment" data-tab="add-edit-2">
-		Tab 2
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit photos tab %>
+			<%= render 'sell/add_edit_photos' %>
+
+			<% # The button container for the photos tab (Show the save button) %>
+			<%= render 'sell/add_edit_buttons', { show_save_button: true } %>
+		</div>
 	</div>
 	<div class="ui tab segment" data-tab="add-edit-3">
-		Tab 3
+		<div class="ui one column grid">
+			<% # Render the tab body for the add/edit extras tab %>
+			<%= render 'sell/add_edit_extras' %>
+
+			<% # The button container for the add/edit extras tab (Show the save button) %>
+			<%= render 'sell/add_edit_buttons', { show_save_button: true } %>
+		</div>
 	</div>
- </div>
+</div>
