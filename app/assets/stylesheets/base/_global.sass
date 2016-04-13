@@ -1,17 +1,28 @@
+//set whole websites text to roboto
 html
-	font-family: $roboto
+	font-family: $roboto !important
 body
 	height: 100%
+//set a link tags to white
 a
 	color: $white-primary
 a:hover,
 a:focus
 	color: $white-hover
+//star icon
 .star
 	color: $yellow-primary
+//set header on top
 header
 	z-index: 100
-
+// Margin and padding for elements
+.margin-top
+	margin-top: 2em !important
+.margin-top-half
+	margin-top: 1em !important
+//For pages without a banner! -- Margin for a container to place it under header
+.nobanner-container
+	margin-top: 5em
 // The following fix the footer issues so the footer is on the bottom even if the site has less content
 .site
 	display: flex

@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  
   root 'buy#index'
+
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
+  get '/dashboard' => 'dashboard#index'
 
   # Sell Pages routes
   resources :sell, except: [:show]

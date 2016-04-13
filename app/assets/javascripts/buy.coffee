@@ -9,30 +9,30 @@ ready = ->
 	loc = window.location.pathname
 	console.log loc
 	#switch between buy, sell activity header classes
-	if loc.includes('buy')
+		#for buy or root '/'
+	if loc.includes 'buy' or loc == '/'
 		nav_delay = true
 		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
-		$('.main-nav a.buy-item').addClass('active')
+		$('.main-nav a.buy-item').addClass 'active'
 	else if loc.includes('sell')
 		# Grab top sell element and see if it is the sell-banner (needs clear nav-menu with delay) or there's no banner
-		if $('.sell-top').hasClass('sell-banner')
+		if $('.sell-top').hasClass 'sell-banner'
 			nav_delay = true
 		else
 			nav_delay = false
-		# Your normal actions here Jayden
 		$('header').addClass 'nav-sell'
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-dashboard'
-		$('.main-nav a.sell-item').addClass('active')
-	else if loc == '/'
-		# Check to see if the link is the index page (pathname = /) confirmed by console.log loc when on index it returns '/'
-		nav_delay = true
-		$('header').addClass 'nav-buy'
+		$('.main-nav a.sell-item').addClass 'active'
+	#dashboard
+	else if loc.includes 'dashboard'
+		nav_delay = false
+		$('header').addClass 'nav-dashboard'
+		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
-		$('header').removeClass 'nav-dashboard'
-		$('.main-nav a.buy-item').addClass('active')
+		$('.main-nav a.activity-item').addClass 'active'
 	else
 		nav_delay = false
 		$('header').removeClass 'nav-buy'

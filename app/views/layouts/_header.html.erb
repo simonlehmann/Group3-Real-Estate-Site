@@ -8,10 +8,10 @@
 				<div class="ui secondary pointing compact menu main-nav">
 					<%= link_to "Buy", buy_path, class: "buy-item active item " %>
 					<%= link_to "Sell", sell_index_path, class: "sell-item item" %>
-					<%= link_to "My Activity", buy_path, class: "activity-item item" %>
+					<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
 				</div>
 			</div>
-			<div class="right floated middle aligned column">
+			<div class="right floated middle aligned right aligned column">
 				<div class="ui simple dropdown item">
 					<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
 					<%= link_to "Ron Swanson", buy_path %> <i class="dropdown icon"></i>
