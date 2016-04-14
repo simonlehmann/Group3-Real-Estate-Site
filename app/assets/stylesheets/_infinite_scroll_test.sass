@@ -11,14 +11,49 @@
 		color: #000000 !important
 .loading-anim
 	p
+		color: #545e63
 		font-weight: bold
 	ul#progress
 		list-style: none
-		width: 125px
+		text-align: center
 		margin: 0 auto
-		padding-top: 50px
-		padding-bottom: 50px
+		margin-right: 42px
 		li
-			display: inline
+			+circle(13px, #b1b9bd)
+			display: inline-block
+			margin: 2.5px
 	.circle
-		+circle(15px, #999)
+		+circle(13px, $green-primary)
+		-moz-transform: scale(0)
+		-webkit-transform: scale(0)
+		-moz-animation: loading 4s linear infinite
+		-webkit-animation: loading 3s ease-in infinite
+	#layer1
+		-moz-animation-delay: 0.5s
+		-webkit-animation-delay: 0.5s
+	#layer2
+		-moz-animation-delay: 1.5s
+		-webkit-animation-delay: 1.5s
+	#layer3
+		-moz-animation-delay: 2.5s
+		-webkit-animation-delay: 2.5s
+	@-moz-keyframes loading
+		0%
+			-moz-transform: scale(0,0)
+		45%
+			-moz-transform: scale(1,1)
+		50%
+			-moz-transform: scale(1,1)
+		70%
+			-moz-transform: scale(0,0)
+	@-webkit-keyframes loading
+		0%
+			-webkit-transform: scale(0,0)
+		25%
+			-webkit-transform: scale(1,1)
+		30%
+			-webkit-transform: scale(1,1)
+		50%
+			-webkit-transform: scale(0,0)
+		100%
+			-webkit-transform: scale(0,0)
