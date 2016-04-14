@@ -6,13 +6,10 @@
 #   
 #   This represents a property that will be manigable by the user, it might be rendered multiple times
 #   
-#   Local variables (i.e. can be refered to just by 'name' not '@name' in pe tags:
-#   	* id: The id of the property
-#   	* address: The property address
-#   	* status: The property's status
-#   	* image_path: The path for the property's main image
-#   	* description: The property's description
-#   	* counts: A hash of the property's stats. Hash structure is below
+#   Collections
+#   	@listings: The collection of listing objects from the database. Access properties using listing.property in a pe tag
+#   	@status: The status for the listings <- Currently they're all the same
+#		@counts: A hash of the property's stats. Hash structure is below <- Currently they're all the same
 #   		NB. Each key is also used as the icon class:
 #   		 	unhide: 	[Number of views, Text to append to value]
 #   		 	star: 		[Number of favourites, Text to append to value]
@@ -21,80 +18,95 @@
 #   
 #   Todo:
 #   	* Prompt/Dialog/Modal for the delete button
-#   	* Property Features formatting/grab info from database
+#   	* Pull from database (not test database as currently doing)
+#   	* Grab statuses from the database too.
+#   	* Grab statistic counts from the database.
+#   	* Pull main image from the database.
+#   	* Style the property features (beds/baths...)
+#   	
  %>
 
-<% # A property management card, the local variables are filled by the sell_controller %>
-<div class="ui fluid card">
-	<div class="content">
-		<% # Header containing address and edit listing button %>
-		<div class="header">
-			<div class="ui two column grid">
-				<% # The address %>
-				<div class="ui left floated left aligned column">
-					<h2><%= address %></h2>
-				</div>
+<% # A property listing management card. %>
+<% @listings.each do |listing| %>
+	<div class="ui fluid card">
+		<div class="content">
+			<% # Header containing address and edit listing button %>
+			<div class="header">
+				<div class="ui two column grid">
+					<% # The address %>
+					<div class="ui left floated left aligned column">
+						<h2><%= "#{listing.address}, #{listing.suburb}, #{listing.state} #{listing.post_code}" %></h2>
+					</div>
 
-				<% # The Edit listing Button %>
-				<div class="ui right floated right aligned column">
-					<%= link_to edit_sell_path(id), class: "ui small right labeled icon button sell-red-button" do  %>
-						<%= content_tag(:i, "", class: "write icon") %>
-						Edit Listing
-					<% end %>
+					<% # The Edit listing Button %>
+					<div class="ui right floated right aligned column">
+						<%= link_to edit_sell_path(listing.id), class: "ui small right labeled icon button sell-red-button" do  %>
+							<%= content_tag(:i, "", class: "write icon") %>
+							Edit Listing
+						<% end %>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<% # The property body %>
-		<div class="description">
-			<div class="ui three column centered grid">
-				<% # Property main image %>
-				<div class="four wide column">
-					<div class="ui image">
-						<% # The main image %>
-						<%= image_tag "#{image_path}", class: "ui centered medium image" %>
+			<% # The property listing body %>
+			<div class="description">
+				<div class="ui three column centered grid">
+					<% # Property main listing image %>
+					<div class="four wide column">
+						<div class="ui image">
+							<% # The main image %>
+							<%= image_tag "300x300.png", class: "ui centered medium image" %>
 
-						<% # Status ribbon, clicking this will open the edit modal. %>
-						<div class="ui label sell-red-ribbon manage-status ribbon">
-							<%= status %>
-							<div class="detail"><i class="write icon"></i></div>
+							<% # Status ribbon, clicking this will open the edit modal. %>
+							<div class="ui label sell-red-ribbon manage-status ribbon" id="launch-modal-<%= listing.id %>">
+								<%= @status %>
+								<div class="detail"><i class="write icon"></i></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<% # Description and information block %>
-				<div class="nine wide column">
-					<% # The Description %>
-					<p><b>Description: </b><%= description %></p>
+					
+					<% # Description and information block %>
+					<div class="nine wide column">
+						<% # The Description %>
+						<p><b>Description: </b><%= listing.description %></p>
 
-					<% # The bottom info bar showing views, comments, favourites and expiry %>
-					<div class="manage-property-bottom">
-						<% counts.each do |key, value| %>
-							<span>
-								<%= content_tag(:i, "", class: "#{key.to_s} icon") %>
-								<%= value[0] %> <%= value[1] %>
-							</span>
-						<% end %>
+						<% # The bottom info bar showing views, comments, favourites and expiry %>
+						<div class="manage-property-bottom">
+							<% @counts.each do |key, value| %>
+								<span>
+									<%= content_tag(:i, "", class: "#{key.to_s} icon") %>
+									<%= value[0] %> <%= value[1] %>
+								</span>
+							<% end %>
+						</div>
 					</div>
-				</div>
-				
-				<% # Features and Delete Button block %>
-				<div class="three wide right aligned column">
-					<% # Property features %>
- 					<p>3 Bedrooms</p>
- 					<p>2 Bathrooms</p>
- 					<p>2 Carports</p>
- 					<p>450sqm</p>
+					
+					<% # Features and Delete Button block %>
+					<div class="three wide right aligned column">
+						<% # Property Listing features %>
+	 					<p><%= listing.bedrooms %> Bedrooms</p>
+	 					<p><%= listing.bathrooms %> Bathrooms</p>
+	 					<p><%= listing.parking %> Parking</p>
+	 					<p><%= listing.land_size %>sqm</p>
 
-					<% # Delete Property button %>
-					<div class="manage-property-bottom-right">
-						<%= link_to sell_path(id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button" do  %>
-							<%= content_tag(:i, "", class: "trash icon") %>
-							Delete
-						<% end %>
+						<% # Delete Property Listing button %>
+						<div class="manage-property-bottom-right">
+							<%= link_to sell_path(listing.id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button" do  %>
+								<%= content_tag(:i, "", class: "trash icon") %>
+								Delete
+							<% end %>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	
+	<% # Render the status modal for this property listing %>
+	<%= render 'sell/manage_property_status_modal', {
+			id: listing.id,
+			address: "#{listing.address}, #{listing.suburb}, #{listing.state} #{listing.post_code}",
+			status: @status
+		} %>
+	<%= puts listing.id %>
+<% end %>

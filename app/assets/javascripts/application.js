@@ -22,3 +22,6 @@
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require pickadate/lib/picker.time
+//
+// Infinite Scolling/Pagination using Jquery
+//= require jquery.infinite-pages

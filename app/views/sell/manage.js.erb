@@ -1,0 +1,102 @@
+//   Created: Daniel Swain
+//   Date: 13/04/2016
+// 
+//   This is to append new data to the table in /sell/manage.html.erb (it's class is infinite-table')
+// 
+//   Partials:
+//   	manage_property_card: The property card that is loaded using an ajax call.
+//   	
+//   Collections:
+//   	@listings: The listing information
+
+// Append new data to the infinite-table cards list (the .ui.cards selector)
+$("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($(".infinite-table .ui.cards"));
+
+// Update pagination link
+<% if @listings.last_page? %>
+    $('.pagination').html("No more listings to manage.");
+
+    // This is the same as in the set_up_modal_actions function in sell.coffee
+    // Have to run the config code here once so it works on the last rendered listings
+    // It wasn't triggering the modals for the last 5 previously
+    $('.manage-status.modal').each(function() {
+		var auction_date, auction_end, auction_start, home_date, home_end, home_start, modal_id;
+		//Only run this if it hasn't been set up (to speed things up)
+		if (!$(this).hasClass('modal-configured')) {
+			// Set the modal as being configured to stop this happening on this modal again
+			$(this).addClass('modal-configured');
+			// Set Modal trigger to the ribbon with the launch-modal-id id (see manage_property_card.html.erb)
+			modal_id = $(this).attr('id');
+			$(this).modal('attach events', '#launch-modal-' + modal_id, 'show');
+			
+			// Assign date and time pickers to the modal objects, customise the defualts from above if you want to here
+			// Container specifies the dom element to attach the picker to (needed here as the label fields are too small)
+			// Date Time Picker selectors
+			home_date = $('.manage-status.modal #home-date-' + modal_id);
+			home_start = $('.manage-status.modal #home-start-time-' + modal_id);
+			home_end = $('.manage-status.modal #home-end-time-' + modal_id);
+			auction_date = $('.manage-status.modal #auction-date-' + modal_id);
+			auction_start = $('.manage-status.modal #auction-start-time-' + modal_id);
+			auction_end = $('.manage-status.modal #auction-end-time-' + modal_id);
+			// The if checks are to stop it constantly adding date time pickers when the async load is complete.
+			if (!home_date.hasClass('picker-set')) {
+				home_date.addClass('picker-set');
+				home_date.removeClass('no-picker-set');
+				home_date.pickadate({
+					container: '.manage-status.modal #home-date-container-' + modal_id
+				});
+			}
+			if (!home_start.hasClass('picker-set')) {
+				home_start.addClass('picker-set');
+				home_start.removeClass('no-picker-set');
+				home_start.pickatime({
+					container: '.manage-status.modal #home-start-time-container-' + modal_id
+				});
+			}
+			if (!home_end.hasClass('picker-set')) {
+				home_end.addClass('picker-set');
+				home_end.removeClass('no-picker-set');
+				home_end.pickatime({
+					container: '.manage-status.modal #home-end-time-container-' + modal_id
+				});
+			}
+			if (!auction_date.hasClass('picker-set')) {
+				auction_date.addClass('picker-set');
+				auction_date.removeClass('no-picker-set');
+				auction_date.pickadate({
+					container: '.manage-status.modal #auction-date-container-' + modal_id
+				});
+			}
+			if (!auction_start.hasClass('picker-set')) {
+				auction_start.addClass('picker-set');
+				auction_start.removeClass('no-picker-set');
+				auction_start.pickatime({
+					container: '.manage-status.modal #auction-start-time-container-' + modal_id
+				});
+			}
+			if (!auction_end.hasClass('picker-set')) {
+				auction_end.addClass('picker-set');
+				auction_end.removeClass('no-picker-set');
+				auction_end.pickatime({
+					container: '.manage-status.modal #auction-end-time-container-' + modal_id
+				});
+			}
+
+			// Accordian trigger change
+			$('.manage-status.modal .accordion').accordion({
+				selector: {
+					trigger: '.title'
+				}
+			});
+			
+			// Attach a trigger event to the checkbox radio's so that the accordion title and it's elements also triggers it.
+			// Done as an each loop so it only attaches the event for the title and checkbox that are together.
+			$('.manage-status.modal .title').each(function() {
+				$(this).children('.checkbox').checkbox('attach events', $(this));
+			});
+		}
+	});
+
+<% else %>
+    $('.pagination').html("<%=j link_to_next_page(@listings, 'Show More Listings', remote: true) %>");
+<% end %>
