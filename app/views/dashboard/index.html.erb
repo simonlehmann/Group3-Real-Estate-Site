@@ -1,10 +1,12 @@
 <section class="dashboard-container nobanner-container ui container">
 	<div class="ui sixteen wide grid stackable">
-		<section class="right floated six wide column">
-			<%= render "dashboard/navsub" %>
-		</section>
-		<section class="ui ten wide column">
+		<div class="ui rail four wide column">
+			<div class="ui sticky dashboard-submenu">
+				<%= render "dashboard/navsub" %>
+			</div>
+		</div>
+		<div class="ui ten wide column" id="activity-feed">
 			<%= render "dashboard/activitycontent" %>
-		</section>
+		</div>
 	</div>
 </section>
