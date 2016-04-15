@@ -1,0 +1,50 @@
+.loading-anim
+	margin-top: 40px
+	p
+		color: $grey-text
+		font-weight: bold
+	ul#progress
+		list-style: none
+		text-align: center
+		margin-right: 42px
+		li
+			+circle(13px, $grey-lighter)
+			display: inline-block
+			margin: 2.5px
+	.circle
+		+circle(13px, $green-primary)
+		-moz-transform: scale(0)
+		-webkit-transform: scale(0)
+		-moz-animation: loading 3s linear infinite
+		-webkit-animation: loading 3s ease-in infinite
+	#layer1
+		-moz-animation-delay: 0.5s
+		-webkit-animation-delay: 0.5s
+	#layer2
+		-moz-animation-delay: 1.5s
+		-webkit-animation-delay: 1.5s
+	#layer3
+		-moz-animation-delay: 2.5s
+		-webkit-animation-delay: 2.5s
+	@-moz-keyframes loading
+		0%
+			-moz-transform: scale(0,0)
+		25%
+			-moz-transform: scale(1,1)
+		30%
+			-moz-transform: scale(1,1)
+		50%
+			-moz-transform: scale(0,0)
+		100%
+			-moz-transform: scale(0,0)
+	@-webkit-keyframes loading
+		0%
+			-webkit-transform: scale(0,0)
+		25%
+			-webkit-transform: scale(1,1)
+		30%
+			-webkit-transform: scale(1,1)
+		50%
+			-webkit-transform: scale(0,0)
+		100%
+			-webkit-transform: scale(0,0)
