@@ -1,6 +1,7 @@
 /*
 	*= require_self
 	//main.sass imports all files
+	//insert your partial in main.sass for your appropriate page
 	*= require main
 	
 	// Bower component themes
