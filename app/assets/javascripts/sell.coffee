@@ -19,7 +19,7 @@ ready = ->
 
 	#--------- Sticky Code
 	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
-	$('.ui.sticky').sticky
+	$('.manage-table-header.ui.sticky').sticky
 		offset: 60
 		context: '.ui.cards'	
 	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
@@ -36,9 +36,7 @@ ready = ->
 	$.extend $.fn.pickadate.defaults,
 		firstDay: 1					# Set first day to Monday
 		min: true					# Set min date to the current date
-		format: 'd mmm, yyyy'		# Set Display format to 8 Apr, 2016
-		formatSubmit: 'dd/mm/yyyy'	# Set Submit format to 08/04/2016
-		hiddenName: true			# Use a hidden input field and submit the value from that using the name of the shown field
+		format: 'dd/mm/yyyy'		# Set Display format to 08/04/2016 needs to match the data format
 		showMonthsShort: true		# Show the months short (i.e. Dec)
 	
 	# Extend the TimePicker Defaults, which will apply to all time pickers

@@ -11,28 +11,21 @@
 # 	
 # 	To do:
 # 		complete actions
-# 		Connect to actual database
 
 class SellController < ApplicationController
 
 	# Show the main sell page view
 	# GET /sell
 	def index
-		# For testing, I've set user has property to true and have some fake properties in the sqlite database
+		# For testing, I'm using a random user from the database
+		# THERES CURRENTLY 3 USERS IN THE DATABASE, IF THIS IS CHANGED THIS WILL LIKELY BREAK SO CHANGE THESE LINE
+		prng = Random.new
+		user_id = prng.rand(1..3)
+
 		user_has_property = true
 		if user_has_property
-			# Grab the listings
-			@listings = Listing.order(:created_at).page(params[:page])
-			# grab the counts (currently separate from listing, likely to change)
-			@counts = {
-				unhide: [450, "Views"],
-				star: [30, "Favourites"],
-				comments: [5, "Comments"],
-				wait: [6, "Weeks Until Expired"]
-			}
-			# grab the status (all the same). Need to actually grab the listings statuses.
-			@status = "Home open Saturday 10am - 12pm"
-			# Render the manage template
+			# Grab the listings (change the listing order if you want)
+			@listings = Listing.where(ListingUserID: user_id).order(:ListingCreatedAt).page(params[:page])
 			render "sell/manage"
 		else
 			# No properties so render the index template
