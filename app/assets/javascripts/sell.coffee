@@ -4,7 +4,7 @@
 # The following coffeescript are for all sales pages.
 # 
 # Todo:
-# 	* When you open the change status modals it should open to the accordion of the current status
+# 	* When you open the change status modals it select the checkbox, but its not happening
 # 	  i.e. if your listing has a Home Open status, then opening the edit modal should have home open checked, not auction.
 # 	  
 # Note:

@@ -85,4 +85,3 @@ ActiveRecord::Schema.define(version: 20160413053732) do
     t.integer  "TagListingID", limit: 4,  null: false
     t.datetime "TagCreatedAt",            null: false
   end
-
