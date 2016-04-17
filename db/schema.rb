@@ -10,8 +10,10 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
+# 
+# DO NOT CHANGE THIS FILE. DO NOT RUN rake db:schema:load or rake db:migrate
 
-ActiveRecord::Schema.define(version: 20160413053732) do
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "blockages", primary_key: "BlockageID", force: :cascade do |t|
     t.integer  "BlockageToUserID",   limit: 4, null: false
@@ -85,3 +87,18 @@ ActiveRecord::Schema.define(version: 20160413053732) do
     t.integer  "TagListingID", limit: 4,  null: false
     t.datetime "TagCreatedAt",            null: false
   end
+
+  create_table "users", primary_key: "UserID", force: :cascade do |t|
+    t.string   "UserUsername",     limit: 32,                     null: false
+    t.string   "UserFirstName",    limit: 32,                     null: false
+    t.string   "UserMiddleName",   limit: 32
+    t.string   "UserLastName",     limit: 32,                     null: false
+    t.string   "UserEmailAddress", limit: 128,                    null: false
+    t.string   "UserPassword",     limit: 64,                     null: false
+    t.string   "UserType",         limit: 0,   default: "User",   null: false
+    t.string   "UserStatus",       limit: 0,   default: "Active", null: false
+    t.datetime "UserCreatedAt",                                   null: false
+    t.datetime "UserUpdatedAt",                                   null: false
+  end
+
+end
