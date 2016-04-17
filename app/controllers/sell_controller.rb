@@ -11,21 +11,21 @@
 # 	
 # 	To do:
 # 		complete actions
+# 		Actually check if a user has a property
 
 class SellController < ApplicationController
 
 	# Show the main sell page view
 	# GET /sell
 	def index
-		# For testing, I'm using a random user from the database
-		# THERES CURRENTLY 3 USERS IN THE DATABASE, IF THIS IS CHANGED THIS WILL LIKELY BREAK SO CHANGE THESE LINE
-		prng = Random.new
-		user_id = prng.rand(1..3)
-
+		# For testing, let's say the user has a property
 		user_has_property = true
 		if user_has_property
-			# Grab the listings (change the listing order if you want)
-			@listings = Listing.where(ListingUserID: user_id).order(:ListingCreatedAt).page(params[:page])
+			# For testing, I'm using a random user from the database
+			testing_user = User.find(1)
+			
+			# Grab the listings for the user (change the listing order if you want)
+			@listings = Listing.where(ListingUserID: testing_user.UserID).order(:ListingCreatedAt).page(params[:page])
 			render "sell/manage"
 		else
 			# No properties so render the index template
