@@ -1,7 +1,7 @@
 #   Created: Daniel Swain
 #   Date: 16/04/2016
 #   
-#   The Model class for the property status, represents a status for a listing
+#   The Model class for the user, represents a user object
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
 #   	UserID: int

@@ -22,11 +22,10 @@ class SellController < ApplicationController
 		user_has_property = true
 		if user_has_property
 			# For testing, I'm using a random user from the database
-			prng = Random.new
-			user_id = prng.rand(1..User.count)
+			testing_user = User.find(1)
 			
 			# Grab the listings for the user (change the listing order if you want)
-			@listings = Listing.where(ListingUserID: user_id).order(:ListingCreatedAt).page(params[:page])
+			@listings = Listing.where(ListingUserID: testing_user.UserID).order(:ListingCreatedAt).page(params[:page])
 			render "sell/manage"
 		else
 			# No properties so render the index template
