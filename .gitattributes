@@ -1,0 +1,12 @@
+# Setting the default behaviour for git for this project. Hopefully fixing the End of Line (EOL) endcoding issue
+
+
+# Set text file encoding to CRLF (Carriage Return [\r] + Line Return [\n]).
+# This will treat all text files (Classified as Text files as according to Git) with the Windows EOL encoding (CRLF)
+* text eol=crlf
+
+# Set images and other file encoding to binary (so it isn't touched)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
