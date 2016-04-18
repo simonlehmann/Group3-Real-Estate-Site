@@ -10,8 +10,9 @@
 # 		* destroy: delete the property.
 # 	
 # 	To do:
-# 		complete actions
-# 		Actually check if a user has a property
+# 		* complete actions
+# 		* Actually check if a user has a property
+# 		* Get property from user when clicking the edit button.
 
 class SellController < ApplicationController
 

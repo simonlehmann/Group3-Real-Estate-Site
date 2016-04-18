@@ -4,12 +4,8 @@
 # The following coffeescript are for all sales pages.
 # 
 # Todo:
-# 	* When you open the change status modals it select the checkbox, but its not happening
-# 	  i.e. if your listing has a Home Open status, then opening the edit modal should have home open checked, not auction.
+# 	* Handle status modal saving
 # 	  
-# Note:
-# 	Any code in here that pertains to the status modals had to be replicated in the manage.js.erb file and if you modify the modal
-# 	code here you need to do it in manage.js.erb as well.
 
 # Function containing all javascript needed on page load
 ready = ->
@@ -54,69 +50,119 @@ ready = ->
 			0
 		]							# Set the maximum time (5 pm)
 
-	#--------- Modal Code -------- READ THE NOTE UNDER THIS LINE BEFORE MAKING BIG CHANGES
-	# NOTE: The code from this function also has to be in manage.js.erb currently to trigger the modals for the last 5 modals [see app/assets/views/manage.js.erb])
-	# 		This is because the success: callback function doesn't fire when there are no more pages to load and it doesn't 
-	
-	# Assign callbacks for each modal This is a function called by the infinite scroll and is also called once on page load.
-	set_up_modal_actions = ->
-		$('.manage-status.modal').each ->
-			# Only run this if it hasn't been set up (to speed things up)
-			if !$(this).hasClass('modal-configured')
-				# Set the modal as being configured to stop this happening on this modal again
-				$(this).addClass('modal-configured')
+	#--------- Modal Code -------- 	
+	# On click of the status ribbon, open the modal using the data for that status object
+	# Done as an onclick function now to reduce page load time.
+	@set_up_and_launch_modal = (ribbon_id) ->
+		# Get the status and listing information from the calling ribbon
+		listing_id = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('listing')
+		status_label = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('label')
+		date = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('date')
+		start_time = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('start')
+		end_time = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('end')
 
-				# Set Modal trigger to the ribbon with the launch-modal-id id (see manage_property_card.html.erb)
-				modal_id = $(this).attr('id')
-				$(this).modal 'attach events', '#launch-modal-' + modal_id, 'show'
+		# Get reference to the pertinent modal
+		desired_modal = $('.manage-status.modal#' + listing_id)
 
-				# Assign date and time pickers to the modal objects, customise the defualts from above if you want to here
-				# Container specifies the dom element to attach the picker to (needed here as the label fields are too small)
-				# Date Time Picker selectors
-				home_date = $('.manage-status.modal #home-date-' + modal_id)
-				home_start = $('.manage-status.modal #home-start-time-' + modal_id)
-				home_end = $('.manage-status.modal #home-end-time-' + modal_id)
-				auction_date = $('.manage-status.modal #auction-date-' + modal_id)
-				auction_start = $('.manage-status.modal #auction-start-time-' + modal_id)
-				auction_end = $('.manage-status.modal #auction-end-time-' + modal_id)
-				# The if checks are to stop it constantly adding date time pickers when the async load is complete.
-				if !home_date.hasClass('picker-set')			
-					home_date.addClass('picker-set')
-					home_date.removeClass('no-picker-set')
-					home_date.pickadate container: '.manage-status.modal #home-date-container-' + modal_id
-				if !home_start.hasClass('picker-set')			
-					home_start.addClass('picker-set')
-					home_start.removeClass('no-picker-set')
-					home_start.pickatime container: '.manage-status.modal #home-start-time-container-' + modal_id
-				if !home_end.hasClass('picker-set')			
-					home_end.addClass('picker-set')
-					home_end.removeClass('no-picker-set')
-					home_end.pickatime container: '.manage-status.modal #home-end-time-container-' + modal_id
-				if !auction_date.hasClass('picker-set')			
-					auction_date.addClass('picker-set')
-					auction_date.removeClass('no-picker-set')
-					auction_date.pickadate container: '.manage-status.modal #auction-date-container-' + modal_id
-				if !auction_start.hasClass('picker-set')
-					auction_start.addClass('picker-set')
-					auction_start.removeClass('no-picker-set')
-					auction_start.pickatime container: '.manage-status.modal #auction-start-time-container-' + modal_id
-				if !auction_end.hasClass('picker-set')			
-					auction_end.addClass('picker-set')
-					auction_end.removeClass('no-picker-set')
-					auction_end.pickatime container: '.manage-status.modal #auction-end-time-container-' + modal_id
+		# Add listeners to the modal title to tick the checkboxes
+		desired_modal.find('.title').each ->
+			$(this).find('.checkbox').checkbox 'attach events', $(this)
+			return
+		
+		# Accordian trigger change
+		desired_modal.find('.accordion').accordion selector: trigger: '.title'
 
-				# Accordian trigger change
-				$('.manage-status.modal .accordion').accordion selector: trigger: '.title'
-				
-				# Attach a trigger event to the checkbox radio's so that the accordion title and it's elements also triggers it.
-				# Done as an each loop so it only attaches the event for the title and checkbox that are together.
-				$('.manage-status.modal .title').each ->
-					$(this).children('.checkbox').checkbox 'attach events', $(this)
-					return
+		# Assign date pickers and get the picker objects
+		home_date = desired_modal.find('#home-date-' + listing_id).pickadate container: desired_modal.find('#home-date-container-' + listing_id)
+		home_start_time = desired_modal.find('#home-start-time-' + listing_id).pickatime container: desired_modal.find('#home-start-time-container-' + listing_id)
+		home_end_time = desired_modal.find('#home-end-time-' + listing_id).pickatime container: desired_modal.find('#home-end-time-container-' + listing_id)
+		auction_date = desired_modal.find('#auction-date-' + listing_id).pickadate container: desired_modal.find('#auction-date-container-' + listing_id)
+		auction_start_time = desired_modal.find('#auction-start-time-' + listing_id).pickatime container: desired_modal.find('#auction-start-time-container-' + listing_id)
+		auction_end_time = desired_modal.find('#auction-end-time-' + listing_id).pickatime container: desired_modal.find('#auction-end-time-container-' + listing_id)
+		# Get the picker objects
+		home_date_picker = home_date.pickadate('picker')
+		home_start_picker = home_start_time.pickatime('picker')
+		home_end_picker = home_end_time.pickatime('picker')
+		auction_date_picker = auction_date.pickadate('picker')
+		auction_start_picker = auction_start_time.pickatime('picker')
+		auction_end_picker = auction_end_time.pickatime('picker')
+		# Set an on set listener for the home start time picker so that the home end time picker has it's min (or start time) set to the chosen start time
+		# i.e. you can't select an ending time before the start time.
+		home_start_picker.on set: (thingSet) ->
+			set_value = home_start_picker.get 'value'
+			home_end_picker.set 'min', set_value
+			home_end_picker.set 'view', set_value
+			return
+		# Do the same for the auction start time picker
+		auction_start_picker.on set: (thingSet) ->
+			set_value = auction_start_picker.get 'value'
+			auction_end_picker.set 'min', set_value
+			auction_end_picker.set 'view', set_value
 			return
 
-	## Call the modal set up function once on page load
-	set_up_modal_actions()
+		# Set the initial values based upon the status object
+		switch status_label
+			when "Home Open"
+				# Home Open: Set the checkbox to checked
+				desired_modal.find('#home-open-title').find('.checkbox').checkbox 'set checked'
+				# Set the date and time values and set the picker options
+				home_date_picker.set 'select', date, format: 'dd/mm/yyyy'
+				home_start_picker.set 'select', start_time, format: 'HH:i'
+				home_end_picker.set 'min', start_time
+				home_end_picker.set 'select', end_time, format: 'HH:i'				
+				# Open the accordion to the correct panel
+				desired_modal.find('.accordion').accordion 'open', 0
+			when "Auction"
+				# Auction: Set the checkbox to checked
+				desired_modal.find('#auction-title').find('.checkbox').checkbox 'set checked'
+				# Set the date and time values and set the picker options
+				auction_date_picker.set 'select', date, format: 'dd/mm/yyyy'
+				auction_start_picker.set 'select', start_time, format: 'HH:i'
+				auction_end_picker.set 'min', start_time
+				auction_end_picker.set 'select', end_time, format: 'HH:i'
+				# Open the accordion to the correct panel
+				desired_modal.find('.accordion').accordion 'open', 1
+			when "Under Offer"
+				# Under Offer: Set the checkbox to checked and open the accordion to the correct panel
+				desired_modal.find('#under-offer-title').find('.checkbox').checkbox 'set checked'
+				desired_modal.find('.accordion').accordion 'open', 2
+			when "Sold"
+				# Sold: Set the checkbox to checked and open the accordion to the correct panel
+				desired_modal.find('#sold-title').find('.checkbox').checkbox 'set checked'
+				desired_modal.find('.accordion').accordion 'open', 3
+			else
+				# Remove Status: Set the checkbox to checked and open the accordion to the correct panel
+				desired_modal.find('#remove-status-title').find('.checkbox').checkbox 'set checked'
+				desired_modal.find('.accordion').accordion 'open', 4
+
+		# Set callbacks and launch the modal
+		desired_modal.modal(
+			# Set the automatic focus to off (so it doesn't select the first input field and open up the pickers) and show it
+			autofocus: false
+			# The cancel button was hit. Lets clear the modal back to a blank state
+			onDeny: ->
+				# Reset title and content classes so they are not still open when you launch the modal again
+				desired_modal.find('.accordion .title').removeClass("active")
+				desired_modal.find('.accordion .content').removeClass("active")
+				# Clear old values from pickers
+				home_date_picker.clear()
+				home_start_picker.clear()
+				home_end_picker.clear()
+				auction_date_picker.clear()
+				auction_start_picker.clear()
+				auction_end_picker.clear()
+				# Reset the input values for all input fields
+				desired_modal.find('input').val("")
+				# Reset the end time minimum incase any 'on set' methods were triggered. 
+				home_end_picker.set 'min', '8:00'
+				auction_end_picker.set 'min', '8:00'
+
+			# The save button was hit, lets handle the save action and then reset the modal
+			onApprove: ->
+				console.log 'Save whas hit for modal: ' + listing_id
+		).modal 'show'
+
+		return
 
 	#--------- Infinite Scroll Code
 	# Hanlde infinite scroll of manage properties cards table
@@ -128,10 +174,6 @@ ready = ->
 		loading: ->
 			# Change the link text
 			$(this).text 'Loading more listings...'
-		success: ->
-			# Add triggers on a successful page load.
-			# This doesn't fire when the last pages loads for some reason which is why the set_up_modal_actions function is duplicated in manage.js.erb
-			set_up_modal_actions()
 		error: ->
 			# Change the link text
 			$(this).text 'There was an error retrieving more listings, please try again'
