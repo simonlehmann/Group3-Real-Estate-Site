@@ -1,55 +1,13 @@
-# Created: Daniel Swain
-# Date: 05/04/2016
+#   Created: Daniel Swain
+#   Date: 18/04/2016
 # 
-# The following coffeescript are for all sales pages.
+#   The following coffeescript is for the sales status modals
 # 
-# Todo:
-# 	* Handle status modal saving
-# 	  
+#   Todo:
+#   	* Handle status modal saving
 
 # Function containing all javascript needed on page load
 ready = ->
-	#--------- Dropdown Code
-	# Sort dropdown for manage page, combo action replaces previous elements text with selection from dropdown
-	$('#manage-filter').dropdown action: 'combo'
-
-	#--------- Sticky Code
-	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
-	$('.manage-table-header.ui.sticky').sticky
-		offset: 60
-		context: '.ui.cards'	
-	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
-	if window.location.pathname.includes('sell')
-		$('.ui.sticky').sticky 'refresh'
-
-	#--------- Tab Code
-	# Support tab's on the add_edit page
-	$('.add-edit.tabular.menu .item').tab()
-
-	#--------- Date Time Picker Configuration 
-	# Configure the date/time pickers for the status modals.
-	# Extend the DatePicker Defaults, which will apply to all date pickers
-	$.extend $.fn.pickadate.defaults,
-		firstDay: 1					# Set first day to Monday
-		min: true					# Set min date to the current date
-		format: 'dd/mm/yyyy'		# Set Display format to 08/04/2016 needs to match the data format
-		showMonthsShort: true		# Show the months short (i.e. Dec)
-	
-	# Extend the TimePicker Defaults, which will apply to all time pickers
-	$.extend $.fn.pickatime.defaults,
-		format: 'h:i a'				# Set display format to 3:00 PM
-		formatSubmit: 'HH:i'		# Set submitted format to 15:00
-		hiddenName: true			# Use a hidden input field and submit the value from that using the name of the shown field
-		interval: 15				# Set the time interval
-		min: [
-			8
-			0
-		]							# Set the minimum time (8 am)
-		max: [
-			17
-			0
-		]							# Set the maximum time (5 pm)
-
 	#--------- Modal Code -------- 	
 	# On click of the status ribbon, open the modal using the data for that status object
 	# Done as an onclick function now to reduce page load time.
@@ -163,76 +121,6 @@ ready = ->
 		).modal 'show'
 
 		return
-
-	#--------- Infinite Scroll Code
-	# Hanlde infinite scroll of manage properties cards table
-	# Can experiment with different buffers (where the scroll is triggerd as a distance from the bottom of the window) by adding
-	# buffer: XXX <- where XXX is the integer value from the screen bottom the loading will trigger from.
-	# Default is 1000 (i.e. 1000px) and seems good enough.
-	$('.infinite-table').infinitePages
-		# Change the state of the pagination link on loading and error.
-		loading: ->
-			# Change the link text
-			$(this).text 'Loading more listings...'
-		error: ->
-			# Change the link text
-			$(this).text 'There was an error retrieving more listings, please try again'
-
-	#--------- Add/Edit Page Code
-	# Change the sell price type input fields based upon the dropdown selection
-	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
-	price_dropdown_selection_change = (value) ->
-		if value == 'F'
-			# Fixed Price
-			$('#price-field-fixed').show()
-			$('#price-field-fixed').addClass 'required'
-			$('#price-field-max').hide()
-			$('#price-field-min').hide()
-			$('#price-field-max').removeClass 'required'
-			$('#price-field-min').removeClass 'required'
-		else if value == 'R'
-			# Ranged Price
-			console.log value
-			$('#price-field-fixed').hide()
-			$('#price-field-fixed').removeClass 'required'
-			$('#price-field-max').show()
-			$('#price-field-min').show()
-			$('#price-field-max').addClass 'required'
-			$('#price-field-min').addClass 'required'
-	# Set what is displayed based upon the initial value
-	price_dropdown_selection_change($('#add-edit-price-dropdown').val())
-	# Set what is displayed based upon the selected value
-	$('#add-edit-price-dropdown').change ->
-		value = @value
-		price_dropdown_selection_change(value)
-
-	#--------- Custom Tag
-	# Add tags to the selection field based upon the entered info in the add-edit-additional-tags-dropdown
-	# Get the tag area, the tag type dropdown, the tag input value and the add button
-	additional_tag_area = $('#add-edit-additional-tags')
-	additional_tag_area.dropdown allowAdditions: true
-	additional_dropdown = $('#add-edit-additional-tags-dropdown')
-	additional_input = $('#add-edit-additional-tags-input')
-	additional_button = $('#add-edit-additional-tags-button')
-	# Add a click function to the add tag button
-	additional_button.on 'click', ->
-		# Get the input value and the dropdown selection
-		value = additional_input.val()
-		selection = additional_dropdown.children("option").filter(":selected").text()
-		if value != ''
-			# Add the tag to the tag area if the value isn't empty
-			new_tag_value = value + "_" + selection
-			new_tag_text = value + " " + selection
-			# Add an option to the selection box with the new tag value and text
-			additional_tag_area.html('<option value="' + new_tag_value + '">' + new_tag_text + '</option>')
-			# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
-			setTimeout (->
-				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
-				additional_tag_area.dropdown 'set selected', new_tag_value # Select the new option based upon it's value
-			), 1
-		else
-			# Otherwise send an alert
-			alert "No value entered, please try again"
 
 	return
 

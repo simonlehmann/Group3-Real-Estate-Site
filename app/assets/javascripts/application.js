@@ -13,7 +13,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//
+// Base files (global javascript)
+//= require base/global
+//= require base/map
+//
+// Buy Page specific files
+//= require pages/buy/buy
+//
+// Sell Page specific files
+//= require pages/sell/sell_main
+//= require pages/sell/add_edit
+//= require pages/sell/status_modals
+//= require pages/sell/infinite_scroll
+//
+// Dashboard Page specific files 
+//= require pages/dashboard/dashboard
 //
 // Loads all Semantic javascripts
 //= require semantic-ui
