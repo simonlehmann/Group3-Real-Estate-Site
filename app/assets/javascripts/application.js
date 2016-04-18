@@ -17,6 +17,7 @@
 // Base files (global javascript)
 //= require base/global
 //= require base/map
+//= require base/nav
 //
 // Buy Page specific files
 //= require pages/buy/buy
