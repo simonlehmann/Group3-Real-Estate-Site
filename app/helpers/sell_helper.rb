@@ -89,4 +89,9 @@ module SellHelper
 		end
 	end
 
+	# Return the tag_type objects for a particular category
+	def add_edit_get_tag_types_for_category(category)
+		tags = TagType.where(TagTypeCategory: category)
+		return tags
+	end
 end
