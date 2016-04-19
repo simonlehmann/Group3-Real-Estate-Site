@@ -31,6 +31,9 @@
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
+// Contact Page specific files
+//= require pages/contact/contact
+//
 // Loads all Semantic javascripts
 //= require semantic-ui
 //
