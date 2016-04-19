@@ -48,12 +48,12 @@ geocodeAddress = (geocoder, resultsMap, address) ->
   return
 
 searchPlace = (search_attr) ->
-  deleteMarkers
+  deleteMarkers()
   infowindow = new (google.maps.InfoWindow)
   service = new (google.maps.places.PlacesService)(map)
   service.nearbySearch {
     location: currentLocation
-    radius: 500
+    radius: 1000
     type: [ search_attr ]
   }, callback
   return
@@ -67,6 +67,7 @@ callback = (results, status) ->
   return
 
 createMarker = (place) ->
+  console.log 'Creating marker'
   placeLoc = place.geometry.location
   marker = new (google.maps.Marker)(
     map: map
@@ -83,7 +84,7 @@ createMarker = (place) ->
 # Adds a marker to the map and push to the array.
 
 addMarker = (location) ->
-  alert 'add'
+  console.log  'adding marker'
   marker = new (google.maps.Marker)(
     position: location
     map: map)
@@ -102,7 +103,7 @@ setMapOnAll = (map) ->
 # Removes the markers from the map, but keeps them in the array.
 
 clearMarkers = ->
-  alert 'clear'
+  console.log 'clearing markers'
   setMapOnAll null
   return
 
@@ -115,7 +116,7 @@ showMarkers = ->
 # Deletes all markers in the array by removing references to them.
 
 deleteMarkers = ->
-  alert 'delete markers'
+  console.log 'deleting markers'
   clearMarkers()
   markers = []
   return
