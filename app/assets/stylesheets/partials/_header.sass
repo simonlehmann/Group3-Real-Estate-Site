@@ -10,9 +10,11 @@ header
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
+	//company logo header
 	.propertydome-logo
 		height: 2.8em
 		width: auto
+	//buy, sell, activity/contact button menu
 	.ui.secondary.pointing.menu
 		border-bottom: 0px transparent
 	.ui.menu .item,
@@ -34,22 +36,23 @@ header
 		color: $white-hover
 		.item:hover
 			color: $white-hover !important
-	a:hover,
-	a:active
-		color: $white-hover
+//navigation links
 .nav-links
 	a:not(:first-child)
 		padding-left: 20%
 		margin-left: 20%
+//based nav fixed styles
 .nav-fixed
 	position: fixed
 	top: 0px
+//nav fill colour fased on class/page url
 .nav-fixed.nav-buy
 	background-color: $green-secondary
 .nav-fixed.nav-sell
 	background-color: $red-secondary
 .nav-fixed.nav-dashboard
 	background-color: $purple-secondary
+//user profile notification badge
 .nav-buy
 	.alert-badge
 		color: $white-primary !important
@@ -71,3 +74,11 @@ header
 		background-color: $purple-saturated
 	.alert-badge:hover
 		background-color: $purple-primary !important
+//user login/sign up
+.user-login
+	color: $white-primary !important
+	background-color: transparent !important
+.user-login:hover
+	color: $white-hover !important
+.user-signup
+	color: $white-primary !important

@@ -1,7 +1,20 @@
+<%
+#	TODO:
+#		* Remove filler content
+#		* Insert twitter feed
+#		* Insert favourites carousel
+#		* Switch from favourites to stats view pending logged in/out
+#		* Fill featured properties section
+#		* Insert icons for appropraite headers
+#		* Insert actual search criteria dropdown
+#		* Selection from additional search criteria goes to main search input field
+#
+%>
 <div class="search-section">
 	<div class="ui center aligned container">
 		<h1 class="ui inverted header">LOOKING TO BUY A HOME?</h1>
 		<%= render "buy/search" %>
+		<% #search criteria dropdown button %>
 		<button class="big ui right labeled icon button">
 			<i class="right add icon"></i>
 			Add Search Criteria
@@ -9,21 +22,26 @@
 	</div>
 </div>
 <section class="favourites-section">
-
+	<% #render favourites when logged in %>
 	<%= render "buy/favourites" %>
-	
+	<% #render stats when logged out %>
+	<% #render "buy/stats" %>
 </section>
 <div class="ui one wide center aligned grid">
+	<% #triangle under favourites/stats section %>
 	<div class="lead-in ui one wide column triangle-lead"></div>
 </div>
 <section class="ui ten wide center aligned grid row">
+	<% #Featured section %>
 	<div class="ui six wide left aligned column feature-list">
 		<%= render "buy/featurepropertylist" %>
 	</div>
+	<% #Twitter section %>
 	<div class="ui four wide left aligned column twitter-feed">
 		<%= render "buy/twitter" %>
 	</div>
 </section>
+<% #filler content %>
 <p>Find me in app/views/buy/index.html.erb</p>
 <p>Find me in app/views/buy/index.html.erb</p>
 <p>Find me in app/views/buy/index.html.erb</p>

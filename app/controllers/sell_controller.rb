@@ -10,8 +10,8 @@
 # 		* destroy: delete the property.
 # 	
 # 	To do:
-# 		complete actions
-# 		Actually check if a user has a property
+# 		* complete actions
+# 		* Actually check if a user has a property
 
 class SellController < ApplicationController
 
@@ -22,11 +22,10 @@ class SellController < ApplicationController
 		user_has_property = true
 		if user_has_property
 			# For testing, I'm using a random user from the database
-			prng = Random.new
-			user_id = prng.rand(1..User.count)
+			testing_user = User.find(1)
 			
 			# Grab the listings for the user (change the listing order if you want)
-			@listings = Listing.where(ListingUserID: user_id).order(:ListingCreatedAt).page(params[:page])
+			@listings = Listing.where(ListingUserID: testing_user.UserID).order(:ListingCreatedAt).page(params[:page])
 			render "sell/manage"
 		else
 			# No properties so render the index template
@@ -37,22 +36,7 @@ class SellController < ApplicationController
 	# Show the add/edit form ready for user input and adding a new property
 	# GET /sell/new
 	def new
-		# Add logic for new stuff
-		# For testing, I'm passing fake property data
-		@property = {
-			id: 1,
-			address: "21 Shackles Street, Suburbia, Stateland",
-			status: "Home open Saturday 10am - 12pm",
-			images: ["300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png"],
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-			counts: {
-				unhide: [450, "Views"],
-				star: [30, "Favourites"],
-				comments: [5, "Comments"],
-				wait: [6, "Weeks Until Expired"]
-			}
-		}
-		
+		# Add logic for new stuff		
 		render "sell/add_edit"
 	end
 
@@ -65,21 +49,11 @@ class SellController < ApplicationController
 	# Show the add/edit form ready for user input to edit an existing property
 	# GET /sell/:id/edit
 	def edit
-		# For testing, I'm passing fake property data
-		@property = {
-			id: 1,
-			address: "21 Shackles Street, Suburbia, Stateland",
-			status: "Home open Saturday 10am - 12pm",
-			images: ["300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png","300x300.png"],
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-			counts: {
-				unhide: [450, "Views"],
-				star: [30, "Favourites"],
-				comments: [5, "Comments"],
-				wait: [6, "Weeks Until Expired"]
-			}
-		}
-		
+		# Get the listing from the database
+		@listing = Listing.find(params[:id])
+		# Grab the photos for the listing
+		@photos = ListingImage.where(ListingImageListingID: @listing.ListingID)
+		# Render the view
 		render "sell/add_edit"
 	end
 

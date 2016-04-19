@@ -10,6 +10,8 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
+# 
+# DO NOT CHANGE THIS FILE. DO NOT RUN rake db:schema:load or rake db:migrate
 
 ActiveRecord::Schema.define(version: 0) do
 

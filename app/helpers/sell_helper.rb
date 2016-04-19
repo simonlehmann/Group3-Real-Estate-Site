@@ -1,5 +1,5 @@
 #   Creator: Daniel Swain
-#   Date created: 05/04/2016
+#   Date created: 17/04/2016
 #   
 #   Helper methods that can be used in sell .erb files to get information
 
@@ -40,59 +40,58 @@ module SellHelper
 				status_return = status_label
 			end
 		else
-			# Set status return to Nil
-			status_return = Nil
+			# Set status return to blank
+			status_return = ""
 		end
 		# Return the status label
 		return status_return
 	end
 
-	# Used when generating the modals to get the right accordion/checkbox ticked
-	def status_get_active_classes(status)
-		# Get the status label
-		label = status.ListingStatusLabel
-		# Set the variables I'm going to use
-		home_class = auction_class = under_offer_class = sold_class = ""
-		home_checked = auction_checked = under_offer_checked = sold_checked = ""
-		# Set the classes based upon the status
-		case label
-		when "Home Open"
-			home_class = "active"
-			home_checked = "checked"
-		when "Auction"
-			auction_class = "active"
-			auction_checked = "checked"
-		when "Under Offer"
-			under_offer_class = "active"
-			under_offer_checked = "checked"
-		when "Sold"
-			sold_class = "active"
-			sold_checked = "checked"
+	# return a properly formatted date, need to count for times when the date and time are null/nil
+	def listing_get_status_date_readable(listing)
+		status_object = ListingStatus.find(listing.ListingStatusID)
+		if status_object
+			if status_object.ListingStatusDate
+				return status_date = Date.parse(status_object.ListingStatusDate.to_s).strftime("%d/%m/%Y")
+			else
+				return ""
+			end
+		else
+			return ""
 		end
-
-		return home_class, home_checked, auction_class, auction_checked, under_offer_class, under_offer_checked, sold_class, sold_checked
 	end
 
-	# Used when generating the modals to get the previous value
-	def status_get_date_and_times(status)
-		# Get the status label
-		label = status.ListingStatusLabel
-		# Set the variables I'm going to return
-		home_date = home_start_time = home_end_time = ""
-		auction_date = auction_start_time = auction_end_time = ""
-		# Set the values based upon the status
-		case label
-		when "Home Open"
-			home_date = Date.parse(status.ListingStatusDate.to_s).strftime("%d/%m/%Y")
-			home_start_time = Time.parse(status.ListingStatusStartTime.to_s).strftime("%H:%M")
-			home_end_time = Time.parse(status.ListingStatusEndTime.to_s).strftime("%H:%M")
-		when "Auction"
-			auction_date = Date.parse(status.ListingStatusDate.to_s).strftime("%d/%m/%Y")
-			auction_start_time = Time.parse(status.ListingStatusStartTime.to_s).strftime("%H:%M")
-			auction_end_time = Time.parse(status.ListingStatusEndTime.to_s).strftime("%H:%M")
+	# Return a properly formatted time, need to count for times when the date and time are null/nil
+	def listing_get_status_start_time_readable(listing)
+		status_object = ListingStatus.find(listing.ListingStatusID)
+		if status_object
+			if status_object.ListingStatusStartTime
+				return status_start_time = Time.parse(status_object.ListingStatusStartTime.to_s).strftime("%H:%M")
+			else
+				return ""
+			end
+		else
+			return ""
 		end
-		
-		return home_date, home_start_time, home_end_time, auction_date, auction_start_time, auction_end_time
 	end
 
+	# Return a properly formatted time, need to count for times when the date and time are null/nil
+	def listing_get_status_end_time_readable(listing)
+		status_object = ListingStatus.find(listing.ListingStatusID)
+		if status_object
+			if status_object.ListingStatusEndTime
+				return status_end_time = Time.parse(status_object.ListingStatusEndTime.to_s).strftime("%H:%M")
+			else
+				return ""
+			end
+		else
+			return ""
+		end
+	end
+
+	# Return the tag_type objects for a particular category
+	def add_edit_get_tag_types_for_category(category)
+		tags = TagType.where(TagTypeCategory: category)
+		return tags
+	end
 end

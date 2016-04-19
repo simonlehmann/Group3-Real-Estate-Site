@@ -1,10 +1,5 @@
-#TODO move location add remove header class in a main file
 nav_delay = true
 ready = ->
-	#search dropdown
-	$('.search-section .ui.dropdown').dropdown allowAdditions: true
-	#remove nav active class
-	$('.main-nav a').removeClass('active')
 	#get page location (changed from href to pathname to check for root url during testing. In prod will probably change back to href)
 	loc = window.location.pathname
 	console.log loc
@@ -49,5 +44,6 @@ $(window).bind 'scroll', ->
 		$('header').addClass 'nav-fixed'
 	else
 		$('header').removeClass 'nav-fixed'
+
 $(document).ready ready
 $(document).on 'page:load', ready
