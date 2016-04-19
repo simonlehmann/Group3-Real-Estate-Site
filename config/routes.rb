@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root 'contact#index'
+  
+  root 'buy#index'
+
   get '/buy' => 'buy#index'
-  get '/contact' => 'contact#index'
   get '/map' => 'map#index'
+  get '/dashboard' => 'dashboard#index'
+  get '/contact' => 'contact#index'
 
   # Sell Pages routes
   resources :sell, except: [:show]

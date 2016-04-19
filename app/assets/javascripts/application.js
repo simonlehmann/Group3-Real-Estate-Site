@@ -13,7 +13,23 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//
+// Base files (global javascript)
+//= require base/global
+//= require base/map
+//= require base/nav
+//
+// Buy Page specific files
+//= require pages/buy/buy
+//
+// Sell Page specific files
+//= require pages/sell/sell_main
+//= require pages/sell/add_edit
+//= require pages/sell/status_modals
+//= require pages/sell/infinite_scroll
+//
+// Dashboard Page specific files 
+//= require pages/dashboard/dashboard
 //
 // Loads all Semantic javascripts
 //= require semantic-ui
@@ -22,3 +38,6 @@
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require pickadate/lib/picker.time
+//
+// Infinite Scolling/Pagination using Jquery
+//= require jquery.infinite-pages

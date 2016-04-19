@@ -1,28 +1,32 @@
+//buy search section properties
 .search-section
 	margin-top: -60px
 	padding-top: 5em
 	width: 100%
 	min-height: 70vh
-	//height: 100% // Leaving these in doesn't work in Firefox, but does in Chrome + Safari, Removing works in all 3
-	//max-height: 100% // Leaving these in doesn't work in Firefox, but does in Chrome + Safari, Removing works in all 3
 	background: url(image_path('landing-header.png')) no-repeat
 	background-size: auto 120%
+	//search section header
 	.ui.inverted.header
 		padding-top: 3em
 		h1
 			font-size: 4em
 			text-align: center
+	//search input button
 	.ui.action.input > .button
 		background-color: $green-primary
 		color: $white-primary
 		width: 18%
+	//search input button:hover
 	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	//search input, search icon
 	.ui[class*="right labeled"].icon.button
 		color: $white-primary
 		margin-top: 2.4em
 		background-color: $blue-primary
 		margin-left: -15px
+	//search input, search icon:hover
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
 	.ui.labeled.input .label:first-child
@@ -35,13 +39,15 @@
 	.search-action
 		width: 5em
 		font-size: 1.2em
+//triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
 	padding-right: 0px
+//triangle creation from mixin
 .triangle-lead
 	+triangle(125px, 45px, down, $grey-primary)
 	text-align: center
-	
+//favourites section
 .favourites-section
 	height: 30vh
 	max-height: 300px
@@ -50,6 +56,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	h2
 		color: $white-primary !important
 		text-align: left
+//twitter section
 .twitter-feed
 	.twitter
 		color: $blue-twitter

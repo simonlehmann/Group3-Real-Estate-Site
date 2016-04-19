@@ -11,16 +11,17 @@
 #   	* manage_property_card: Used to generate each property to be managed
 #   
 #   Collections:
-#   	* @properties: An array of property hashes, which are passed to the manage_property_card partials.
+#   	* @listings: A collection of listings from the database
+#   	
+#   Notes: 
+#   	For pagination (infinite-scroll) the amount of listings displayed per page is configured in the listing.rb file in models.
 #   
 #   Todo:
 #   	* Change sort icon to ascending/descending icon default to ???
 #   	* Implement sort in ascending and descending order (clicking icon changes sort method between the two)
-#   	* Currently when you click any of the buttons in the property card the table header overflows it's container, 
-#   	  investigate why this happens and if it goes away when those buttons actually redirect to actions.
 #   	* Pass actual info to status modals and only change the one selected.
  %>
-<div class="ui container sell-container sell-top">
+<div class="ui container nobanner-container sell-top">
 	<% # Manage Properties table header%>
 	<div class="ui fixed sticky center aligned fluid card manage-table-header manage-properties">
 		<div class="content">
@@ -57,26 +58,17 @@
 		</div>
 	</div>
 	
-	<% # The properties the user has %>
-	<div class="ui cards">
-		<% # properties are sent from the controller as an array of hashes of each property the user has listed. %>
-		<% @properties.each do |property| %>
-			<% # Render the manager_property_card with the property values %>
-			<%= render 'sell/manage_property_card', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status],
-					image_path: property[:image_path],
-					description: property[:description],
-					counts: property[:counts]
-				} %>
-
-			<% # Render the manager_property_status modals with the appropriate settings %>
-			<%= render 'sell/manage_property_status_modal', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status]
-				} %>
-		<% end %>
+	<% # The property listings the user has. Now using infinite scroll%>
+	<div class="infinite-table">
+		<div class="ui cards">
+			<%= render partial: 'sell/manage_property_card', object: @listings %>
+		</div>
+		<!-- <div class="modals"></div> -->
+		<% # The link to the next batch of listings. %>	
+		<div class="ui centered grid margin-top">
+			<p class="pagination">
+				<%= link_to_next_page(@listings, 'Show More Listings', remote: true) %>
+			</p>			
+		</div>
 	</div>
 </div>

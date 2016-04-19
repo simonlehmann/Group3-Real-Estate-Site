@@ -1,0 +1,16 @@
+<section class="dashboard-container nobanner-container ui container">
+	<div class="ui sixteen wide grid stackable">
+		<div class="ui rail four wide column">
+			<div class="ui sticky dashboard-submenu">
+				<% #dashboard navigation sub menu %>
+				<%= render "dashboard/navsub" %>
+			</div>
+		</div>
+		<div class="ui ten wide column" id="activity-feed">
+			<% #dashboard content, this will switch based on nav selection %>
+			<%= render "dashboard/activitycontent" %>
+		</div>
+	</div>
+	<% #loading animation TMP %>
+	<%= render partial: 'layouts/loading' %>
+</section>

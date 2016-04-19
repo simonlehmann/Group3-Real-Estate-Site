@@ -1,0 +1,20 @@
+//   Created: Daniel Swain
+//   Date: 13/04/2016
+// 
+//   This is to append new data to the table in /sell/manage.html.erb (it's class is infinite-table')
+// 
+//   Partials:
+//   	manage_property_card: The property card that is loaded using an ajax call.
+//   	
+//   Collections:
+//   	@listings: The listing information
+
+// Append new data to the infinite-table cards list (the .ui.cards selector)
+$("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($(".infinite-table .ui.cards"));
+
+// Update pagination link
+<% if @listings.last_page? %>
+    $('.pagination').html("No more listings to manage.");
+<% else %>
+    $('.pagination').html("<%=j link_to_next_page(@listings, 'Show More Listings', remote: true) %>");
+<% end %>
