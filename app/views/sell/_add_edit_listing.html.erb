@@ -4,13 +4,15 @@
 #   
 #   Partial for adding/editing the listing information in the add_edit property flow
 #   
+#   Collections:
+#   	* @listing: the property listing to be edited (only if editing)
+#   	* @photos: the photos for the property listing
+#   
 #   Todo:
 #   	* Form validation
 #   	* Get suburbs (with postcodes) from external source
-#   	* Get tag types for additional property feature tag widget selector from database/remote source.
 #   	* Update names for input fields to be consistent and follow the Semantic-ui form validation
 #   	* Tie agent upload fields to upload function
-#   	* Keeo up to date with the database fields
 #   	* Use jQuery/JS for formatting of some of the fields (i.e. convert price fields to a $100,000 number type when data inputed)
 %>
 
@@ -31,7 +33,11 @@
 			<% # Street Address input %>
 			<div class="required field">
 				<label>Street Address</label>
-				<input type="text" name="street[address]" placeholder="Street Address">
+				<% if @listing %>
+					<input type="text" name="street[address]" placeholder="Street Address" value="<%= @listing.ListingAddress %>">
+				<% else %>
+					<input type="text" name="street[address]" placeholder="Street Address">
+				<% end %>
 			</div>
 
 			<% # Suburb and State Input %>
@@ -39,33 +45,26 @@
 				<% # Suburb search field %>
 				<div class="required field">
 					<label>Suburb</label>
-					<div class="ui fluid search selection dropdown">
-						<input type="hidden" name="suburb">
-						<i class="dropdown icon"></i>
-						<div class="default text">Select Suburb</div>
-						<div class="menu">
-							<div class="item" data-value="perth_6000">Perth, 6000</div>
-							<div class="item" data-value="n_perth_6000">North Perth, 6000</div>
-							<div class="item" data-value="w_perth_6000">West Perth, 6000</div>
-							<div class="item" data-value="s_perth_6000">South Perth, 6000</div>
-						</div>
-					</div>
+					<% if @listing %>
+						<% # Using a form helper select_tag to pass the options and set the selected option to the database value %>
+						<% # This will need to change as I'm not using the final list of suburbs, I'm just adding in the database value to a fake list so I can select it %>
+						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000", @listing.ListingSuburb], @listing.ListingSuburb), class: "ui fluid search selection add-edit-suburb dropdown" %>
+					<% else %>
+						<% # Using a form helper select_tag to pass the options and set the selected option to the default value %>
+						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000"], "Select Suburb"), class: "ui fluid search selection add-edit-suburb dropdown" %>
+					<% end %>
 				</div>
 
 				<% # State dropdown field %>
 				<div class="required field">
 					<label>State</label>
-					<select class="ui fluid dropdown">
-						<option value="">State</option>
-						<option value="ACT">Australian Capital Territory</option>
-						<option value="NSW">New South Wales</option>
-						<option value="NT">Northern Territory</option>
-						<option value="QLD">Queensland</option>
-						<option value="SA">South Australia</option>
-						<option value="TAS">Tasmania</option>
-						<option value="VIC">Victoria</option>
-						<option value="WA">Western Australia</option>
-					</select>
+					<% if @listing %>
+						<% # Using the form helper select_tag to pass the options and set the selected option to the database value %>
+						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.ListingState), class: "ui fluid add-edit-state dropdown" %>	
+					<% else %>
+						<% # Using the form helper select_tag to pass the options and set the selected option to the default value %>
+						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], "State"), class: "ui fluid add-edit-state dropdown" %>	
+					<% end %>
 				</div>
 			</div>
 
@@ -73,19 +72,35 @@
 			<div class="four fields">
 				<div class="required field">
 					<label>Bedrooms</label>
-					<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms">
+					<% if @listing %>
+						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms" value="<%= @listing.ListingBedrooms %>">
+					<% else %>
+						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms">
+					<% end %>
 				</div>
 				<div class="required field">
 					<label>Bathrooms</label>
-					<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms">
+					<% if @listing %>
+						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms" value="<%= @listing.ListingBathrooms %>">
+					<% else %>
+						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms">
+					<% end %>
 				</div>
 				<div class="required field">
-					<label>Carbays</label>
-					<input type="number" min="1" name="carbays[number]" placeholder="Carbays">
+					<label>Parking</label>
+					<% if @listing %>
+						<input type="number" min="1" name="carbays[number]" placeholder="Carbays" value="<%= @listing.ListingParking %>">
+					<% else %>
+						<input type="number" min="1" name="carbays[number]" placeholder="Carbays">
+					<% end %>
 				</div>
 				<div class="required field">
 					<label>Lot Size (sqm)</label>
-					<input type="number" min="1" name="landsize[number]" placeholder="Lot Size">
+					<% if @listing %>
+						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size" value="<%= @listing.ListingLandSize %>">
+					<% else %>
+						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size">
+					<% end %>
 				</div>
 			</div>
 
@@ -93,22 +108,37 @@
 			<div class="two fields">
 				<div class="required field">
 					<label>Price Type</label>
-					<select class="ui fluid dropdown" id="add-edit-price-dropdown">
-						<option value="F">Fixed Price</option>
-						<option value="R">Ranged (Min/Max)</option>
-					</select>
+					<% if @listing %>
+						<% # Using the form_helper select_tag to pass the options and set the selected option to the database value %>
+						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], @listing.ListingPriceType), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
+					<% else %>
+						<% # Using the form_helper select_tag to pass the options and set the selected option to the default value %>
+						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], "F"), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
+					<% end %>
 				</div>
 				<div class="field" id="price-field-fixed">
 					<label>Listing Price</label>
-					<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price">
+					<% if @listing %>
+						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price" value="<%= @listing.ListingPriceMin %>">
+					<% else %>
+						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price">
+					<% end %>
 				</div>
 				<div class="field" id="price-field-min">
 					<label>Minimum</label>
-					<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price">
+					<% if @listing %>
+						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price" value="<%= @listing.ListingPriceMin %>">
+					<% else %>
+						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price">
+					<% end %>
 				</div>
 				<div class="field" id="price-field-max">
 					<label>Maximum</label>
-					<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price">
+					<% if @listing %>
+						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price" value="<%= @listing.ListingPriceMax %>">
+					<% else %>
+						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price">
+					<% end %>
 				</div>
 			</div>
 
@@ -116,7 +146,11 @@
 			<div class="required field">
 				<label>Description</label>
 				<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. erb is required to acheive this. %>
-				<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."></textarea>
+				<% if @listing %>
+					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."><%= @listing.ListingDescription %></textarea>
+				<% else %>
+					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."></textarea>
+				<% end %>
 			</div>
 		</form>
 	</div>
@@ -130,13 +164,21 @@
 			<h4 class="ui dividing header">Additional Information</h4>
 
 			<% # Search Result Info %>
-			<div class="field">
+			<div class="required field">
 				<label>Search Result Title</label>
-				<input type="text" name="listing-title" placeholder="Enter a descriptive listing title">
+				<% if @listing %>
+					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title" value="<%= @listing.ListingTitle %>">
+				<% else %>
+					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title">
+				<% end %>
 			</div>
-			<div class="field">
+			<div class="required field">
 				<label>Search Result Subtitle</label>
-				<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
+				<% if @listing %>
+					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing" value="<%= @listing.ListingSubtitle %>">
+				<% else %>
+					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
+				<% end %>
 			</div>
 
 			<% # Optional Feature Tags %>
@@ -154,14 +196,30 @@
 				<label>Add A Property Feature Tag</label>
 				<div class="ui action input">
 					<% # The tag type dropdown %>
-					<select class="ui selection dropdown" id="add-edit-additional-tags-dropdown">
+					<% # Get the tag type objects for the desired categories %>
+					<% indoor_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
+					<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
+					<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
+						<option value="">Additional Feature</option>
+						<% # Add tags to the dropdown from the database %>
+						<% if indoor_tags %>
+							<% # Indoor tags first %>
+							<% indoor_tags.each do |tag| %>
+								<option value="<%= tag.TagTypeLabel %>"><%= tag.TagTypeLabel %></option>
+							<% end %>
+						<% end %>
+						<% if outdoor_tags %>
+							<% # Outdoor tags next %>
+							<% outdoor_tags.each do |tag| %>
+								<option value="<%= tag.TagTypeLabel %>"><%= tag.TagTypeLabel %></option>
+							<% end %>
+						<% end %><!-- 
 						<option value="Pool">Pool</option>
-						<option value="HT">Theatre Room</option>
+						<option value="HT">Theatre Room</option> -->
 					</select>
-
-					<% # The tag value input field %>
-					<input type="number" min="1" placeholder="Enter Qty or Value" id="add-edit-additional-tags-input">
-
+					<% # The tag value input field, done as a dropdown (NB. Added 'fluid' as field wasn't full width) %>
+					<% # Using a form_helper select_tag, if you want to change the options, edit the array in options_for_select. prompt: adds a default selection with the given placeholder text %>
+					<%= select_tag "additional-tag-input", options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]), class: "ui fluid selection add-edit-additional-tags-input dropdown", id: "add-edit-additional-tags-input", prompt: "Enter Qty For Additional Feature" %>
 					<% # The add tag button %>
 					<div class="ui icon button" id="add-edit-additional-tags-button">
 						<i class="plus icon"></i>

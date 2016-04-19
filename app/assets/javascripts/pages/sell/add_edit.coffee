@@ -11,6 +11,16 @@ ready = ->
 	# Support tab's on the add_edit page
 	$('.add-edit.tabular.menu .item').tab()
 
+	# Turn on the dropdowns on the add edit page
+	$('.add-edit-suburb.dropdown').dropdown()
+	$('.add-edit-state.dropdown').dropdown()
+	$('.add-edit-price.dropdown').dropdown()
+	$('.add-edit-additional-tags.dropdown').dropdown()
+	$('.add-edit-additional-tags-input.dropdown').dropdown()
+
+	# Dimmer on hover of the add/edit page add-new-picture card
+	$('.add-new-picture.card .image').dimmer on: 'hover'
+
 	# Change the sell price type input fields based upon the dropdown selection
 	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
 	price_dropdown_selection_change = (value) ->
@@ -50,8 +60,10 @@ ready = ->
 	additional_button.on 'click', ->
 		# Get the input value and the dropdown selection
 		value = additional_input.val()
-		selection = additional_dropdown.children("option").filter(":selected").text()
-		if value != ''
+		selection = additional_dropdown.children("option").filter(":selected").val()
+		console.log value
+		console.log selection
+		if value != "" and selection != ""
 			# Add the tag to the tag area if the value isn't empty
 			new_tag_value = value + "_" + selection
 			new_tag_text = value + " " + selection
@@ -62,9 +74,14 @@ ready = ->
 				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
 				additional_tag_area.dropdown 'set selected', new_tag_value # Select the new option based upon it's value
 			), 1
+			# Reset the additional tag dropdowns to their initial selected values and placeholder text
+			additional_input.dropdown 'clear'
+			additional_dropdown.dropdown 'clear'
+			additional_input.dropdown 'set text', "Enter Qty For Additional Feature"
+			additional_dropdown.dropdown 'set text', "Additional Feature"
 		else
 			# Otherwise send an alert
-			alert "No value entered, please try again"
+			alert "Please select an additional feature and quantity and try again"
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 
