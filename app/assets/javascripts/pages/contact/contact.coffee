@@ -26,22 +26,8 @@ ready = ->
 	    email:
 	    	identifier: 'email'
 	    	rules: [ {
-	      		type: 'doesntContain[a][b]'
+	      		type: 'regExp[/^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/]',
 	      		prompt: 'Please write your email to us'
 	    	} ]
-	validateEmail = (email) ->
-		re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		re.test email
-
-	validate = ->
-	  $('#result').text ''
-	  email = $('#email').val()
-	  if validateEmail(email)
-	    $('#result').text email + ' is valid :)'
-	    $('#result').css 'color', 'green'
-	  else
-	    $('#result').text email + 'is not valid :('
-	    $('#result').css 'color', 'red'
-	  false
 $(document).ready ready
 $(document).on 'page:load', ready
