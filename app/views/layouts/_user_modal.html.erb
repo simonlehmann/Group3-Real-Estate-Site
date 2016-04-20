@@ -50,44 +50,26 @@
 			<% # The username/email and password form fields %>
 			<div class="row margin-top-half">
 				<% # The user sign up form %>
-				<div class="ui form" id="user-sign-up-form">
+				<div class="ui form" id="user-form">
 					<% # User sign up username field %>
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="inverted mail icon"></i>
-							<input type="text" placeholder="Enter your username" id="user-sign-up-username-input">	
+							<input type="text" placeholder="Enter your email" id="user-email-input">	
 						</div>
 					</div>
 					<% # User sign up password field %>
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="inverted unlock alternative icon"></i>
-							<input type="text" placeholder="Enter your password" id="user-sign-up-password-input">	
+							<input type="password" placeholder="Enter your password" id="user-password-input">	
 						</div>
 					</div>
-					<% # User sign up confirm password field %>
-					<div class="field">
+					<% # User confirm password field, only shown if signing-up %>
+					<div class="field" id="user-confirm-password-field">
 						<div class="ui left icon input">
 							<i class="inverted unlock alternative icon"></i>
-							<input type="text" placeholder="Confirm your password" id="user-sign-up-confirm-input">	
-						</div>
-					</div>
-				</div>
-				
-				<% # The user login form %>
-				<div class="ui form" id="user-login-form">
-					<% # User login username field %>
-					<div class="field">
-						<div class="ui left icon input">
-							<i class="inverted mail icon"></i>
-							<input type="text" placeholder="Enter your username" id="user-login-username-input">	
-						</div>
-					</div>
-					<% # User login password field %>
-					<div class="field">
-						<div class="ui left icon input">
-							<i class="inverted unlock alternative icon"></i>
-							<input type="text" placeholder="Enter your password" id="user-login-password-input">	
+							<input type="password" placeholder="Confirm your password" id="user-confirm-password-input">	
 						</div>
 					</div>
 				</div>

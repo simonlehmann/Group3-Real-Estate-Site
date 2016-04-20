@@ -37,9 +37,8 @@ ready = ->
 			user_modal.find('#user-login-button').removeClass('active-choice')
 			# Change the text in all the buttons and actions
 			user_modal.find('.user-action').text('Sign Up')
-			# Show only the pertinent form
-			user_modal.find('#user-sign-up-form').show()
-			user_modal.find('#user-login-form').hide()
+			# Show the confirm password field
+			user_modal.find('#user-confirm-password-field').show()
 			# Hide the reminder link
 			user_modal.find('#user-login-reminder').hide()
 		else
@@ -48,9 +47,8 @@ ready = ->
 			user_modal.find('#user-login-button').addClass('active-choice')
 			# Change the text in all the buttons
 			user_modal.find('.user-action').text('Login')
-			# Show only the pertinent form
-			user_modal.find('#user-sign-up-form').hide()
-			user_modal.find('#user-login-form').show()
+			# Hide the confirm password field
+			user_modal.find('#user-confirm-password-field').hide()
 			# Show the reminder link
 			user_modal.find('#user-login-reminder').show()
 
@@ -62,9 +60,8 @@ ready = ->
 				# Change the classes
 				user_modal.find('#user-sign-up-button').addClass('active-choice')
 				user_modal.find('#user-login-button').removeClass('active-choice')
-				# Show the correct form
-				user_modal.find('#user-sign-up-form').show()
-				user_modal.find('#user-login-form').hide()
+				# Show the confirm password field
+				user_modal.find('#user-confirm-password-field').show()
 				# Hide the reminder link
 				user_modal.find('#user-login-reminder').hide()
 			return
@@ -77,9 +74,8 @@ ready = ->
 				# Change the classes
 				user_modal.find('#user-sign-up-button').removeClass('active-choice')
 				user_modal.find('#user-login-button').addClass('active-choice')
-				# Show the correct form
-				user_modal.find('#user-sign-up-form').hide()
-				user_modal.find('#user-login-form').show()
+				# Hide the confirm password field
+				user_modal.find('#user-confirm-password-field').hide()
 				# Show the reminder link
 				user_modal.find('#user-login-reminder').show()
 			return
@@ -89,9 +85,12 @@ ready = ->
 
 		# Set callback actions and show it
 		user_modal.modal(
-			onDeny: ->
-				console.log 'Cancel was hit'
-
+			onHide: ->
+				console.log 'Model being closed'
+				# Clear the input fields when it's closed
+				user_modal.find('#user-email-input').val("")
+				user_modal.find('#user-password-input').val("")
+				user_modal.find('#user-confirm-password-input').val("")
 			onApprove: ->
 				console.log 'Submit was hit'
 
