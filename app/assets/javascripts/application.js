@@ -18,6 +18,7 @@
 //= require base/global
 //= require base/map
 //= require base/nav
+//= require base/user_login
 //
 // Buy Page specific files
 //= require pages/buy/buy

@@ -1,0 +1,50 @@
+<%
+#   Created: Daniel Swain
+#   Date: 20/04/2016
+#   
+#   Partial erb used by any page.
+#   This represents the modal used to either sign up or log in
+#      
+#   Todo:
+#   	* Form field validation
+#   	* Connect to the actual user signup and login actions
+%>
+
+<% # The status modal %>
+<div class="ui small user-login-signup modal" id="user-login-signup-modal">
+	<% # Modal header %>
+	<div class="header">
+		Welcome to Propertydome
+	</div>
+	
+	<% # Modal content %>
+	<div class="content">
+		<div class="ui centered middle aligned grid">
+			<div class="ui buttons">
+				<button class="ui button" id="user-sign-up-button">Sign Up</button>
+				<button class="ui button" id="user-login-button">Login</button>
+			</div>
+			<div class="row">
+				<button class="ui social-user-button facebook-button button">
+					<%= image_tag "f-logo.png", class: "icon" %>
+					<span class="user-action">Sign Up with</span> Facebook
+				</button>
+			</div>
+			<div class="row">
+				<button class="ui social-user-button google-button button">
+					<%= image_tag "g-logo.png", class: "icon" %>
+					<span class="user-action">Sign Up with</span> Google
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<% # The action buttons %>
+	<div class="actions">
+		<% # The actions for this are set in user_login.coffee in the onDeny and onApprove callbacks for the modal %>
+		<!-- <div class="ui centered middle aligned grid"> -->
+			<div class="ui cancel button">Cancel</div>
+			<div class="ui approve button">Save</div>
+		<!-- </div> -->
+	</div>
+</div>
