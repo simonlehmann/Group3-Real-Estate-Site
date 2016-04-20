@@ -1,11 +1,17 @@
-<div id="map-container">
-	Address: <input type="text" id="addr_box" name="addr_box">
-	<button id="addr_submit">Submit</button>
-	Search Nearby: <input type="text" id="search_box" name="search_box">
-	Radius: <input type="text" id="search_radius" name="search_radius" width="20">
-	<button id="search_attr">Search</button>
-	<button id="search_school">Schools</button>
-	<button id="search_food">Food</button>
-	<button id="search_petrol">Petrol Station</button>
-	<div id="map-canvas"></div>
-</div> 
+<div id="outer-container">
+	<div id="map-container">
+		Address: <input type="text" id="addr_box" name="addr_box">
+		<button id="addr_submit">Submit</button>
+		Search Nearby: <input type="text" id="search_box" name="search_box">
+		Radius: <input type="text" id="search_radius" name="search_radius" width="20">
+		<button id="search_attr">Search</button>
+		<div id="map-canvas"></div>
+	</div> 
+	<div id="side-nav">
+		<ul>
+			<li><a><button id="search_school">Schools</button></a></li>
+			<li><a><button id="search_food">Food</button></a></li>
+			<li><a><button id="search_petrol">Petrol Station</button></a></li>
+		</ul>
+	</div>
+</div>
