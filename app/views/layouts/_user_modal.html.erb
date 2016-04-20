@@ -8,10 +8,11 @@
 #   Todo:
 #   	* Form field validation
 #   	* Connect to the actual user signup and login actions
+#   	* Change forgotten password link to point to correct action. Currently points to buy_path
 %>
 
 <% # The status modal %>
-<div class="ui small user-login-signup modal" id="user-login-signup-modal">
+<div class="ui user-login-signup modal" id="user-login-signup-modal">
 	<% # Modal header %>
 	<div class="header">
 		Welcome to Propertydome
@@ -20,31 +21,91 @@
 	<% # Modal content %>
 	<div class="content">
 		<div class="ui centered middle aligned grid">
-			<div class="ui buttons">
-				<button class="ui button" id="user-sign-up-button">Sign Up</button>
-				<button class="ui button" id="user-login-button">Login</button>
-			</div>
+			<% # Choose either login or sign up %>
 			<div class="row">
+				<div class="ui buttons">
+					<button class="ui button" id="user-sign-up-button">Sign Up</button>
+					<button class="ui button" id="user-login-button">Login</button>
+				</div>
+			</div>
+			
+			<% # The facebook button. This is a placeholder and will be replaced with code from Facebook soon %>
+			<div class="row margin-top-half">
 				<button class="ui social-user-button facebook-button button">
 					<%= image_tag "f-logo.png", class: "icon" %>
-					<span class="user-action">Sign Up with</span> Facebook
+					<span class="user-action"></span> with Facebook
 				</button>
 			</div>
+			<% # The Google button. This is a placeholder and will be replaced with code from Google soon %>
 			<div class="row">
 				<button class="ui social-user-button google-button button">
 					<%= image_tag "g-logo.png", class: "icon" %>
-					<span class="user-action">Sign Up with</span> Google
+					<span class="user-action"></span> with Google
 				</button>
+			</div>
+			<% # An or, just like Jaydens design %>
+			<div class="row margin-top-half">
+				or
+			</div>
+			<% # The username/email and password form fields %>
+			<div class="row margin-top-half">
+				<% # The user sign up form %>
+				<div class="ui form" id="user-sign-up-form">
+					<% # User sign up username field %>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="inverted mail icon"></i>
+							<input type="text" placeholder="Enter your username" id="user-sign-up-username-input">	
+						</div>
+					</div>
+					<% # User sign up password field %>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="inverted unlock alternative icon"></i>
+							<input type="text" placeholder="Enter your password" id="user-sign-up-password-input">	
+						</div>
+					</div>
+					<% # User sign up confirm password field %>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="inverted unlock alternative icon"></i>
+							<input type="text" placeholder="Confirm your password" id="user-sign-up-confirm-input">	
+						</div>
+					</div>
+				</div>
+				
+				<% # The user login form %>
+				<div class="ui form" id="user-login-form">
+					<% # User login username field %>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="inverted mail icon"></i>
+							<input type="text" placeholder="Enter your username" id="user-login-username-input">	
+						</div>
+					</div>
+					<% # User login password field %>
+					<div class="field">
+						<div class="ui left icon input">
+							<i class="inverted unlock alternative icon"></i>
+							<input type="text" placeholder="Enter your password" id="user-login-password-input">	
+						</div>
+					</div>
+				</div>
+			</div>
+			<% # Forgotten password link %>
+			<div class="row" id="user-login-reminder">
+				<%= link_to "Forgotten your password?", buy_path %>
 			</div>
 		</div>
 	</div>
 
 	<% # The action buttons %>
 	<div class="actions">
-		<% # The actions for this are set in user_login.coffee in the onDeny and onApprove callbacks for the modal %>
-		<!-- <div class="ui centered middle aligned grid"> -->
-			<div class="ui cancel button">Cancel</div>
-			<div class="ui approve button">Save</div>
-		<!-- </div> -->
+		<div class="ui centered one column grid">
+			<div class="ui eight wide column">
+				<% # The action for this are set in user_login.coffee in the onDeny and onApprove callbacks for the modal %>
+				<div class="ui fluid approve active-choice button"><span class="user-action"></span></div>
+			</div>
+		</div>
 	</div>
 </div>

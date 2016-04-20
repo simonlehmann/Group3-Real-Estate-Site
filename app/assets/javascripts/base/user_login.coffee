@@ -32,13 +32,63 @@ ready = ->
 		user_modal = $('#user-login-signup-modal')
 		# Add classes and set up modal based upon whether you clicked login or join (aka sign_up)
 		if sign_up == true
+			# Select the correct button
 			user_modal.find('#user-sign-up-button').addClass('active-choice')
 			user_modal.find('#user-login-button').removeClass('active-choice')
+			# Change the text in all the buttons and actions
+			user_modal.find('.user-action').text('Sign Up')
+			# Show only the pertinent form
+			user_modal.find('#user-sign-up-form').show()
+			user_modal.find('#user-login-form').hide()
+			# Hide the reminder link
+			user_modal.find('#user-login-reminder').hide()
 		else
+			# Select the correct button
 			user_modal.find('#user-sign-up-button').removeClass('active-choice')
 			user_modal.find('#user-login-button').addClass('active-choice')
+			# Change the text in all the buttons
+			user_modal.find('.user-action').text('Login')
+			# Show only the pertinent form
+			user_modal.find('#user-sign-up-form').hide()
+			user_modal.find('#user-login-form').show()
+			# Show the reminder link
+			user_modal.find('#user-login-reminder').show()
+
+		# Make the sign-up button change modal state
+		user_modal.find('#user-sign-up-button').click ->
+			if !$(this).hasClass('active-choice')
+				# Change the text in all the buttons and actions
+				user_modal.find('.user-action').text('Sign Up')
+				# Change the classes
+				user_modal.find('#user-sign-up-button').addClass('active-choice')
+				user_modal.find('#user-login-button').removeClass('active-choice')
+				# Show the correct form
+				user_modal.find('#user-sign-up-form').show()
+				user_modal.find('#user-login-form').hide()
+				# Hide the reminder link
+				user_modal.find('#user-login-reminder').hide()
+			return
+
+		# Make the login button change modal state
+		user_modal.find('#user-login-button').click ->
+			if !$(this).hasClass('active-choice')
+				# Change the text in all the buttons and actions
+				user_modal.find('.user-action').text('Login')
+				# Change the classes
+				user_modal.find('#user-sign-up-button').removeClass('active-choice')
+				user_modal.find('#user-login-button').addClass('active-choice')
+				# Show the correct form
+				user_modal.find('#user-sign-up-form').hide()
+				user_modal.find('#user-login-form').show()
+				# Show the reminder link
+				user_modal.find('#user-login-reminder').show()
+			return
+
+		# Set the modal width
+		user_modal.css('width', 300)
+
+		# Set callback actions and show it
 		user_modal.modal(
-			# Callback actions
 			onDeny: ->
 				console.log 'Cancel was hit'
 
@@ -46,6 +96,8 @@ ready = ->
 				console.log 'Submit was hit'
 
 		).modal 'show'
+
+		
 
 	# Show the user-login modal on click -> focusing on the sign-in action
 	$('.user-login').click ->
@@ -56,34 +108,6 @@ ready = ->
 	$('.user-signup').click ->
 		show_modal()
 		return
-
-	
-		
-	# desired_modal.modal(
-	# 	# Set the automatic focus to off (so it doesn't select the first input field and open up the pickers) and show it
-	# 	autofocus: false
-	# 	# The cancel button was hit. Lets clear the modal back to a blank state
-	# 	onDeny: ->
-	# 		# Reset title and content classes so they are not still open when you launch the modal again
-	# 		desired_modal.find('.accordion .title').removeClass("active")
-	# 		desired_modal.find('.accordion .content').removeClass("active")
-	# 		# Clear old values from pickers
-	# 		home_date_picker.clear()
-	# 		home_start_picker.clear()
-	# 		home_end_picker.clear()
-	# 		auction_date_picker.clear()
-	# 		auction_start_picker.clear()
-	# 		auction_end_picker.clear()
-	# 		# Reset the input values for all input fields
-	# 		desired_modal.find('input').val("")
-	# 		# Reset the end time minimum incase any 'on set' methods were triggered. 
-	# 		home_end_picker.set 'min', '8:00'
-	# 		auction_end_picker.set 'min', '8:00'
-
-	# 	# The save button was hit, lets handle the save action and then reset the modal
-	# 	onApprove: ->
-	# 		console.log 'Save whas hit for modal: ' + listing_id
-	# ).modal 'show'
 
 	return
 
