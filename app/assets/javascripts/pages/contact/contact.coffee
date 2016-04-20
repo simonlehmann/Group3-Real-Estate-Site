@@ -26,7 +26,7 @@ ready = ->
 	    email:
 	    	identifier: 'email'
 	    	rules: [ {
-	      		type: 'regExp[/^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/]',
+	      		type: 'regExp[/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$/]',
 	      		prompt: 'Please write your email to us'
 	    	} ]
 $(document).ready ready
