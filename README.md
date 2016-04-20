@@ -86,6 +86,11 @@ You can confirm the install using the same commands as for windows in your termi
 9. Terminal (Shortcut to open terminal in project folder, see Daniel/Jayden for configuration tips for use in class)
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
+## :id: Demo User
+You can use the below login credentials to log into the demo account:  
+Email: ```propertydomeau@gmail.com```  
+Password: ```Password123```  
+
 ## :computer: Server Information
 During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
 ###:key: MySQL Database Server Login Details
