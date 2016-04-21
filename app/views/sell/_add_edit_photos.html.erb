@@ -32,9 +32,9 @@
 				<div class="ui card">
 					<div class="ui image">
 						<% # Get the low res image %>
-						<%= image_tag "#{photo.ListingImagePathLowRes}", alt: "#{photo.ListingImageID}" %>
+						<%= image_tag "#{photo.listing_image_path_low_res}", alt: "#{photo.listing_image_id}" %>
 						<% # If the image id for this photo is the same as the listings cover image id then add the main image label to it. %>
-						<% if photo.ListingImageID == @listing.ListingCoverImageID %>
+						<% if photo.listing_image_id == @listing.listing_cover_image_id %>
 							<div class="ui add-edit property-card bottom attached label">Main Image</div>
 						<% end %>
 					</div>
