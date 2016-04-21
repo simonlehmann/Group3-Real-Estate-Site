@@ -4,8 +4,8 @@
 #   The Model class for the property status, represents a status for a listing
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
-#   	id: int
 #   	email: varchar(255)
+#   	id: int
 #   	encrypted_password: varchar(255)
 #   	reset_password_token: varchar(255)
 #   	reset_password_sent_at: datetime

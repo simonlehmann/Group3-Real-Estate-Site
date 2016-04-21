@@ -38,7 +38,7 @@ ready = ->
 			# Change the text in all the buttons and actions
 			user_modal.find('.user-action').text('Sign Up')
 			# Show the confirm password field
-			user_modal.find('#user-confirm-password-field').show()
+			#user_modal.find('#user-confirm-password-field').show()
 			# Hide the reminder link
 			user_modal.find('#user-login-reminder').hide()
 		else
@@ -48,7 +48,7 @@ ready = ->
 			# Change the text in all the buttons
 			user_modal.find('.user-action').text('Login')
 			# Hide the confirm password field
-			user_modal.find('#user-confirm-password-field').hide()
+			#user_modal.find('#user-confirm-password-field').hide()
 			# Show the reminder link
 			user_modal.find('#user-login-reminder').show()
 
@@ -61,7 +61,7 @@ ready = ->
 				user_modal.find('#user-sign-up-button').addClass('active-choice')
 				user_modal.find('#user-login-button').removeClass('active-choice')
 				# Show the confirm password field
-				user_modal.find('#user-confirm-password-field').show()
+				#user_modal.find('#user-confirm-password-field').show()
 				# Hide the reminder link
 				user_modal.find('#user-login-reminder').hide()
 			return
@@ -75,7 +75,7 @@ ready = ->
 				user_modal.find('#user-sign-up-button').removeClass('active-choice')
 				user_modal.find('#user-login-button').addClass('active-choice')
 				# Hide the confirm password field
-				user_modal.find('#user-confirm-password-field').hide()
+				#user_modal.find('#user-confirm-password-field').hide()
 				# Show the reminder link
 				user_modal.find('#user-login-reminder').show()
 			return
