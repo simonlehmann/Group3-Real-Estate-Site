@@ -1,4 +1,3 @@
-<% user_logged_in = false #TMP solution to set user is logged in or off %>
 <header class="following bar nav-buy">
 	<div class="ui center aligned container">
 		<div class="ui centered three column grid">
@@ -12,12 +11,12 @@
 					<%= link_to "Buy", buy_path, class: "buy-item active item " %>
 					<%= link_to "Sell", sell_index_path, class: "sell-item item" %>
 					<% #if logged in show my activity button/path %>
-					<% if user_logged_in %>
+					<% if user_signed_in? %>
 						<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
 					<% end %>
 					<% #contact us path is currently incorrect %>
 					<% #if logged out show contact us button/path %>
-					<% if !user_logged_in %>
+					<% if user_signed_in? %>
 						<%= link_to "Contact Us", dashboard_path, class: "activity-item item" %>
 					<% end %>
 				</div>
@@ -25,7 +24,7 @@
 			<% #user profile or loggin/signup %>
 			<div class="right floated middle aligned right aligned column">
 				<% #user logged in profile selection %>
-				<% if user_logged_in %>
+				<% if user_signed_in? %>
 					<div class="ui simple dropdown item">
 						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
 						<% #user profile name %>
@@ -35,14 +34,17 @@
 							<div class="item">My Messages</div>
 							<div class="item">Favourites</div>
 							<div class="item">Account Settings</div>
-							<div class="item">Logout</div>
+							<div class="item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></div>
 						</div>
 					</div>
 					<% #number of alerts %>
 					<a class="ui circular label alert-badge"><i class="alarm icon"></i>2 </a>
 				<% end %>
 				<% #user is logged out login/signup selection %>
-				<% if !user_logged_in %>
+				<% if user_signed_in? %>
+					<% # Remove below link once styling in user dropdon for links is fixed! %>
+					<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+				<% else %>
 					<button class="ui button user-login">Login</button>
 					<button class="ui inverted green button user-signup">Join</button>
 				<% end %>
