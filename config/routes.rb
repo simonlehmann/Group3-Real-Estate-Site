@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  
+
   root 'buy#index'
 
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
+  
+  # Static Pages routes
+  get '/privacy' => 'static_pages#privacy'
+  get '/terms' => 'static_pages#terms'
 
   # Sell Pages routes
   resources :sell, except: [:show]
