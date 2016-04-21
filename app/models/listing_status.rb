@@ -4,11 +4,11 @@
 #   The Model class for the property status, represents a status for a listing
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
-#   	ListingStatusID: int
-#   	ListingStatusLabel: set("Home Open", "Auction", "Under Offer", "Sold")
-#   	ListingStatusDate: date NULLABLE
-#   	ListingStatusStartTime: time NULLABLE
-#   	ListingStatusEndTime: time NULLABLE
+#   	listing_status_id: int
+#   	listing_status_label: set("Home Open", "Auction", "Under Offer", "Sold")
+#   	listing_status_date: date NULLABLE
+#   	listing_status_start_time: time NULLABLE
+#   	listing_status_end_time: time NULLABLE
 #   	
 #   Relations:
 # 		No foriegn key relations in the listing_status, but others relate to it.

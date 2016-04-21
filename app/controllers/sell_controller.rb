@@ -22,10 +22,10 @@ class SellController < ApplicationController
 		user_has_property = true
 		if user_has_property
 			# For testing, I'm using a random user from the database
-			testing_user = User.find(1)
+			#testing_user = User.find(1)
 			
 			# Grab the listings for the user (change the listing order if you want)
-			@listings = Listing.where(ListingUserID: testing_user.UserID).order(:ListingCreatedAt).page(params[:page])
+			@listings = Listing.where(listing_user_id: 1).order(:listing_created_at).page(params[:page])
 			render "sell/manage"
 		else
 			# No properties so render the index template
@@ -52,7 +52,7 @@ class SellController < ApplicationController
 		# Get the listing from the database
 		@listing = Listing.find(params[:id])
 		# Grab the photos for the listing
-		@photos = ListingImage.where(ListingImageListingID: @listing.ListingID)
+		@photos = ListingImage.where(listing_image_listing_id: @listing.listing_id)
 		# Render the view
 		render "sell/add_edit"
 	end
