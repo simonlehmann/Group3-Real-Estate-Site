@@ -5,7 +5,11 @@
 	*= require main
 	
 	// Bower component themes
+	// Date picker
 	*= require pickadate/lib/themes/classic
 	*= require pickadate/lib/themes/classic.date
 	*= require pickadate/lib/themes/classic.time
+	// Slick carousel
+	*= require slick-carousel/slick/slick-theme
+	*= require slick-carousel/slick/slick
  */
