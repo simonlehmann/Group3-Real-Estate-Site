@@ -31,6 +31,9 @@
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
+// Static Pages file
+//= require pages/static/static_pages
+//
 // Loads all Semantic javascripts
 //= require semantic-ui
 //
