@@ -1,10 +1,10 @@
 <%
 #   Created: Daniel Swain
 #   Date: 20/04/2016
-#   
+#
 #   Partial erb used by any page.
 #   This represents the modal used to either sign up or log in
-#      
+#
 #   Todo:
 #   	* Form field validation
 #   	* Connect to the actual user signup and login actions
@@ -17,7 +17,7 @@
 	<div class="header">
 		Welcome to Propertydome
 	</div>
-	
+
 	<% # Modal content %>
 	<div class="content">
 		<div class="ui centered middle aligned grid">
@@ -28,7 +28,7 @@
 					<button class="ui button" id="user-sign-up-button">Sign Up</button>
 				</div>
 			</div>
-			
+
 			<% # The facebook button. This is a placeholder and will be replaced with code from Facebook soon %>
 			<div class="row margin-top-half">
 				<button class="ui social-user-button facebook-button button">
@@ -55,28 +55,37 @@
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="inverted mail icon"></i>
-							<input type="text" placeholder="Enter your email" id="user-email-input">	
+							<%= form_for(:user, :url => session_path(:user)) do |f| %>
+							<!-- <input type="text" placeholder="Enter your email" id="user-email-input">	 -->
+							<%= f.text_field :email %>
 						</div>
 					</div>
 					<% # User sign up password field %>
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="inverted unlock alternative icon"></i>
-							<input type="password" placeholder="Enter your password" id="user-password-input">	
+							<!-- <input type="password" placeholder="Enter your password" id="user-password-input">	 -->
+							<%= f.password_field :password %>
 						</div>
 					</div>
 					<% # User confirm password field, only shown if signing-up %>
 					<div class="field" id="user-confirm-password-field">
 						<div class="ui left icon input">
 							<i class="inverted unlock alternative icon"></i>
-							<input type="password" placeholder="Confirm your password" id="user-confirm-password-input">	
+							<input type="password" placeholder="Confirm your password" id="user-confirm-password-input">
 						</div>
 					</div>
 				</div>
 			</div>
+			<% # Remember me checkbox %>
+			<div class"row">
+				<%= f.check_box :remember_me %>
+  			<%= f.label :remember_me %>
+			</div>
 			<% # Forgotten password link %>
 			<div class="row" id="user-login-reminder">
-				<%= link_to "Forgotten your password?", buy_path %>
+				<!-- <%= link_to "Forgotten your password?", buy_path %> -->
+				<%= link_to "Forgot your password?", new_password_path(:user) %>
 			</div>
 		</div>
 	</div>
@@ -86,7 +95,9 @@
 		<div class="ui centered one column grid">
 			<div class="ui eight wide column">
 				<% # The action for this are set in user_login.coffee in the onDeny and onApprove callbacks for the modal %>
-				<div class="ui fluid approve active-choice button"><span class="user-action"></span></div>
+				<!-- <div class="ui fluid approve active-choice button"><span class="user-action"></span></div> -->
+				<%= f.submit 'Sign in' %>
+				<% end %>
 			</div>
 		</div>
 	</div>
