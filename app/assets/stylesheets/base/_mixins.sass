@@ -21,9 +21,12 @@
 		border-top: $height solid $triangle-color
 //circle shape creation
 //properties: width and fill color
-=circle($width: 50px, $circle-color: purple)
+=circle($width: 50px, $circle-color: purple, $border-style: none, $border-width: 0px, $border-color: $transparent)
 	width: $width
 	height: $width
+	border-style: $border-style
+	border-width: $border-width
+	border-color: $border-color
 	background-color: $circle-color
 	-webkit-border-radius: $width/2
 	-moz-border-radius: $width/2
