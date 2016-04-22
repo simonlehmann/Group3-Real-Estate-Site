@@ -18,40 +18,35 @@
 		+circle(13px, $green-primary)
 		-moz-transform: scale(0)
 		-webkit-transform: scale(0)
-		-moz-animation: loading 3s linear infinite
-		-webkit-animation: loading 3s ease-in infinite
+		transform: scale(0)
+		-moz-animation: loading 2s infinite ease-in-out both
+		-webkit-animation: loading 2s infinite ease-in-out both
+		animation: loading 2s infinite ease-in-out both
 	//start first circle at 0.5 delay
 	#layer1
-		-moz-animation-delay: 0.5s
-		-webkit-animation-delay: 0.5s
+		-webkit-animation-delay: -0.8s
+		-moz-animation-delay: -0.8s
+		animation-delay: -0.8s
 	//start second circle at 1.5 delay
 	#layer2
-		-moz-animation-delay: 1.5s
-		-webkit-animation-delay: 1.5s
-	//start third circle at 2.5 delay
-	#layer3
-		-moz-animation-delay: 2.5s
-		-webkit-animation-delay: 2.5s
+		-webkit-animation-delay: -0.4s
+		-moz-animation-delay: -0.4s
+		animation-delay: -0.4s
 	//scale each dot at time intervals, based on delays
 	@-moz-keyframes loading
-		0%
-			-moz-transform: scale(0,0)
-		25%
-			-moz-transform: scale(1,1)
-		30%
-			-moz-transform: scale(1,1)
-		50%
-			-moz-transform: scale(0,0)
-		100%
-			-moz-transform: scale(0,0)
+		0%, 80%, 100%
+			-moz-transform: scale(0)
+		40%, 52%
+			-moz-transform: scale(1.0)
 	@-webkit-keyframes loading
-		0%
-			-webkit-transform: scale(0,0)
-		25%
-			-webkit-transform: scale(1,1)
-		30%
-			-webkit-transform: scale(1,1)
-		50%
-			-webkit-transform: scale(0,0)
-		100%
-			-webkit-transform: scale(0,0)
+		0%, 80%, 100%
+			-webkit-transform: scale(0)
+		40%, 52%
+			-webkit-transform: scale(1.0)
+	@keyframes loading
+		0%, 80%, 100%
+			-webkit-transform: scale(0)
+			transform: scale(0)
+		40%, 52%
+			-webkit-transform: scale(1.0)
+			transform: scale(1.0)

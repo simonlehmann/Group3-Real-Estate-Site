@@ -1,0 +1,14 @@
+<%
+#   Created by: Simon Lehmann & Daniel Swain
+#   Date: 20/04/2016
+#   
+#   The account confirmation email message
+#
+#   This will be sent to the address of the user
+%>
+
+<p>Welcome <%= @email %>!</p>
+					
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
