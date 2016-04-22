@@ -13,77 +13,77 @@
 
 ActiveRecord::Schema.define(version: 20160421071336) do
 
-  create_table "blockages", primary_key: "BlockageID", force: :cascade do |t|
-    t.integer  "BlockageToUserID",   limit: 4, null: false
-    t.integer  "BlockageFromUserID", limit: 4, null: false
-    t.datetime "BlockageCreatedAt",            null: false
+  create_table "blockages", primary_key: "blockage_id", force: :cascade do |t|
+    t.integer  "blockage_to_user_id",   limit: 4, null: false
+    t.integer  "blockage_from_user_id", limit: 4, null: false
+    t.datetime "blockage_created_at",             null: false
   end
 
-  create_table "favourites", primary_key: "FavouriteID", force: :cascade do |t|
-    t.integer  "FavouriteUserID",    limit: 4, null: false
-    t.integer  "FavouriteListingID", limit: 4, null: false
-    t.datetime "FavouriteCreatedAt",           null: false
+  create_table "favourites", primary_key: "favourite_id", force: :cascade do |t|
+    t.integer  "favourite_user_id",    limit: 4, null: false
+    t.integer  "favourite_listing_id", limit: 4, null: false
+    t.datetime "favourite_created_at",           null: false
   end
 
-  create_table "listing_images", primary_key: "ListingImageID", force: :cascade do |t|
-    t.string   "ListingImagePath",       limit: 128, null: false
-    t.string   "ListingImagePathLowRes", limit: 128, null: false
-    t.datetime "ListingImageCreatedAt",              null: false
-    t.integer  "ListingImageListingID",  limit: 4,   null: false
+  create_table "listing_images", primary_key: "listing_image_id", force: :cascade do |t|
+    t.string   "listing_image_path",         limit: 128, null: false
+    t.string   "listing_image_path_low_res", limit: 128, null: false
+    t.datetime "listing_image_created_at",               null: false
+    t.integer  "listing_image_listing_id",   limit: 4,   null: false
   end
 
-  create_table "listing_status", primary_key: "ListingStatusID", force: :cascade do |t|
-    t.string "ListingStatusLabel",     limit: 0, null: false
-    t.date   "ListingStatusDate"
-    t.time   "ListingStatusStartTime"
-    t.time   "ListingStatusEndTime"
+  create_table "listing_status", primary_key: "listing_status_id", force: :cascade do |t|
+    t.string "listing_status_label",      limit: 0, null: false
+    t.date   "listing_status_date"
+    t.time   "listing_status_start_time"
+    t.time   "listing_status_end_time"
   end
 
-  create_table "listings", primary_key: "ListingID", force: :cascade do |t|
-    t.integer  "ListingCoverImageID", limit: 4
-    t.string   "ListingAddress",      limit: 256,                                          null: false
-    t.string   "ListingSuburb",       limit: 32,                                           null: false
-    t.string   "ListingState",        limit: 0,                                            null: false
-    t.integer  "ListingPostCode",     limit: 4,                                            null: false
-    t.integer  "ListingBedrooms",     limit: 4,                                            null: false
-    t.integer  "ListingBathrooms",    limit: 4,                                            null: false
-    t.integer  "ListingParking",      limit: 4,                                            null: false
-    t.integer  "ListingLandSize",     limit: 4,                                            null: false
-    t.string   "ListingTitle",        limit: 64,                                           null: false
-    t.string   "ListingSubtitle",     limit: 128,                                          null: false
-    t.text     "ListingDescription",  limit: 65535,                                        null: false
-    t.string   "ListingPriceType",    limit: 0,                              default: "F", null: false
-    t.decimal  "ListingPriceMin",                   precision: 12, scale: 2,               null: false
-    t.decimal  "ListingPriceMax",                   precision: 12, scale: 2,               null: false
-    t.integer  "ListingStatusID",     limit: 4,                                            null: false
-    t.integer  "ListingUserID",       limit: 4,                                            null: false
-    t.integer  "ListingViews",        limit: 4,                              default: 0,   null: false
-    t.integer  "ListingFavourites",   limit: 4,                              default: 0,   null: false
-    t.integer  "ListingComments",     limit: 4,                              default: 0,   null: false
-    t.datetime "ListingCreatedAt",                                                         null: false
-    t.datetime "ListingUpdatedAt",                                                         null: false
-    t.datetime "ListingToEndAt",                                                           null: false
-    t.datetime "ListingEndedAt"
+  create_table "listings", primary_key: "listing_id", force: :cascade do |t|
+    t.integer  "listing_cover_image_id", limit: 4
+    t.string   "listing_address",        limit: 256,                                          null: false
+    t.string   "listing_suburb",         limit: 32,                                           null: false
+    t.string   "listing_state",          limit: 0,                                            null: false
+    t.integer  "listing_post_code",      limit: 4,                                            null: false
+    t.integer  "listing_bedrooms",       limit: 4,                                            null: false
+    t.integer  "listing_bathrooms",      limit: 4,                                            null: false
+    t.integer  "listing_parking",        limit: 4,                                            null: false
+    t.integer  "listing_land_size",      limit: 4,                                            null: false
+    t.string   "listing_title",          limit: 64,                                           null: false
+    t.string   "listing_subtitle",       limit: 128,                                          null: false
+    t.text     "listing_description",    limit: 65535,                                        null: false
+    t.string   "listing_price_type",     limit: 0,                              default: "F", null: false
+    t.decimal  "listing_price_min",                    precision: 12, scale: 2,               null: false
+    t.decimal  "listing_price_max",                    precision: 12, scale: 2,               null: false
+    t.integer  "listing_status_id",      limit: 4,                                            null: false
+    t.integer  "listing_user_id",        limit: 4,                                            null: false
+    t.integer  "listing_views",          limit: 4,                              default: 0,   null: false
+    t.integer  "listing_favourites",     limit: 4,                              default: 0,   null: false
+    t.integer  "listing_comments",       limit: 4,                              default: 0,   null: false
+    t.datetime "listing_created_at",                                                          null: false
+    t.datetime "listing_updated_at",                                                          null: false
+    t.datetime "listing_to_end_at",                                                           null: false
+    t.datetime "listing_ended_at"
   end
 
-  create_table "messages", primary_key: "MessageID", force: :cascade do |t|
-    t.integer  "MessageToUserID",   limit: 4,     null: false
-    t.integer  "MessageFromUserID", limit: 4,     null: false
-    t.string   "MessageSubject",    limit: 128,   null: false
-    t.text     "MessageBody",       limit: 65535, null: false
-    t.datetime "MessageSentAt",                   null: false
+  create_table "messages", primary_key: "message_id", force: :cascade do |t|
+    t.integer  "message_to_user_id",   limit: 4,     null: false
+    t.integer  "message_from_user_id", limit: 4,     null: false
+    t.string   "message_subject",      limit: 128,   null: false
+    t.text     "message_body",         limit: 65535, null: false
+    t.datetime "message_sent_at",                    null: false
   end
 
-  create_table "tag_type", primary_key: "TagTypeID", force: :cascade do |t|
-    t.string "TagTypeLabel",    limit: 50, null: false
-    t.string "TagTypeCategory", limit: 25, null: false
+  create_table "tag_type", primary_key: "tag_type_id", force: :cascade do |t|
+    t.string "tag_type_label",    limit: 50, null: false
+    t.string "tag_type_category", limit: 25, null: false
   end
 
-  create_table "tags", primary_key: "TagID", force: :cascade do |t|
-    t.string   "TagLabel",     limit: 64, null: false
-    t.integer  "TagTypeID",    limit: 4,  null: false
-    t.integer  "TagListingID", limit: 4,  null: false
-    t.datetime "TagCreatedAt",            null: false
+  create_table "tags", primary_key: "tag_id", force: :cascade do |t|
+    t.string   "tag_label",      limit: 64, null: false
+    t.integer  "tag_type_id",    limit: 4,  null: false
+    t.integer  "tag_listing_id", limit: 4,  null: false
+    t.datetime "tag_created_at",            null: false
   end
 
   create_table "users", force: :cascade do |t|
