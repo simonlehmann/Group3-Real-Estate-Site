@@ -5,7 +5,7 @@ ready = ->
 	console.log loc
 	#switch between buy, sell activity header classes
 		#for buy or root '/'
-	if loc.includes('buy') or loc == '/'
+	if loc.includes('buy')
 		nav_delay = true
 		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
@@ -29,7 +29,7 @@ ready = ->
 		$('header').removeClass 'nav-sell'
 		$('.main-nav a.activity-item').addClass 'active'
 	# User sign-up/login pages to match the buy style, but with no delay
-	else if loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
+	else if loc == '/' or loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
 		nav_delay = false
 		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'

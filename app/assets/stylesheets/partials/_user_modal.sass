@@ -19,8 +19,13 @@
 	left: 50%
 	margin-top: -250px // Set this to half the height of the modal (it's unknown though, so I'm estimating)
 	margin-left: -275px // Set this to half the width of the modal
+	border-radius: 0.5em // To get rid of the white corners.
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	// Change header colouring
 	.header
-		text-align: center
 		min-height: 3em
 		background-color: $grey-primary
 		color: $white-primary
