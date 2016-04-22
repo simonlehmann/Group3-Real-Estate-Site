@@ -15,6 +15,7 @@
 						<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
 					<% #if logged out show contact us button/path %>
 					<% else %>
+						<% # TODO: change to contact_path when erdal merges his branch to master (or whatever his controller is called) %>
 						<%= link_to "Contact Us", dashboard_path, class: "activity-item item" %>
 					<% end %>
 				</div>

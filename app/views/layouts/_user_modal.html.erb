@@ -52,7 +52,7 @@
 				
 				<div id="user-sign-up-form">
 					<% # error class required to show devise_error_messages (they only show if they exist) %>
-					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form error" }) do |f| %>
+					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f| %>
 						<% # User sign up email field %>
 						<div class="field">
 							<div class="ui left icon input">
@@ -91,7 +91,7 @@
 				
 				<% # User login form (from devise/sessions/new.html.erb) %>
 				<div id="user-login-form">
-					<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form error" }) do |f| %>
+					<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form" }) do |f| %>
 						<% # Email field %>
 						<div class="field">
 							<div class="ui left icon input">
