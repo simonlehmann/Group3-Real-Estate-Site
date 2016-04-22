@@ -5,3 +5,6 @@
 
 # Date/time picker using jQuery https://github.com/amsul/pickadate.js
 asset "pickadate"
+
+# Carousel package https://github.com/kenwheeler/slick
+asset "slick-carousel"
