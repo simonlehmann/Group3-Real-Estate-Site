@@ -37,20 +37,28 @@ ready = ->
 			user_modal.find('#user-login-button').removeClass('active-choice')
 			# Change the text in all the buttons and actions
 			user_modal.find('.user-action').text('Sign Up')
+			# Show the correct form
+			user_modal.find('#user-sign-up-form').show()
+			user_modal.find('#user-login-form').hide()
+
 			# Show the confirm password field
 			#user_modal.find('#user-confirm-password-field').show()
 			# Hide the reminder link
-			user_modal.find('#user-login-reminder').hide()
+			#user_modal.find('#user-login-reminder').hide()
 		else
 			# Select the correct button
 			user_modal.find('#user-sign-up-button').removeClass('active-choice')
 			user_modal.find('#user-login-button').addClass('active-choice')
 			# Change the text in all the buttons
 			user_modal.find('.user-action').text('Login')
+			# Show the correct form
+			user_modal.find('#user-sign-up-form').hide()
+			user_modal.find('#user-login-form').show()
+
 			# Hide the confirm password field
 			#user_modal.find('#user-confirm-password-field').hide()
 			# Show the reminder link
-			user_modal.find('#user-login-reminder').show()
+			#user_modal.find('#user-login-reminder').show()
 
 		# Make the sign-up button change modal state
 		user_modal.find('#user-sign-up-button').click ->
@@ -60,10 +68,14 @@ ready = ->
 				# Change the classes
 				user_modal.find('#user-sign-up-button').addClass('active-choice')
 				user_modal.find('#user-login-button').removeClass('active-choice')
+				# Show the correct form
+				user_modal.find('#user-sign-up-form').show()
+				user_modal.find('#user-login-form').hide()
+
 				# Show the confirm password field
 				#user_modal.find('#user-confirm-password-field').show()
 				# Hide the reminder link
-				user_modal.find('#user-login-reminder').hide()
+				#user_modal.find('#user-login-reminder').hide()
 			return
 
 		# Make the login button change modal state
@@ -74,10 +86,14 @@ ready = ->
 				# Change the classes
 				user_modal.find('#user-sign-up-button').removeClass('active-choice')
 				user_modal.find('#user-login-button').addClass('active-choice')
+				# Show the correct form
+				user_modal.find('#user-sign-up-form').hide()
+				user_modal.find('#user-login-form').show()
+
 				# Hide the confirm password field
 				#user_modal.find('#user-confirm-password-field').hide()
 				# Show the reminder link
-				user_modal.find('#user-login-reminder').show()
+				#user_modal.find('#user-login-reminder').show()
 			return
 
 		# Set the modal width

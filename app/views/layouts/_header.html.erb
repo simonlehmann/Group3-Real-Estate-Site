@@ -13,10 +13,8 @@
 					<% #if logged in show my activity button/path %>
 					<% if user_signed_in? %>
 						<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
-					<% end %>
-					<% #contact us path is currently incorrect %>
 					<% #if logged out show contact us button/path %>
-					<% if user_signed_in? %>
+					<% else %>
 						<%= link_to "Contact Us", dashboard_path, class: "activity-item item" %>
 					<% end %>
 				</div>
@@ -34,16 +32,12 @@
 							<div class="item">My Messages</div>
 							<div class="item">Favourites</div>
 							<div class="item">Account Settings</div>
-							<div class="item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></div>
+							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
 					<% #number of alerts %>
 					<a class="ui circular label alert-badge"><i class="alarm icon"></i>2 </a>
-				<% end %>
 				<% #user is logged out login/signup selection %>
-				<% if user_signed_in? %>
-					<% # Remove below link once styling in user dropdon for links is fixed! %>
-					<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 				<% else %>
 					<button class="ui button user-login">Login</button>
 					<button class="ui inverted green button user-signup">Join</button>

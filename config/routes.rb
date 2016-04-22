@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
+  # Also, changing the sign_in and sign_out paths to match login
+  devise_for :users, path: '', path_names: {sign_in: 'login'}
+
+  # Root URL maps to the buy controller index action
   root 'buy#index'
 
+  # Specific pages
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
@@ -11,7 +16,7 @@ Rails.application.routes.draw do
   get '/privacy' => 'static_pages#privacy'
   get '/terms' => 'static_pages#terms'
 
-  # Sell Pages routes
+  # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show]
 
 

@@ -1,25 +1,72 @@
-<h2>Change your password</h2>
+<%
+#   Created by: Simon Lehmann & Daniel Swain
+#   Date: 20/04/2016
+#   
+#   The edit password page
+#
+#   This has been updated to match our styles
+%>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+<% 
+#   ------------------------- NOTICE, READ FIRST -------------------------
+#   
+#   DO NOT UPDATE THIS PAGE IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE
+#   
+#   THIS PAGE IS THE DEFAULT STAND ALONE ACTION.
+#   
+#   IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE THEN USE THE SAME form_for TAG AND ASSOCIATED FIELDS AS BELOW
+#   
+#   BUT DO NOT EDIT THIS ONE
+#   
+#   SEE THE _user_modal.html.erb FOR AN EXAMPLE
+%>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
+<div class="ui container nobanner-container">
+	<div class="ui middle aligned grid container">
+		<div class="ui center aligned column">
+			<% # The header %>
+			<h2 class="header">Change your password</h2>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+			<% # Dividing bar %>
+			<div class="ui divider"></div>  
+			
+			<% # The Devise form (Do Not Touch Form Actions) %>
+			<div class="ui centered one column grid">
+				<div class="ui six wide column devise-form">
+					<% # error class required to show devise_error_messages (they only show if they exist) %>
+					<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
+						<% # Reset Password Token %>
+						<%= f.hidden_field :reset_password_token %>
+						
+						<% # New Password Field %>
+						<div class="field">
+							<label>New password</label>
+							<% if @minimum_password_length %>
+								<em>(<%= @minimum_password_length %> characters minimum)</em><br />
+							<% end %>
+							<%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+						</div>
+						
+						<% # Confirm Password Field %>
+						<div class="field">
+							<label>Confirm new password</label>
+							<%= f.password_field :password_confirmation, autocomplete: "off" %>
+						</div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+						<% # Devise error messages (only show if they exist) %>
+						<%= devise_error_messages! %>
 
-<%= render "devise/shared/links" %>
+						<div class="actions">
+							<%= f.submit "Change my password", class: "ui button" %>
+						</div>
+					<% end %>
+
+					<% # Render the remember me links %>
+					<div class="margin-top-half">
+						<%= render "devise/shared/links" %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,16 +1,60 @@
-<h2>Resend unlock instructions</h2>
+<%
+#   Created by: Simon Lehmann & Daniel Swain
+#   Date: 20/04/2016
+#   
+#   The resend unlock information page
+#
+#   This has been updated to match our styles
+%>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+<% 
+#   ------------------------- NOTICE, READ FIRST -------------------------
+#   
+#   DO NOT UPDATE THIS PAGE IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE
+#   
+#   THIS PAGE IS THE DEFAULT STAND ALONE ACTION.
+#   
+#   IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE THEN USE THE SAME form_for TAG AND ASSOCIATED FIELDS AS BELOW
+#   
+#   BUT DO NOT EDIT THIS ONE
+#   
+#   SEE THE _user_modal.html.erb FOR AN EXAMPLE
+%>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="ui container nobanner-container">
+	<div class="ui middle aligned grid container">
+		<div class="ui center aligned column">
+			<% # The header %>
+			<h2 class="header">Resend unlock instructions</h2>
 
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
-  </div>
-<% end %>
+			<% # Dividing bar %>
+			<div class="ui divider"></div>
+			
+			<% # The Devise form (Do Not Touch Form Actions) %>
+			<div class="ui centered one column grid">
+				<div class="ui six wide column devise-form">
+					<% # error class required to show devise_error_messages (they only show if they exist) %>
+					<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "ui form error" }) do |f| %>
+						<% # Email field %>
+						<div class="field">
+							<label>Email</label>
+							<%= f.email_field :email, autofocus: true %>
+						</div>
+						
+						<% # Devise error messages (only show if they exist) %>
+						<%= devise_error_messages! %>
 
-<%= render "devise/shared/links" %>
+						<div class="actions">
+							<%= f.submit "Resend unlock instructions", class: "ui button" %>
+						</div>
+					<% end %>
+
+					<% # Render the remember me links %>
+					<div class="margin-top-half">
+						<%= render "devise/shared/links" %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

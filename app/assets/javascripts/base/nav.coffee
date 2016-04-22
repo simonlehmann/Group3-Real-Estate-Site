@@ -28,6 +28,12 @@ ready = ->
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('.main-nav a.activity-item').addClass 'active'
+	# User sign-up/login pages to match the buy style, but with no delay
+	else if loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
+		nav_delay = false
+		$('header').addClass 'nav-buy'
+		$('header').removeClass 'nav-sell'
+		$('header').removeClass 'nav-dashboard'
 	else
 		nav_delay = false
 		$('header').removeClass 'nav-buy'
