@@ -40,11 +40,8 @@ ready = ->
 			# Show the correct form
 			user_modal.find('#user-sign-up-form').show()
 			user_modal.find('#user-login-form').hide()
-
-			# Show the confirm password field
-			#user_modal.find('#user-confirm-password-field').show()
-			# Hide the reminder link
-			#user_modal.find('#user-login-reminder').hide()
+			# Change the modal header
+			user_modal.find('#user-login-signup-modal-header').text('Welcome to Propertydome!')
 		else
 			# Select the correct button
 			user_modal.find('#user-sign-up-button').removeClass('active-choice')
@@ -54,12 +51,9 @@ ready = ->
 			# Show the correct form
 			user_modal.find('#user-sign-up-form').hide()
 			user_modal.find('#user-login-form').show()
-
-			# Hide the confirm password field
-			#user_modal.find('#user-confirm-password-field').hide()
-			# Show the reminder link
-			#user_modal.find('#user-login-reminder').show()
-
+			# Change the modal header
+			user_modal.find('#user-login-signup-modal-header').text('Welcome Back!')
+			
 		# Make the sign-up button change modal state
 		user_modal.find('#user-sign-up-button').click ->
 			if !$(this).hasClass('active-choice')
@@ -71,11 +65,8 @@ ready = ->
 				# Show the correct form
 				user_modal.find('#user-sign-up-form').show()
 				user_modal.find('#user-login-form').hide()
-
-				# Show the confirm password field
-				#user_modal.find('#user-confirm-password-field').show()
-				# Hide the reminder link
-				#user_modal.find('#user-login-reminder').hide()
+				# Change the modal header
+				user_modal.find('#user-login-signup-modal-header').text('Welcome to Propertydome!')
 			return
 
 		# Make the login button change modal state
@@ -89,11 +80,8 @@ ready = ->
 				# Show the correct form
 				user_modal.find('#user-sign-up-form').hide()
 				user_modal.find('#user-login-form').show()
-
-				# Hide the confirm password field
-				#user_modal.find('#user-confirm-password-field').hide()
-				# Show the reminder link
-				#user_modal.find('#user-login-reminder').show()
+				# Change the modal header
+				user_modal.find('#user-login-signup-modal-header').text('Welcome Back!')
 			return
 
 		# Set the modal width
