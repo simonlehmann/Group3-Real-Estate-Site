@@ -1,0 +1,159 @@
+<%
+#   Created: Daniel Swain
+#   Date: 20/04/2016
+#
+#   Partial erb used by any page.
+#   This represents the modal used to either sign up or log in
+#   
+#   Dependencies:
+#   	* Note, anything with the class "user-action" will have it's text changed by the user_login.coffee file depending on the user action
+#   	* The Overall modal header text changes based upon the user action too
+#   	If you want to make changes to the above two items then do it via the javascript.
+#
+#   Todo:
+#   	* Form field validation
+#   	* Connect to the actual user signup and login actions
+#   	* Change forgotten password link to point to correct action. Currently points to buy_path
+%>
+
+<% # The status modal %>
+<div class="ui user-login-signup modal" id="user-login-signup-modal">
+	<% # The modal close button %>
+	<i class="close icon"></i>
+	
+	<% # Modal header %>
+	<div class="header" id="user-login-signup-modal-header">
+		Welcome to Propertydome!
+	</div>
+
+	<% # Modal content %>
+	<div class="content">
+		<div class="ui centered middle aligned grid">
+			<% # Choose either login or sign up %>
+			<div class="row">
+				<div class="ui buttons">
+					<button class="ui button" id="user-login-button">Login</button>
+					<button class="ui button" id="user-sign-up-button">Sign Up</button>
+				</div>
+			</div>
+
+			<div class="ui divider"></div>
+
+			<% # Social Media section %>
+			<div class="row magin-top-half">
+				<span><span class="user-action"></span> with your Facebook or Google account</span>
+			</div>
+			<% # The facebook button. This is a placeholder and will be replaced with code from Facebook soon %>
+			<div class="row">
+				<button class="ui social-user-button facebook-button button">
+					<%= image_tag "f-logo.png", class: "icon" %>
+					<span class="user-action"></span> with Facebook
+				</button>
+			</div>
+			<% # The Google button. This is a placeholder and will be replaced with code from Google soon %>
+			<div class="row">
+				<button class="ui social-user-button google-button button">
+					<%= image_tag "g-logo.png", class: "icon" %>
+					<span class="user-action"></span> with Google
+				</button>
+			</div>
+
+			<div class="ui divider"></div>
+
+			<% # An or, just like Jaydens design %>
+			<div class="row">
+				<b>OR</b>
+			</div>
+			<div class="row">
+				<span><span class="user-action"></span> with email</span>
+			</div>
+			<% # The username/email and password form fields %>
+			<div class="row">
+				<div class="ui centered one column grid">
+					<div class="ui column">
+						<div id="user-sign-up-form">
+							<% # error class required to show devise_error_messages (they only show if they exist) %>
+							<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form" }) do |f| %>
+								<% # User sign up email field %>
+								<div class="field">
+									<label>Email</label>
+									<%= f.email_field :email, autofocus: true, placeholder: "email@address.com" %>
+								</div>
+								
+								<% # User sign up password field %>
+								<div class="field">
+									<label>Password</label>
+									<% if @minimum_password_length %>
+										<em>(<%= @minimum_password_length %> characters minimum)</em>
+									<% end %>
+									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
+								</div>
+								
+								<% # User sign up confirm password %>
+								<div class="field">
+									<label>Confirm Password</label>
+									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password" %>
+								</div>
+								
+								<% # Devise error messages (only show if they exist) %>
+								<%= devise_error_messages! %>
+								
+								<% # Sign up to our newsletter %>
+								<div class="inline field margin-top-half">
+									<div class="ui checkbox">
+										<%= f.check_box :remember_me %>
+										<label>Sign up for our newsletter</label>
+									</div>
+								</div>
+
+								<div class="actions margin-top">
+									<%= f.submit "Sign up", class: "ui active-choice social-user-button button" %>
+								</div>
+							<% end %>
+						</div>
+				
+						<% # User login form (from devise/sessions/new.html.erb) %>
+						<div id="user-login-form">
+							<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form" }) do |f| %>
+								<% # Email field %>
+								<div class="field">
+									<label>Email</label>
+									<%= f.email_field :email, autofocus: true, placeholder: "email@address.com" %>
+								</div>
+
+								<% # Password Field %>
+								<div class="field">
+									<label>Password</label>
+									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
+								</div>
+								
+								<% # Forgot password link (from devise/shared/links) %>
+								<div class="ui right aligned column">
+									<%= link_to "Forgot your password?", new_password_path(resource_name) %>		
+								</div>
+
+								<% # Remember me box, if devise lets you be remembered %>
+								<% if devise_mapping.rememberable? -%>
+									<div class="inline field margin-top-half">
+										<div class="ui checkbox">
+											<%= f.check_box :remember_me %>
+											<label>Remember me</label>
+										</div>
+									</div>
+								<% end -%>
+								
+								<% # Devise error messages (only show if they exist) %>
+								<%= devise_error_messages! %>
+
+								<% # Log in action %>
+								<div class="actions margin-top">
+									<%= f.submit "Log in", class: "ui active-choice social-user-button button" %>
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

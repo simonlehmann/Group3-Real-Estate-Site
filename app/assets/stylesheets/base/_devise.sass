@@ -1,0 +1,21 @@
+// Created By: Daniel Swain
+// Date: 22/04/2016
+// 
+// The following are for the devise specific buttons and forms
+
+// Style the links in the devise forms (Because the global link colour is white)
+.devise-form
+	a
+		color: $grey-primary
+	a:hover,
+	a:focus
+		color: $grey-primary-hover
+	// Submit button
+	.ui.button
+		background-color: $green-primary
+		color: $white-primary
+
+// Increase the line height to add space between devise links
+// This is done seperately to the .devise-form styling as it can be used in non form situations
+.devise-links a
+	line-height: 1.8em

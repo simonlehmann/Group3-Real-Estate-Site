@@ -18,6 +18,7 @@
 //= require base/global
 //= require base/map
 //= require base/nav
+//= require base/user_login
 //
 // Buy Page specific files
 //= require pages/buy/buy
@@ -34,13 +35,19 @@
 // Contact Page specific files
 //= require pages/contact/contact
 //
+// Static Pages file
+//= require pages/static/static_pages
+//
 // Loads all Semantic javascripts
 //= require semantic-ui
 //
 // Load Bower Packages (note, if we want to support old browser we should add pickadate/legacy to this list)
+// Load Bower Package = DateTime Picker
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require pickadate/lib/picker.time
+// Load Bower Package = Slick-Carousel
+//= require slick-carousel/slick/slick
 //
 // Infinite Scolling/Pagination using Jquery
 //= require jquery.infinite-pages
