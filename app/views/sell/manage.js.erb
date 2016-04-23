@@ -10,11 +10,15 @@
 //   	@listings: The listing information
 
 // Append new data to the infinite-table cards list (the .ui.cards selector)
-$("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($(".infinite-table .ui.cards"));
+$("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($('.infinite-table .ui.cards'));
+// Show the loading animation as we're loading the next page
+$('.infinite-table #loading-animation').css('display', 'block');
 
 // Update pagination link
 <% if @listings.last_page? %>
-    $('.pagination').html("No more listings to manage.");
+    $('.pagination').html('No more listings to manage.');
+    // Hide the loading animation because we're done with it now
+    $('#loading-animation').css('display', 'none');
 <% else %>
     $('.pagination').html("<%=j link_to_next_page(@listings, 'Show More Listings', remote: true) %>");
 <% end %>

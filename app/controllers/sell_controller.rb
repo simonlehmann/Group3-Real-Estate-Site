@@ -18,14 +18,19 @@ class SellController < ApplicationController
 	# Show the main sell page view
 	# GET /sell
 	def index
-		# For testing, let's say the user has a property
-		user_has_property = true
+		# Get the user if it's logged in (a devise convinience method)
+		user = current_user
+		user_has_property = false
+		# try and get the listings for the current user if they're logged in.
+		if user
+			@listings = Listing.where(listing_user_id: user.id).order(:listing_created_at).page(params[:page])
+			# Set the user_has_property boolean to true if the query returns listings.
+			user_has_property = true if @listings.size > 0
+		end
+
+		# render the appropriate view depending on whether the user has listings or not.
 		if user_has_property
-			# For testing, I'm using a random user from the database
-			#testing_user = User.find(1)
-			
-			# Grab the listings for the user (change the listing order if you want)
-			@listings = Listing.where(listing_user_id: 1).order(:listing_created_at).page(params[:page])
+			# Render the manage view for the user with their listings
 			render "sell/manage"
 		else
 			# No properties so render the index template
