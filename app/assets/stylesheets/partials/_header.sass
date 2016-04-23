@@ -1,12 +1,12 @@
 header
 	z-index: 100
+	position: absolute
 	color: $white-primary
 	height: 60px
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
 	background-color: transparent
-	transition: all 0.3s ease
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
@@ -52,6 +52,12 @@ header
 	background-color: $red-secondary
 .nav-fixed.nav-dashboard
 	background-color: $purple-secondary
+#float-menu .nav-buy
+	background-color: $green-secondary
+#float-menu .nav-sell
+	background-color: $red-secondary
+#float-menu .nav-dashboard
+	background-color: $purple-secondary
 //user profile notification badge
 .nav-buy
 	.alert-badge
@@ -82,3 +88,8 @@ header
 	color: $white-hover !important
 .user-signup
 	color: $white-primary !important
+//float menu that appears on nav buy after scrolling down
+#float-menu
+	display: none
+	position: fixed
+	width: 100%

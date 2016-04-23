@@ -10,6 +10,9 @@ ready = ->
 		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
+		$('#float-menu').addClass 'nav-buy'
+		$('#float-menu').removeClass 'nav-sell'
+		$('#float-menu').removeClass 'nav-dashboard'
 		$('.main-nav a.buy-item').addClass 'active'
 	else if loc.includes('sell')
 		# Grab top sell element and see if it is the sell-banner (needs clear nav-menu with delay) or there's no banner
@@ -20,6 +23,9 @@ ready = ->
 		$('header').addClass 'nav-sell'
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-dashboard'
+		$('#float-menu').removeClass 'nav-buy'
+		$('#float-menu').addClass 'nav-sell'
+		$('#float-menu').removeClass 'nav-dashboard'
 		$('.main-nav a.sell-item').addClass 'active'
 	#dashboard
 	else if loc.includes 'dashboard'
@@ -27,6 +33,9 @@ ready = ->
 		$('header').addClass 'nav-dashboard'
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
+		$('#float-menu').removeClass 'nav-buy'
+		$('#float-menu').removeClass 'nav-sell'
+		$('#float-menu').addClass 'nav-dashboard'
 		$('.main-nav a.activity-item').addClass 'active'
 	# User sign-up/login pages to match the buy style, but with no delay
 	else if loc == '/' or loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
@@ -43,13 +52,13 @@ ready = ->
 	if nav_delay == false
 		$('header').addClass 'nav-fixed'
 #scroll delay nav follows after a durtion with header images
-$(window).bind 'scroll', ->
-	if nav_delay == true and $(window).scrollTop() > 200
-		$('header').addClass 'nav-fixed'
-	else if nav_delay == false and $(window).scrollTop() >= 0
-		$('header').addClass 'nav-fixed'
+$(window).scroll ->
+	if nav_delay == true and $(this).scrollTop() > 250
+		$('#float-menu').fadeIn(300)
+	else if nav_delay == false and $(this).scrollTop() >= 0
+		$('#float-menu').fadeOut(200)
 	else
-		$('header').removeClass 'nav-fixed'
+		$('#float-menu').fadeOut(200)
 
 $(document).ready ready
 $(document).on 'page:load', ready
