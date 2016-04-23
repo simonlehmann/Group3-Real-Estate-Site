@@ -6,10 +6,10 @@ ready = ->
 	#add slick-carousel
 	$(".favouritesSlide").slick(
 		dots: true,
-		speed: 150,
+		speed: 800,
 		infinite: true,
 		autoplay: true,
-		autoplaySpeed: 10000)
+		autoplaySpeed: 4000)
 	
 $(document).ready ready
 $(document).on 'page:load', ready
