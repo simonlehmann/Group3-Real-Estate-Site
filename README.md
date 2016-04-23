@@ -95,7 +95,8 @@ Password: ```Password123```
 > **NOT RUNNING YET...**  
 
 The `master` branch will be live available at:  
-URL: http://app.slehmann36.com
+URL: http://app.slehmann36.com  
+Webserver Status: :fu:
 > **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
 > **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
 
