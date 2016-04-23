@@ -91,19 +91,27 @@ You can use the below login credentials to log into the demo account:
 Email: ```propertydomeau@gmail.com```  
 Password: ```Password123```  
 
+## :globe_with_meridians: Live Site
+> **NOT RUNNING YET...**  
+
+The `master` branch will be live available at:  
+URL: http://app.slehmann36.com
+> **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
+> **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
+
 ## :computer: Server Information
 During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
-###:key: MySQL Database Server Login Details
+###:key: MySQL Database Server Information
 #### Application Access
-URL: ```db.slehmann36.com```  
-Username: ```pdappuser```  
-Password: ```MhalliF123```  
-Require SSL ```True```
+URL: `db.slehmann36.com`  
+Username: `pdappuser`  
+Password: `MhalliF123`  
+Require SSL `True`
 
-####PhpMyAdmin
-URL: ```https://db.slehmann36.com/phpmyadmin/```  
-Username: ```admin```  
-Password: ```MhalliF123```
+####PhpMyAdmin Access
+URL: `https://db.slehmann36.com/phpmyadmin/`  
+Username: `admin`  
+Password: `MhalliF123`
 
 :exclamation:Don't you bastards break my server!
 
