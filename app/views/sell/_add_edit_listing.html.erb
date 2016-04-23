@@ -34,7 +34,7 @@
 			<div class="required field">
 				<label>Street Address</label>
 				<% if @listing %>
-					<input type="text" name="street[address]" placeholder="Street Address" value="<%= @listing.ListingAddress %>">
+					<input type="text" name="street[address]" placeholder="Street Address" value="<%= @listing.listing_address %>">
 				<% else %>
 					<input type="text" name="street[address]" placeholder="Street Address">
 				<% end %>
@@ -48,7 +48,7 @@
 					<% if @listing %>
 						<% # Using a form helper select_tag to pass the options and set the selected option to the database value %>
 						<% # This will need to change as I'm not using the final list of suburbs, I'm just adding in the database value to a fake list so I can select it %>
-						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000", @listing.ListingSuburb], @listing.ListingSuburb), class: "ui fluid search selection add-edit-suburb dropdown" %>
+						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000", @listing.listing_suburb], @listing.listing_suburb), class: "ui fluid search selection add-edit-suburb dropdown" %>
 					<% else %>
 						<% # Using a form helper select_tag to pass the options and set the selected option to the default value %>
 						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000"], "Select Suburb"), class: "ui fluid search selection add-edit-suburb dropdown" %>
@@ -60,7 +60,7 @@
 					<label>State</label>
 					<% if @listing %>
 						<% # Using the form helper select_tag to pass the options and set the selected option to the database value %>
-						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.ListingState), class: "ui fluid add-edit-state dropdown" %>	
+						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.listing_state), class: "ui fluid add-edit-state dropdown" %>	
 					<% else %>
 						<% # Using the form helper select_tag to pass the options and set the selected option to the default value %>
 						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], "State"), class: "ui fluid add-edit-state dropdown" %>	
@@ -73,7 +73,7 @@
 				<div class="required field">
 					<label>Bedrooms</label>
 					<% if @listing %>
-						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms" value="<%= @listing.ListingBedrooms %>">
+						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms" value="<%= @listing.listing_bedrooms %>">
 					<% else %>
 						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms">
 					<% end %>
@@ -81,7 +81,7 @@
 				<div class="required field">
 					<label>Bathrooms</label>
 					<% if @listing %>
-						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms" value="<%= @listing.ListingBathrooms %>">
+						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms" value="<%= @listing.listing_bathrooms %>">
 					<% else %>
 						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms">
 					<% end %>
@@ -89,7 +89,7 @@
 				<div class="required field">
 					<label>Parking</label>
 					<% if @listing %>
-						<input type="number" min="1" name="carbays[number]" placeholder="Carbays" value="<%= @listing.ListingParking %>">
+						<input type="number" min="1" name="carbays[number]" placeholder="Carbays" value="<%= @listing.listing_parking %>">
 					<% else %>
 						<input type="number" min="1" name="carbays[number]" placeholder="Carbays">
 					<% end %>
@@ -97,7 +97,7 @@
 				<div class="required field">
 					<label>Lot Size (sqm)</label>
 					<% if @listing %>
-						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size" value="<%= @listing.ListingLandSize %>">
+						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size" value="<%= @listing.listing_land_size %>">
 					<% else %>
 						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size">
 					<% end %>
@@ -110,7 +110,7 @@
 					<label>Price Type</label>
 					<% if @listing %>
 						<% # Using the form_helper select_tag to pass the options and set the selected option to the database value %>
-						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], @listing.ListingPriceType), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
+						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], @listing.listing_price_type), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
 					<% else %>
 						<% # Using the form_helper select_tag to pass the options and set the selected option to the default value %>
 						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], "F"), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
@@ -119,7 +119,7 @@
 				<div class="field" id="price-field-fixed">
 					<label>Listing Price</label>
 					<% if @listing %>
-						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price" value="<%= @listing.ListingPriceMin %>">
+						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price" value="<%= @listing.listing_price_min %>">
 					<% else %>
 						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price">
 					<% end %>
@@ -127,7 +127,7 @@
 				<div class="field" id="price-field-min">
 					<label>Minimum</label>
 					<% if @listing %>
-						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price" value="<%= @listing.ListingPriceMin %>">
+						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price" value="<%= @listing.listing_price_min %>">
 					<% else %>
 						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price">
 					<% end %>
@@ -135,7 +135,7 @@
 				<div class="field" id="price-field-max">
 					<label>Maximum</label>
 					<% if @listing %>
-						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price" value="<%= @listing.ListingPriceMax %>">
+						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price" value="<%= @listing.listing_price_max %>">
 					<% else %>
 						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price">
 					<% end %>
@@ -147,7 +147,7 @@
 				<label>Description</label>
 				<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. erb is required to acheive this. %>
 				<% if @listing %>
-					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."><%= @listing.ListingDescription %></textarea>
+					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."><%= @listing.listing_description %></textarea>
 				<% else %>
 					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."></textarea>
 				<% end %>
@@ -167,7 +167,7 @@
 			<div class="required field">
 				<label>Search Result Title</label>
 				<% if @listing %>
-					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title" value="<%= @listing.ListingTitle %>">
+					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title" value="<%= @listing.listing_title %>">
 				<% else %>
 					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title">
 				<% end %>
@@ -175,7 +175,7 @@
 			<div class="required field">
 				<label>Search Result Subtitle</label>
 				<% if @listing %>
-					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing" value="<%= @listing.ListingSubtitle %>">
+					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing" value="<%= @listing.listing_subtitle %>">
 				<% else %>
 					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
 				<% end %>
@@ -205,13 +205,13 @@
 						<% if indoor_tags %>
 							<% # Indoor tags first %>
 							<% indoor_tags.each do |tag| %>
-								<option value="<%= tag.TagTypeLabel %>"><%= tag.TagTypeLabel %></option>
+								<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
 							<% end %>
 						<% end %>
 						<% if outdoor_tags %>
 							<% # Outdoor tags next %>
 							<% outdoor_tags.each do |tag| %>
-								<option value="<%= tag.TagTypeLabel %>"><%= tag.TagTypeLabel %></option>
+								<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
 							<% end %>
 						<% end %><!-- 
 						<option value="Pool">Pool</option>

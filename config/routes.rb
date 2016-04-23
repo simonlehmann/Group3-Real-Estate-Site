@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+  # DONT ADD ANY ROUTE DEFINITIONS ABOVE DEVISE, IT MUST BE FIRST
 
-  root 'buy#index'
+  # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
+  # Also, changing the sign_in and edit paths to /login and /edit_account
+  devise_for :users, path: '', path_names: { sign_in: 'login', edit: 'edit_account' }
 
+  # Root URL maps to the buy controller root action which redirects to the index action
+  root 'buy#root'
+
+  # Specific pages
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
@@ -10,7 +17,7 @@ Rails.application.routes.draw do
   get '/privacy' => 'static_pages#privacy'
   get '/terms' => 'static_pages#terms'
 
-  # Sell Pages routes
+  # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show]
 
 

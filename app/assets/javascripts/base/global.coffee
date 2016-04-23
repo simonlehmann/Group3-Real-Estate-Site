@@ -32,7 +32,6 @@ ready = ->
 			0
 		]							# Set the maximum time (5 pm)
 
-	
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 

@@ -4,9 +4,9 @@
 #   The Model class for the property status, represents a status for a listing
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
-#   	TagTypeID: int
-#   	TagTypeLabel: varchar(50)
-#   	TagTypeCategory: varchar(25)
+#   	tag_type_id: int
+#   	tag_type_label: varchar(50)
+#   	tag_type_category: varchar(25)
 #   	
 #   Relations:
 # 		No foriegn key relations in the tag_type, but tags relates to it.

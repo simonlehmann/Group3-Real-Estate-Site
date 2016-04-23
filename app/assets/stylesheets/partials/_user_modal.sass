@@ -1,0 +1,66 @@
+// Created: Daniel Swain
+// Date: 20/04/2016
+// 
+// The following styles are for the user login/signup modal
+// 
+// NOTE: The Social button styles will likely change when I actually implement the proper buttons from Google and Facebook.
+// These styles are here to style them close to the dev doc versions. When we get an api-key from the client we can just pasted the
+// button code into our erb template and their API will style the button as needed. (Pursuant to their developer guidelines and the 
+// requirements for using their login branding and buttons)
+
+// Style elements within the modal
+#user-login-signup-modal
+	// Center the modal in the screen with the custom size
+	// Change the negtive margins to better handle the vertical positioning
+	width: 450px
+	min-width: 450px
+	position: fixed
+	top: 50%
+	left: 50%
+	margin-top: -250px // Set this to half the height of the modal (it's unknown though, so I'm estimating)
+	margin-left: -275px // Set this to half the width of the modal
+	border-radius: 0.5em // To get rid of the white corners.
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	// Change header colouring
+	.header
+		min-height: 3em
+		background-color: $grey-primary
+		color: $white-primary
+	// Row badding and link text changed from the global white text
+	.row
+		padding-top: 0.5em
+		padding-bottom: 0.5em
+		a
+			color: black
+	// active-choice is used to style the buttons
+	.active-choice
+		background-color: $green-primary
+		color: $white-primary
+	// Action button area
+	.actions
+		text-align: center
+		min-height: 2em
+	// Button size for the two social buttons
+	.social-user-button
+		min-width: 15em
+		min-height: 1.5em
+	// Colouring for the facebook button
+	.facebook-button
+		background-color: $blue-facebook
+		color: $white-primary
+	// Colouring for the google button (NB. Google now use a white button as they no longer brand the sign in as Google+ but as Sign in with Google)
+	// Added shadow to mimic styling in dev docs
+	.google-button
+		background-color: $white-primary
+		box-shadow: 0.5px 0.5px 0.5px 0.5px
+		color: black
+	// Correct the icon padding and style the background for the icon fields.
+	.field .icon.input
+		.icon
+			background-color: #0097a7
+		input
+			padding-left: 3em !important
+			padding-right: 1em !important
