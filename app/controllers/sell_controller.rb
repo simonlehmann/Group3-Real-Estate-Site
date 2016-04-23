@@ -18,6 +18,7 @@ class SellController < ApplicationController
 	# Show the main sell page view
 	# GET /sell
 	def index
+		@top_nav = true
 		# Get the user if it's logged in (a devise convinience method)
 		user = current_user
 		user_has_property = false
@@ -33,6 +34,8 @@ class SellController < ApplicationController
 			# Render the manage view for the user with their listings
 			render "sell/manage"
 		else
+			#white top nav in header image
+			@top_nav = true
 			# No properties so render the index template
 			render "sell/index"
 		end

@@ -1,4 +1,5 @@
 header
+	//base properties
 	z-index: 100
 	position: absolute
 	color: $white-primary
@@ -6,7 +7,12 @@ header
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
-	background-color: transparent
+	//set a link tags to white
+	a
+		color: $white-primary
+	a:hover,
+	a:focus
+		color: $white-hover
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
@@ -41,23 +47,22 @@ header
 	a:not(:first-child)
 		padding-left: 20%
 		margin-left: 20%
-//based nav fixed styles
-.nav-fixed
+//nav in header image
+#top-nav
+	background-color: transparent
+//nav that follows screen
+#sticky-nav
+	z-index: 9999
 	position: fixed
-	top: 0px
-//nav fill colour fased on class/page url
-.nav-fixed.nav-buy
 	background-color: $green-secondary
-.nav-fixed.nav-sell
-	background-color: $red-secondary
-.nav-fixed.nav-dashboard
-	background-color: $purple-secondary
-#float-menu .nav-buy
-	background-color: $green-secondary
-#float-menu .nav-sell
-	background-color: $red-secondary
-#float-menu .nav-dashboard
-	background-color: $purple-secondary
+	width: 100%
+	//nav fill colour fased on class/page url
+#sticky-nav .nav-buy
+	background-color: $green-secondary !important
+#sticky-nav .nav-sell
+	background-color: $red-secondary !important
+#sticky-nav .nav-dashboard
+	background-color: $purple-secondary !important
 //user profile notification badge
 .nav-buy
 	.alert-badge
@@ -88,8 +93,3 @@ header
 	color: $white-hover !important
 .user-signup
 	color: $white-primary !important
-//float menu that appears on nav buy after scrolling down
-#float-menu
-	display: none
-	position: fixed
-	width: 100%
