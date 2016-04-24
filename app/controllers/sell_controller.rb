@@ -30,12 +30,10 @@ class SellController < ApplicationController
 
 		# render the appropriate view depending on whether the user has listings or not.
 		if user_has_property
-			# We want a fixed header so set @top_nav to false
-			@top_nav = false
 			# Render the manage view for the user with their listings
 			render "sell/manage"
 		else
-			#white top nav in header image
+			#white top nav in header image as there is a banner image
 			@top_nav = true
 			# No properties so render the index template
 			render "sell/index"
