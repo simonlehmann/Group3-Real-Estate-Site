@@ -91,15 +91,6 @@ You can use the below login credentials to log into the demo account:
 Email: ```propertydomeau@gmail.com```  
 Password: ```Password123```  
 
-## :globe_with_meridians: Live Site
-> **NOT RUNNING YET...**  
-
-The `master` branch will be live and available at:  
-URL: http://app.slehmann36.com  
-Webserver Status: :fu:
-> **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
-> **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
-
 ## :computer: Server Information
 During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
 ###:key: MySQL Database Server Information
