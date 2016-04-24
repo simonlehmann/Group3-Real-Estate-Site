@@ -18,7 +18,6 @@ class SellController < ApplicationController
 	# Show the main sell page view
 	# GET /sell
 	def index
-		@top_nav = true
 		# Get the user if it's logged in (a devise convinience method)
 		user = current_user
 		user_has_property = false
@@ -31,6 +30,8 @@ class SellController < ApplicationController
 
 		# render the appropriate view depending on whether the user has listings or not.
 		if user_has_property
+			# We want a fixed header so set @top_nav to false
+			@top_nav = false
 			# Render the manage view for the user with their listings
 			render "sell/manage"
 		else
