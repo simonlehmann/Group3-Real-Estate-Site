@@ -27,4 +27,13 @@ class User < ActiveRecord::Base
 	# :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :registerable,
 		:recoverable, :rememberable, :trackable, :validatable
+
+	# Validate the password complexity
+	validate :password_complexity
+	# Require a password to have one lowercase, one uppercase, one digit and one special character (only for new passwords.)
+	def password_complexity
+		if password.present? and not password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/)
+			errors.add :password, "must include at least one lowercase letter, one uppercase letter, one digit and one special character."
+		end
+	end
 end
