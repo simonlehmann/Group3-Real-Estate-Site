@@ -32,6 +32,9 @@
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
+// Contact Page specific files
+//= require pages/contact/contact
+//
 // Static Pages file
 //= require pages/static/static_pages
 //
