@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
+  get '/contact' => 'contact#index'
   
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'
