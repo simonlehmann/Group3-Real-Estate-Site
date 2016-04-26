@@ -8,3 +8,6 @@ asset "pickadate"
 
 # Carousel package https://github.com/kenwheeler/slick
 asset "slick-carousel"
+
+# Lightbox for Slick Carousel package https://github.com/mreq/slick-lightbox
+asset "slick-lightbox"

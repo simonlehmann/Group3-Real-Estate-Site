@@ -46,8 +46,12 @@
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require pickadate/lib/picker.time
+//
 // Load Bower Package = Slick-Carousel
 //= require slick-carousel/slick/slick
+//
+// Load Bower Package = Slick-Lightbox
+//= require slick-lightbox/dist/slick-lightbox.min
 //
 // Infinite Scolling/Pagination using Jquery
 //= require jquery.infinite-pages
