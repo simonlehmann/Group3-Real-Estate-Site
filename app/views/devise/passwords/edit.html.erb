@@ -39,18 +39,18 @@
 						<%= f.hidden_field :reset_password_token %>
 						
 						<% # New Password Field %>
-						<div class="field password-popup">
+						<div class="field">
 							<label>New password</label>
 							<% if @minimum_password_length %>
 								<em>(<%= @minimum_password_length %> characters minimum)</em><br />
 							<% end %>
-							<%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Enter your new password" %>
+							<%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Confirm Password Field %>
-						<div class="field password-popup">
+						<div class="field">
 							<label>Confirm new password</label>
-							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password", class: "password-popup" %>
 						</div>
 
 						<% # Devise error messages (only show if they exist) %>

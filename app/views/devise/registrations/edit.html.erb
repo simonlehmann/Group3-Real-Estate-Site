@@ -47,15 +47,15 @@
 						<% end %>
 						
 						<% # New Password Field %>
-						<div class="field password-popup">
+						<div class="field">
 							<label>New Password <i>(leave blank if you don't want to change it)</i></label>
-							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password" %>
+							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Confirm new password field %>
-						<div class="field password-popup">
+						<div class="field">
 							<label>Confirm New Password</label>
-							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Old Password field %>

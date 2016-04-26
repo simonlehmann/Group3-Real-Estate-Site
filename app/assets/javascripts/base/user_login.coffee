@@ -27,6 +27,7 @@ ready = ->
 	
 	# Show a tooltip popup on all password input/change fields both in the modal and on the devise pages (set the content and width here, either wide or very wide)
 	$('.password-popup').popup
+		on: 'focus'
 		inline: true
 		exclusive: true
 		variation: 'very wide'

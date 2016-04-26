@@ -92,18 +92,18 @@
 								</div>
 								
 								<% # User sign up password field %>
-								<div class="field password-popup">
+								<div class="field">
 									<label>Password</label>
 									<% if @minimum_password_length %>
 										<em>(<%= @minimum_password_length %> characters minimum)</em>
 									<% end %>
-									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
+									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password", class: "password-popup" %>
 								</div>
 								
 								<% # User sign up confirm password %>
-								<div class="field password-popup">
+								<div class="field">
 									<label>Confirm Password</label>
-									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password" %>
+									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password", class: "password-popup" %>
 								</div>
 								
 								<% # Devise error messages (only show if they exist) %>
