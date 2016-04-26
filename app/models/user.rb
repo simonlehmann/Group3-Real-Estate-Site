@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
 	validate :password_complexity
 	# Require a password to have one lowercase, one uppercase, one digit and one special character (only for new passwords.)
 	def password_complexity
-		if password.present? and not password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/)
-			errors.add :password, "must include at least one lowercase letter, one uppercase letter, one digit and one special character."
+		if password.present? and not password.match(/((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9!@#$%^&*()_\-+=]).{8,20})/)
+			errors.add :password, "must include at least one lowercase letter, one uppercase letter and either one digit or one special character."
 		end
 	end
 end

@@ -40,33 +40,44 @@
 			<div class="ui divider"></div>
 
 			<% # Social Media section %>
-			<div class="row magin-top-half">
+			<div class="row">
 				<span><span class="user-action"></span> with your Facebook or Google account</span>
 			</div>
-			<% # The facebook button. This is a placeholder and will be replaced with code from Facebook soon %>
-			<div class="row">
-				<button class="ui social-user-button facebook-button button">
-					<%= image_tag "f-logo.png", class: "icon" %>
-					<span class="user-action"></span> with Facebook
-				</button>
+			<div class="two column row">
+				<% # The facebook button. This is a placeholder and will be replaced with code from Facebook soon %>
+				<div class="middle aligned column">
+					<button class="ui social-user-button facebook-button button">
+						<%= image_tag "f-logo.png", class: "icon" %>
+						<span class="user-action"></span> with Facebook
+					</button>	
+				</div>
+				<% # The Google button. This is a placeholder and will be replaced with code from Google soon %>
+				<div class="middle aligned column">
+					<button class="ui social-user-button google-button button">
+						<%= image_tag "g-logo.png", class: "icon" %>
+						<span class="user-action"></span> with Google
+					</button>
+				</div>
 			</div>
-			<% # The Google button. This is a placeholder and will be replaced with code from Google soon %>
-			<div class="row">
-				<button class="ui social-user-button google-button button">
-					<%= image_tag "g-logo.png", class: "icon" %>
-					<span class="user-action"></span> with Google
-				</button>
+			
+			<% # An or, situated between two dividers %>
+			<div class="three column row">
+				<div class="seven wide column">
+					<div class="ui divider"></div>
+				</div>
+				<div class="two wide middle aligned column">
+					<b>OR</b>
+				</div>
+				<div class="seven wide column">
+					<div class="ui divider"></div>
+				</div>
 			</div>
 
-			<div class="ui divider"></div>
-
-			<% # An or, just like Jaydens design %>
-			<div class="row">
-				<b>OR</b>
-			</div>
+			<% # Text for login in with email %>
 			<div class="row">
 				<span><span class="user-action"></span> with email</span>
 			</div>
+
 			<% # The username/email and password form fields %>
 			<div class="row">
 				<div class="ui centered one column grid">
@@ -86,13 +97,13 @@
 									<% if @minimum_password_length %>
 										<em>(<%= @minimum_password_length %> characters minimum)</em>
 									<% end %>
-									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
+									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password", class: "password-popup" %>
 								</div>
 								
 								<% # User sign up confirm password %>
 								<div class="field">
 									<label>Confirm Password</label>
-									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password" %>
+									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password", class: "password-popup" %>
 								</div>
 								
 								<% # Devise error messages (only show if they exist) %>
@@ -106,7 +117,7 @@
 									</div>
 								</div>
 
-								<div class="actions margin-top">
+								<div class="actions margin-top-half">
 									<%= f.submit "Sign up", class: "ui active-choice social-user-button button" %>
 								</div>
 							<% end %>
@@ -127,26 +138,29 @@
 									<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
 								</div>
 								
-								<% # Forgot password link (from devise/shared/links) %>
-								<div class="ui right aligned column">
-									<%= link_to "Forgot your password?", new_password_path(resource_name) %>		
-								</div>
-
-								<% # Remember me box, if devise lets you be remembered %>
-								<% if devise_mapping.rememberable? -%>
-									<div class="inline field margin-top-half">
-										<div class="ui checkbox">
-											<%= f.check_box :remember_me %>
-											<label>Remember me</label>
+								<% # The remember me box and forgot password link, using the following column sizes to try and get the link to the right %>
+								<div class="fields">
+									<% # Remember me box, if devise lets you be remembered %>
+									<% if devise_mapping.rememberable? -%>
+										<div class="inline sixteen wide field">
+											<div class="ui checkbox">
+												<%= f.check_box :remember_me %>
+												<label>Remember me</label>
+											</div>
 										</div>
+									<% end -%>
+
+									<% # Forgot password link (from devise/shared/links) %>	
+									<div class="seven wide field">
+										<%= link_to "Forgot your password?", new_password_path(resource_name) %>
 									</div>
-								<% end -%>
+								</div>
 								
 								<% # Devise error messages (only show if they exist) %>
 								<%= devise_error_messages! %>
 
 								<% # Log in action %>
-								<div class="actions margin-top">
+								<div class="actions margin-top-half">
 									<%= f.submit "Log in", class: "ui active-choice social-user-button button" %>
 								</div>
 							<% end %>
