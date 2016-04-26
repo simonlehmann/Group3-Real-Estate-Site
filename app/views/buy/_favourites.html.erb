@@ -1,13 +1,28 @@
 <div class="ui center aligned container">
 	<!-- Section Header -->
-	<h2 class="ui header"><i class="icon star"></i>Your Favourites</h2>
+	<h2 class="ui header"><i class="star icon"></i>Your Favourites</h2>
 	<!-- Slick Carousel -->
-	<div class="favouritesSlide" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-		<div><h3>1</h3></div>
-		<div><h3>2</h3></div>
-		<div><h3>3</h3></div>
-		<div><h3>4</h3></div>
-		<div><h3>5</h3></div>
-		<div><h3>6</h3></div>
+	<div class="favouritesSlide" data-slick='{"slidesToShow": 4, "slidesToScroll": 1}'>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+		</div>
 	</div>
 </div>

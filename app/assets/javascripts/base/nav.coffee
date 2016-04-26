@@ -17,16 +17,16 @@ ready = ->
 			nav_delay = true
 		else
 			nav_delay = false
-		$('header').addClass 'nav-sell'
 		$('header').removeClass 'nav-buy'
+		$('header').addClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
 		$('.main-nav a.sell-item').addClass 'active'
 	#dashboard
 	else if loc.includes 'dashboard'
 		nav_delay = false
-		$('header').addClass 'nav-dashboard'
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
+		$('header').addClass 'nav-dashboard'
 		$('.main-nav a.activity-item').addClass 'active'
 	# User sign-up/login pages to match the buy style, but with no delay
 	else if loc == '/' or loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
@@ -36,20 +36,18 @@ ready = ->
 		$('header').removeClass 'nav-dashboard'
 	else
 		nav_delay = false
-		$('header').removeClass 'nav-buy'
+		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
 	#some pages dont need a delay in scroll, if thats the case add colour in back of nav
-	if nav_delay == false
-		$('header').addClass 'nav-fixed'
+	if nav_delay == true
+		$('#sticky-nav').fadeOut(0)
 #scroll delay nav follows after a durtion with header images
-$(window).bind 'scroll', ->
-	if nav_delay == true and $(window).scrollTop() > 200
-		$('header').addClass 'nav-fixed'
-	else if nav_delay == false and $(window).scrollTop() >= 0
-		$('header').addClass 'nav-fixed'
-	else
-		$('header').removeClass 'nav-fixed'
+$(window).scroll ->
+	if nav_delay == true and $(this).scrollTop() > 250
+		$('#sticky-nav').fadeIn(300)
+	else if nav_delay == true
+		$('#sticky-nav').fadeOut(250)
 
 $(document).ready ready
 $(document).on 'page:load', ready

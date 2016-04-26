@@ -3,7 +3,6 @@
 #		* Remove filler content
 #		* Insert twitter feed
 #		* Insert favourites carousel
-#		* Switch from favourites to stats view pending logged in/out
 #		* Fill featured properties section
 #		* Insert icons for appropraite headers
 #		* Insert actual search criteria dropdown
@@ -21,12 +20,17 @@
 		</button>
 	</div>
 </div>
-<section class="favourites-section">
-	<% #render favourites when logged in %>
-	<%= render "buy/favourites" %>
+<% #render favourites section when logged in %>
+<% if user_signed_in? %>
+	<section class="favourites-section">
+		<%= render partial: "buy/favourites" %>
+	</section>
+	<% else %>
 	<% #render stats when logged out %>
-	<% #render "buy/stats" %>
-</section>
+	<section class="stats-section">
+		<%= render partial: "buy/stats" %>
+	</section>
+<% end %>
 <div class="ui one wide center aligned grid">
 	<% #triangle under favourites/stats section %>
 	<div class="lead-in ui one wide column triangle-lead"></div>
@@ -34,11 +38,11 @@
 <section class="ui ten wide center aligned grid row">
 	<% #Featured section %>
 	<div class="ui six wide left aligned column feature-list">
-		<%= render "buy/featurepropertylist" %>
+		<%= render partial: "buy/featurepropertylist" %>
 	</div>
 	<% #Twitter section %>
 	<div class="ui four wide left aligned column twitter-feed">
-		<%= render "buy/twitter" %>
+		<%= render partial: "buy/twitter" %>
 	</div>
 </section>
 <% #filler content %>

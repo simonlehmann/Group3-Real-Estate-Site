@@ -93,17 +93,17 @@ Password: ```Password123```
 
 ## :computer: Server Information
 During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
-###:key: MySQL Database Server Login Details
+###:key: MySQL Database Server Information
 #### Application Access
-URL: ```db.slehmann36.com```  
-Username: ```pdappuser```  
-Password: ```MhalliF123```  
-Require SSL ```True```
+URL: `db.slehmann36.com`  
+Username: `pdappuser`  
+Password: `MhalliF123`  
+Require SSL `True`
 
-####PhpMyAdmin
-URL: ```https://db.slehmann36.com/phpmyadmin/```  
-Username: ```admin```  
-Password: ```MhalliF123```
+####PhpMyAdmin Access
+URL: `https://db.slehmann36.com/phpmyadmin/`  
+Username: `admin`  
+Password: `MhalliF123`
 
 :exclamation:Don't you bastards break my server!
 

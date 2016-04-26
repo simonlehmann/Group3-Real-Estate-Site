@@ -63,12 +63,15 @@
 		<div class="ui cards">
 			<%= render partial: 'sell/manage_property_card', object: @listings %>
 		</div>
-		<!-- <div class="modals"></div> -->
 		<% # The link to the next batch of listings. %>	
 		<div class="ui centered grid margin-top">
 			<p class="pagination">
 				<%= link_to_next_page(@listings, 'Show More Listings', remote: true) %>
-			</p>			
+			</p>
+			<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>
+			<div id="loading-animation" style="display: none; margin-top: -40px;">
+				<%= render partial: 'layouts/loading_no_text' %>
+			</div>
 		</div>
 	</div>
 </div>

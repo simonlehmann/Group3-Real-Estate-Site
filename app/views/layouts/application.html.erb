@@ -7,10 +7,17 @@
   <%= csrf_meta_tags %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN97vIMbPrdzFRBtV1RvTtWHf2ruG4J34&libraries=places"></script>
 </head>
-	<!-- site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block -->
+	<%# site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block %>
 	<body class="site">
 		<div class="site-content">
-			<%= render "layouts/header" %>
+		<% if @top_nav %>
+			<div id="top-nav">
+				<%= render "layouts/header" %>
+			</div>
+		<% end %>
+			<div id="sticky-nav">
+				<%= render "layouts/header" %>
+			</div>
 			<%= render "layouts/user_modal" %>
 			<%= yield %>
 		</div>

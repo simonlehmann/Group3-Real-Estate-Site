@@ -1,12 +1,18 @@
 header
+	//base properties
 	z-index: 100
+	position: absolute
 	color: $white-primary
 	height: 60px
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
-	background-color: transparent
-	transition: all 0.3s ease
+	//set a link tags to white
+	a
+		color: $white-primary
+	a:hover,
+	a:focus
+		color: $white-hover
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
@@ -41,17 +47,22 @@ header
 	a:not(:first-child)
 		padding-left: 20%
 		margin-left: 20%
-//based nav fixed styles
-.nav-fixed
+//nav in header image
+#top-nav
+	background-color: transparent
+//nav that follows screen
+#sticky-nav
+	z-index: 9999
 	position: fixed
-	top: 0px
-//nav fill colour fased on class/page url
-.nav-fixed.nav-buy
 	background-color: $green-secondary
-.nav-fixed.nav-sell
-	background-color: $red-secondary
-.nav-fixed.nav-dashboard
-	background-color: $purple-secondary
+	width: 100%
+	//nav fill colour fased on class/page url
+#sticky-nav .nav-buy
+	background-color: $green-secondary !important
+#sticky-nav .nav-sell
+	background-color: $red-secondary !important
+#sticky-nav .nav-dashboard
+	background-color: $purple-secondary !important
 //user profile notification badge
 .nav-buy
 	.alert-badge
@@ -80,5 +91,19 @@ header
 	background-color: transparent !important
 .user-login:hover
 	color: $white-hover !important
-.user-signup
-	color: $white-primary !important
+//join button on top-nav (image header) is now green or red border/background on hover where as in sticky it is white
+#top-nav
+	.nav-buy
+		.user-signup
+			box-shadow: 0px 0px 0px 2px $green-primary inset !important
+		.ui.inverted.button:hover,
+		.ui.inverted.button:focus
+			color: $white-primary
+			background-color: $green-primary
+	.nav-sell
+		.user-signup
+			box-shadow: 0px 0px 0px 2px $red-primary inset !important
+		.ui.inverted.button:hover,
+		.ui.inverted.button:focus
+			color: $white-primary
+			background-color: $red-primary

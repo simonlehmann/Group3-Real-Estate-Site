@@ -56,6 +56,34 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	h2
 		color: $white-primary !important
 		text-align: left
+	.favouritesSlide
+		div
+			margin-left: 5px
+			margin-right: 5px
+		img
+			width: 100%
+			height: auto
+//stats section
+.stats-section
+	@extend .favourites-section
+	h2
+		font-size: 2.2em
+		margin-top: 16px
+		text-align: center
+	p
+		line-height: 1.16em
+		margin: -0.8em 2em
+		font-size: 1.1em
+		font-style: bold
+		color: $white-primary
+	ul#stats-circles
+		list-style: none
+		li
+			margin-left: 3%
+			margin-right: 3%
+			display: inline-block
+	.circle
+		+circle(135px, $transparent, solid, 4px, $blue-primary)
 //twitter section
 .twitter-feed
 	.twitter
