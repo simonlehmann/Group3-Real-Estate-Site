@@ -16,3 +16,5 @@
 !/log/.keep
 /tmp
 
+# Ignore .sass-cache folder brought in from contact pages
+/.sass-cache/*

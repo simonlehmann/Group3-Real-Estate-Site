@@ -24,6 +24,14 @@ ready = ->
 	# 	profile = googleUser.getBasicProfile()
 	# 	console.log('Full Name: ' + profile.getName())
 	# 	return
+	
+	# Show a tooltip popup on all password input/change fields both in the modal and on the devise pages (set the content and width here, either wide or very wide)
+	$('.password-popup').popup
+		inline: true
+		exclusive: true
+		variation: 'very wide'
+		content: 'Your password must be at least 8 characters long and include: 1 capital letter, 1 lowercase letter and either 1 symbol or 1 number.'
+	
 
 	# Set up and show the modal
 	# Set callbacks and launch the modal
