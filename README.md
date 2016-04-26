@@ -86,6 +86,13 @@ You can confirm the install using the same commands as for windows in your termi
 9. Terminal (Shortcut to open terminal in project folder, see Daniel/Jayden for configuration tips for use in class)
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
+## :globe_with_meridians: Live Site
+ The `master` branch will be live available at:  
+ URL: http://app.slehmann36.com
+ > **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
+ > **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
+ 
+
 ## :id: Demo User
 You can use the below login credentials to log into the demo account:  
 Email: ```propertydomeau@gmail.com```  
