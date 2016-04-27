@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/index'
+
   # DONT ADD ANY ROUTE DEFINITIONS ABOVE DEVISE, IT MUST BE FIRST
 
   # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
 
   # Specific pages
   get '/buy' => 'buy#index'
+  get '/search' => 'search#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
   get '/contact' => 'contact#index'

@@ -29,6 +29,9 @@
 //= require pages/sell/status_modals
 //= require pages/sell/infinite_scroll
 //
+// Search Page specific files
+//= require pages/search/search
+//
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
