@@ -22,7 +22,7 @@
 %>
 
 <div class="ui container nobanner-container">
-	<div class="ui middle aligned grid container margin-top">
+	<div class="ui middle aligned grid container">
 		<div class="ui center aligned column">
 			<% # The header %>
 			<h2 class="header">Edit <%= resource_name.to_s.humanize %> Account</h2>
@@ -49,13 +49,13 @@
 						<% # New Password Field %>
 						<div class="field">
 							<label>New Password <i>(leave blank if you don't want to change it)</i></label>
-							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password" %>
+							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Confirm new password field %>
 						<div class="field">
 							<label>Confirm New Password</label>
-							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Old Password field %>
