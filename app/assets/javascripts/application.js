@@ -22,6 +22,8 @@
 //
 // Buy Page specific files
 //= require pages/buy/buy
+// Geocoding for header
+//= require pages/buy/geolocate
 //
 // Sell Page specific files
 //= require pages/sell/sell_main

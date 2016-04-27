@@ -26,7 +26,7 @@
 					<div class="ui simple dropdown item">
 						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
 						<% #user profile name %>
-						<%= link_to "Ron Swanson", buy_path %> <i class="dropdown icon"></i>
+						<%= link_to "Ron Swanson", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<div class="menu">
 							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>
 							<%= link_to "My Messages", dashboard_messages_path, class: "item" %>
