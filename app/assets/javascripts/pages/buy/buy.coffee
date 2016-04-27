@@ -10,6 +10,8 @@ ready = ->
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 4000)
+	$('.slick-slide').slickLightbox(
+		itemSelector: '> a')
 	
 $(document).ready ready
 $(document).on 'page:load', ready
