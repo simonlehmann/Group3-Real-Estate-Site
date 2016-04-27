@@ -80,7 +80,7 @@ searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
     radius: currentRadius
-    type: [ search_attr ]
+    name: [ search_attr ]
   }, callback
   return
 
