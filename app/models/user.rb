@@ -1,11 +1,17 @@
 #   Created: Daniel Swain
 #   Date: 16/04/2016
-#   
+#
 #   The Model class for the property status, represents a status for a listing
-#   
+#
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
 #   	email: varchar(255)
 #   	id: int
+# 		profile_image_path: varchar(32)
+# 		first_name: varchar(32)
+# 		last_name: varchar(32)
+# 		username: varchar(64)
+# 		email: varchar(255)
+# 		user_type: set('User', 'Staff', 'Admin'): default:User
 #   	encrypted_password: varchar(255)
 #   	reset_password_token: varchar(255)
 #   	reset_password_sent_at: datetime
@@ -17,7 +23,7 @@
 #   	last_sign_in_ip: varchar(255)
 #   	created_at: datetime
 #   	updated_at: datetime
-#   	
+#
 #   Relations:
 # 		No foriegn key relations in the user, but others relate to it.
 
