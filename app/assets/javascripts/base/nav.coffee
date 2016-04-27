@@ -1,3 +1,10 @@
+# Created: Jayden Spencer
+# Date: 05/04/2016
+# 
+# The following coffeescript is for all the websites pages.
+# 
+# TODO:
+#
 nav_delay = true
 ready = ->
 	#get page location (changed from href to pathname to check for root url during testing. In prod will probably change back to href)
