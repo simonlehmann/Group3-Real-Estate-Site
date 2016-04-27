@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "pickadate": "latest",
-    "slick-carousel": "latest"
+    "slick-carousel": "latest",
+    "slick-lightbox": "latest"
   }
 }

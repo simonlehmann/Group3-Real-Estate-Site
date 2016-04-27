@@ -12,4 +12,6 @@
 	// Slick carousel
 	*= require slick-carousel/slick/slick-theme
 	*= require slick-carousel/slick/slick
+	// Slick carousel Lightbox
+	*= require slick-lightbox/dist/slick-lightbox
  */
