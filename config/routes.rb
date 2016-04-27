@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get '/buy' => 'buy#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
+  get '/dashboard/activity' => 'dashboard#activity'
+  get '/dashboard/messages' => 'dashboard#messages'
+  get '/dashboard/favourites' => 'dashboard#favourites'
+  get '/dashboard/settings' => 'dashboard#settings'
   get '/contact' => 'contact#index'
   
   # Static Pages routes
