@@ -9,6 +9,7 @@ ready = ->
     return
 
   showPosition = (position) ->
+    console.log 'show position'
     lat_lng = 
       lat: position.coords.latitude
       lng: position.coords.longitude
@@ -36,7 +37,7 @@ ready = ->
 
   changeImage = (state) ->
     if state.includes('WA')
-      $('.search-section').addClass 'perth-img'
+      $('.search-section').addClass 'melb-img'
     else if state.includes('MEL')
       $('.search-section').addClass 'melb-img'
     else
@@ -49,6 +50,7 @@ ready = ->
 
   showError = (error) ->
     if error != null
+      console.log 'before error switch'
       switch error.code
         when error.PERMISSION_DENIED
           console.log 'User denied the request for Geolocation.'
@@ -66,8 +68,6 @@ ready = ->
       alert 'null'
       return
     return
-  
-  getLocation()
 
 $(document).ready ready
 $(document).on 'page:load', ready
