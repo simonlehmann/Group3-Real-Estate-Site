@@ -85,7 +85,7 @@ searchPlace = (search_attr) ->
   return
 
 searchPetrol = ->
-  search = 'gas starions'
+  search = 'gas_station'
   deleteMarkers()
   infowindow = new (google.maps.InfoWindow)
   service = new (google.maps.places.PlacesService)(map)
