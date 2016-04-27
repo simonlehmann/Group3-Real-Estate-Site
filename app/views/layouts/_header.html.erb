@@ -12,11 +12,10 @@
 					<%= link_to "Sell", sell_index_path, class: "sell-item item" %>
 					<% #if logged in show my activity button/path %>
 					<% if user_signed_in? %>
-						<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
+						<%= link_to "My Activity", dashboard_activity_path, class: "activity-item item" %>
 					<% #if logged out show contact us button/path %>
 					<% else %>
-						<% # TODO: change to contact_path when erdal merges his branch to master (or whatever his controller is called) %>
-						<%= link_to "Contact Us", dashboard_path, class: "activity-item item" %>
+						<%= link_to "Contact Us", contact_path, class: "activity-item item" %>
 					<% end %>
 				</div>
 			</div>
@@ -29,10 +28,10 @@
 						<% #user profile name %>
 						<%= link_to "Ron Swanson", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<div class="menu">
-							<div class="item">My Activity</div>
-							<div class="item">My Messages</div>
-							<div class="item">Favourites</div>
-							<div class="item">Account Settings</div>
+							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>
+							<%= link_to "My Messages", dashboard_messages_path, class: "item" %>
+							<%= link_to "My Favourites", dashboard_favourites_path, class: "item" %>
+							<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
