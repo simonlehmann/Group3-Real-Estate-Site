@@ -18,8 +18,12 @@ ready = ->
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 4000)
+	#add slick-lightbox
 	$('.slick-slide').slickLightbox(
 		itemSelector: '> a')
+	#dot carousel, fix for when you click on a dot and its still focused/in an active state
+	$(document).on 'click', '.slick-dots li button', (e) ->
+		e.target.blur()
 	
 $(document).ready ready
 $(document).on 'page:load', ready

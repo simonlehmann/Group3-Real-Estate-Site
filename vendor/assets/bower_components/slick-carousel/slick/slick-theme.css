@@ -154,51 +154,46 @@
 
     display: block;
 
-    width: 20px;
-    height: 20px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+
     padding: 5px;
 
     cursor: pointer;
 
-    color: transparent;
     border: 0;
     outline: none;
-    background: transparent;
+    color: transparent;
+    background-color: rgba(225, 255, 255, 0.25);
 }
 .slick-dots li button:hover,
 .slick-dots li button:focus
 {
     outline: none;
+    background-color: rgba(225, 255, 255, 1);
 }
 .slick-dots li button:hover:before,
 .slick-dots li button:focus:before
 {
-    opacity: 1;
+    background-color: rgba(225, 255, 255, 1);
 }
 .slick-dots li button:before
 {
-    font-family: 'slick';
-    font-size: 8px;
     line-height: 20px;
 
     position: absolute;
     top: 0;
     left: 0;
 
-    width: 20px;
-    height: 20px;
-
-    content: '•';
     text-align: center;
 
-    opacity: .25;
-    color: white;
+    background-color: rgba(225, 255, 255, 0.25);
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.slick-dots li.slick-active button:before
+.slick-dots li.slick-active button
 {
-    opacity: 1;
-    color: #white;
+    background-color: rgba(225, 255, 255, 1);
 }
