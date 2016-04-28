@@ -17,7 +17,8 @@
 	position: fixed
 	top: 50%
 	left: 50%
-	margin-top: 0.7em !important // Default value is 1em
+	// Margin top has been removed for the time being as it was not working as expected. Reverting to using Semantic's inbuilt top positioning
+	margin-left: -300px // Half the width of the modal
 	border-radius: 0.5em // To get rid of the white corners.
 	// Close button is positioned absolutely, here I'm overriding the positioning
 	.close
