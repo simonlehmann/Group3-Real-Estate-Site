@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421071336) do
+ActiveRecord::Schema.define(version: 20160428055918) do
 
   create_table "blockages", primary_key: "blockage_id", force: :cascade do |t|
     t.integer  "blockage_to_user_id",   limit: 4, null: false
@@ -19,11 +19,17 @@ ActiveRecord::Schema.define(version: 20160421071336) do
     t.datetime "blockage_created_at",             null: false
   end
 
+  add_index "blockages", ["blockage_from_user_id"], name: "index_blockages_on_blockage_from_user_id", using: :btree
+  add_index "blockages", ["blockage_to_user_id"], name: "index_blockages_on_blockage_to_user_id", using: :btree
+
   create_table "favourites", primary_key: "favourite_id", force: :cascade do |t|
     t.integer  "favourite_user_id",    limit: 4, null: false
     t.integer  "favourite_listing_id", limit: 4, null: false
     t.datetime "favourite_created_at",           null: false
   end
+
+  add_index "favourites", ["favourite_listing_id"], name: "index_favourites_on_favourite_listing_id", using: :btree
+  add_index "favourites", ["favourite_user_id"], name: "index_favourites_on_favourite_user_id", using: :btree
 
   create_table "listing_images", primary_key: "listing_image_id", force: :cascade do |t|
     t.string   "listing_image_path",         limit: 128, null: false
@@ -31,6 +37,8 @@ ActiveRecord::Schema.define(version: 20160421071336) do
     t.datetime "listing_image_created_at",               null: false
     t.integer  "listing_image_listing_id",   limit: 4,   null: false
   end
+
+  add_index "listing_images", ["listing_image_listing_id"], name: "index_listing_images_on_listing_image_listing_id", using: :btree
 
   create_table "listing_status", primary_key: "listing_status_id", force: :cascade do |t|
     t.string "listing_status_label",      limit: 0, null: false
@@ -66,6 +74,10 @@ ActiveRecord::Schema.define(version: 20160421071336) do
     t.datetime "listing_ended_at"
   end
 
+  add_index "listings", ["listing_cover_image_id"], name: "index_listings_on_listing_cover_image_id", using: :btree
+  add_index "listings", ["listing_status_id"], name: "index_listings_on_listing_status_id", using: :btree
+  add_index "listings", ["listing_user_id"], name: "index_listings_on_listing_user_id", using: :btree
+
   create_table "messages", primary_key: "message_id", force: :cascade do |t|
     t.integer  "message_to_user_id",   limit: 4,     null: false
     t.integer  "message_from_user_id", limit: 4,     null: false
@@ -73,6 +85,9 @@ ActiveRecord::Schema.define(version: 20160421071336) do
     t.text     "message_body",         limit: 65535, null: false
     t.datetime "message_sent_at",                    null: false
   end
+
+  add_index "messages", ["message_from_user_id"], name: "index_messages_on_message_from_user_id", using: :btree
+  add_index "messages", ["message_to_user_id"], name: "index_messages_on_message_to_user_id", using: :btree
 
   create_table "tag_type", primary_key: "tag_type_id", force: :cascade do |t|
     t.string "tag_type_label",    limit: 50, null: false
@@ -85,6 +100,9 @@ ActiveRecord::Schema.define(version: 20160421071336) do
     t.integer  "tag_listing_id", limit: 4,  null: false
     t.datetime "tag_created_at",            null: false
   end
+
+  add_index "tags", ["tag_listing_id"], name: "index_tags_on_tag_listing_id", using: :btree
+  add_index "tags", ["tag_type_id"], name: "index_tags_on_tag_type_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "profile_image_path",     limit: 128
