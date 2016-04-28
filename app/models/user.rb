@@ -4,23 +4,22 @@
 #   The Model class for the property status, represents a status for a listing
 #
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
-#   	email: varchar(255)
 #   	id: int
-# 		profile_image_path: varchar(32)
-# 		first_name: varchar(32)
-# 		last_name: varchar(32)
-# 		username: varchar(64)
+# 		profile_image_path: varchar(128), NULLABLE
+# 		first_name: varchar(32), NULLABLE
+# 		last_name: varchar(32), NULLABLE
+# 		username: varchar(64), NULLABLE
 # 		email: varchar(255)
 # 		user_type: set('User', 'Staff', 'Admin'): default:User
 #   	encrypted_password: varchar(255)
-#   	reset_password_token: varchar(255)
-#   	reset_password_sent_at: datetime
-#   	remember_created_at: datetime
+#   	reset_password_token: varchar(255), NULLABLE
+#   	reset_password_sent_at: datetime, NULLABLE
+#   	remember_created_at: datetime, NULLABLE
 #   	sign_in_count: int
-#   	current_sign_in_at: datetime
-#   	last_sign_in_at: datetime
-#   	current_sign_in_ip: varchar(255)
-#   	last_sign_in_ip: varchar(255)
+#   	current_sign_in_at: datetime, NULLABLE
+#   	last_sign_in_at: datetime, NULLABLE
+#   	current_sign_in_ip: varchar(255), NULLABLE
+#   	last_sign_in_ip: varchar(255), NULLABLE
 #   	created_at: datetime
 #   	updated_at: datetime
 #
