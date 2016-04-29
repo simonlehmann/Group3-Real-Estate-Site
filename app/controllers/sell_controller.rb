@@ -11,7 +11,6 @@
 # 	
 # 	To do:
 # 		* complete actions
-# 		* Actually check if a user has a property
 
 class SellController < ApplicationController
 
