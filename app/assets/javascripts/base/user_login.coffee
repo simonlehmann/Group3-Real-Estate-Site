@@ -24,15 +24,6 @@ ready = ->
 	# 	profile = googleUser.getBasicProfile()
 	# 	console.log('Full Name: ' + profile.getName())
 	# 	return
-	
-	# Show a tooltip popup on all password input/change fields both in the modal and on the devise pages (set the content and width here, either wide or very wide)
-	$('.password-popup').popup
-		on: 'focus'
-		inline: true
-		exclusive: true
-		variation: 'very wide'
-		content: 'Your password must be at least 8 characters long and include: 1 capital letter, 1 lowercase letter and either 1 symbol or 1 number.'
-	
 
 	# Set up and show the modal
 	# Set callbacks and launch the modal
@@ -99,14 +90,9 @@ ready = ->
 		# Set callback actions and show it
 		user_modal.modal(
 			onHide: ->
-				console.log 'Model being closed'
 				# Clear the input fields when it's closed
-				user_modal.find('#user-email-input').val("")
-				user_modal.find('#user-password-input').val("")
-				user_modal.find('#user-confirm-password-input').val("")
-			onApprove: ->
-				console.log 'Submit was hit'
-
+				user_modal.find('#user-sign-up-form .field input').val("")
+				user_modal.find('#user-login-form .field input').val("")
 		).modal 'show'
 
 		

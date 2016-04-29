@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
   # Also, changing the sign_in and edit paths to /login and /edit_account
-  devise_for :users, path: '', path_names: { sign_in: 'login', edit: 'edit_account' }
+  devise_for :users, path: '', path_names: { sign_in: 'login', edit: 'edit_account' }, controllers: { registrations: "registrations" }
 
   # Root URL maps to the buy controller root action which redirects to the index action
   root 'buy#root'

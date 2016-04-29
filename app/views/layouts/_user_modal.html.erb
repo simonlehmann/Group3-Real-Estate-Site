@@ -11,9 +11,6 @@
 #   	If you want to make changes to the above two items then do it via the javascript.
 #
 #   Todo:
-#   	* Form field validation
-#   	* Connect to the actual user signup and login actions
-#   	* Change forgotten password link to point to correct action. Currently points to buy_path
 %>
 
 <% # The status modal %>
@@ -103,7 +100,7 @@
 								<% # User sign up confirm password %>
 								<div class="field">
 									<label>Confirm Password</label>
-									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password", class: "password-popup" %>
+									<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your password" %>
 								</div>
 								
 								<% # Devise error messages (only show if they exist) %>
