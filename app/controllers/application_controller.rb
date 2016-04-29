@@ -28,6 +28,9 @@ class ApplicationController < ActionController::Base
 
 	# Go to the previous url or the root_path after logging out of the site. (aka the site where the request to logout came from)
 	def after_sign_out_path_for(resource)
-		request.referrer
+		# Get the controller of the requesting route
+		requesting_route_controller = Rails.application.routes.recognize_path(request.referrer)[:controller]
+		# Go back to the refering request on logout unless it was a dashboard site (as the user has logged out) in which case go to root_path.
+		requesting_route_controller != "dashboard" ? request.referrer : root_path
 	end
 end
