@@ -32,6 +32,19 @@ ready = ->
 			0
 		]							# Set the maximum time (5 pm)
 
+	# Dismiss the nearest Semantic message with a close icon
+	$('.message .close').on 'click', ->
+		$(this).closest('.message').transition 'fade'
+		return
+
+	# Show a tooltip popup on all password input/change fields both in the modal and on the devise pages (set the content and width here, either wide or very wide)
+	$('.password-popup').popup
+		on: 'focus'
+		inline: true
+		exclusive: true
+		variation: 'very wide'
+		content: 'Your password must be at least 8 characters long and include: 1 capital letter, 1 lowercase letter and either 1 symbol or 1 number.'
+	
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 
