@@ -11,6 +11,7 @@
 # 	
 # 	To do:
 # 		* complete actions
+# 		* Update update method to use tags, images....
 
 class SellController < ApplicationController
 
@@ -73,7 +74,17 @@ class SellController < ApplicationController
 	# Update the property from the completed userform
 	# PATCH/PUT /sell/:id
 	def update
-		redirect_to action: :index
+		# Get the listing object to update
+		@listing = Listing.find(params[:id])
+		# Handle the update using the grouped listing_params to minimise risk of saving other items not associated with  a listing
+		if @listing.update_attributes(listing_params)
+			# The listing should be updated, so flash success and redirect to action: :index
+			flash[:listing_notice] = "Listing was successfully updated"
+			redirect_to action: :index
+		else
+			# There was an error so redirect to edit.
+			redirect_to action: :edit
+		end
 	end
 
 	# Delete the selected property from the database
@@ -81,4 +92,15 @@ class SellController < ApplicationController
 	def destroy
 		redirect_to action: :index
 	end
+
+	private
+
+		def listing_params
+			# Helper method to limit the accessible parameters for the listing object to those for the listing (as listed in permit())
+			# normally listing parameters would be accessed via params[:listing][:listing_state] but there's a risk that unwanted params might be added and
+			# could affect the database, so we only permit the ones we want here.
+			params.require(:listing).permit(:listing_address, :listing_suburb, :listing_state, :listing_bedrooms,
+				:listing_bathrooms, :listing_parking, :listing_land_size, :listing_price_type, :listing_price_min, 
+				:listing_price_max, :listing_description, :listing_title, :listing_subtitle)
+		end
 end

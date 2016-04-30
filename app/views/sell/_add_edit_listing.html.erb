@@ -105,20 +105,15 @@
 					<%= f.select :listing_price_type, options_for_select([ [ "Fixed Price", "F" ], [ "Ranged (Min/Max)", "R" ] ]), { prompt: "Select Price Type", include_blank: false }, { class: "ui fluid selection add-edit-price dropdown", id: "add-edit-price-dropdown" } %>
 				<% end %>
 			</div>
-			<div class="field" id="price-field-fixed">
-				<label>Listing Price</label>
-				<% # The listing price (fixed uses listing_price_min) for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_min, min: 1, placeholder: "Listing Price" %>
-			</div>
 			<div class="field" id="price-field-min">
 				<label>Minimum</label>
 				<% # The minimum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_min, min: 1, placeholder: "Minimum Price" %>
+				<%= f.number_field :listing_price_min, min: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
 			</div>
 			<div class="field" id="price-field-max">
 				<label>Maximum</label>
 				<% # The maximum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_max, min: 1, placeholder: "Maximum Price" %>
+				<%= f.number_field :listing_price_max, min: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
 			</div>
 		</div>
 

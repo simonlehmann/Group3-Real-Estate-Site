@@ -26,21 +26,25 @@ ready = ->
 	price_dropdown_selection_change = (value) ->
 		if value == 'F'
 			# Fixed Price
-			$('#price-field-fixed').show()
-			$('#price-field-fixed').addClass 'required'
+			# Show the min field for fixed price, but change the label
+			$('#price-field-min').show()
+			$('#price-field-min label').text 'Price'
+			# Hide the max price field and set it's input field value to the minimum value
 			$('#price-field-max').hide()
-			$('#price-field-min').hide()
+			$('#price-field-max-input').val($('#price-field-min-input').val())
+			# Handle the classes
+			$('#price-field-min').addClass 'required'
 			$('#price-field-max').removeClass 'required'
-			$('#price-field-min').removeClass 'required'
 		else if value == 'R'
 			# Ranged Price
-			console.log value
-			$('#price-field-fixed').hide()
-			$('#price-field-fixed').removeClass 'required'
-			$('#price-field-max').show()
+			# Show the min and max fields
 			$('#price-field-min').show()
-			$('#price-field-max').addClass 'required'
+			$('#price-field-max').show()
+			# Change the min field label text
+			$('#price-field-min label').text 'Minimum'
+			# Handle the classes
 			$('#price-field-min').addClass 'required'
+			$('#price-field-max').addClass 'required'
 	# Set what is displayed based upon the initial value
 	price_dropdown_selection_change($('#add-edit-price-dropdown').val())
 	# Set what is displayed based upon the selected value
@@ -164,7 +168,6 @@ ready = ->
 				prompt: 'Please enter a subtitle'
 			}]
 
-
 	# Bind the rules to the form and set form options (the only way I found to get the errors was to set inline to true)
 	$('#add-edit-listing-form').form
 		inline: true
@@ -172,6 +175,11 @@ ready = ->
 
 	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
 	$('#add-edit-submit-button').on 'click', ->
+		# If we've changed the selector for the price type and we've updated the fixed price value then we need to store it in the max field as well
+		if $('#add-edit-price-dropdown').val() == 'F'
+			# We need to change it here when saving as you might have changed it after selecting fixed price (so min and max won't line up anymore)
+			$('#price-field-max-input').val($('#price-field-min-input').val())
+		# Submit the form
 		$('#add-edit-listing-form').form 'submit'
 		return
 

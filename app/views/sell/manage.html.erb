@@ -57,6 +57,18 @@
 			</div>
 		</div>
 	</div>
+	<% # A notices message box used to display alerts when a user has added or updated a property (it's dismissable) %>
+	<% if flash[:listing_notice] %>
+		<% # A positive message block that is dismissable %>
+		<div class="ui positive message">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_notice] %>
+			</div>
+		</div>
+	<% end %>
 	
 	<% # The property listings the user has. Now using infinite scroll%>
 	<div class="infinite-table">
