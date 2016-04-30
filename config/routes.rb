@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'search/index'
 
   # DONT ADD ANY ROUTE DEFINITIONS ABOVE DEVISE, IT MUST BE FIRST
 
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
   get '/contact' => 'contact#index'
+  get '/:id' => 'property#index'
   
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'

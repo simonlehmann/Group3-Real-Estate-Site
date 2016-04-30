@@ -32,6 +32,9 @@
 // Search Page specific files
 //= require pages/search/search
 //
+// Property Page specific files
+//= require pages/property/property
+//
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
