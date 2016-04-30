@@ -82,6 +82,99 @@ ready = ->
 		else
 			# Otherwise send an alert
 			alert "Please select an additional feature and quantity and try again"
+
+	# Form validation rules
+	validation_rules = 
+		address: # Can't be empty
+			identifier: 'listing[listing_address]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a street address'
+			}]
+		suburb: # Can't be empty
+			identifier: 'listing[listing_suburb]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a suburb'
+			}]
+		state: # Can't be empty
+			identifier: 'listing[listing_state]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a state'
+			}]
+		bedrooms: # Can't be empty
+			identifier: 'listing[listing_bedrooms]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of bedrooms'
+			}]
+		bathrooms: # Can't be empty
+			identifier: 'listing[listing_bathrooms]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of bathrooms'
+			}]
+		parking: # Can't be empty
+			identifier: 'listing[listing_parking]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of parking spots'
+			}]
+		lot_size: # Can't be empty
+			identifier: 'listing[listing_land_size]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the lot size'
+			}]
+		price_type: # Can't be empty
+			identifier: 'listing[listing_price_type]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a price type'
+			}]
+		price_min: # Can't be empty
+			identifier: 'listing[listing_price_min]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a price'
+			}]
+		price_max: # Can't be empty
+			identifier: 'listing[listing_price_max]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a maximum price'
+			}]
+		description: # Can't be empty
+			identifier: 'listing[listing_description]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a description'
+			}]
+		title: # Can't be empty
+			identifier: 'listing[listing_title]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a title'
+			}]
+		subtitle: # Can't be empty
+			identifier: 'listing[listing_subtitle]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a subtitle'
+			}]
+
+
+	# Bind the rules to the form and set form options (the only way I found to get the errors was to set inline to true)
+	$('#add-edit-listing-form').form
+		inline: true
+		fields: validation_rules
+
+	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
+	$('#add-edit-submit-button').on 'click', ->
+		$('#add-edit-listing-form').form 'submit'
+		return
+
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 

@@ -43,7 +43,11 @@ class SellController < ApplicationController
 	# Show the add/edit form ready for user input and adding a new property
 	# GET /sell/new
 	def new
-		# Add logic for new stuff		
+		# Add logic for new stuff
+		# Create a new Listing object that will be used by the form to save later
+		@listing = Listing.new
+		# Set the action descriptor to "Create Listing"
+		@action = "Create Listing"
 		render "sell/add_edit"
 	end
 
@@ -60,6 +64,8 @@ class SellController < ApplicationController
 		@listing = Listing.find(params[:id])
 		# Grab the photos for the listing
 		@photos = ListingImage.where(listing_image_listing_id: @listing.listing_id)
+		# Set the action descriptor to "Save Changes"
+		@action = "Save Changes"
 		# Render the view
 		render "sell/add_edit"
 	end
