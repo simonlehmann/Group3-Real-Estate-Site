@@ -22,7 +22,8 @@ class SellController < ApplicationController
 		user_has_property = false
 		# try and get the listings for the current user if they're logged in.
 		if user
-			@listings = Listing.where(listing_user_id: user.id).order(:listing_created_at).page(params[:page])
+			# Get the listings through the user_listings association on the currently logged in user object
+			@listings = user.user_listings.order(:listing_created_at).page(params[:page])
 			# Set the user_has_property boolean to true if the query returns listings.
 			user_has_property = true if @listings.size > 0
 		end
