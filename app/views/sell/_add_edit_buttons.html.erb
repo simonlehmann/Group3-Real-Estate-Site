@@ -16,6 +16,6 @@
 	<% # Cancel button %>
 	<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
 
-	<% # Post button %>
+	<% # Post button, the submit action is triggered onClick of this button in add_edit.coffee %>
 	<button class="ui button sell-red-button" id="add-edit-submit-button"><%= @action %></button>
 </div>
