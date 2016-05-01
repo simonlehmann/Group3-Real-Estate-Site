@@ -14,6 +14,7 @@ ready = ->
 	# Turn on the dropdowns on the add edit page
 	$('.add-edit-suburb.dropdown').dropdown()
 	$('.add-edit-state.dropdown').dropdown()
+	$('.add-edit-postcode.dropdown').dropdown()
 	$('.add-edit-price.dropdown').dropdown()
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
@@ -121,6 +122,12 @@ ready = ->
 			rules: [{
 				type: 'empty'
 				prompt: 'Please select a state'
+			}]
+		postcode: # Can't be empty
+			identifier: 'listing[listing_post_code]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a postcode'
 			}]
 		bedrooms: # Can't be empty
 			identifier: 'listing[listing_bedrooms]'

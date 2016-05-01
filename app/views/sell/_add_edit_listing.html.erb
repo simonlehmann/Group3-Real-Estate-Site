@@ -47,15 +47,15 @@
 		</div>
 
 		<% # Suburb and State Input %>
-		<div class="two fields">
+		<div class="three fields">
 			<% # Suburb search field %>
 			<div class="required field">
 				<label>Suburb</label>
 				<% # If we're saving changes then we have a listing suburb (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
 				<% if @action == "Save Changes" %>
-					<%= f.select :listing_suburb, options_for_select([ "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000", @listing.listing_suburb ], @listing.listing_suburb), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
+					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth", @listing.listing_suburb ], @listing.listing_suburb), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
 				<% else %>
-					<%= f.select :listing_suburb, options_for_select([ "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000" ]), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
+					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth" ]), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
 				<% end %>
 			</div>
 
@@ -67,6 +67,17 @@
 					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.listing_state), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
 				<% else %>
 					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ]), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
+				<% end %>
+			</div>
+
+			<% # Postcode dropdown field %>
+			<div class="required field">
+				<label>Postcode</label>
+				<% # If we're saving changes then we have a listing postcode (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ], @listing.listing_post_code), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
+				<% else %>
+					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ]), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
 				<% end %>
 			</div>
 		</div>

@@ -20,7 +20,7 @@
 #   	listing_price_type: set('F', 'R') DEFAULT='F'
 #   	listing_price_min: decimal(12,2)
 #   	listing_price_max: decimal(12,2)
-#   	listing_status_id: int
+#   	listing_status_id: int NULLABLE
 #   	listing_user_id: int
 #   	listing_views: int
 #   	listing_favourites: int

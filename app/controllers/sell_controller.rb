@@ -11,7 +11,9 @@
 # 	
 # 	To do:
 # 		* complete actions
-# 		* Update update method to use tags, images....
+# 		* Update update method to use images
+# 		* Update create method to use actual cover image id rather than the first one
+# 		* Implement Destroy method
 
 class SellController < ApplicationController
 
@@ -55,6 +57,37 @@ class SellController < ApplicationController
 	# Add the property from the completed userform
 	# POST /sell
 	def create
+		# --------- Create and save listing
+		# Create and save the listing object using the params from the user form (need the listing so we can add the tags too)
+		@listing = Listing.new(listing_params)
+		
+		# Use the current_user to save it in the listing
+		@listing.listing_user_id = current_user.id
+
+		# Create and save a blank status object and assign it to the listing
+		@status = ListingStatus.create(listing_status_label: "None")
+		@listing.listing_status_id = @status.listing_status_id
+
+		# Store the first image as the cover image (will need to change this later)
+		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
+
+		# Save the listing
+		@listing.save
+
+		# --------- Create and save tags
+		# Get the listing id (for saving tags)
+		@listing_id = @listing.listing_id
+		# Add the tags from the additional-tags-list element
+		params[:additional_tags_list].each do |new_tag|
+			# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
+			tag_parts = new_tag.split('_')
+			# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
+			tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
+			# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
+			tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+		end
+		
+		# --------- Redirect back to the index view now we've saved everything
 		redirect_to action: :index
 	end
 
@@ -116,8 +149,8 @@ class SellController < ApplicationController
 			# Helper method to limit the accessible parameters for the listing object to those for the listing (as listed in permit())
 			# normally listing parameters would be accessed via params[:listing][:listing_state] but there's a risk that unwanted params might be added and
 			# could affect the database, so we only permit the ones we want here.
-			params.require(:listing).permit(:listing_address, :listing_suburb, :listing_state, :listing_bedrooms,
-				:listing_bathrooms, :listing_parking, :listing_land_size, :listing_price_type, :listing_price_min, 
-				:listing_price_max, :listing_description, :listing_title, :listing_subtitle)
+			params.require(:listing).permit(:listing_address, :listing_suburb, :listing_state, :listing_post_code, 
+				:listing_bedrooms, :listing_bathrooms, :listing_parking, :listing_land_size, :listing_price_type, 
+				:listing_price_min, :listing_price_max, :listing_description, :listing_title, :listing_subtitle)
 		end
 end
