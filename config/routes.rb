@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # DONT ADD ANY ROUTE DEFINITIONS ABOVE DEVISE, IT MUST BE FIRST
 
   # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
 
   # Specific pages
   get '/buy' => 'buy#index'
+  get '/search' => 'search#index'
   get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
   get '/dashboard/activity' => 'dashboard#activity'
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
   get '/dashboard/favourites' => 'dashboard#favourites'
   get '/dashboard/settings' => 'dashboard#settings'
   get '/contact' => 'contact#index'
+  get '/:id' => 'property#index'
   
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'

@@ -31,6 +31,12 @@
 //= require pages/sell/status_modals
 //= require pages/sell/infinite_scroll
 //
+// Search Page specific files
+//= require pages/search/search
+//
+// Property Page specific files
+//= require pages/property/property
+//
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
 //
