@@ -9,9 +9,17 @@
 #   TODO:
 #
  %>
-<section class="search-container nobanner-container ui center aligned container">
-	<div class="ui sixteen wide center aligned grid">
-		<h1>Search#index</h1>
-		<p>Find me in app/views/search/index.html.erb</p>
+<section class="search-container nobanner-container ui container">
+	<div class="ui sixteen wide grid stackable">
+		<div class="ui rail four wide column">
+			<% #search sub menu navigation %>
+			<section class="ui sticky search-submenu">
+				<%= render partial:"search/searchconfig" %>
+			</section>
+		</div>
+		<% #search results content %>
+		<div class="ui twelve wide column" id="activity-feed">
+			<%= render partial:"search/propertyresult" %>
+		</div>
 	</div>
 </section>
