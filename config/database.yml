@@ -13,7 +13,7 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: pbappuser
+  username: pdappuser
   password: MhalliF123
   host: db.slehmann36.com
 
