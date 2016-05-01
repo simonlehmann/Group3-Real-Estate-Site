@@ -62,17 +62,23 @@ ready = ->
 	additional_button = $('#add-edit-additional-tags-button')
 	# Add a click function to the add tag button
 	additional_button.on 'click', ->
-		# Get the input value and the dropdown selection
-		value = additional_input.val()
-		selection = additional_dropdown.children("option").filter(":selected").val()
-		console.log value
-		console.log selection
-		if value != "" and selection != ""
+		# Get the input quantity and the dropdown selection text and value
+		qty = additional_input.val()
+		# The value field has the tag_type_category as well (needed for the database saving), 
+		# where as the text of the option choice is only the tag_type_label (which we want to display)
+		value = additional_dropdown.children("option").filter(":selected").val()
+		selection = additional_dropdown.children("option").filter(":selected").text()
+		if value != "" and selection != "" and qty != ""
 			# Add the tag to the tag area if the value isn't empty
-			new_tag_value = value + "_" + selection
-			new_tag_text = value + " " + selection
-			# Add an option to the selection box with the new tag value and text
-			additional_tag_area.html('<option value="' + new_tag_value + '">' + new_tag_text + '</option>')
+			new_tag_value = qty + "_" + value
+			new_tag_text = qty + " " + selection
+			# Create an option tag
+			opt = document.createElement('option')
+			opt.value = new_tag_value
+			opt.innerHTML = new_tag_text
+			console.log opt
+			# Add the option to the selection box with the new tag value and text (whilst keeping the old values (this used to override the selections))
+			additional_tag_area.append(opt)
 			# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
 			setTimeout (->
 				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
@@ -86,6 +92,15 @@ ready = ->
 		else
 			# Otherwise send an alert
 			alert "Please select an additional feature and quantity and try again"
+
+	# Refresh the addition tag dropdown selector field incase we're editing an exisitng listing which has tags
+	# (the server will set them selected, but Semantic, needs to add the tags)
+	additional_tag_area.find('option').each (i) ->
+		# If it's not the placholder option and options existing on page load then they're from the server and need to be set selected
+		if $(this).val() != ''
+			additional_tag_area.dropdown 'set selected', $(this).val()
+		return
+	
 
 	# Form validation rules
 	validation_rules = 

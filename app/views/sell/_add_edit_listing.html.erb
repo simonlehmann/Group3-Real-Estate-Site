@@ -9,6 +9,7 @@
 #   Collections:
 #   	* @listing: the property listing to be edited (only if editing)
 #   	* @photos: the photos for the property listing
+#   	* @tags: the tags associated with the listing
 #   	* @action: a descriptor for the action (i.e. "Save Changes", "Create Listing")
 #   	
 #   Local objects:
@@ -154,12 +155,20 @@
 		<div class="field">
 			<% # The tag area where new tags are added into %>
 			<label>Additional Property Feature Tags</label>
-			<% # TODO: Change this to be a select_tag and use the tags for the listing to make up the options %>
-			<select class="ui selection multiple dropdown add-edit custom-tags" multiple="" id="add-edit-additional-tags">
-				<option value="" selected>
-					Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)
-				</option>
-			</select>
+			<% # This will return an array of tags with their qty and type separated by underscores '_' %>
+			<% if @action == "Save Changes" %>
+				<% # Grab a human readable tags list from the existing tags for the listing %>
+				<% existing_tags = add_edit_get_readable_tags_collection(@tags) %>
+				<% if existing_tags %>
+					<% # set the options_for_select to the existing_tags and set them to be selected %>
+					<%= select_tag "additional_tags_list", options_for_select(existing_tags , existing_tags), id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
+				<% else %>
+					<% # We have no existing tags for this listing %>
+					<%= select_tag "additional_tags_list", options_for_select = nil , id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
+				<% end %>
+			<% else %>
+				<%= select_tag "additional_tags_list", options_for_select = nil , id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
+			<% end %>
 		</div>
 		<div class="field">
 			<% # The add a tag form which lets you add custom tags %>
@@ -171,17 +180,17 @@
 				<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
 				<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
 					<option value="">Additional Feature</option>
-					<% # Add tags to the dropdown from the database %>
+					<% # Add tags to the dropdown from the database, storing the value as label_category so we can properly add tags to the database from the selections%>
 					<% if indoor_tags %>
 						<% # Indoor tags first %>
 						<% indoor_tags.each do |tag| %>
-							<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
+							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
 						<% end %>
 					<% end %>
 					<% if outdoor_tags %>
 						<% # Outdoor tags next %>
 						<% outdoor_tags.each do |tag| %>
-							<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
+							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
 						<% end %>
 					<% end %>
 				</select>

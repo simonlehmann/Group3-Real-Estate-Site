@@ -65,6 +65,8 @@ class SellController < ApplicationController
 		@listing = Listing.find(params[:id])
 		# Grab the photos for the listing
 		@photos = ListingImage.where(listing_image_listing_id: @listing.listing_id)
+		# Grab the tags associated with the listing
+		@tags = @listing.listing_tags
 		# Set the action descriptor to "Save Changes"
 		@action = "Save Changes"
 		# Render the view
@@ -76,8 +78,23 @@ class SellController < ApplicationController
 	def update
 		# Get the listing object to update
 		@listing = Listing.find(params[:id])
+		# Get the list of tags for the listing object
+		@tags = @listing.listing_tags
 		# Handle the update using the grouped listing_params to minimise risk of saving other items not associated with  a listing
 		if @listing.update_attributes(listing_params)
+			# Delete all the tags and add the updated tags (TODO, look at only updating those that don't exist, removing those removed and leaving those that exist)
+			@tags.destroy_all
+			# Get the listing_id needed to save the tag
+			@listing_id = @listing.listing_id
+			# Add the tags from the additional-tags-list element
+			params[:additional_tags_list].each do |new_tag|
+				# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
+				tag_parts = new_tag.split('_')
+				# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
+				tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
+				# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
+				tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+			end
 			# The listing should be updated, so flash success and redirect to action: :index
 			flash[:listing_notice] = "Listing was successfully updated"
 			redirect_to action: :index
