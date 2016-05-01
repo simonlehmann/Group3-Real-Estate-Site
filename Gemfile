@@ -52,7 +52,7 @@ gem 'dotenv', '~> 2.1.1'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+group :development, :test, :procuction do # NOTE: Remove :procuction when testing is complete!
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
