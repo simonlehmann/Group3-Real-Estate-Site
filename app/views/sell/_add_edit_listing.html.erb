@@ -4,15 +4,19 @@
 #   
 #   Partial for adding/editing the listing information in the add_edit property flow
 #   
+#   Note this is all wrapped in a single Rails form_for tag so it has access to the @listing model and the f.label ...
+#   
 #   Collections:
 #   	* @listing: the property listing to be edited (only if editing)
 #   	* @photos: the photos for the property listing
+#   	* @tags: the tags associated with the listing
+#   	* @action: a descriptor for the action (i.e. "Save Changes", "Create Listing")
+#   	
+#   Local objects:
+#   	* 'f' representing the form_for helper object (can be used for f.text_field or f.label in pe tags)
 #   
 #   Todo:
-#   	* Form validation
 #   	* Get suburbs (with postcodes) from external source
-#   	* Update names for input fields to be consistent and follow the Semantic-ui form validation
-#   	* Tie agent upload fields to upload function
 #   	* Use jQuery/JS for formatting of some of the fields (i.e. convert price fields to a $100,000 number type when data inputed)
 %>
 
@@ -25,238 +29,190 @@
 <div class="ui two column row">
 	<% # Left hand side column %>
 	<div class="ui eight wide column">
-		<% # Main form with all listing information %>
-		<form action="" class="ui form">
-			<% # Dividing header %>
-			<h4 class="ui dividing header">Property Information</h4>
+		<%
+		# Main form with all listing information
+		# 
+		# The form fields are using the local 'f' form_for helper object that is defined in add_edit.html.erb. 
+		# This allows for the form to span across multiple tabs
+		%>
 
-			<% # Street Address input %>
+		<% # Dividing header %>
+		<h4 class="ui dividing header">Property Information</h4>
+
+		<% # Street Address input %>
+		<div class="required field">
+			<label>Street Address</label>
+			<% # The Street Address Field, will be filled by the @listing object if it exists %>
+			<%= f.text_field :listing_address, placeholder: "Street Address" %>
+		</div>
+
+		<% # Suburb and State Input %>
+		<div class="three fields">
+			<% # Suburb search field %>
 			<div class="required field">
-				<label>Street Address</label>
-				<% if @listing %>
-					<input type="text" name="street[address]" placeholder="Street Address" value="<%= @listing.listing_address %>">
+				<label>Suburb</label>
+				<% # If we're saving changes then we have a listing suburb (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth", @listing.listing_suburb ], @listing.listing_suburb), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
 				<% else %>
-					<input type="text" name="street[address]" placeholder="Street Address">
+					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth" ]), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
 				<% end %>
 			</div>
 
-			<% # Suburb and State Input %>
-			<div class="two fields">
-				<% # Suburb search field %>
-				<div class="required field">
-					<label>Suburb</label>
-					<% if @listing %>
-						<% # Using a form helper select_tag to pass the options and set the selected option to the database value %>
-						<% # This will need to change as I'm not using the final list of suburbs, I'm just adding in the database value to a fake list so I can select it %>
-						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000", @listing.listing_suburb], @listing.listing_suburb), class: "ui fluid search selection add-edit-suburb dropdown" %>
-					<% else %>
-						<% # Using a form helper select_tag to pass the options and set the selected option to the default value %>
-						<%= select_tag "suburb", options_for_select(["Select Suburb", "Perth, 6000", "North Perth, 6000", "West Perth, 6000", "South Perth, 6000"], "Select Suburb"), class: "ui fluid search selection add-edit-suburb dropdown" %>
-					<% end %>
-				</div>
-
-				<% # State dropdown field %>
-				<div class="required field">
-					<label>State</label>
-					<% if @listing %>
-						<% # Using the form helper select_tag to pass the options and set the selected option to the database value %>
-						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.listing_state), class: "ui fluid add-edit-state dropdown" %>	
-					<% else %>
-						<% # Using the form helper select_tag to pass the options and set the selected option to the default value %>
-						<%= select_tag "state", options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], "State"), class: "ui fluid add-edit-state dropdown" %>	
-					<% end %>
-				</div>
-			</div>
-
-			<% # Bedrooms, Bathrooms, Carbays, Land Size %>
-			<div class="four fields">
-				<div class="required field">
-					<label>Bedrooms</label>
-					<% if @listing %>
-						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms" value="<%= @listing.listing_bedrooms %>">
-					<% else %>
-						<input type="number" min="1" name="bedrooms[number]" placeholder="Bedrooms">
-					<% end %>
-				</div>
-				<div class="required field">
-					<label>Bathrooms</label>
-					<% if @listing %>
-						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms" value="<%= @listing.listing_bathrooms %>">
-					<% else %>
-						<input type="number" min="1" name="bathrooms[number]" placeholder="Bathrooms">
-					<% end %>
-				</div>
-				<div class="required field">
-					<label>Parking</label>
-					<% if @listing %>
-						<input type="number" min="1" name="carbays[number]" placeholder="Carbays" value="<%= @listing.listing_parking %>">
-					<% else %>
-						<input type="number" min="1" name="carbays[number]" placeholder="Carbays">
-					<% end %>
-				</div>
-				<div class="required field">
-					<label>Lot Size (sqm)</label>
-					<% if @listing %>
-						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size" value="<%= @listing.listing_land_size %>">
-					<% else %>
-						<input type="number" min="1" name="landsize[number]" placeholder="Lot Size">
-					<% end %>
-				</div>
-			</div>
-
-			<% # Price (either one single price or a ranged price) %>
-			<div class="two fields">
-				<div class="required field">
-					<label>Price Type</label>
-					<% if @listing %>
-						<% # Using the form_helper select_tag to pass the options and set the selected option to the database value %>
-						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], @listing.listing_price_type), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
-					<% else %>
-						<% # Using the form_helper select_tag to pass the options and set the selected option to the default value %>
-						<%= select_tag "price-type", options_for_select([["Fixed Price", "F"], ["Ranged (Min/Max)", "R"]], "F"), class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown"  %>
-					<% end %>
-				</div>
-				<div class="field" id="price-field-fixed">
-					<label>Listing Price</label>
-					<% if @listing %>
-						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price" value="<%= @listing.listing_price_min %>">
-					<% else %>
-						<input type="number" min="1" name="fixedprice[number]" placeholder="Listing Price">
-					<% end %>
-				</div>
-				<div class="field" id="price-field-min">
-					<label>Minimum</label>
-					<% if @listing %>
-						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price" value="<%= @listing.listing_price_min %>">
-					<% else %>
-						<input type="number" min="1" name="minprice[number]" placeholder="Minimum Price">
-					<% end %>
-				</div>
-				<div class="field" id="price-field-max">
-					<label>Maximum</label>
-					<% if @listing %>
-						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price" value="<%= @listing.listing_price_max %>">
-					<% else %>
-						<input type="number" min="1" name="maxprice[number]" placeholder="Maximum Price">
-					<% end %>
-				</div>
-			</div>
-
-			<% # Description %>
+			<% # State dropdown field %>
 			<div class="required field">
-				<label>Description</label>
-				<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. erb is required to acheive this. %>
-				<% if @listing %>
-					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."><%= @listing.listing_description %></textarea>
+				<label>State</label>
+				<% # If we're saving changes then we have a listing state (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.listing_state), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
 				<% else %>
-					<textarea rows="10" placeholder="Enter a description for your property.<%= "\n\n" %>Avoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing."></textarea>
+					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ]), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
 				<% end %>
 			</div>
-		</form>
+
+			<% # Postcode dropdown field %>
+			<div class="required field">
+				<label>Postcode</label>
+				<% # If we're saving changes then we have a listing postcode (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ], @listing.listing_post_code), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
+				<% else %>
+					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ]), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
+				<% end %>
+			</div>
+		</div>
+
+		<% # Bedrooms, Bathrooms, Carbays, Land Size %>
+		<div class="four fields">
+			<div class="required field">
+				<label>Bedrooms</label>
+				<% # The bedrooms for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_bedrooms, min: 1, placeholder: "Bedrooms" %>
+			</div>
+			<div class="required field">
+				<label>Bathrooms</label>
+				<% # The bathrooms for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_bathrooms, min: 1, placeholder: "Bathrooms" %>
+			</div>
+			<div class="required field">
+				<label>Parking</label>
+				<% # The parking for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_parking, min: 1, placeholder: "Parking" %>
+			</div>
+			<div class="required field">
+				<label>Lot Size (sqm)</label>
+				<% # The lot size for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_land_size, min: 1, placeholder: "Lot Size" %>
+			</div>
+		</div>
+
+		<% # Price (either one single price or a ranged price) %>
+		<div class="two fields">
+			<div class="required field">
+				<label>Price Type</label>
+				<% # If we're saving changes then we have a listing price type (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_price_type, options_for_select([ [ "Fixed Price", "F" ], [ "Ranged (Min/Max)", "R" ] ], @listing.listing_price_type), {}, { class: "ui fluid add-edit-price dropdown", id: "add-edit-price-dropdown" } %>
+				<% else %>
+					<%= f.select :listing_price_type, options_for_select([ [ "Fixed Price", "F" ], [ "Ranged (Min/Max)", "R" ] ]), { prompt: "Select Price Type", include_blank: false }, { class: "ui fluid selection add-edit-price dropdown", id: "add-edit-price-dropdown" } %>
+				<% end %>
+			</div>
+			<div class="field" id="price-field-min">
+				<label>Minimum</label>
+				<% # The minimum price for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_price_min, min: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
+			</div>
+			<div class="field" id="price-field-max">
+				<label>Maximum</label>
+				<% # The maximum price for the @listing if it exists, otherwise a blank field with min 1 %>
+				<%= f.number_field :listing_price_max, min: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
+			</div>
+		</div>
+
+		<% # Description %>
+		<div class="required field">
+			<label>Description</label>
+			<% # The text area will grab the description from the @listing object if it exists, otherwise it'll be the placeholder. %>
+			<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. %>
+			<%= f.text_area :listing_description, placeholder: "Enter a description for your property.\n\nAvoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing." %>
+		</div>
 	</div>
 
 	<% # Right hand side column %>
 	<div class="ui eight wide column">
+		<%
+		# Additional information form
+		# 
+		# The form fields are using the local 'f' form_for helper object that is defined in add_edit.html.erb. 
+		# This allows for the form to span across multiple tabs
+		%>
+		
+		<% # Dividing header %>
+		<h4 class="ui dividing header">Additional Information</h4>
 
-		<% # Additional information form %>
-		<form action="" class="ui form">
-			<% # Dividing header %>
-			<h4 class="ui dividing header">Additional Information</h4>
+		<% # Search Result Info %>
+		<div class="required field">
+			<label>Search Result Title</label>
+			<% # This will use the listing_title from the @listing object if it exists, otherwise the placeholder %>
+			<%= f.text_field :listing_title, placeholder: "Enter a descriptive listing title" %>
+		</div>
+		<div class="required field">
+			<label>Search Result Subtitle</label>
+			<% # This will use the listing_subtitle from the @listing object if it exists, otherwise the placeholder %>
+			<%= f.text_field :listing_subtitle, placeholder: "Enter a subtitle for your listing" %>
+		</div>
 
-			<% # Search Result Info %>
-			<div class="required field">
-				<label>Search Result Title</label>
-				<% if @listing %>
-					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title" value="<%= @listing.listing_title %>">
+		<% # Optional Feature Tags %>
+		<div class="field">
+			<% # The tag area where new tags are added into %>
+			<label>Additional Property Feature Tags</label>
+			<% # This will return an array of tags with their qty and type separated by underscores '_' %>
+			<% if @action == "Save Changes" %>
+				<% # Grab a human readable tags list from the existing tags for the listing %>
+				<% existing_tags = add_edit_get_readable_tags_collection(@tags) %>
+				<% if existing_tags %>
+					<% # set the options_for_select to the existing_tags and set them to be selected %>
+					<%= select_tag "additional_tags_list", options_for_select(existing_tags , existing_tags), id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
 				<% else %>
-					<input type="text" name="listing-title" placeholder="Enter a descriptive listing title">
+					<% # We have no existing tags for this listing %>
+					<%= select_tag "additional_tags_list", options_for_select = nil , id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
 				<% end %>
-			</div>
-			<div class="required field">
-				<label>Search Result Subtitle</label>
-				<% if @listing %>
-					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing" value="<%= @listing.listing_subtitle %>">
-				<% else %>
-					<input type="text" name="listing-subtitle" placeholder="Enter a subtitle for your listing">
-				<% end %>
-			</div>
-
-			<% # Optional Feature Tags %>
-			<div class="field">
-				<% # The tag area where new tags are added into %>
-				<label>Additional Property Feature Tags</label>
-				<select class="ui selection multiple dropdown add-edit custom-tags" multiple="" id="add-edit-additional-tags">
-					<option value="" selected>
-						Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)
-					</option>
-				</select>
-			</div>
-			<div class="field">
-				<% # The add a tag form which lets you add custom tags %>
-				<label>Add A Property Feature Tag</label>
-				<div class="ui action input">
-					<% # The tag type dropdown %>
-					<% # Get the tag type objects for the desired categories %>
-					<% indoor_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
-					<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
-					<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
-						<option value="">Additional Feature</option>
-						<% # Add tags to the dropdown from the database %>
-						<% if indoor_tags %>
-							<% # Indoor tags first %>
-							<% indoor_tags.each do |tag| %>
-								<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
-							<% end %>
+			<% else %>
+				<%= select_tag "additional_tags_list", options_for_select = nil , id: "add-edit-additional-tags", class: "ui selection multiple dropdown add-edit custom-tags", prompt: "Use the widget below to add additionl feature tags for your property. These tags can help make your property stand out in search results so be sure to provide accurate and helpful information (i.e. 1 Pool, 1 Theatre Room)", multiple: true %>
+			<% end %>
+		</div>
+		<div class="field">
+			<% # The add a tag form which lets you add custom tags %>
+			<label>Add A Property Feature Tag</label>
+			<div class="ui action input">
+				<% # The tag type dropdown %>
+				<% # Get the tag type objects for the desired categories %>
+				<% indoor_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
+				<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
+				<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
+					<option value="">Additional Feature</option>
+					<% # Add tags to the dropdown from the database, storing the value as label_category so we can properly add tags to the database from the selections%>
+					<% if indoor_tags %>
+						<% # Indoor tags first %>
+						<% indoor_tags.each do |tag| %>
+							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
 						<% end %>
-						<% if outdoor_tags %>
-							<% # Outdoor tags next %>
-							<% outdoor_tags.each do |tag| %>
-								<option value="<%= tag.tag_type_label %>"><%= tag.tag_type_label %></option>
-							<% end %>
-						<% end %><!-- 
-						<option value="Pool">Pool</option>
-						<option value="HT">Theatre Room</option> -->
-					</select>
-					<% # The tag value input field, done as a dropdown (NB. Added 'fluid' as field wasn't full width) %>
-					<% # Using a form_helper select_tag, if you want to change the options, edit the array in options_for_select. prompt: adds a default selection with the given placeholder text %>
-					<%= select_tag "additional-tag-input", options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]), class: "ui fluid selection add-edit-additional-tags-input dropdown", id: "add-edit-additional-tags-input", prompt: "Enter Qty For Additional Feature" %>
-					<% # The add tag button %>
-					<div class="ui icon button" id="add-edit-additional-tags-button">
-						<i class="plus icon"></i>
-					</div>
+					<% end %>
+					<% if outdoor_tags %>
+						<% # Outdoor tags next %>
+						<% outdoor_tags.each do |tag| %>
+							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
+						<% end %>
+					<% end %>
+				</select>
+				<% # The tag value input field, done as a dropdown (NB. Added 'fluid' as field wasn't full width) %>
+				<% # Using a form_helper select_tag, if you want to change the options, edit the array in options_for_select. prompt: adds a default selection with the given placeholder text %>
+				<%= select_tag "additional-tag-input", options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]), class: "ui fluid selection add-edit-additional-tags-input dropdown", id: "add-edit-additional-tags-input", prompt: "Enter Qty For Additional Feature" %>
+				<% # The add tag button %>
+				<div class="ui icon button" id="add-edit-additional-tags-button">
+					<i class="plus icon"></i>
 				</div>
 			</div>
-			
-			<% # Optional Seller Information %>
-			<h4 class="ui dividing header">Seller Information</h4>
-			<div class="field">
-				<label>Agency Name</label>
-				<input type="text" name="seller-company" placeholder="Enter your agency or company name">
-			</div>
-			<% # The upload actions for the seller logo and agent image. %>
-			<div class="two fields">
-				<% # Company Logo %>
-				<div class="field">
-					<label>Agency Logo</label>
-					<div class="ui action input">
-						<input type="text" placeholder="Upload your agency logo">
-						<button class="ui icon button">
-							<i class="upload icon"></i>
-						</button>
-					</div>
-				</div>
-
-				<% # Agent Image %>
-				<div class="field">
-					<label>Agent Image</label>
-					<div class="ui action input">
-						<input type="text" placeholder="Upload your agent image">
-						<button class="ui icon button">
-							<i class="upload icon"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</form>
+		</div>
 	</div>
 </div>

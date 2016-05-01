@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160428055918) do
     t.string   "listing_price_type",     limit: 0,                              default: "F", null: false
     t.decimal  "listing_price_min",                    precision: 12, scale: 2,               null: false
     t.decimal  "listing_price_max",                    precision: 12, scale: 2,               null: false
-    t.integer  "listing_status_id",      limit: 4,                                            null: false
+    t.integer  "listing_status_id",      limit: 4
     t.integer  "listing_user_id",        limit: 4,                                            null: false
     t.integer  "listing_views",          limit: 4,                              default: 0,   null: false
     t.integer  "listing_favourites",     limit: 4,                              default: 0,   null: false

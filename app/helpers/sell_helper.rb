@@ -94,4 +94,26 @@ module SellHelper
 		tags = TagType.where(tag_type_category: category)
 		return tags
 	end
+
+	# Return the tags in a more readable format (they're stored in the database with integer values and relations)
+	def add_edit_get_readable_tags_collection(tags)
+		readable_tags = []
+		# Convert each tag to a readable version
+		# An option tag requires formmating like follows ["Text", "Value"] and we want [ "Qty Label", "qty_label_category" ]
+		# So we need to conver the @tags into an array with the formmating above
+		@tags.each do |tag|
+			# Get the tag_label, which we refer to as qty
+			qty = tag.tag_label
+			# Get the tag type from the TagType database using the tag_type_id stored with the tag, we need this for the Label and Category
+			tag_type = TagType.find(tag.tag_type_id)
+			# Get the tag type label and category in a readable format
+			tag_type_label = tag_type.tag_type_label
+			tag_type_category = tag_type.tag_type_category
+			# Save the retrieved values in our readable_tags array
+			readable_tags << [ "#{qty} #{tag_type_label}", "#{qty}_#{tag_type_label}_#{tag_type_category}"]
+		end
+		# Return the formatted tags array list
+		return readable_tags
+	end
+
 end

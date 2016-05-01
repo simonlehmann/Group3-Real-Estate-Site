@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   get '/dashboard/favourites' => 'dashboard#favourites'
   get '/dashboard/settings' => 'dashboard#settings'
   get '/contact' => 'contact#index'
-  get '/:id' => 'property#index'
   
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'
@@ -28,6 +27,8 @@ Rails.application.routes.draw do
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show]
 
+  # Had to move the /:id route to last as it was overriding the sell routes
+  get '/:id' => 'property#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
