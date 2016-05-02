@@ -187,7 +187,7 @@ ready = ->
 							ribbon.data('date', arr[2]) # The date
 							ribbon.data('start', arr[3]) # The start_time
 							ribbon.data('end', arr[4]) # The end_time
-							ribbon.text(arr[5]) # Update the ribbon text using the readable value
+							ribbon.find('.ribbon-text').text(arr[5]) # Update the ribbon text using the readable value
 							return
 					return
 

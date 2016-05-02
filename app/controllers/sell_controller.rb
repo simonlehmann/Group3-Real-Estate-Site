@@ -7,7 +7,14 @@
 # 		* create: the POST call to /sell upon successful property
 # 		* edit: return a html form to edit the property post
 # 		* update: update the property post
+# 		* update_status: update the listings status using an Ajax call
 # 		* destroy: delete the property.
+# 	
+# 	Private functions/methods:
+# 		* require_login: check if a the requesting caller is logged in, if not then redirect to the login path
+# 		* listing_params: Ensure only the params we want can be saved when calling update_attributes on a listing object (helps to minimise malicious actions)
+# 		* status_params: Ensure only the params we want can be saved when calling update_attributes on a status object (helps to minimise malicious actions)
+# 	
 # 	
 # 	To do:
 # 		* complete actions
@@ -16,7 +23,7 @@
 # 		* Implement Destroy method
 
 class SellController < ApplicationController
-	# If I want to use SellHelper methods in my controller actions I need this
+	# Enables me to use SellHelper methods in the controller actions (using in update_status)
 	include SellHelper
 
 	# define a before_action filter for these actions
@@ -212,6 +219,6 @@ class SellController < ApplicationController
 		def status_params
 			# Helper method to limit the accessible parameters for the status object to those for the status (as listed in permit())
 			params.permit(:listing_status_label, :listing_status_date, :listing_status_start_time,
-				:listing_status_end_time, :id)
+				:listing_status_end_time)
 		end
 end
