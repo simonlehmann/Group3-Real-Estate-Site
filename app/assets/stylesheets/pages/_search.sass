@@ -2,3 +2,31 @@
 // Date: 27/04/2016
 // 
 // The following styles are for all search pages.
+.search-container
+	//submenu on left of results
+	.search-submenu
+		height: 40vh
+		min-height: 200px
+		background-color: $white-secondary
+	#search-sticky
+		padding-top: 50px
+	//filter dropdown button in divider
+	.search-filter
+		background: transparent
+		padding: 4px
+		margin-top: 22px
+		float: right
+	.search-filter:hover,
+	.search-filter:focus
+		color: $green-secondary
+		background: transparent
+	.search-filter.active:hover,
+	.search-filter.active:focus
+		color: $green-secondary
+		background: transparent
+	//divider inbetween search results
+	.search-divider
+		font-size: 1em !important
+	//card
+	.property-card
+		width: 100%
