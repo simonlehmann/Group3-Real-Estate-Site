@@ -1,27 +1,28 @@
+<section class="search-section"></section>
 <section class="contact-container">
 	<h1 id="welcome">Get In Touch</h1>
 	<div class="ui grid nice">
-		<div id="contact-section-1" class="eight wide column">
+		<section id="contact-section-1" class="eight wide column">
 			<form class="ui inverted form">
 				<h1>Send a Message</h1>
 				<div class="fields">
 					<div class="six wide field required field">
 						<label>First Name</label>
-						<input placeholder="John" name="first-name" type="text">
+						<input placeholder="First Name" name="first-name" type="text">
 					</div>
 					<div class="six wide field">
 						<label>Last Name</label>
-						<input placeholder="Smith" name="last-name" type="text">
+						<input placeholder="Family Name" name="last-name" type="text">
 					</div>
 				</div>
 				<div class="twelve wide field required field">
 					<label>Email</label>
-					<input placeholder="Email" id="email" name="email" type="text">
+					<input placeholder="email@address.com" id="email" name="email" type="text">
 					<h2 id="result"></h2>
 				</div>
 				<div class="twelve wide field required field">
 				<label>Subject</label>
-					<select>
+					<select class="ui dropdown" id="contact-type-selector">
 						<option value="0">General Enquiry</option>
 						<option value="1">Report Bug</option>
 						<option value="2">Something Else</option>
@@ -37,8 +38,8 @@
 				</button>
 				<div class="ui error message"></div>
 			</form>
-		</div>
-		<div id="contact-section-2" class="eight wide column">
+		</section>
+		<section id="contact-section-2" class="eight wide column">
 			<h1>Contact Information</h1>
 			<p>Email:</p>
 			<p>contact@propertydome.com</p>
@@ -56,6 +57,6 @@
 					<i class="google plus icon"></i>
 				</button>
 			</div>
-		</div>
+		</section>
 	</div>
 </section>
