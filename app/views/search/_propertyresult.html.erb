@@ -1,2 +1,28 @@
-<h1>Property#index</h1>
-<p>Find me in app/views/property/index.html.erb</p>
+<div class="ui card property-card">
+	<div class="content">
+		Address here
+	</div>
+	<div class="image">
+		<%= image_tag "propertyimagetemp.png", alt: "Property Image" %>
+	</div>
+	<div class="content">
+		<span class="right floated">
+			<i class="star icon"></i>
+			17 favourites
+		</span>
+		<i class="comment icon"></i>
+		3 comments
+	</div>
+	<div class="extra content">
+		<div class="ui large transparent left">
+			more contents here
+		</div>
+	</div>
+	<div class="extra content">
+		<div class="ui large transparent left">
+			<div class="right floated meta">14h</div>
+			author details here
+			<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %> Ron Swanson
+		</div>
+	</div>
+</div>
