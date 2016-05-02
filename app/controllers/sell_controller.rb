@@ -16,6 +16,8 @@
 # 		* Implement Destroy method
 
 class SellController < ApplicationController
+	# define a before_action filter for these actions
+	before_action :require_login, except: [:index]
 
 	# Show the main sell page view
 	# GET /sell
@@ -143,7 +145,16 @@ class SellController < ApplicationController
 		redirect_to action: :index
 	end
 
+	# private methods used by this controller but not accessible outside of it.
 	private
+
+		def require_login
+			# Redirect to the devise login view if the user tries to perform an action other than index and isn't signed in
+			unless user_signed_in?
+				# Using :user instead of resource_name as resource_name is a helper method only accessible in views, not controllers.
+				redirect_to session_path(:user)
+			end
+		end
 
 		def listing_params
 			# Helper method to limit the accessible parameters for the listing object to those for the listing (as listed in permit())
