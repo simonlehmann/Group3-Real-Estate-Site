@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   get '/terms' => 'static_pages#terms'
 
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
-  resources :sell, except: [:show]
+  resources :sell, except: [:show] do    
+    member do
+      # This creates an extra put action for the sell resources to update the status using the update_status action
+      put 'status' => 'sell#update_status'
+    end
+  end
 
   # Had to move the /:id route to last as it was overriding the sell routes
   get '/:id' => 'property#index'

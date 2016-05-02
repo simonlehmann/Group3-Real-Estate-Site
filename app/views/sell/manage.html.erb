@@ -19,7 +19,6 @@
 #   Todo:
 #   	* Change sort icon to ascending/descending icon default to ???
 #   	* Implement sort in ascending and descending order (clicking icon changes sort method between the two)
-#   	* Pass actual info to status modals and only change the one selected.
  %>
 <div class="ui container nobanner-container sell-top">
 	<% # Manage Properties table header%>
@@ -72,7 +71,7 @@
 	
 	<% # The property listings the user has. Now using infinite scroll%>
 	<div class="infinite-table">
-		<div class="ui cards">
+		<div class="ui cards" id="manage-property-card-table">
 			<%= render partial: 'sell/manage_property_card', object: @listings %>
 		</div>
 		<% # The link to the next batch of listings. %>	

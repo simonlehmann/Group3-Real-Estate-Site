@@ -18,7 +18,7 @@ ready = ->
 		context: '.ui.cards'	
 	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
 	if window.location.pathname.includes('sell')
-		$('.ui.sticky').sticky 'refresh'
+		$('.manage-table-header.ui.sticky').sticky 'refresh'
 	
 
 	return
