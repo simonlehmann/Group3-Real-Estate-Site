@@ -83,6 +83,18 @@
 	.status-time.input
 		max-width: 7em
 
+// Styles for the manage status modal header and border
+.manage-status.modal
+	border-radius: 0.5em
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	.header
+		min-height: 3em
+		background-color: $grey-primary
+		color: $white-primary
+
 // Send element to bottom of container (were all rem's)
 .manage-property-bottom
 	position: absolute

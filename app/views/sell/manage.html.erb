@@ -72,7 +72,7 @@
 	
 	<% # The property listings the user has. Now using infinite scroll%>
 	<div class="infinite-table">
-		<div class="ui cards">
+		<div class="ui cards" id="manage-property-card-table">
 			<%= render partial: 'sell/manage_property_card', object: @listings %>
 		</div>
 		<% # The link to the next batch of listings. %>	

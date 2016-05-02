@@ -14,7 +14,7 @@
 #   	* Style the property features (beds/baths...)
 #   	* Handle what happens when there's no status (i.e. creating a status for a listing)
 #   	
- %>
+%>
 
 <% # A property listing management card. %>
 <% @listings.each do |listing| %>
@@ -43,35 +43,31 @@
 				<div class="ui three column centered grid">
 					<% # Property main listing image %>
 					<div class="four wide column">
-						<div class="ui image">
+						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
 							<% # Get the main image path using our sell_helper.rb method listing_get_main_image(listing) %>
 							<%= image_tag listing_get_main_image(listing).listing_image_path, class: "ui centered medium image" %>
-
 							<% # Status ribbon, clicking this will open the edit modal. %>
 							<% if listing_get_status_object(listing) %>
 								<% # If there is a status then we do this %>
 								<% status_object = listing_get_status_object(listing) %>
-								<% # Done in a content tag so I can send data information that is needed via the javascript function %>
-								<%= content_tag :div, class: "ui label sell-red-ribbon manage-status ribbon", id: "launch-modal-#{listing.listing_id}", 
-									onclick:"set_up_and_launch_modal(#{listing.listing_id})", data: {listing: listing.listing_id, 
+								<%= render partial: 'sell/manage_property_card_status_ribbon', locals: {
+										listing_id: listing.listing_id,
 										label: status_object.listing_status_label,
 										date: listing_get_status_date_readable(listing),
-										start: listing_get_status_start_time_readable(listing),
-										end: listing_get_status_end_time_readable(listing)} do %>
-									<%= listing_get_status_readable(listing) %>
-									<div class="detail"><i class="write icon"></i></div>
-								<% end %>
+										start_time: listing_get_status_start_time_readable(listing),
+										end_time: listing_get_status_end_time_readable(listing),
+										status_readable: listing_get_status_readable(listing)
+									}, remote: true %>
 							<% else %>
 								<% # There's no status object for this listing, set a blank ribbon %>
-								<%= content_tag :div, class: "ui label sell-red-ribbon manage-status ribbon", id: "launch-modal-#{listing.listing_id}", 
-									onclick:"set_up_and_launch_modal(#{listing.listing_id})", data: {listing: listing.listing_id, 
-										label: status_object.listing_status_label,
-										date: listing_get_status_date_readable(listing),
-										start: listing_get_status_start_time_readable(listing),
-										end: listing_get_status_end_time_readable(listing)} do %>
-									Add a status for this listing
-									<div class="detail"><i class="write icon"></i></div>
-								<% end %>
+								<%= render partial: 'sell/manage_property_card_status_ribbon', locals: {
+										listing_id: listing.listing_id,
+										label: "None",
+										date: "",
+										start_time: "",
+										end_time: "",
+										status_readable: "Click here to set a status"
+									}, remote: true %>
 							<% end %>
 						</div>
 					</div>

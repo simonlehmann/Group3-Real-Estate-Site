@@ -1,0 +1,17 @@
+<%
+#   Created: Daniel Swain
+#   Date: 02/05/2016
+# 
+#   This is to pass back a string to the update status modal ajax call with the new status text so the
+#   view can be updated without a page refresh.
+#   
+#   The string is formatted to contain 6 records, split by the | character and will be used in the 
+#   success -> function in status_modals.coffee's onAprove function to update the view without a page refresh
+%>
+<% if @status_readable %>
+	<% if @date == nil and @start_time == nil and @end_time == nil  %>
+"<%=j @listing_id + '|' + @label + '||||' + @status_readable %>"
+	<% else %>
+"<%=j @listing_id + '|' + @label + '|' + @date + '|' + @start_time + '|' + @end_time + '|' +  @status_readable %>"
+	<% end %>
+<% end %>

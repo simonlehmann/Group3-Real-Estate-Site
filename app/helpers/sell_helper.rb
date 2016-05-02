@@ -35,6 +35,9 @@ module SellHelper
 				status_end_time = Time.parse(status_object.listing_status_end_time.to_s).strftime("%H:%M")
 				# Set the return string
 				status_return = "#{status_label}: #{status_date}, #{status_start_time} - #{status_end_time}"
+			elsif status_label == "None"
+				# The status is none so set a "none" text
+				status_return = "Click here to set a status"
 			else
 				# Just send the label as there's no date/times
 				status_return = status_label
