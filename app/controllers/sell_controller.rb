@@ -95,17 +95,19 @@ class SellController < ApplicationController
 		# --------- Create and save tags
 		# Get the listing id (for saving tags)
 		@listing_id = @listing.listing_id
-		# Add the tags from the additional-tags-list element
-		params[:additional_tags_list].each do |new_tag|
-			# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
-			tag_parts = new_tag.split('_')
-			# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
-			tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
-			# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
-			tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+		# Add the tags from the additional-tags-list element, only if there are any tags to save
+		if params[:additional_tags_list]
+			params[:additional_tags_list].each do |new_tag|
+				# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
+				tag_parts = new_tag.split('_')
+				# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
+				tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
+				# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
+				tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+			end
 		end
-		
-		# --------- Redirect back to the index view now we've saved everything
+		# --------- Redirect back to the index view now we've saved everything (sending a notice message)
+		flash[:listing_notice] = "A listing was created for: #{@listing.listing_address}."
 		redirect_to action: :index
 	end
 
@@ -141,21 +143,24 @@ class SellController < ApplicationController
 			@tags.destroy_all
 			# Get the listing_id needed to save the tag
 			@listing_id = @listing.listing_id
-			# Add the tags from the additional-tags-list element
-			params[:additional_tags_list].each do |new_tag|
-				# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
-				tag_parts = new_tag.split('_')
-				# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
-				tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
-				# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
-				tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+			# Add the tags from the additional-tags-list element, but only if there are any
+			if params[:additional_tags_list]
+				params[:additional_tags_list].each do |new_tag|
+					# Get the tag parts (tags are formated 'qty_label_category' or tag_parts[0], tag_parts[1], tag_parts[2])
+					tag_parts = new_tag.split('_')
+					# Get the tag_type_id from the label and category (need the .first method as the where call only returns the relation, not the object (which .first returns))
+					tag_type_id = TagType.where(tag_type_label: tag_parts[1], tag_type_category: tag_parts[2]).first.tag_type_id
+					# Save the tag to the database with the tag_type_id, tag_label and tag_listing_id
+					tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
+				end
 			end
 			# The listing should be updated, so flash success and redirect to action: :index
-			flash[:listing_notice] = "Listing was successfully updated."
+			flash[:listing_notice] = "The listing information was successfully updated for: #{@listing.listing_address}."
 			redirect_to action: :index
 		else
-			# There was an error so redirect to edit.
-			redirect_to action: :edit
+			# There was an error saving the listing so send an error message
+			flash[:listing_error] = "There was an error updating the listing details for: #{@listing.listing_address}."
+			redirect_to action: :index
 		end
 	end
 
@@ -181,7 +186,7 @@ class SellController < ApplicationController
 			end
 		else
 			# There was an error saving it, so lets set the listing_notice and redirect to the index view
-			flash[:listing_notice] = "There was an error saving the changes to your status. Please try again."
+			flash[:listing_error] = "There was an error saving the changes to your status. Please try again."
 			redirect_to action: :index
 		end
 		# use this line if you want to not refresh the page, but look into re rendering the partial using JS.erb files
