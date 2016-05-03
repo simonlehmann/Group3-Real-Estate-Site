@@ -112,8 +112,10 @@ module SellHelper
 			# Get the tag type label and category in a readable format
 			tag_type_label = tag_type.tag_type_label
 			tag_type_category = tag_type.tag_type_category
+			# Some logic to change the tag display if it's only a singleton (i.e. qty = 1) and pluralise the tag type label if > 1
+			tag_display = qty.to_i > 1 ? "#{qty} #{tag_type_label.pluralize}" : tag_type_label
 			# Save the retrieved values in our readable_tags array
-			readable_tags << [ "#{qty} #{tag_type_label}", "#{qty}_#{tag_type_label}_#{tag_type_category}"]
+			readable_tags << [ tag_display, "#{qty}_#{tag_type_label}_#{tag_type_category}"]
 		end
 		# Return the formatted tags array list
 		return readable_tags

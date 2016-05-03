@@ -21,6 +21,7 @@
 # 		* Update update method to use images
 # 		* Update create method to use actual cover image id rather than the first one
 # 		* Implement Destroy method
+# 		* DELETE SETTING OF LISTING AS APPROVED IN CREATE METHOD WHEN ADMIN CONSOLE IS UP
 
 class SellController < ApplicationController
 	# Enables me to use SellHelper methods in the controller actions (using in update_status)
@@ -89,6 +90,12 @@ class SellController < ApplicationController
 		# Store the first image as the cover image (will need to change this later)
 		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
 
+		# ***************** DELETE WHEN ADMIN INTERFACE IS BUILT
+		# Temporary code 
+		# Set listing as approved
+		@listing.listing_approved = true
+		# ***************** END DELETE
+		
 		# Save the listing
 		@listing.save
 

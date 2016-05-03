@@ -17,18 +17,31 @@
 
 <% # A property listing management card. %>
 <% @listings.each do |listing| %>
-	<div class="ui fluid card">
+	<div class="ui fluid card manage-listing-card">
 		<div class="content">
+			<% # Corner label to tell if listing is approved or not %>
+			<% if listing.listing_approved %>
+				<div class="ui green left corner label" id="listing-approval-label" data-content="Listing approved" data-variation="inverted">
+					<%= content_tag(:i, "", class:"check circle outline icon") %>
+				</div>
+			<% else %>
+				<div class="ui red left corner label" id="listing-approval-label" data-content="Listing awaiting approval" data-variation="inverted">
+					<%= content_tag(:i, "", class:"spinner loading icon") %>
+				</div>
+			<% end %>
+
 			<% # Header containing address and edit listing button %>
 			<div class="header">
 				<div class="ui two column grid">
 					<% # The address %>
-					<div class="ui left floated left aligned ten wide column">
-						<h2><%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %></h2>
+					<div class="ui left floated left aligned twelve wide column">
+						<h2>
+							<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %>
+						</h2>
 					</div>
 
 					<% # The Edit listing Button %>
-					<div class="ui right floated right aligned six wide column">
+					<div class="ui right floated right aligned four wide column">
 						<%= link_to edit_sell_path(listing.listing_id), class: "ui small right labeled icon button sell-red-button" do  %>
 							<%= content_tag(:i, "", class: "write icon") %>
 							Edit Listing
