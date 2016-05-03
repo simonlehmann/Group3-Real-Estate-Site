@@ -9,6 +9,7 @@
 	color: $red-primary !important
 
 // Buttons & Ribbon
+.sell-red,
 .sell-red-button,
 .sell-red-ribbon
 	background-color: $red-primary !important
@@ -83,8 +84,9 @@
 	.status-time.input
 		max-width: 7em
 
-// Styles for the manage status modal header and border
+// Styles for the manage status modal header and border and top positioning
 .manage-status.modal
+	margin-top: -275px !important
 	border-radius: 0.5em
 	// Close button is positioned absolutely, here I'm overriding the positioning
 	.close
@@ -95,17 +97,33 @@
 		background-color: $grey-primary
 		color: $white-primary
 
-// Send element to bottom of container (were all rem's)
+// Remove margin right on icons in property feature elements on manage page
+// Size the icon and text together to ensure they match.
+.sell-listing-feature 
+	font-size: 1.2em
+	.icon
+		margin-right: 0px
+	
+// Send element to bottom of container
 .manage-property-bottom
 	position: absolute
 	bottom: 1em
 	left: 1em
 	span
 		padding-right: 1em
+	// The top row for the tags (situated in the bottom row) giving it some bottom padding to better separate it from
+	// the view, favourite, comment counts. Also add margin-bottom to the labels in this row incase they wrap around on smaller screens
+	.top-row
+		margin-bottom: 1em
+		.label
+			margin-bottom: 0.5em
 .manage-property-bottom-right
 	position: absolute
 	bottom: 1em
 	right: 1em
+	// Fix the border radius not showing on the left side of the delete button
+	.button
+		border-radius: 0.28em !important
 
 // Override the colour of the pagination class links so they can be seen
 .pagination a
