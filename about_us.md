@@ -37,7 +37,7 @@ __Social Links:__
 
 __Personal/Full Website Link:__ put link here
 
-__Role__: Enter Your Role here
+__Role__: Developer & generally a good guy
 
 __Blurb__:
 
@@ -46,17 +46,17 @@ ___
 ## Jayden Spencer
 
 __Social Links:__
-- Link 1:
-- Link 2:
-- ...
+- Link 1: http://jaydenspencer.com/
+- Link 2: https://github.com/jayden2
+- Link 3: https://au.linkedin.com/in/jaydenspencer?trk=prof-samename-name
 
-__Personal/Full Website Link:__ put link here
+__Personal/Full Website Link:__ http://jaydenspencer.com/
 
-__Role__: Enter Your Role here
+__Role__: Team Leader, Lead Designer, Developer
 
 __Blurb__:
 
-Enter About you text here
+Jayden Spencer is a freelance web & applications developer. Who loves working on an assortment of projects espcially in JavasScript and Rails, and likes to get creative and work on both the front end back end. If you know what i mean ;)
 ___
 ## Michael White
 
