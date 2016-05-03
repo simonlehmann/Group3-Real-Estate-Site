@@ -72,7 +72,12 @@ ready = ->
 		if value != "" and selection != "" and qty != ""
 			# Add the tag to the tag area if the value isn't empty
 			new_tag_value = qty + "_" + value
-			new_tag_text = qty + " " + selection
+			# Get the last character of the selection text (needed to pluralise it)
+			last_char = selection.slice(-1)
+			# Pluralise the selection incase it's qty is > 1
+			selection_pluralised = if last_char == 'y' then selection.slice(0, -1) + 'ies' else selection + 's'
+			# Store the display value as a singledton if only 1 qty was picked (i.e. 1 Pool = Pool)
+			new_tag_text = if qty > 1 then qty + " " + selection_pluralised else selection
 			# Create an option tag
 			opt = document.createElement('option')
 			opt.value = new_tag_value
