@@ -108,10 +108,10 @@
 					<% # Features and Delete Button block %>
 					<div class="three wide right aligned column">
 						<% # Property Listing features %>
-	 					<p><%= listing.listing_bedrooms %> Bedrooms</p>
-	 					<p><%= listing.listing_bathrooms %> Bathrooms</p>
-	 					<p><%= listing.listing_parking %> Parking</p>
-	 					<p><%= listing.listing_land_size %>sqm</p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_land_size %> sqm</b></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_bedrooms %></b> <i class="large bed icon"></i></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="large bed icon"></i></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_parking %></b> <i class="large car icon"></i></p>
 
 						<% # Delete Property Listing button %>
 						<div class="manage-property-bottom-right">
