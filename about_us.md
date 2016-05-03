@@ -48,7 +48,7 @@ ___
 __Social Links:__
 - Link 1: http://jaydenspencer.com/
 - Link 2: https://github.com/jayden2
-- Link 3: https://au.linkedin.com/in/jaydenspencer?trk=prof-samename-name
+- Link 3: https://au.linkedin.com/in/jaydenspencer
 
 __Personal/Full Website Link:__ http://jaydenspencer.com/
 
