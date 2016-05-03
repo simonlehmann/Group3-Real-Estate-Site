@@ -4,7 +4,7 @@
 
 # Moved into one ready function to be called across page load and document.ready as discussed on Slack
 ready = ->
-	$('.contact-container').form fields:
+	$('.contact-container .ui.form').form fields:
 		firstName:
 	    	identifier: 'first-name'
 	    	rules: [ {
