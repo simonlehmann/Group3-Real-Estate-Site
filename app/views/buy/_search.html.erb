@@ -17,19 +17,19 @@
 			<div class="ui label">
 				<i class="search icon"></i>
 			</div>
-			<div class="ui fluid multiple search selection dropdown">
-				<input name="tags" type="hidden">
-				<i class="dropdown icon"></i>
-				<div class="default left aligned text">Search by state, suburb, address or keyword;</div>
-				<div class="menu">
-					<% #TEMP DATA %>
-					<div class="item" data-value="angular">Angular</div>
-					<div class="item" data-value="javascript">Javascript</div>
-					<div class="item" data-value="css">CSS</div>
-					<div class="item" data-value="sass">Sass</div>
-					<div class="item" data-value="android">Android</div>
+			<% suburbs_postcodes = get_suburbs_postcodes() %>
+			<% if suburbs_postcodes %>
+				<%= select_tag "search-field", options_for_select(suburbs_postcodes), class: "ui fluid multiple search selection dropdown", prompt: "Search by state, suburb, address or keyword;", multiple: true %>
+			<% else %>
+				<div class="ui fluid multiple search selection dropdown">
+					<input name="tags" type="hidden">
+					<i class="dropdown icon"></i>
+					<div class="default left aligned text">Search by state, suburb, address or keyword;</div>
+					<div class="menu">
+						<% # A blank list to enable users to add %>
+					</div>
 				</div>
-			</div>
+			<% end %>
 			<div type="submit" class="ui toggle button"><span class="search-action">Search</span></div>
 		</div>
 	</div>
