@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160428055918) do
     t.string   "listing_price_type",     limit: 0,                              default: "F", null: false
     t.decimal  "listing_price_min",                    precision: 12, scale: 2,               null: false
     t.decimal  "listing_price_max",                    precision: 12, scale: 2,               null: false
-    t.integer  "listing_status_id",      limit: 4,                                            null: false
+    t.integer  "listing_status_id",      limit: 4
     t.integer  "listing_user_id",        limit: 4,                                            null: false
     t.integer  "listing_views",          limit: 4,                              default: 0,   null: false
     t.integer  "listing_favourites",     limit: 4,                              default: 0,   null: false
@@ -72,11 +72,18 @@ ActiveRecord::Schema.define(version: 20160428055918) do
     t.datetime "listing_updated_at",                                                          null: false
     t.datetime "listing_to_end_at",                                                           null: false
     t.datetime "listing_ended_at"
+    t.boolean  "listing_approved"
   end
 
   add_index "listings", ["listing_cover_image_id"], name: "index_listings_on_listing_cover_image_id", using: :btree
   add_index "listings", ["listing_status_id"], name: "index_listings_on_listing_status_id", using: :btree
   add_index "listings", ["listing_user_id"], name: "index_listings_on_listing_user_id", using: :btree
+
+  create_table "locations", force: :cascade do |t|
+    t.string  "state",    limit: 28
+    t.string  "suburb",   limit: 40
+    t.integer "postcode", limit: 4
+  end
 
   create_table "messages", primary_key: "message_id", force: :cascade do |t|
     t.integer  "message_to_user_id",   limit: 4,     null: false
