@@ -8,16 +8,16 @@
 
 # Function containing all javascript needed on page load
 ready = ->
-	#--------- Modal Code -------- 	
+	#--------- Modal Code --------	
 	# On click of the status ribbon, open the modal using the data for that status object
 	# Done as an onclick function now to reduce page load time.
 	@set_up_and_launch_modal = (ribbon_id) ->
 		# Get the status and listing information from the calling ribbon
-		listing_id = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('listing')
-		status_label = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('label')
-		date = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('date')
-		start_time = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('start')
-		end_time = $('.sell-red-ribbon.manage-status.ribbon#launch-modal-' + ribbon_id).data('end')
+		listing_id = $('#launch-modal-' + ribbon_id).data('listing')
+		status_label = $('#launch-modal-' + ribbon_id).data('label')
+		date = $('#launch-modal-' + ribbon_id).data('date')
+		start_time = $('#launch-modal-' + ribbon_id).data('start')
+		end_time = $('#launch-modal-' + ribbon_id).data('end')
 
 		# Get reference to the pertinent modal
 		desired_modal = $('.manage-status.modal#' + listing_id)
@@ -60,7 +60,7 @@ ready = ->
 
 		# Set the initial values based upon the status object
 		switch status_label
-			when "Home Open"
+			when 'Home Open'
 				# Home Open: Set the checkbox to checked
 				desired_modal.find('#home-open-title').find('.checkbox').checkbox 'set checked'
 				# Set the date and time values and set the picker options
@@ -70,7 +70,7 @@ ready = ->
 				home_end_picker.set 'select', end_time, format: 'HH:i'				
 				# Open the accordion to the correct panel
 				desired_modal.find('.accordion').accordion 'open', 0
-			when "Auction"
+			when 'Auction'
 				# Auction: Set the checkbox to checked
 				desired_modal.find('#auction-title').find('.checkbox').checkbox 'set checked'
 				# Set the date and time values and set the picker options
@@ -80,11 +80,11 @@ ready = ->
 				auction_end_picker.set 'select', end_time, format: 'HH:i'
 				# Open the accordion to the correct panel
 				desired_modal.find('.accordion').accordion 'open', 1
-			when "Under Offer"
+			when 'Under Offer'
 				# Under Offer: Set the checkbox to checked and open the accordion to the correct panel
 				desired_modal.find('#under-offer-title').find('.checkbox').checkbox 'set checked'
 				desired_modal.find('.accordion').accordion 'open', 2
-			when "Sold"
+			when 'Sold'
 				# Sold: Set the checkbox to checked and open the accordion to the correct panel
 				desired_modal.find('#sold-title').find('.checkbox').checkbox 'set checked'
 				desired_modal.find('.accordion').accordion 'open', 3
@@ -100,8 +100,8 @@ ready = ->
 			# The cancel button was hit. Lets clear the modal back to a blank state
 			onDeny: ->
 				# Reset title and content classes so they are not still open when you launch the modal again
-				desired_modal.find('.accordion .title').removeClass("active")
-				desired_modal.find('.accordion .content').removeClass("active")
+				desired_modal.find('.accordion .title').removeClass('active')
+				desired_modal.find('.accordion .content').removeClass('active')
 				# Clear old values from pickers
 				home_date_picker.clear()
 				home_start_picker.clear()
@@ -110,14 +110,87 @@ ready = ->
 				auction_start_picker.clear()
 				auction_end_picker.clear()
 				# Reset the input values for all input fields
-				desired_modal.find('input').val("")
+				desired_modal.find('input').val('')
 				# Reset the end time minimum incase any 'on set' methods were triggered. 
 				home_end_picker.set 'min', '8:00'
 				auction_end_picker.set 'min', '8:00'
 
 			# The save button was hit, lets handle the save action and then reset the modal
+			# This expects the approve/save button to have the class 'approve' 
 			onApprove: ->
-				console.log 'Save whas hit for modal: ' + listing_id
+				# Get the status information from the active accordion
+				active_title = desired_modal.find('.accordion .title.active')
+				listing_status_label = ''
+				listing_status_date = ''
+				listing_status_start_time = ''
+				listing_status_end_time = ''
+				# Now, grab the required data for saving the latest status
+				switch active_title.attr('id')
+					when 'home-open-title'
+						listing_status_label = 'Home Open'
+						listing_status_date = desired_modal.find('#home-date-' + listing_id).val()
+						listing_status_start_time = desired_modal.find('#home-start-time-' + listing_id).val()
+						listing_status_end_time = desired_modal.find('#home-end-time-' + listing_id).val()
+					when 'auction-title'
+						listing_status_label = 'Auction'
+						listing_status_date = desired_modal.find('#auction-date-' + listing_id).val()
+						listing_status_start_time = desired_modal.find('#auction-start-time-' + listing_id).val()
+						listing_status_end_time = desired_modal.find('#auction-end-time-' + listing_id).val()
+					when 'under-offer-title'
+						listing_status_label = 'Under Offer'
+					when 'sold-title'
+						listing_status_label = 'Sold'
+					when 'remove-status-title'
+						listing_status_label = 'None'
+
+				# Now we have all the information we need lets clear it all before the save (therefor resetting the modal)
+				# Reset title and content classes so they are not still open when you launch the modal again
+				desired_modal.find('.accordion .title').removeClass('active')
+				desired_modal.find('.accordion .content').removeClass('active')
+				# Clear old values from pickers
+				home_date_picker.clear()
+				home_start_picker.clear()
+				home_end_picker.clear()
+				auction_date_picker.clear()
+				auction_start_picker.clear()
+				auction_end_picker.clear()
+				# Reset the input values for all input fields
+				desired_modal.find('input').val('')
+				# Reset the end time minimum incase any 'on set' methods were triggered. 
+				home_end_picker.set 'min', '8:00'
+				auction_end_picker.set 'min', '8:00'
+
+				# ---- Actually save the information
+				# If the listing_status_label isn't blank then save with an ajax call to the /sell/:id/status url
+				# This is defined in sell_controller as the update_status action.
+				if listing_status_label != ''
+					# Ajax save call to the /sell/:id/status url in the sell controller
+					$.ajax
+						type: 'POST'
+						url: '/sell/' + listing_id + '/status'
+						# The data we're sending through, we use _method to handle browser that don't support 'PUT'
+						data:
+							_method: 'PUT'
+							listing_status_label: listing_status_label
+							listing_status_date: listing_status_date
+							listing_status_start_time: listing_status_start_time
+							listing_status_end_time: listing_status_end_time
+						success: (response) ->
+							# Use the successful response string to update the status ribbon
+							# Remove the quotes and new line charactersfrom the response
+							response = response.replace(/(\r\n|\n|\r)|["]/g,'')
+							# split the response by the '|' character (giving us 6 elements)
+							arr = response.split('|')
+							# Update the status ribbon data attributes with the split values from the server
+							ribbon = $('#launch-modal-' + arr[0])
+							ribbon.data('label', arr[1]) # The status type (i.e. Home Open, Auction...)
+							ribbon.data('date', arr[2]) # The date
+							ribbon.data('start', arr[3]) # The start_time
+							ribbon.data('end', arr[4]) # The end_time
+							ribbon.find('.ribbon-text').text(arr[5]) # Update the ribbon text using the readable value
+							return
+					return
+
 		).modal 'show'
 
 		return

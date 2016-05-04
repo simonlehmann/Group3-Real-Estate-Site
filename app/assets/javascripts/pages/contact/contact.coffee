@@ -4,7 +4,7 @@
 
 # Moved into one ready function to be called across page load and document.ready as discussed on Slack
 ready = ->
-	$('.ui.form').form fields:
+	$('.contact-container .ui.form').form fields:
 		firstName:
 	    	identifier: 'first-name'
 	    	rules: [ {
@@ -29,5 +29,8 @@ ready = ->
 	      		type: 'regExp[/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$/]',
 	      		prompt: 'Please write your email to us'
 	    	} ]
+
+	$('#contact-type-selector').dropdown()
+	
 $(document).ready ready
 $(document).on 'page:load', ready

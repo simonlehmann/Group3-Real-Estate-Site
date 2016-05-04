@@ -13,6 +13,10 @@
 $("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($('.infinite-table .ui.cards'));
 // Show the loading animation as we're loading the next page
 $('.infinite-table #loading-animation').css('display', 'block');
+// Refresh the sticky manage header so it gets the updated context size and doesn't dissappear halfway down the page
+$('.manage-table-header.ui.sticky').sticky('refresh');
+// Add the tooltop popup on the newly added cards
+$('.manage-listing-card #listing-approval-label').popup({ hoverable: true });
 
 // Update pagination link
 <% if @listings.last_page? %>

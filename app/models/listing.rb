@@ -20,7 +20,7 @@
 #   	listing_price_type: set('F', 'R') DEFAULT='F'
 #   	listing_price_min: decimal(12,2)
 #   	listing_price_max: decimal(12,2)
-#   	listing_status_id: int
+#   	listing_status_id: int NULLABLE
 #   	listing_user_id: int
 #   	listing_views: int
 #   	listing_favourites: int
@@ -29,6 +29,7 @@
 #   	listing_updated_at: timestamp ON UPDATE CURRENT TIMESTAMP
 #   	listing_toEnd_at: timestamp DEFAULT '0000-00-00 00:00:00'
 #   	listing_ended_at: timestamp NULLABLE
+#   	listing_approved: boolean DEFAULT = false
 #   
 #   Relations (how to use): If you have a listing object (i.e. listing = Listing.find(1)) then the following methods will return the associated object
 #   	listing.listing_tags - will return the tags associated with the listing
@@ -56,7 +57,7 @@ class Listing < ActiveRecord::Base
 	# but it will also call it's destroy associations (i.e. delete the statuses...) this minimises orphaned data)
 
 	# A listing can have many tags, deleting the listing will delete all the associated tags
-	has_many :listing_tags, class_name: "Tag", inverse_of: :listing, dependent: :destroy
+	has_many :listing_tags, class_name: "Tag", inverse_of: :listing, foreign_key: "tag_listing_id", dependent: :destroy
 	
 	# A listing can have only one status (the ListingStatus class is where we set the has_one relationship, we just store it in this table),
 	# deleting the listing will delete the associated status object

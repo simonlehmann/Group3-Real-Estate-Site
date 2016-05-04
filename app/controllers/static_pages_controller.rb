@@ -18,4 +18,9 @@ class StaticPagesController < ApplicationController
 	def terms
 
 	end
+
+	# Show the 'Meet the team page'
+	def team
+		
+	end
 end

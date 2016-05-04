@@ -1,0 +1,43 @@
+<%
+#   Created: Daniel Swain & Tylden Horan
+#   Date: 04/05/2016
+#   
+#   Template for the meet the team page page
+%>
+
+<% # Everything inside a nobanner-container and middle aligned grid container to fix alignment and place under header %>
+<div class="ui container nobanner-container">
+	<% # Middle aligned container to properly centre content %>
+	<div class="ui centered fourteen wide column">
+		<% # The cards container, this will set the about us card to be only 3 per row %>
+		<div class="ui three cards">
+			<% # A sample card (this is where the about us info goes) %>
+			<div class="ui card">
+				<div class="ui slide masked reveal image">
+					<%= image_tag "300x300.png", class: "visible content" %>
+					<%= image_tag "add-photo.png", class: "hidden content" %>
+				</div>
+				<div class="content">
+					<div class="header">Name</div>
+					<div class="center aligned meta">
+						<div class="row">
+							<% # Social links as icons %>
+							<i class="circular inverted google plus link icon"><a href="#"></a></i>
+							<i class="circular inverted google plus link icon"><a href="#"></a></i>
+							<i class="circular inverted google plus link icon"><a href="#"></a></i>
+						</div>
+						<div class="row">
+							<% # Personal Link here %>
+							<a href="http://www.daniecswain.com">www.danielcswain.com</a>
+						</div>
+					</div>
+				</div>
+				<div class="extra content">
+					<% # Put the role and blurb here %>
+					<div class="header">Roles</div>
+					<p>This was a real person</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -5,4 +5,23 @@
 #   Partial to display the user settings
 %>
 
+<% # The page header %>
 <h1 class="ui center aligned">Settings</h1>
+
+<% # If the user has just signed up they will be redirected here and will see the following message. This message will only show the first time after sign-up %>
+<% if flash[:just_signed_up] %>
+	<% # A positive message block that is dismissable %>
+	<div class="ui positive message">
+		<% # The close icon %>
+		<i class="close icon"></i>
+		<% # The header text is set in the registrations_controller.rb (see the flash[:just_signed_up] declaration) %>
+		<div class="header">
+			<%= flash[:just_signed_up] %>
+		</div>
+		<% # The message content (in this case, instructions to the user about what they should do next) %>
+		<p>Thanks for signing up! This page is where you can set your username and other personal details.</p>
+		<p>You can also upload a profile picture and set your notification preferences.</p>
+	</div>
+<% end %>
+
+<% # The remaining settings actions to go here %>

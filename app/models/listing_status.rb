@@ -5,7 +5,7 @@
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
 #   	listing_status_id: int
-#   	listing_status_label: set("Home Open", "Auction", "Under Offer", "Sold")
+#   	listing_status_label: set("Home Open", "Auction", "Under Offer", "Sold", "None")
 #   	listing_status_date: date NULLABLE
 #   	listing_status_start_time: time NULLABLE
 #   	listing_status_end_time: time NULLABLE

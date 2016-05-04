@@ -4,25 +4,18 @@
 #   
 #   Partial for the add/edit action buttons
 #   
-#   Local variables:
-#   	* show_save_button: A boolean used to show the save button (only present on the photos and extra's tab)
+#   Collections:
+#   	* @action: a descriptor for the action (i.e. "Save Changes", "Create Listing")
 #   	
 #   Todo:
 #   	* style the cancel button's warning prompt (currently the default confirmation dialog of the browser).
-#   	* Make cancel, preview and post buttons work
-#   	* Maybe have it so it shows you the status modal when you're saving it so you can set it's initial status?
 %>
 
 <% # These buttons are pulled into the add/edit page as the code is the same for all tabs and performs the same actions. %>
 <div class="ui right aligned column">
 	<% # Cancel button %>
 	<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
-	
-	<% # Preview button %>
-	<div class="ui button">Preview</div>
 
-	<% # Post button %>
-	<% if show_save_button %>
-		<%= link_to "Post", sell_index_path, method: :post, class: "ui button sell-red-button" %>
-	<% end %>
+	<% # Post button, the submit action is triggered onClick of this button in add_edit.coffee %>
+	<button class="ui button sell-red-button" id="add-edit-submit-button"><%= @action %></button>
 </div>
