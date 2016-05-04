@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'
   get '/terms' => 'static_pages#terms'
-
+  get '/team' => 'static_pages#team'
+  
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show] do    
     member do
