@@ -30,7 +30,9 @@
 					<div class="item" data-value="android">Android</div>
 				</div>
 			</div>
-			<div type="submit" class="ui toggle button"><span class="search-action">Search</span></div>
+			<%= link_to search_path, class: "ui toggle button" do %>
+				<span class="search-action">Search</span>
+			<% end %>
 		</div>
 	</div>
 </div>
