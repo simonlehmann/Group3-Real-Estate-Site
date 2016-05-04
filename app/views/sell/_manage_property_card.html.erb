@@ -19,14 +19,20 @@
 <% @listings.each do |listing| %>
 	<div class="ui fluid card manage-listing-card">
 		<div class="content">
-			<% # Corner label to tell if listing is approved or not %>
+			<% # Corner label to tell if listing is approved, rejected or awaiting review %>
 			<% if listing.listing_approved %>
-				<div class="ui green left corner label" id="listing-approval-label" data-content="Listing approved" data-variation="inverted">
+				<div class="ui left corner label approved" id="listing-approval-label" data-content="Listing approved" data-variation="inverted">
 					<%= content_tag(:i, "", class:"check circle outline icon") %>
 				</div>
+			<% # Rejected %>
+			<% elsif listing.listing_approved == false %>
+				<div class="ui left corner label rejected" id="listing-approval-label" data-content="Listing was rejected" data-variation="inverted">
+					<%= content_tag(:i, "", class:"remove circle icon") %>
+				</div>
+			<% # Awaiting Review %>
 			<% else %>
-				<div class="ui red left corner label" id="listing-approval-label" data-content="Listing awaiting approval" data-variation="inverted">
-					<%= content_tag(:i, "", class:"spinner loading icon") %>
+				<div class="ui left corner label review" id="listing-approval-label" data-content="Listing awaiting approval" data-variation="inverted">
+					<%= content_tag(:i, "", class:"loading spinner icon") %>
 				</div>
 			<% end %>
 
@@ -105,7 +111,7 @@
 									<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
 									<% # A label for each tag in the list %>
 									<% tags.each do |tag| %>
-										<div class="ui sell-red label">
+										<div class="ui sell-feature-tag label">
 											<% # tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
 											<%= tag[0] %>
 										</div>
