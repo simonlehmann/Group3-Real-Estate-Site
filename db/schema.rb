@@ -79,6 +79,12 @@ ActiveRecord::Schema.define(version: 20160428055918) do
   add_index "listings", ["listing_status_id"], name: "index_listings_on_listing_status_id", using: :btree
   add_index "listings", ["listing_user_id"], name: "index_listings_on_listing_user_id", using: :btree
 
+  create_table "locations", force: :cascade do |t|
+    t.string  "state",    limit: 28
+    t.string  "suburb",   limit: 40
+    t.integer "postcode", limit: 4
+  end
+
   create_table "messages", primary_key: "message_id", force: :cascade do |t|
     t.integer  "message_to_user_id",   limit: 4,     null: false
     t.integer  "message_from_user_id", limit: 4,     null: false
