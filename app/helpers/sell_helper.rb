@@ -103,8 +103,8 @@ module SellHelper
 		readable_tags = []
 		# Convert each tag to a readable version
 		# An option tag requires formmating like follows ["Text", "Value"] and we want [ "Qty Label", "qty_label_category" ]
-		# So we need to conver the @tags into an array with the formmating above
-		@tags.each do |tag|
+		# So we need to conver the tags into an array with the formmating above
+		tags.each do |tag|
 			# Get the tag_label, which we refer to as qty
 			qty = tag.tag_label
 			# Get the tag type from the TagType database using the tag_type_id stored with the tag, we need this for the Label and Category
@@ -112,11 +112,12 @@ module SellHelper
 			# Get the tag type label and category in a readable format
 			tag_type_label = tag_type.tag_type_label
 			tag_type_category = tag_type.tag_type_category
+			# Some logic to change the tag display if it's only a singleton (i.e. qty = 1) and pluralise the tag type label if > 1
+			tag_display = qty.to_i > 1 ? "#{qty} #{tag_type_label.pluralize}" : tag_type_label
 			# Save the retrieved values in our readable_tags array
-			readable_tags << [ "#{qty} #{tag_type_label}", "#{qty}_#{tag_type_label}_#{tag_type_category}"]
+			readable_tags << [ tag_display, "#{qty}_#{tag_type_label}_#{tag_type_category}"]
 		end
 		# Return the formatted tags array list
 		return readable_tags
 	end
-
 end

@@ -7,27 +7,41 @@
 #   This represents a property that will be manigable by the user, it might be rendered multiple times
 #   
 #   Collections
-#   	@listings: The collection of listing objects from the database. Access properties using the database column names as listed in /app/models/listing.rb
+#   	@listings: The collection of listing objects from the database. 
+#   		Access properties using the database column names as listed in /app/models/listing.rb
 #   
 #   Todo:
-#   	* Prompt/Dialog/Modal for the delete button
-#   	* Style the property features (beds/baths...)
+#   	* Style the Prompt/Dialog/Modal for the delete button
+#   	* Change the bathroom count icon from a bed to a bath when Jayden designs it.
 %>
 
 <% # A property listing management card. %>
 <% @listings.each do |listing| %>
-	<div class="ui fluid card">
+	<div class="ui fluid card manage-listing-card">
 		<div class="content">
+			<% # Corner label to tell if listing is approved or not %>
+			<% if listing.listing_approved %>
+				<div class="ui green left corner label" id="listing-approval-label" data-content="Listing approved" data-variation="inverted">
+					<%= content_tag(:i, "", class:"check circle outline icon") %>
+				</div>
+			<% else %>
+				<div class="ui red left corner label" id="listing-approval-label" data-content="Listing awaiting approval" data-variation="inverted">
+					<%= content_tag(:i, "", class:"spinner loading icon") %>
+				</div>
+			<% end %>
+
 			<% # Header containing address and edit listing button %>
 			<div class="header">
 				<div class="ui two column grid">
 					<% # The address %>
-					<div class="ui left floated left aligned ten wide column">
-						<h2><%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %></h2>
+					<div class="ui left floated left aligned twelve wide column">
+						<h2>
+							<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %>
+						</h2>
 					</div>
 
 					<% # The Edit listing Button %>
-					<div class="ui right floated right aligned six wide column">
+					<div class="ui right floated right aligned four wide column">
 						<%= link_to edit_sell_path(listing.listing_id), class: "ui small right labeled icon button sell-red-button" do  %>
 							<%= content_tag(:i, "", class: "write icon") %>
 							Edit Listing
@@ -77,41 +91,71 @@
 					<% # Description and information block %>
 					<div class="nine wide column">
 						<% # The Description %>
-						<p><b>Description: </b><%= listing.listing_description %></p>
-
-						<% # The bottom info bar showing views, comments, favourites and expiry %>
+						<div class="row">
+							<b>Description: </b><%= listing.listing_description %>
+						</div>
+						
+						<% # The bottom info bar showing a tag row, and a row of views, comments, favourites and expiry %>
 						<div class="manage-property-bottom">
-							<% # The number of views %>
-							<span>
-								<%= content_tag(:i, "", class:"unhide icon") %>
-								<%= listing.listing_views %> Views
-							</span>
-							<% # The number of favourites %>
-							<span>
-								<%= content_tag(:i, "", class:"star icon") %>
-								<%= listing.listing_favourites %> Favourites
-							</span>
-							<% # The number of comments %>
-							<span>
-								<%= content_tag(:i, "", class:"comments icon") %>
-								<%= listing.listing_comments %> Comments
-							</span>
-							<% # The time left until expiry %>
-							<% # TODO make this get from database %>
-							<span>
-								<%= content_tag(:i, "", class:"wait icon") %>
-								6 Weeks Until Expired
-							</span>
+							<% # The row of feature tags (only showing the first 10) %>
+							<% if listing.listing_tags.size > 0  %>
+								<% # We have tags, so lets get the readable collection and display them %>
+								<div class="row top-row">
+									<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
+									<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
+									<% # A label for each tag in the list %>
+									<% tags.each do |tag| %>
+										<div class="ui sell-red label">
+											<% # tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
+											<%= tag[0] %>
+										</div>
+									<% end %>
+								</div>
+							<% end %>
+							
+							<% # The Row of views, comments, favourites and expiry date %>
+							<div class="row">
+								<% # The number of views %>
+								<span>
+									<%= content_tag(:i, "", class:"unhide icon") %>
+									<%= listing.listing_views %> Views
+								</span>
+								<% # The number of favourites %>
+								<span>
+									<%= content_tag(:i, "", class:"star icon") %>
+									<%= listing.listing_favourites %> Favourites
+								</span>
+								<% # The number of comments %>
+								<span>
+									<%= content_tag(:i, "", class:"comments icon") %>
+									<%= listing.listing_comments %> Comments
+								</span>
+								<% # The time left until expiry %>
+								<% # TODO make this get from database %>
+								<span>
+									<%= content_tag(:i, "", class:"wait icon") %>
+									6 Weeks Until Expired
+								</span>
+							</div>
 						</div>
 					</div>
 					
 					<% # Features and Delete Button block %>
 					<div class="three wide right aligned column">
 						<% # Property Listing features %>
-	 					<p><%= listing.listing_bedrooms %> Bedrooms</p>
-	 					<p><%= listing.listing_bathrooms %> Bathrooms</p>
-	 					<p><%= listing.listing_parking %> Parking</p>
-	 					<p><%= listing.listing_land_size %>sqm</p>
+						<% # Get the listing pricy type for display %>
+						<p class="sell-listing-feature">
+							<% if listing.listing_price_type == "F" %>
+								<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %></b>
+							<% else %>
+								<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %></b>
+							<% end %>
+						</p>
+						<% # The remaining listing features %>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_land_size %> sqm</b></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_bedrooms %></b> <i class="bed icon"></i></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="bed icon"></i></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_parking %></b> <i class="car icon"></i></p>
 
 						<% # Delete Property Listing button %>
 						<div class="manage-property-bottom-right">
