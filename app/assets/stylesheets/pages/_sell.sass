@@ -117,6 +117,9 @@
 		margin-bottom: 1em
 		.label
 			margin-bottom: 0.5em
+			// The labels should be coloured
+			background-color: $purple-primary !important
+			color: $white-primary !important
 .manage-property-bottom-right
 	position: absolute
 	bottom: 1em
@@ -125,12 +128,25 @@
 	.button
 		border-radius: 0.28em !important
 
-// Styles for manage-listing-card (to get appoved corner label curved to match card and to left-page the header so it's not covered by the corner label)
+// Styles for manage-listing-card (to get appoved corner label curved to match card
 .manage-listing-card
 	overflow: hidden
+	// Left-pad to keep header out from under the corner label
 	.content .header h2
 		margin-left: 1em
-
+	// Colour the left corner labels
+	.left.corner.label
+		color: $white-primary
+	.left.corner.label.approved
+		background-color: $green-primary
+		border-color: $green-primary
+	.left.corner.label.review
+		background-color: $orange-primary
+		border-color: $orange-primary
+	.left.corner.label.rejected
+		background-color: $red-primary
+		border-color: $red-primary
+	
 // Override the colour of the pagination class links so they can be seen
 .pagination a
 	color: #000000

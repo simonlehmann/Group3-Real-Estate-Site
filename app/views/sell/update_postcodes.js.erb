@@ -1,0 +1,13 @@
+<%
+#   Create by: Daniel swain
+#   Date : 4/5/2016
+#   
+#   Update the selection options based upon the state and suburb selection
+%>
+
+<% if @postcodes %>
+	<% # Add the new data options to the postcode dropdown %>
+	$('#listing_listing_post_code').empty()
+	$('#listing_listing_post_code').append( $('<option>Select Postcode</option>'));
+	$('#listing_listing_post_code').append("<%=j options_for_select(@postcodes) %>");
+<% end %>

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     member do
       # This creates an extra put action for the sell resources to update the status using the update_status action
       put 'status' => 'sell#update_status'
+      put 'suburbs' => 'sell#update_suburbs'
+      put 'postcodes' => 'sell#update_postcodes'
     end
   end
 
