@@ -99,18 +99,18 @@ Email: ```propertydomeau@gmail.com```
 Password: ```Password123```  
 
 ## :computer: Server Information
-During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
+During the development of the application, the database will be hosted on the Web24 VPS provided by Central Institute of Technology. 
 ###:key: MySQL Database Server Information
 #### Application Access
 URL: `db.slehmann36.com`  
 Username: `pdappuser`  
-Password: `MhalliF123`  
+Password: `Qrmz5$68`  
 Require SSL `True`
 
 ####PhpMyAdmin Access
 URL: `https://db.slehmann36.com/phpmyadmin/`  
-Username: `admin`  
-Password: `MhalliF123`
+Username: `pdappadmin`  
+Password: `Vndr8%65`
 
 :exclamation:Don't you bastards break my server!
 
