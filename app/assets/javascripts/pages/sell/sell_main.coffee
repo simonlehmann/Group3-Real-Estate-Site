@@ -20,6 +20,8 @@ ready = ->
 	if window.location.pathname.includes('sell')
 		$('.manage-table-header.ui.sticky').sticky 'refresh'
 	
+	# Popup tooltip for the approval corner label in the manage table cards when you hover over the label
+	$('.manage-listing-card #listing-approval-label').popup	hoverable: true
 
 	return
 

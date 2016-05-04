@@ -29,6 +29,7 @@
 #   	listing_updated_at: timestamp ON UPDATE CURRENT TIMESTAMP
 #   	listing_toEnd_at: timestamp DEFAULT '0000-00-00 00:00:00'
 #   	listing_ended_at: timestamp NULLABLE
+#   	listing_approved: boolean DEFAULT = false
 #   
 #   Relations (how to use): If you have a listing object (i.e. listing = Listing.find(1)) then the following methods will return the associated object
 #   	listing.listing_tags - will return the tags associated with the listing
