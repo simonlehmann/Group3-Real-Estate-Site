@@ -10,13 +10,42 @@ module ApplicationHelper
 		@devise_mapping ||= Devise.mappings[:user]
 	end
 
-	# The following allow us to use the location database
+	# Return an array of uniq states from the database
+	def get_states
+		return @locations = Location.find_each().map{|loc| loc.state}.uniq!.sort!
+	end
+
+	# Return an array of suburbs for the chosen state
 	def get_suburbs (state = "Western Australia")
-		return @states = Location.where(state: state).sort!
+		# Return an array of suburbs, sorted in ascending order
+		suburb_objects = Location.where(state: state).order(:suburb)
+		@suburbs = []
+		suburb_objects.each do |obj|
+			@suburbs << "#{obj.suburb}"
+		end
+		return @suburbs
 	end
+	# Return an array of postcodes for the chosen state
 	def get_postcodes (state = "Western Australia")
-		return @postcodes = Location.where(state: state).sort!
+		postcode_objects = Location.where(state: state).order(:postcode)
+		@postcodes = []
+		postcode_objects.each do |obj|
+			@postcodes << "#{obj.postcode}"
+		end
+		return @postcodes
 	end
+
+	# Return an array of poscodes from the chosen state + suburb
+	def get_postcodes_from_selection( state = "Western Australia", suburb)
+		postcode_objects = Location.where(state: state, suburb: suburb).order(:postcode)
+		@postcodes = []
+		postcode_objects.each do |obj|
+			@postcodes << "#{obj.postcode}"
+		end
+		return @postcodes
+	end
+
+	# Return an array of suburbs with postcodes appended
 	def get_suburbs_postcodes (state = "Western Australia")
 		objects = Location.where(state: state)
 		@suburbs_postcodes = []
