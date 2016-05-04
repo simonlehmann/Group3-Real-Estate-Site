@@ -104,13 +104,13 @@ During the development of the application, the database will be hosted on the We
 #### Application Access
 URL: `db.slehmann36.com`  
 Username: `pdappuser`  
-Password: `Qrmz5$68`  
+Password: `MhalliF123`  
 Require SSL `True`
 
 ####PhpMyAdmin Access
 URL: `https://db.slehmann36.com/phpmyadmin/`  
-Username: `pdappadmin`  
-Password: `Vndr8%65`
+Username: `admin`  
+Password: `MhalliF123`
 
 :exclamation:Don't you bastards break my server!
 
