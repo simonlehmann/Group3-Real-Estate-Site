@@ -11,10 +11,10 @@ ready = ->
 	# Support tab's on the add_edit page
 	$('.add-edit.tabular.menu .item').tab()
 
-	# Turn on the dropdowns on the add edit page
-	$('.add-edit-suburb.dropdown').dropdown()
-	$('.add-edit-state.dropdown').dropdown()
-	$('.add-edit-postcode.dropdown').dropdown()
+	# Turn on the dropdowns on the add edit page, making the state, suburb and postcode search dropdowns support full text search
+	$('.add-edit-state.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-suburb.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-postcode.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-price.dropdown').dropdown()
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
@@ -239,6 +239,16 @@ ready = ->
 	$('#add-edit-listing-form').form
 		inline: true
 		fields: validation_rules
+		# Turn keyboard shortcuts off for the semantic form
+		keyboardShortcuts: false
+
+	# Submit the form with a keyboard enter key press if the dropdown fields aren't selected
+	$(document).keypress (key) ->
+		# Enter key (submit handler)	
+		if key.which == 13
+			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
+			if !$('key.target').hasClass('dropdown')
+				$('#add-edit-listing-form').form 'submit'
 
 	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
 	$('#add-edit-submit-button').on 'click', ->
