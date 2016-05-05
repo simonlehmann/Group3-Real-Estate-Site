@@ -30,11 +30,25 @@
 	//card
 	.property-card
 		width: 90%
+		//left corner fav selection
+		.title-link:hover
+			color: $green-secondary
 		.fav-property
-			
-		.fav-property:hover
+			border-color: $transparent
 			i
-				cursor: pointer
+				color: $grey-lighter
+			.favd
+				color: $yellow-primary
+		.fav-property:hover
+			border-color: $transparent
+			i
+				color: $grey-light
+				cursor: pointer !important
+			.favd
+				color: $yellow-hover
+	//select tags, so they are not so glued together
+	.tag-field > div > div 
+		margin-bottom: 6px !important
 	.property-info-stats
 		font-size: 	1rem
 		font-weight: lighter
@@ -49,3 +63,20 @@
 		span
 			font-weight: bolder
 			padding-right: 15px
+	.company-column
+		padding-left: 0px !important
+		img
+			width: 55px !important
+	.user-column
+		padding-right: 0px !important
+	.company-column,
+	.user-column
+		span
+			font-weight: bold
+			color: $grey-text
+		a:hover
+			span
+				font-weight: bold
+				color: $green-secondary
+	.left.floated.meta
+		margin-top: 15px
