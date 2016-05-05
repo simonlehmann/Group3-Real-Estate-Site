@@ -16,12 +16,6 @@ ready = ->
 	#add slick-lightbox
 	$('.property-slick-slide').slickLightbox(
 		itemSelector: '> a')
-	$('.property-card .fav-property').click( ->
-		if ($(this).children('i').hasClass('favd'))
-			$(this).children('i').removeClass('favd')
-		else
-			$(this).children('i').addClass('favd'))
-
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready

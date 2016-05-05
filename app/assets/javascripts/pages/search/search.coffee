@@ -11,6 +11,10 @@ ready = ->
 		context: '#search-feed'
 	$('.search-container .search-filter').dropdown
 		allowCategorySelection: true
+	#fav a property by adding favd class toggle
+	$('.property-card .fav-property').click( ->
+		$(this).children('i').toggleClass('favd'))
+	
 
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)

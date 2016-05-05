@@ -5,11 +5,30 @@
 .search-container
 	//submenu on left of results
 	.search-submenu
-		height: 40vh
-		min-height: 200px
-		background-color: $white-secondary
+		min-height: 40vh
+		background-color: $grey-blue-primary
+		border-radius: 5px
 	#search-sticky
 		padding-top: 50px
+		.segment
+			background: $transparent
+		#tag-searchfield
+			h5:not(:first-child)
+				margin-top: 6px
+			h5
+				margin-bottom: 2px
+				color: $white-primary
+			div
+				margin-top: 7px
+		//circle in price tag
+		.ui.tag.labels .label:after, .ui.tag.label:after
+			background-color: $grey-blue-primary !important
+		//add features button -- needs to be moved to a more global name space
+		.ui[class*="right labeled"].icon.button
+			color: $white-primary
+			margin-top: 2.4em
+			background-color: $blue-primary
+			margin-left: -15px
 	//filter dropdown button in divider
 	.search-filter
 		background: transparent
