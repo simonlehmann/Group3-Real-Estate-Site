@@ -24,7 +24,7 @@
 # 		* DELETE SETTING OF LISTING AS APPROVED IN CREATE METHOD WHEN ADMIN CONSOLE IS UP
 
 class SellController < ApplicationController
-	# Enables me to use SellHelper methods in the controller actions (using in update_status)
+	# Enables me to use SellHelper and ApplicationHelper methods in the controller actions (using in update_status)
 	include SellHelper
 	include ApplicationHelper
 
