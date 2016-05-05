@@ -110,8 +110,6 @@ ready = ->
 		state = $('#listing_listing_state :selected').text()
 		listing_id = $('#listing_listing_state').data('id')
 		# Clear the old data from the dropdowns
-		$('#listing_listing_suburb').empty()
-		$('#listing_listing_post_code').empty()
 		$('#listing_listing_suburb').dropdown 'clear'
 		$('#listing_listing_post_code').dropdown 'clear'
 		# Update the dropdowns via an Ajax call to the server
@@ -122,13 +120,11 @@ ready = ->
 				_method: 'PUT'
 				listing_state: state
 			success: (response) ->
-				# Reset the placeholders as the dropdowns have changed
-				setTimeout (->
-					$('#listing_listing_suburb').dropdown 'set selected', 'Select Suburb'
-					$('#listing_listing_suburb').dropdown 'refresh'
-					$('#listing_listing_post_code').dropdown 'set selected', 'Select Postcode'
-					$('#listing_listing_post_code').dropdown 'refresh'
-				), 0.1
+				# Clear the default first item selection and update the default text
+				$('#listing_listing_suburb').dropdown 'clear'
+				$('#listing_listing_post_code').dropdown 'clear'
+				$('#listing_listing_suburb').siblings('.default.text').text('Select Suburb')
+				$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
 
 	# Change the postcode dropdown options based upon the selected state and suburb
 	$('#listing_listing_suburb').change ->
@@ -138,7 +134,6 @@ ready = ->
 		listing_id = $('#listing_listing_state').data('id')
 		# State and suburb are selected so lets update the postcode
 		if state != '' and state != 'Select State' and suburb != '' and suburb != 'Select Suburb'
-			$('#listing_listing_post_code').empty()
 			$('#listing_listing_post_code').dropdown 'clear'
 			# Update the postcode based upon the selected options
 			$.ajax
@@ -149,10 +144,9 @@ ready = ->
 					listing_state: state
 					listing_suburb: suburb
 				success: (response) ->
-					setTimeout (->
-						$('#listing_listing_post_code').dropdown 'set selected', $('#listing_listing_post_code').find('option').first().val()
-						$('#listing_listing_post_code').dropdown 'refresh'
-					), 0.1
+					# Clear the default first item selection and update the default text
+					$('#listing_listing_post_code').dropdown 'clear'
+					$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
 
 	# Form validation rules
 	validation_rules = 
@@ -174,22 +168,10 @@ ready = ->
 				type: 'empty'
 				prompt: 'Please select a suburb'
 			}]
-		suburb_unselected: # Can't be 'Select Suburb'
-			identifier: 'listing[listing_suburb]'
-			rules: [{
-				type: 'not[Select Suburb]'
-				prompt: 'Please select a suburb'
-			}]
 		postcode: # Can't be empty
 			identifier: 'listing[listing_post_code]'
 			rules: [{
 				type: 'empty'
-				prompt: 'Please select a postcode'
-			}]
-		postcode_unselected: # Can't be 'Select Postcode'
-			identifier: 'listing[listing_post_code]'
-			rules: [{
-				type: 'not[Select Postcode]'
 				prompt: 'Please select a postcode'
 			}]
 		bedrooms: # Can't be empty

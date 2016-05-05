@@ -51,6 +51,22 @@
 							<%= render "sell/add_edit_photos" %>					
 						</div>
 					</div>
+
+					<% # The extras tab %>
+					<div class="ui tab" data-tab="add-edit-3">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit extras tab %>
+							<%= render "sell/add_edit_extras" %>
+						</div>
+					</div>
+
+					<% # The preview tab %>
+					<div class="ui tab" data-tab="add-edit-4">
+						<div class="ui one column centered grid">
+							<% # This will be where the search partial will be rendered to show the previews %>
+							<%= render "sell/add_edit_preview" %>
+						</div>
+					</div>
 				<% end %>
 			<% elsif @action == "Save Changes" %>
 				<% # If the action is Save Changes, then set up the form with the method PATCH and the correct url (pointing to the sell_path) %>
@@ -62,29 +78,32 @@
 							<%= render "sell/add_edit_listing", {f: f} %>
 						</div>
 					</div>
+
+					<% # Photos tab %>
 					<div class="ui tab" data-tab="add-edit-2">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit photos tab %>
 							<%= render "sell/add_edit_photos" %>					
 						</div>
 					</div>
+
+					<% # The extras tab %>
+					<div class="ui tab" data-tab="add-edit-3">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit extras tab %>
+							<%= render "sell/add_edit_extras" %>
+						</div>
+					</div>
+
+					<% # The preview tab %>
+					<div class="ui tab" data-tab="add-edit-4">
+						<div class="ui one column centered grid">
+							<% # This will be where the search partial will be rendered to show the previews %>
+							<%= render "sell/add_edit_preview" %>
+						</div>
+					</div>
 				<% end %>
 			<% end %>
-
-			<% # I'm not wrapping the extra's or the preview in the form as these aren't used/saved to the database at the moment. %>
-			<div class="ui tab" data-tab="add-edit-3">
-				<div class="ui one column grid">
-					<% # Render the tab body for the add/edit extras tab %>
-					<%= render "sell/add_edit_extras" %>
-				</div>
-			</div>
-
-			<div class="ui tab" data-tab="add-edit-4">
-				<div class="ui one column centered grid">
-					<% # This will be where the search partial will be rendered to show the previews %>
-					<%= render "sell/add_edit_preview" %>
-				</div>
-			</div>
 		</div>
 
 		<% # The form buttons %>

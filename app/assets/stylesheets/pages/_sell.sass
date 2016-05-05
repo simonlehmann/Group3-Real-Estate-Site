@@ -29,6 +29,12 @@
 .sell-red-button-alt:focus
 	background-color: $red-primary !important
 
+// The tag labels should be coloured differently including colouring them on the add/edit page
+.sell-feature-tag,
+.add-edit.custom-tags a.ui.label
+	background-color: $purple-primary !important
+	color: $white-primary !important
+
 // The Ribbon border handles the ribbon fold
 .sell-red-ribbon
 	border-color: $red-primary-hover !important
@@ -117,9 +123,7 @@
 		margin-bottom: 1em
 		.label
 			margin-bottom: 0.5em
-			// The labels should be coloured
-			background-color: $purple-primary !important
-			color: $white-primary !important
+
 .manage-property-bottom-right
 	position: absolute
 	bottom: 1em
