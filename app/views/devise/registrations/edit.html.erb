@@ -35,13 +35,6 @@
 				<div class="ui eight wide column devise-form">
 					<% # error class required to show devise_error_messages (they only show if they exist) %>
 					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
-						<% # Avatar upload field %>
-
-						<div class="field">
-						  <label>Avatar</label>
-							<%= image_tag(current_user.avatar.url(:thumb)) %>
-						  <%= f.file_field :avatar %>
-						</div>
 						<% # Email field %>
 						<div class="field">
 							<label>Email</label>
