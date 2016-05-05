@@ -24,6 +24,37 @@
 	</div>
 <% end %>
 
+<% # The user has successfully updated %>
+<% if flash[:updated] %>
+	<div class="ui positive message">
+		<i class="close icon"></i>
+		<div class="header">
+			Success!
+		</div>
+		<p><%= flash[:updated] %></p>
+	</div>
+<% end %>
+
+<% # if there are errors display them here %>
+<% if flash[:errors] %>
+	<% # A negative message block that is dismissably %>
+	<div class="ui negative message">
+		<% # The close icon %>
+		<i class="close icon"></i>
+		<div class="header">Please fix the following errors and try again.</div>
+		<% # Display the error list %>
+		<% flash.each do |name, msg| %>
+			<% if msg.class == Array %>
+				<div class="ui bulleted list">
+					<% msg.each do |message| %>
+						<%= content_tag :div, message, :id => "flash_#{name}", class: "item" %>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+
 <% # The remaining settings actions to go here %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
 	<% # Avatar upload field %>
@@ -56,13 +87,10 @@
 	</div>
 
 	<% # Old Password field %>
-	<div class="field">
+	<div class="required field">
 		<label>Current Password <i>(we need your current password to confirm your changes)</i></label>
 		<%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter your current password" %>
 	</div>
-
-	<% # Devise error messages (only show if they exist) %>
-	<%= devise_error_messages! %>
 
 	<% # Update/Submit action %>
 	<div class="actions">
@@ -70,3 +98,10 @@
 	</div>
 
 <% end %>
+
+<% # Delete account option %>
+<div class="ui row margin-top">
+	<div class="ui divider margin-top"></div>
+	<%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure, this cannot be undone?" }, method: :delete, class: "ui sell-red-button button" %>
+</div>
+
