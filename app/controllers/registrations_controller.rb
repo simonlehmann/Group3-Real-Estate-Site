@@ -1,9 +1,9 @@
 #   Creator: Daniel Swain
 #   Date created: 29/04/2016
-#   
+#
 #   This controller overrides the after_sign_up_path_for method from the inbuilt Devise Registrations Controller
 #   This will redirect the user to the dashboard_settings page on successfull sign-up
-# 	
+#
 
 class RegistrationsController < Devise::RegistrationsController
 	protected
@@ -17,6 +17,15 @@ class RegistrationsController < Devise::RegistrationsController
 		:dashboard_settings
 	end
 
+	private
+
+  def sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+  end
+
+  def account_update_params
+    params.require(:user).permit(:avatar, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+  end
 	# If we make it so the user is :confirmable then we need to override the following method as well
 	# after_inactive_sign_up_path_for(resource) (using the same method as above)
-end 		
+end
