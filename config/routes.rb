@@ -24,12 +24,18 @@ Rails.application.routes.draw do
   get '/privacy' => 'static_pages#privacy'
   get '/terms' => 'static_pages#terms'
   get '/team' => 'static_pages#team'
+
+  # AJAX actions (Used to update contact without a full page request)
+  # Update the search bar suburbs on index page based upon the selected state value
+  put '/update-search-suburbs' => 'buy#update_search_suburbs'
   
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show] do    
     member do
       # This creates an extra put action for the sell resources to update the status using the update_status action
       put 'status' => 'sell#update_status'
+      put 'suburbs' => 'sell#update_suburbs'
+      put 'postcodes' => 'sell#update_postcodes'
     end
   end
 

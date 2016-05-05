@@ -16,8 +16,6 @@
 #   	* 'f' representing the form_for helper object (can be used for f.text_field or f.label in pe tags)
 #   
 #   Todo:
-#   	* Get suburbs (with postcodes) from external source
-#   	* Use jQuery/JS for formatting of some of the fields (i.e. convert price fields to a $100,000 number type when data inputed)
 %>
 
 <% # Header %>
@@ -48,36 +46,66 @@
 
 		<% # Suburb and State Input %>
 		<div class="three fields">
-			<% # Suburb search field %>
-			<div class="required field">
-				<label>Suburb</label>
-				<% # If we're saving changes then we have a listing suburb (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
-				<% if @action == "Save Changes" %>
-					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth", @listing.listing_suburb ], @listing.listing_suburb), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
-				<% else %>
-					<%= f.select :listing_suburb, options_for_select([ "Perth", "North Perth", "West Perth", "South Perth" ]), { prompt: "Select Suburb" }, { class: "ui fluid search add-edit-suburb dropdown" } %>
-				<% end %>
-			</div>
-
 			<% # State dropdown field %>
 			<div class="required field">
 				<label>State</label>
-				<% # If we're saving changes then we have a listing state (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
-				<% if @action == "Save Changes" %>
-					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ], @listing.listing_state), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
+				<% # Get the states from the database in a unique list %>
+				<% # This will make sure we can update the dropdowns via ajax %>
+				<% states = get_states %>
+				<% if states %>
+					<% if @action == "Save Changes" %>
+						<%= f.select :listing_state, options_for_select(states, @listing.listing_state), { prompt: "Select State" }, { class: "ui fluid search selection add-edit-state dropdown", data: { id: @listing.listing_id } } %>
+					<% else %>
+						<%= f.select :listing_state, options_for_select(states), { prompt: "Select State" }, { class: "ui fluid search selection add-edit-state dropdown", data: { id: @listing.listing_id } } %>
+					<% end %>
 				<% else %>
-					<%= f.select :listing_state, options_for_select([ "State", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia" ]), { prompt: "Select State" }, { class: "ui fluid add-edit-state dropdown" } %>
+					<% # Couldn't get the states so free text %>
+					<%= f.text_field :listing_state, placeholder: "Enter State" %>
+				<% end %>
+			</div>
+
+			<% # Suburb search field %>
+			<div class="required field">
+				<label>Suburb</label>
+				<% # Get the suburbs from the database %>
+				<% if @listing.listing_state %>
+					<% suburbs = get_suburbs(@listing.listing_state) %>
+				<% else %>
+					<% suburbs = get_suburbs %>
+				<% end %>
+				<% # These dropdowns will be updated via ajax when the state selector is changed %>
+				<% if suburbs %>
+					<% if @action == "Save Changes" %>
+						<%= f.select :listing_suburb, options_for_select(suburbs, @listing.listing_suburb), { prompt: "Select Suburb" }, { class: "ui fluid search selection add-edit-suburb dropdown" } %>
+
+					<% else %>
+						<%= f.select :listing_suburb, options_for_select(suburbs), { prompt: "Select Suburb" }, { class: "ui fluid search selection add-edit-suburb dropdown" } %>
+					<% end %>
+				<% else %>
+					<% # Couldn't get the suburbs so free text %>
+					<%= f.text_field :listing_suburb, placeholder: "Enter Suburb" %>
 				<% end %>
 			</div>
 
 			<% # Postcode dropdown field %>
 			<div class="required field">
 				<label>Postcode</label>
-				<% # If we're saving changes then we have a listing postcode (getting the @listing doesn't work because when creating we send an empty one so we 'have' it but we can't check on it) %>
-				<% if @action == "Save Changes" %>
-					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ], @listing.listing_post_code), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
+				<% # Get the postcodes from the database %>
+				<% if @listing.listing_state %>
+					<% postcodes = get_postcodes(@listing.listing_state) %>
 				<% else %>
-					<%= f.select :listing_post_code, options_for_select([ "6000", "6001", "6002", "6003", "6004", "6005", "6006", "6007", "6008" ]), { prompt: "Select Postcode" }, { class: "ui fluid add-edit-postcode dropdown" } %>
+					<% postcodes = get_postcodes %>
+				<% end %>
+				<% # These dropdowns will be updated via ajax when the state selector is changed %>
+				<% if postcodes %>
+					<% if @action == "Save Changes" %>
+						<%= f.select :listing_post_code, options_for_select(postcodes, @listing.listing_post_code), { prompt: "Select Postcode" }, { class: "ui fluid search selection add-edit-postcode dropdown" } %>
+					<% else %>
+						<%= f.select :listing_post_code, options_for_select(postcodes), { prompt: "Select Postcode" }, { class: "ui fluid search selection add-edit-postcode dropdown" } %>
+					<% end %>
+				<% else %>
+					<% # Couldn't get the postcodes so free text %>
+					<%= f.text_field :listing_post_code, placeholder: "Enter Postcode" %>
 				<% end %>
 			</div>
 		</div>

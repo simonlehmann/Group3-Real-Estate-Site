@@ -5,6 +5,13 @@
 # 
 #   Todo:
 
+# Utility function to pluralise a string
+@get_plural = (string) ->
+	# Check the last character for a 'y' or an 's'
+	last_char = string.slice(-1)
+	# Return the pluralised string based on the last_char
+	return if last_char == 'y' then string.slice(0,-1) + 'ies' else string + 's'
+
 # Function containing all javascript needed on page load
 ready = ->
 

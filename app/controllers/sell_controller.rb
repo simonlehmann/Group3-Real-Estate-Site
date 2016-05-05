@@ -24,8 +24,9 @@
 # 		* DELETE SETTING OF LISTING AS APPROVED IN CREATE METHOD WHEN ADMIN CONSOLE IS UP
 
 class SellController < ApplicationController
-	# Enables me to use SellHelper methods in the controller actions (using in update_status)
+	# Enables me to use SellHelper and ApplicationHelper methods in the controller actions (using in update_status)
 	include SellHelper
+	include ApplicationHelper
 
 	# define a before_action filter for these actions
 	before_action :require_login, except: [:index]
@@ -142,6 +143,8 @@ class SellController < ApplicationController
 	def update
 		# Get the listing object to update
 		@listing = Listing.find_by_listing_id(params[:id])
+		# Get the existing listings approval state
+		is_approved = @listing.listing_approved
 		# Get the list of tags for the listing object
 		@tags = @listing.listing_tags
 		# Handle the update using the grouped listing_params to minimise risk of saving other items not associated with  a listing
@@ -161,6 +164,11 @@ class SellController < ApplicationController
 					tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
 				end
 			end
+			# Save the listing_approved value with the old value (so it doesn't change an
+			# approved listing to nil or false when editting it)
+			@listing.listing_approved = is_approved
+			@listing.save
+
 			# The listing should be updated, so flash success and redirect to action: :index
 			flash[:listing_notice] = "The listing information was successfully updated for: #{@listing.listing_address}."
 			redirect_to action: :index
@@ -200,12 +208,39 @@ class SellController < ApplicationController
 		# render nothing: true
 	end
 
+	# Update the suburbs from the state selector choice
+	def update_suburbs
+		@suburbs = get_suburbs(params[:listing_state])
+		@postcodes = get_postcodes(params[:listing_state])
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	# Update the postcodes from the suburb selector choice
+	def update_postcodes
+		@postcodes = get_postcodes_from_selection(params[:listing_state], params[:listing_suburb])
+		respond_to do |format|
+			format.js
+		end
+	end
+
 	# Delete the selected property from the database
 	# Method: DELETE
 	# URL: /sell/:id/ 
 	# Helper: sell_path
 	def destroy
-		redirect_to action: :index
+		# Get the listing so we can send a notice message when deleted.
+		listing = Listing.find_by_listing_id(params[:id])
+		# Destroy the listing found from the params[:id]
+		if listing
+			listing.destroy
+			flash[:listing_notice] = "Successfully deleted the listing for: #{listing.listing_address}."
+			redirect_to action: :index
+		else
+			listing[:listing_error] = "There was an error deleting the selected listing."
+			redirect_to action: :index
+		end
 	end
 
 	# private methods used by this controller but not accessible outside of it.

@@ -11,10 +11,10 @@ ready = ->
 	# Support tab's on the add_edit page
 	$('.add-edit.tabular.menu .item').tab()
 
-	# Turn on the dropdowns on the add edit page
-	$('.add-edit-suburb.dropdown').dropdown()
-	$('.add-edit-state.dropdown').dropdown()
-	$('.add-edit-postcode.dropdown').dropdown()
+	# Turn on the dropdowns on the add edit page, making the state, suburb and postcode search dropdowns support full text search
+	$('.add-edit-state.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-suburb.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-postcode.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-price.dropdown').dropdown()
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
@@ -72,12 +72,9 @@ ready = ->
 		if value != "" and selection != "" and qty != ""
 			# Add the tag to the tag area if the value isn't empty
 			new_tag_value = qty + "_" + value
-			# Get the last character of the selection text (needed to pluralise it)
-			last_char = selection.slice(-1)
-			# Pluralise the selection incase it's qty is > 1
-			selection_pluralised = if last_char == 'y' then selection.slice(0, -1) + 'ies' else selection + 's'
 			# Store the display value as a singledton if only 1 qty was picked (i.e. 1 Pool = Pool)
-			new_tag_text = if qty > 1 then qty + " " + selection_pluralised else selection
+			# Else, call the @get_plural(string) function located in global.coffee
+			new_tag_text = if qty > 1 then get_plural(selection) else selection
 			# Create an option tag
 			opt = document.createElement('option')
 			opt.value = new_tag_value
@@ -93,20 +90,63 @@ ready = ->
 			# Reset the additional tag dropdowns to their initial selected values and placeholder text
 			additional_input.dropdown 'clear'
 			additional_dropdown.dropdown 'clear'
-			additional_input.dropdown 'set text', "Enter Qty For Additional Feature"
-			additional_dropdown.dropdown 'set text', "Additional Feature"
+			additional_input.dropdown 'set text', 'Enter Qty For Additional Feature'
+			additional_dropdown.dropdown 'set text', 'Additional Feature'
 		else
 			# Otherwise send an alert
-			alert "Please select an additional feature and quantity and try again"
+			alert 'Please select an additional feature and quantity and try again'
 
 	# Refresh the addition tag dropdown selector field incase we're editing an exisitng listing which has tags
 	# (the server will set them selected, but Semantic, needs to add the tags)
 	additional_tag_area.find('option').each (i) ->
-		# If it's not the placholder option and options existing on page load then they're from the server and need to be set selected
+		# If it's not the placeholder option and options existing on page load then they're from the server and need to be set selected
 		if $(this).val() != ''
 			additional_tag_area.dropdown 'set selected', $(this).val()
 		return
 	
+	# Change the suburb/postcode dropdown options based on the selected state
+	$('#listing_listing_state').change ->
+		# Get the state and the listing id (needed to dynamically update the suburb/postcode dropdowns)
+		state = $('#listing_listing_state :selected').text()
+		listing_id = $('#listing_listing_state').data('id')
+		# Clear the old data from the dropdowns
+		$('#listing_listing_suburb').dropdown 'clear'
+		$('#listing_listing_post_code').dropdown 'clear'
+		# Update the dropdowns via an Ajax call to the server
+		$.ajax
+			type: 'POST'
+			url: '/sell/' + listing_id + '/suburbs'
+			data:
+				_method: 'PUT'
+				listing_state: state
+			success: (response) ->
+				# Clear the default first item selection and update the default text
+				$('#listing_listing_suburb').dropdown 'clear'
+				$('#listing_listing_post_code').dropdown 'clear'
+				$('#listing_listing_suburb').siblings('.default.text').text('Select Suburb')
+				$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
+
+	# Change the postcode dropdown options based upon the selected state and suburb
+	$('#listing_listing_suburb').change ->
+		# Get the state and listing id
+		state = $('#listing_listing_state :selected').text()
+		suburb = $('#listing_listing_suburb :selected').text()
+		listing_id = $('#listing_listing_state').data('id')
+		# State and suburb are selected so lets update the postcode
+		if state != '' and state != 'Select State' and suburb != '' and suburb != 'Select Suburb'
+			$('#listing_listing_post_code').dropdown 'clear'
+			# Update the postcode based upon the selected options
+			$.ajax
+				type: 'POST'
+				url: '/sell/' + listing_id + '/postcodes'
+				data:
+					_method: 'PUT'
+					listing_state: state
+					listing_suburb: suburb
+				success: (response) ->
+					# Clear the default first item selection and update the default text
+					$('#listing_listing_post_code').dropdown 'clear'
+					$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
 
 	# Form validation rules
 	validation_rules = 
@@ -116,17 +156,17 @@ ready = ->
 				type: 'empty'
 				prompt: 'Please enter a street address'
 			}]
-		suburb: # Can't be empty
-			identifier: 'listing[listing_suburb]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please select a suburb'
-			}]
 		state: # Can't be empty
 			identifier: 'listing[listing_state]'
 			rules: [{
 				type: 'empty'
 				prompt: 'Please select a state'
+			}]
+		suburb: # Can't be empty
+			identifier: 'listing[listing_suburb]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a suburb'
 			}]
 		postcode: # Can't be empty
 			identifier: 'listing[listing_post_code]'
@@ -199,6 +239,16 @@ ready = ->
 	$('#add-edit-listing-form').form
 		inline: true
 		fields: validation_rules
+		# Turn keyboard shortcuts off for the semantic form
+		keyboardShortcuts: false
+
+	# Submit the form with a keyboard enter key press if the dropdown fields aren't selected
+	$(document).keypress (key) ->
+		# Enter key (submit handler)	
+		if key.which == 13
+			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
+			if !$('key.target').hasClass('dropdown')
+				$('#add-edit-listing-form').form 'submit'
 
 	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
 	$('#add-edit-submit-button').on 'click', ->

@@ -31,6 +31,24 @@ ready = ->
 	    	} ]
 
 	$('#contact-type-selector').dropdown()
+
+	$ ->
+		p = 'callto'
+		h = '61'
+		o = '0425'
+		n = '448'
+		e = '555'
+		$('p.phone').replaceWith '<a href=' + p + '://+' + h + o + n + e + ' class="link">(04) 25 448 555</a>'
+		return
+
+	$ ->
+		p = 'mailto'
+		h = 'PropertyDome'
+		o = '@gmail.com'
+		n = '?Subject='
+		e = 'Hello%20again'
+		$('p.email').replaceWith '<a href=' + p + ':' + h + o + n + e + ' class="link">PropertyDome@gmail.com</li>'
+		return
 	
 $(document).ready ready
 $(document).on 'page:load', ready

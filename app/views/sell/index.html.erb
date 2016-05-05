@@ -25,5 +25,28 @@
 
 <% # Main Page container %>
 <div class="ui center aligned container">
+	<% # A Notice or Error message box used to display alerts when a user has added or updated a property (it's dismissable) %>
+	<% if flash[:listing_notice] %>
+		<% # A positive message block that is dismissable %>
+		<div class="ui positive message margin-top">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_notice] %>
+			</div>
+		</div>
+	<% end %>
+	<% if flash[:listing_error] %>
+		<% # A negative message block that is dismissable %>
+		<div class="ui negative message margin-top">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_error] %>
+			</div>
+		</div>
+	<% end %>
 	<%= render "sell/index_advertising" %>
 </div>

@@ -1,0 +1,11 @@
+<%
+#   Create by: Daniel swain
+#   Date : 5/5/2016
+#   
+#   Update the search selection options based upon the state selector
+%>
+<% if @suburbs %>
+	<% # Add the new suburb options to the search dropdown %>
+	$('#search-field').empty()
+	$('#search-field').append("<%=j options_for_select(@suburbs) %>");
+<% end %>
