@@ -8,10 +8,8 @@
 <% if @suburbs and @postcodes %>
 	<% # Add the new data options to the suburb dropdown %>
 	$('#listing_listing_suburb').empty()
-	$('#listing_listing_suburb').append( $('<option>Select Suburb</option>'));
 	$('#listing_listing_suburb').append("<%=j options_for_select(@suburbs) %>");
 	<% # Add the new data options to the postcode dropdown %>
 	$('#listing_listing_post_code').empty()
-	$('#listing_listing_post_code').append( $('<option>Select Postcode</option>'));
 	$('#listing_listing_post_code').append("<%=j options_for_select(@postcodes) %>");
 <% end %>

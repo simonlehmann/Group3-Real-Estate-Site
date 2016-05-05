@@ -165,7 +165,7 @@
 
 						<% # Delete Property Listing button %>
 						<div class="manage-property-bottom-right">
-							<%= link_to sell_path(listing.listing_id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button" do  %>
+							<%= link_to sell_path(listing.listing_id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button", data: { confirm: "Are you sure you want to delete the listing for: #{listing.listing_address}? This cannot be undone."} do  %>
 								<%= content_tag(:i, "", class: "trash icon") %>
 								Delete
 							<% end %>

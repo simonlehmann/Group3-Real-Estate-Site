@@ -13,7 +13,6 @@ ready = ->
 	$('#search-state-field').change ->
 		# Get the state 
 		state = $('#search-state-field :selected').val()
-		console.log state
 		# Clear the old data from the search dropdown
 		$('#search-field').empty()
 		$('#search-field').dropdown 'clear'

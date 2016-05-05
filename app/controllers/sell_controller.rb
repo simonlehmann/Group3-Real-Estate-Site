@@ -230,7 +230,17 @@ class SellController < ApplicationController
 	# URL: /sell/:id/ 
 	# Helper: sell_path
 	def destroy
-		redirect_to action: :index
+		# Get the listing so we can send a notice message when deleted.
+		listing = Listing.find_by_listing_id(params[:id])
+		# Destroy the listing found from the params[:id]
+		if listing
+			listing.destroy
+			flash[:listing_notice] = "Successfully deleted the listing for: #{listing.listing_address}."
+			redirect_to action: :index
+		else
+			listing[:listing_error] = "There was an error deleting the selected listing."
+			redirect_to action: :index
+		end
 	end
 
 	# private methods used by this controller but not accessible outside of it.
