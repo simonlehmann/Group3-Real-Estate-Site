@@ -1,4 +1,7 @@
 class BuyController < ApplicationController
+	# Enable the use of ApplicationHelper methods in the controller
+	include ApplicationHelper
+	
 	def index
 		#white top nav in header image
 		@top_nav = true
