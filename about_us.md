@@ -76,17 +76,18 @@ ___
 ## Simon Lehmann
 
 __Social Links:__
-- Link 1:
-- Link 2:
-- ...
+- GitHub: https://github.com/slehmann36
+- FaceBook: https://www.facebook.com/slehmann36
+- LinkedIn: https://au.linkedin.com/in/slehmann36
 
-__Personal/Full Website Link:__ put link here
+__Personal/Full Website Link:__ simonlehmann.net
 
-__Role__: Enter Your Role here
+__Role__: Developer
 
 __Blurb__:
 
-Enter About you text here
+Simon is a full-stack developer in-training based in Perth, Western Australia. He has been playing with computers from the very beginning and is now Technology Director at a software development company he founded in early 2016. 
+
 ___
 ## Tylden Horan
 
