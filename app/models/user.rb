@@ -30,7 +30,7 @@
 #   	user.user_favourites - will return all the favourites saved by this user
 #   	user.blockages_to - will return all the blockages to this user
 #   	user.blockages_from - will return all the blockages from this user
-#   	
+#
 #   NOTE:
 #   	TALK TO DANIEL AND/OR SIMON BEFORE MODIFYING THESE RELATIONS
 
@@ -56,19 +56,27 @@ class User < ActiveRecord::Base
 
 	# A user can have many listings, but will destroy them all when the user object is deleted
 	has_many :user_listings, class_name: "Listing", inverse_of: :listing_user, foreign_key: "listing_user_id", dependent: :destroy
-	
+
 	# A user can have many messages to them, but will destroy them all when the user object is deleted
 	has_many :messages_to, class_name: "Message", inverse_of: :message_to_user, foreign_key: "message_id", dependent: :destroy
-	
+
 	# A user can have many messages from them, but will destroy them all when the user object is deleted
 	has_many :messages_from, class_name: "Message", inverse_of: :message_from_user, foreign_key: "message_id", dependent: :destroy
-	
+
 	# A user can have many favourites, but will destroy them all when the user object is deleted
 	has_many :user_favourites, class_name: "Favourite", inverse_of: :favourite_user, foreign_key: "favourite_id", dependent: :destroy
-	
+
 	# A user can have many blockages to them, but will destroy them all when the user object is deleted
 	has_many :blockages_to, class_name: "Blockage", inverse_of: :blockage_to_user, foreign_key: "blockage_id", dependent: :destroy
-	
+
 	# A user can have many blockages from them, but will destroy them all when the user object is deleted
 	has_many :blockages_from, class_name: "Blockage", inverse_of: :blockage_from_user, foreign_key: "blockage_id", dependent: :destroy
+
+	# User avatar
+	has_attached_file :avatar, styles: {
+		thumb: "100x100>",
+		medium: "300x300>"
+	}, :default_url => "/avatars/:style/missing.png"
+	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
 end
