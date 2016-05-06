@@ -40,7 +40,7 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   # Default Devise mailer settings
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # <- Change host to site's production domain name and port to 80 for deployment e.g { host: 'propertydome.com', port: 80 }
 
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
