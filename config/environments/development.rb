@@ -37,6 +37,26 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = true
+
+  # Default Devise mailer settings
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # For mail delivery debugging
+  config.action_mailer.raise_delivery_errors = true
+
+  # Set mail server connection protocal
+  config.action_mailer.delivery_method = :smtp
+
+  # Define mail server connection parameters
+  config.action_mailer.smtp_settings = {
+    address: "mail.slehmann36.com",
+    port: 587,
+    domain: "slehmann36.com",
+    authentication: "ntlm", # <- Change this to required authentication type for deployment!
+    enable_starttls_auto: false, # <- Change this back to true for deployment!
+    user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
+    password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
+  }
+
 end
