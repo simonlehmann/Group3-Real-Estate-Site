@@ -27,7 +27,11 @@
 </div>
 <div class="ui centered row">
 	<h3 class="ui input">
-		<%= file_field_tag "images[]", type: :file, multiple: true, id: "picture-input", class: "ui label" %>
+		<%= file_field_tag "images[]", type: :file, multiple: true, id: "picture-input", class: "ui label add-edit file-input-field", data: {multiple_caption: "{count} files selected" } %>
+		<%= label_tag "picture-input", class: "ui large label" do %>
+			<%= content_tag(:i, "", class: "upload icon") %>
+			<span>Choose your photos</span>
+		<% end %>
 	</h3>
 </div>
 
@@ -41,20 +45,29 @@
 				<% # If the photo has a paperclip image then show the card %>
 				<% if photo.image.exists? %>
 					<% # The card %>
-					<div class="ui card">
+					<div class="ui card" id="photo-card-<%= photo.id %>">
 						<div class="ui image">
 							<% # Get the low res image %>
 							<%= image_tag photo.image.url(:medium) %>
 							<% # If the image id for this photo is the same as the listings cover image id then add the main image label to it. %>
-							<% if photo.listing_image_id == @listing.listing_cover_image_id %>
-								<div class="ui add-edit property-card bottom attached label">Main Image</div>
-							<% end %>
+							<div class="ui add-edit property-card bottom attached label" data-id="<%= photo.id %>">
+								<% if photo.listing_image_id == @listing.listing_cover_image_id %>
+									<span>Main Image</span>
+									<%= check_box_tag "cover_image_id", photo.id, true, { id: "select-cover-image-#{photo.id}" } %>
+								<% else %>
+									<span>Make Main Image</span>
+									<%= check_box_tag "cover_image_id", photo.id, false, { id: "select-cover-image-#{photo.id}" } %>
+								<% end %>
+							</div>
 						</div>
+
 						<% # The Delete Photo button %>
-						<div class="add-edit property-card delete">
+						<div class="add-edit property-card delete-button" id="destroy-image-button-<%= photo.id %>" data-id="<%= photo.id %>">
 							<button class="circular ui tiny icon button">
 								<i class="remove icon"></i>
 							</button>
+							<% # Store an input field we can use to tell the controller whether to delete the image or not. %>
+							<%= check_box_tag "destroy_images[]", photo.id, false, { id: "destroy-image-#{photo.id}", style: "display: none" } %>
 						</div>	
 					</div>
 				<% end %>
@@ -67,12 +80,13 @@
 <div class="ui add-new-picture card" style="display: none;" id="blank-picture-card">
 	<div class="ui rounded image image-target">
 		<% # the preview image will show here %>
-		<%= image_tag "add-photo.png", alt: "Add Photo" %>
+		<%= image_tag "add-photo.png", alt: "Add Photo", height: "300" %>
 	</div>
-	<% # The Delete Photo button %>
-	<div class="add-edit property-card delete">
+	<% # Can't have a Delete Photo button for the added previews as the FileList is read only and can't be modified %>
+	<% # But show an indicator that its a new image %>
+	<div class="add-edit property-card upload-button">
 		<button class="circular ui tiny icon button">
-			<i class="remove icon"></i>
+			<i class="upload icon"></i>
 		</button>
-	</div>	
+	</div>
 </div>

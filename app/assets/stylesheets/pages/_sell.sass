@@ -162,7 +162,7 @@
 // Styling for add edit property card
 // It positions the delete button in the top right and styles the button
 // It also styles the bottom attached label
-.add-edit.property-card.delete
+.add-edit.property-card.delete-button
 	position: absolute
 	top: 0.3em
 	right: 0.1em
@@ -177,6 +177,45 @@
 	background-color: $grey-primary !important
 	color: $white-primary !important
 	text-align: center
+	// Add margin left to the checkboxes
+	input[type="checkbox"]
+		margin-left: 0.5em
+// The add-edit new file indication button which only shows on the new preview cards when they're added by the file picker
+// The button will be positioned to follow the same positioning as the delete button
+.add-edit.property-card.upload-button
+	position: absolute
+	top: 0.3em
+	right: 0.1em
+	.button
+		background-color: $red-primary !important
+		color: $white-primary !important
+	.button:hover,
+	.button:active,
+	.button:focus
+		cursor: auto !important
+
+// Hide the file input field so we can style the label to look nicer
+// Label styles are below
+.add-edit.file-input-field
+	width: 0.1px
+	height: 0.1px
+	opacity: 0
+	overflow: hidden
+	position: absolute
+	z-index: -1
+// Style the replacement label
+.add-edit.file-input-field + label
+	padding: 0.75em
+	border-radius: 0.2em
+	color: $white-primary
+	background-color: $red-primary
+	display: inline-block
+	cursor: pointer
+// File upload label hover
+.add-edit.file-input-field:focus + label,
+.add-edit.file-input-field + label:hover
+	background-color: $red-primary-hover
+
 
 // Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
 // Using min-height so it can grow if a lot of tags are added.
