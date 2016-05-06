@@ -57,6 +57,9 @@ class User < ActiveRecord::Base
 	# A user can have many listings, but will destroy them all when the user object is deleted
 	has_many :user_listings, class_name: "Listing", inverse_of: :listing_user, foreign_key: "listing_user_id", dependent: :destroy
 
+	# A user can have many listing_images, but will destroy them all when the user object is deleted
+	has_many :user_listing_images, class_name: "ListingImage", inverse_of: :image_user, foreign_key: "listing_image_id", dependent: :destroy
+
 	# A user can have many messages to them, but will destroy them all when the user object is deleted
 	has_many :messages_to, class_name: "Message", inverse_of: :message_to_user, foreign_key: "message_id", dependent: :destroy
 
