@@ -180,9 +180,6 @@ class SellController < ApplicationController
 				no_images = true
 			end
 
-			puts "_________#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			puts no_images
-
 			# Handle the uploading of the new images via Paperclip
 			if params[:images]
 				params[:images].each do |image|
@@ -201,7 +198,6 @@ class SellController < ApplicationController
 			elsif no_images
 				# There were no images so lets set the cover image to the first one updated
 				if cover_image = ListingImage.where(listing_image_listing_id: @listing_id).first
-					puts cover_image.listing_image_id
 					@listing.listing_cover_image_id = cover_image.listing_image_id
 					@listing.save
 				end
