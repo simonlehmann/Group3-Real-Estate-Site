@@ -39,8 +39,7 @@ class User < ActiveRecord::Base
 	self.table_name = "users"
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
-	devise :database_authenticatable, :registerable,
-		:recoverable, :rememberable, :trackable, :validatable
+	devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
 	# Validate the password complexity
 	validate :password_complexity
@@ -50,6 +49,12 @@ class User < ActiveRecord::Base
 			errors.add :password, "must include at least one lowercase letter, one uppercase letter and either one digit or one special character."
 		end
 	end
+
+	# Send confirmation email after user creation
+	# after_create :send_admin_mail
+	#   def send_admin_mail
+	#     UserMailer.send_new_user_message(self).deliver
+	#   end
 
 	# Relations
 	# NB using destroy instead of delete as Rails will chain the actions (i.e. if a user has a listing and we destroy the user then the listing will be destroyed
