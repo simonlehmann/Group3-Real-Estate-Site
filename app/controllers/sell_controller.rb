@@ -17,10 +17,6 @@
 # 	
 # 	
 # 	To do:
-# 		* complete actions
-# 		* Update update method to use images
-# 		* Update create method to use actual cover image id rather than the first one
-# 		* Implement Destroy method
 # 		* DELETE SETTING OF LISTING AS APPROVED IN CREATE METHOD WHEN ADMIN CONSOLE IS UP
 
 class SellController < ApplicationController
@@ -114,6 +110,15 @@ class SellController < ApplicationController
 				tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
 			end
 		end
+
+		# --------- Create and save the new images
+		# Handle the uploading of the new images via Paperclip
+		if params[:images]
+			params[:images].each do |image|
+				ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+			end
+		end
+
 		# --------- Redirect back to the index view now we've saved everything (sending a notice message)
 		flash[:listing_notice] = "A listing was created for: #{@listing.listing_address}."
 		redirect_to action: :index
@@ -168,6 +173,50 @@ class SellController < ApplicationController
 			# approved listing to nil or false when editting it)
 			@listing.listing_approved = is_approved
 			@listing.save
+
+			# Record if there were any images previously and if there weren't then make the first image the cover image
+			no_images = false
+			if ListingImage.where(listing_image_listing_id: @listing_id).size == 0
+				no_images = true
+			end
+
+			# Handle the uploading of the new images via Paperclip
+			if params[:images]
+				params[:images].each do |image|
+					ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+				end
+			end
+
+			# Update the cover image selection
+			if params[:cover_image_id]
+				# Check if that image exists
+				if ListingImage.exists?(listing_image_id: params[:cover_image_id].to_i)
+					# Update the cover image
+					@listing.listing_cover_image_id = params[:cover_image_id].to_i
+					@listing.save
+				end
+			elsif no_images
+				# There were no images so lets set the cover image to the first one updated
+				if cover_image = ListingImage.where(listing_image_listing_id: @listing_id).first
+					@listing.listing_cover_image_id = cover_image.listing_image_id
+					@listing.save
+				end
+			end
+
+
+			# Delete images marked for deletion
+			if params[:destroy_images]
+				params[:destroy_images].each do |id|
+					@listing_image = ListingImage.find_by_listing_image_id(id)
+					if @listing_image
+						# Lets delete the photo using Paperclip and also delete the record
+						@listing_image.image = nil
+						@listing_image.save # <- Saving the deletion of the image to delete the file
+						# Destroy the listing image associated with that id
+						@listing_image.destroy
+					end
+				end
+			end
 
 			# The listing should be updated, so flash success and redirect to action: :index
 			flash[:listing_notice] = "The listing information was successfully updated for: #{@listing.listing_address}."

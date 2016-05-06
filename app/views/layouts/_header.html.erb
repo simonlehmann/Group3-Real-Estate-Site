@@ -24,7 +24,7 @@
 				<% #user logged in profile selection %>
 				<% if user_signed_in? %>
 					<div class="ui simple dropdown item">
-						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
+						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
 						<% #user profile name %>
 						<% if @username %>
 						    <%= link_to "#{@username}", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>

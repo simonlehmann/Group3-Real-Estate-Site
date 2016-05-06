@@ -25,6 +25,7 @@
 #
 #   Relations: (how to use): If you have a user object (i.e. user = User.find(1)) then the following methods will return the associated object
 #   	user.user_listings - will return all the listings for that user
+#   	user.user_listing_images - will return all the listing images for that user
 #   	user.messages_to - will return all the messages sent to this user
 #   	user.messages_from - will return all the messages sent by this user
 #   	user.user_favourites - will return all the favourites saved by this user
@@ -62,6 +63,9 @@ class User < ActiveRecord::Base
 	# A user can have many listings, but will destroy them all when the user object is deleted
 	has_many :user_listings, class_name: "Listing", inverse_of: :listing_user, foreign_key: "listing_user_id", dependent: :destroy
 
+	# A user can have many listing_images, but will destroy them all when the user object is deleted
+	has_many :user_listing_images, class_name: "ListingImage", inverse_of: :image_user, foreign_key: "listing_image_id", dependent: :destroy
+
 	# A user can have many messages to them, but will destroy them all when the user object is deleted
 	has_many :messages_to, class_name: "Message", inverse_of: :message_to_user, foreign_key: "message_id", dependent: :destroy
 
@@ -76,4 +80,12 @@ class User < ActiveRecord::Base
 
 	# A user can have many blockages from them, but will destroy them all when the user object is deleted
 	has_many :blockages_from, class_name: "Blockage", inverse_of: :blockage_from_user, foreign_key: "blockage_id", dependent: :destroy
+
+	# User avatar
+	has_attached_file :avatar, styles: {
+		thumb: "100x100#",
+		medium: "300x300#"
+	}, :default_url => "/avatars/:style/missing.png"
+	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
 end

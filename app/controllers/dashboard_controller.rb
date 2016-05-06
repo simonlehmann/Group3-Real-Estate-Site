@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
-	
+	# Make sure user is logged in
+	before_action :authenticate_user!
+
 	def index
 		redirect_to action: :activity
 	end
