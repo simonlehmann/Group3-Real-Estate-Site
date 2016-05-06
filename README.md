@@ -117,7 +117,7 @@ Password: `MhalliF123`
 SMTP Server: `mail.slehmann36.com`  
 Port: `587`  
 Authentication Type: `NTLM`  
-SSL/TLS: `False`
+SSL/TLS: `False`  
 Domain: `slehmann36.com`  
 Username: `PropertyDome@slehmann36.com` (Case insensitive)  
 Password: `sJ2PVZ2cbvYqMMN` 
