@@ -114,6 +114,15 @@ class SellController < ApplicationController
 				tag = Tag.create(tag_type_id: tag_type_id, tag_label: tag_parts[0], tag_listing_id: @listing_id )
 			end
 		end
+
+		# --------- Create and save the new images
+		# Handle the uploading of the new images via Paperclip
+		if params[:images]
+			params[:images].each do |image|
+				ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+			end
+		end
+
 		# --------- Redirect back to the index view now we've saved everything (sending a notice message)
 		flash[:listing_notice] = "A listing was created for: #{@listing.listing_address}."
 		redirect_to action: :index
@@ -168,6 +177,15 @@ class SellController < ApplicationController
 			# approved listing to nil or false when editting it)
 			@listing.listing_approved = is_approved
 			@listing.save
+
+			# Handle the uploading of the new images via Paperclip
+			if params[:images]
+				params[:images].each do |image|
+					ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+				end
+			end
+
+			# TODO delete deleted images
 
 			# The listing should be updated, so flash success and redirect to action: :index
 			flash[:listing_notice] = "The listing information was successfully updated for: #{@listing.listing_address}."

@@ -5,15 +5,18 @@
 #   
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
 #   	listing_image_id: int
-#   	listing_image_path: char(128)
-#   	listing_image_path_low_res: char(128)
-#   	listing_image_created_at: timestamp
 #   	listing_image_listing_id: int
+#   	image_file_name: the actual image (string)
+#   	image_content_type: string
+#   	image_file_size: string
+#   	image_updated_at: datetime
+#   	user_id: int
 #   	
 #   Relations: (how to use): If you have a listing_image object (i.e. listing_image = ListingImage.find(1)) 
 #   then the following methods will return the associated object
 #   	listing_image.image_listing - will return the listing object for this listing_image
 #   	listing_image.cover_image_listing - will return the listing object for this listing_image (likely to not be used)
+#   	listing_image.image_user - will return the user object for this listing_image
 #   	
 #   NOTE:
 #   	TALK TO DANIEL AND/OR SIMON BEFORE MODIFYING THESE RELATIONS

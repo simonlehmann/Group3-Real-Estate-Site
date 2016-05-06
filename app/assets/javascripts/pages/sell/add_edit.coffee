@@ -250,6 +250,40 @@ ready = ->
 			if !$('key.target').hasClass('dropdown')
 				$('#add-edit-listing-form').form 'submit'
 
+	# Preview the added image and add a new add image button when the input field value changes (i.e. we've chosen some files)
+	$ ->
+		$('#picture-input').on 'change', (event) ->
+			# Remove any previous preview image cards from the cards list
+			$(".ui.cards [id^='blank-picture-card']").remove()
+			# Get the files from the input field
+			files = event.target.files
+			# Iterate over each file and create a preview for it
+			$.each files, (key, value) ->
+				# Counter so we can generate a unique image card id to target
+				count = key + 1
+				# Generate the unique image card, set its id = count and set it to display: block (as the blank one is hidden)
+				temp = $('#blank-picture-card').clone()
+				temp.attr('id', 'blank-picture-card-' + count)
+				temp.css('display', 'block')
+				# Append the card to the ui cards containing element
+				temp.appendTo('#listing-photos-list')
+				# Get the image
+				image = value
+				# Create a new file reader that will load the file into the div we specify
+				reader = new FileReader
+				reader.onload = (file) ->
+					# Create an image tag
+					img = new Image
+					img.src = file.target.result
+					# Put the image in the div we've specified
+					$('#blank-picture-card-' + count + ' .image-target').html img
+					return
+				# Render the preview image using the created reader
+				reader.readAsDataURL image
+				return
+			return
+		return
+
 	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
 	$('#add-edit-submit-button').on 'click', ->
 		# If we've changed the selector for the price type and we've updated the fixed price value then we need to store it in the max field as well

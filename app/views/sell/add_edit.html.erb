@@ -37,7 +37,7 @@
 			<% # Wrap all tabs in a single form so I have access to all input fields across tabs %>
 			<% if @action == "Create Listing" %>
 				<% # If the action is Create Listing, then set up the form with the method POST and the correct url (pointing to the sell_index_path) %>
-				<%= form_for @listing, url: sell_index_path, html: { id: "add-edit-listing-form", class: "ui form", method: "POST" } do |f| %>
+				<%= form_for @listing, url: sell_index_path, html: { id: "add-edit-listing-form", class: "ui form", method: "POST", multipart: true } do |f| %>
 					<div class="ui tab active" data-tab="add-edit-1">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit listing tab %>
@@ -48,7 +48,7 @@
 					<div class="ui tab" data-tab="add-edit-2">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit photos tab %>
-							<%= render "sell/add_edit_photos" %>					
+							<%= render "sell/add_edit_photos", {f: f} %>					
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
 					<div class="ui tab" data-tab="add-edit-3">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit extras tab %>
-							<%= render "sell/add_edit_extras" %>
+							<%= render "sell/add_edit_extras", {f: f} %>
 						</div>
 					</div>
 
@@ -70,7 +70,7 @@
 				<% end %>
 			<% elsif @action == "Save Changes" %>
 				<% # If the action is Save Changes, then set up the form with the method PATCH and the correct url (pointing to the sell_path) %>
-				<%= form_for @listing, url: sell_path, html: { id: "add-edit-listing-form", class: "ui form", method: "PATCH" } do |f| %>
+				<%= form_for @listing, url: sell_path, html: { id: "add-edit-listing-form", class: "ui form", method: "PATCH", multipart: true } do |f| %>
 					<div class="ui tab active" data-tab="add-edit-1">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit listing tab %>
@@ -83,7 +83,7 @@
 					<div class="ui tab" data-tab="add-edit-2">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit photos tab %>
-							<%= render "sell/add_edit_photos" %>					
+							<%= render "sell/add_edit_photos", {f: f} %>					
 						</div>
 					</div>
 
@@ -91,7 +91,7 @@
 					<div class="ui tab" data-tab="add-edit-3">
 						<div class="ui one column grid">
 							<% # Render the tab body for the add/edit extras tab %>
-							<%= render "sell/add_edit_extras" %>
+							<%= render "sell/add_edit_extras", {f: f} %>
 						</div>
 					</div>
 

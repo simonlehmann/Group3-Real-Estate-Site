@@ -25,6 +25,7 @@
 #
 #   Relations: (how to use): If you have a user object (i.e. user = User.find(1)) then the following methods will return the associated object
 #   	user.user_listings - will return all the listings for that user
+#   	user.user_listing_images - will return all the listing images for that user
 #   	user.messages_to - will return all the messages sent to this user
 #   	user.messages_from - will return all the messages sent by this user
 #   	user.user_favourites - will return all the favourites saved by this user
