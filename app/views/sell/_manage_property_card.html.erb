@@ -63,7 +63,7 @@
 					<div class="four wide column">
 						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
 							<% # Get the main image path using our sell_helper.rb method listing_get_main_image(listing) %>
-							<%= image_tag listing_get_main_image(listing).listing_image_path, class: "ui centered medium image" %>
+							<%= image_tag listing_get_main_image(listing).image.url(:medium), class: "ui centered medium image" %>
 							
 							<% # Status ribbon, clicking this will open the edit modal. %>
 							<% if listing_get_status_object(listing) %>

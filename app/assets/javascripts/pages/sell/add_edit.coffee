@@ -19,9 +19,6 @@ ready = ->
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
 
-	# Dimmer on hover of the add/edit page add-new-picture card
-	$('.add-new-picture.card .image').dimmer on: 'hover'
-
 	# Change the sell price type input fields based upon the dropdown selection
 	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
 	price_dropdown_selection_change = (value) ->
@@ -249,6 +246,119 @@ ready = ->
 			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
 			if !$('key.target').hasClass('dropdown')
 				$('#add-edit-listing-form').form 'submit'
+
+	# ---------- Upload images code
+	# Custom File Upload button and on file selection change event handled in this below.
+	# 
+	# Because we're styling the label to perform the actions of the button we need this code to update the label with the chosen file(s)
+	# 
+	# Preview the added image and add a new add image button when the input field value changes (i.e. we've chosen some files)
+	# Also update the replacement file picker label (as we're hiding the #picture-input element) to display the file name(s)
+	$ ->
+		$('#picture-input').on 'change', (event) ->
+			# Remove any previous preview image cards from the cards list
+			$(".ui.cards [id^='blank-picture-card']").remove()
+			
+			# Get reference to the input field that's hidden and the label we're using to display the selection
+			$input = $(this)
+			$label = $input.next('label')
+			labelVal = $label.html()
+			
+			# Get the files from the input field
+			files = event.target.files
+			
+			# Update the label based upon the selected files
+			if files and files.length > 1
+				# More than one file so lets grab the caption we've hidden in the $input field and update it
+				fileName = (@getAttribute('data-multiple-caption') or '').replace('{count}', @files.length)
+			else if event.target.value
+				# Only one file. Grab it's file name
+				fileName = event.target.value.split('\\').pop()
+			# If we have the filename lets update the label
+			if fileName
+				$label.find('span').html fileName
+			else
+				$label.html labelVal
+
+			# Iterate over each file and create a preview for it
+			$.each files, (key, value) ->
+				# Counter so we can generate a unique image card id to target
+				count = key + 1
+				# Generate the unique image card, set its id = count and set it to display: block (as the blank one is hidden)
+				temp = $('#blank-picture-card').clone()
+				temp.attr('id', 'blank-picture-card-' + count)
+				temp.css('display', 'block')
+				# Append the card to the ui cards containing element
+				temp.appendTo('#listing-photos-list')
+				# Get the image
+				image = value
+				# Create a new file reader that will load the file into the div we specify
+				reader = new FileReader
+				reader.onload = (file) ->
+					# Create an image tag
+					img = new Image
+					img.src = file.target.result
+					# Put the image in the div we've specified
+					$('#blank-picture-card-' + count + ' .image-target').html img
+					# Size it to fit in the preview if it's a smaller height than the containing card (2 parent levels up)
+					item = $('#blank-picture-card-' + count + ' .image-target img')
+					img_height = item.height()
+					div_height = item.parent().parent().height()
+					# If the img_height is less than the container height then size it and crop to fit
+					if img_height < div_height
+						# Resize it to be as big as the container
+						item.css
+							'width': 'auto',
+							'height': div_height
+						# Get the new width and containers actually width
+						img_width = item.width()
+						div_width = item.parent().parent().width()
+						# Set a left margin so the image is centered in the container (overflow will be hidden)
+						new_margin = (div_width - img_width) / 2 + 'px'
+						item.css 'margin-left', new_margin
+					return
+				# Render the preview image using the created reader
+				reader.readAsDataURL image
+				return
+			return
+		return
+
+	# Hide the image the delete button was clicked on and mark it for deletion by the server when the form is updated
+	$('.add-edit.property-card.delete-button').click ->
+		# Get the id of the image we're deleting
+		image_to_delete = $(this).data('id')
+		# Get the parent element which we need to hide the card
+		card_to_hide = $(this).parent()
+		# Mark the associated checkbox as checked so we tell rails to delete the photo
+		$('#destroy-image-' + image_to_delete).prop 'checked', true
+		# Hide the card 
+		# We hide rather than remove so that the hidden checkbox remains otherwise we won't actually delete it
+		card_to_hide.css 'display', 'none'
+		# Return False as the button actually submits the form otherwise (which we don't want to happen)
+		return false
+
+	# Show an indicator that the file will be uploaded and disable the click action on it so it doesn't submit the form
+	# This is assigned this way so any preview image cards we add dynamically (see above function) have a button click assigned
+	# If we don't do this, then clicking the delete button for the dynamic cards submits the form
+	$(document).on 'click', '.add-edit.property-card.upload-button', ->
+		alert 'This photo will be uploaded when you submit the form'
+		return false
+
+	# Handle the selection of the main image so we can update the main image
+	$("input[id^='select-cover-image'").change ->
+		# Get the checkbox and the photo id we need to store as the main image
+		checkbox = $(this)
+		checkbox_id = $(this).attr('id')
+		photo_id = $(this).parent().data('id')
+		# Loop through the over checkboxes and turn them off if this one is checked
+		if checkbox.prop 'checked', true
+			checkbox.siblings('span').text('Main Image')
+			$("input[id^='select-cover-image'").each ->
+				if $(this).attr('id') != checkbox_id
+					if $(this).prop 'checked', true
+						$(this).prop 'checked', false
+						$(this).siblings('span').text('Make Main Image')
+		return
 
 	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
 	$('#add-edit-submit-button').on 'click', ->
