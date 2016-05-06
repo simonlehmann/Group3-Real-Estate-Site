@@ -42,6 +42,10 @@ Rails.application.configure do
   # Default Devise mailer settings
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # <- Change host to site's production domain name and port to 80 for deployment e.g { host: 'propertydome.com', port: 80 }
 
+  # Paperclip config for mac osx image_magick_path:
+  Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
+  Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
+
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
 

@@ -75,4 +75,5 @@ class Listing < ActiveRecord::Base
 	
 	# A listing can have many favourites, deleting the listing will delete all the favourites from the favourites database table
 	has_many :favourites, class_name: "Favourite", inverse_of: :favourite_listing, foreign_key: "favourite_id", dependent: :destroy
+
 end

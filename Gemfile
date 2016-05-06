@@ -42,6 +42,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'twitter', '~> 5.16.0'
 # Loads environmental variables from '.env'
 gem 'dotenv', '~> 2.1.1'
+# Handles file uploads
+gem "paperclip", "~> 4.2"
 # Required for NTLM SMTP authentication type
 gem 'ruby-ntlm'
 

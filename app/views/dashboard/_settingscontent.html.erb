@@ -1,7 +1,7 @@
-<% 
+<%
 #   Created: Daniel Swain
 #   Date: 27/04/2016
-#   
+#
 #   Partial to display the user settings
 %>
 
@@ -24,4 +24,117 @@
 	</div>
 <% end %>
 
+<% # The user has successfully updated %>
+<% if flash[:updated] %>
+	<div class="ui positive message">
+		<i class="close icon"></i>
+		<div class="header">
+			Success!
+		</div>
+		<p><%= flash[:updated] %></p>
+	</div>
+<% end %>
+
+<% # if there are errors display them here %>
+<% if flash[:errors] %>
+	<% # A negative message block that is dismissably %>
+	<div class="ui negative message">
+		<% # The close icon %>
+		<i class="close icon"></i>
+		<div class="header">Please fix the following errors and try again.</div>
+		<% # Display the error list %>
+		<% flash.each do |name, msg| %>
+			<% if msg.class == Array %>
+				<div class="ui bulleted list">
+					<% msg.each do |message| %>
+						<%= content_tag :div, message, :id => "flash_#{name}", class: "item" %>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+
 <% # The remaining settings actions to go here %>
+<%= form_for(current_user, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
+	<% # Avatar preview field %>
+	<div class="field">
+		<label>Avatar</label>
+		<div class="ui image avatar-target">
+			<% # This image is replaced by the live preview %>
+			<%= image_tag(current_user.avatar.url(:thumb)) %>
+		</div>
+	</div>
+	
+	<% # Avatar upload field %>
+	<div class="row">
+		<% # The file field will be hidden and the label_tag below will replace it's functionality %>
+		<%= f.file_field :avatar, class: "dashboard-settings file-input-field", id: "avatar-input" %>
+		<% # This label tag must be placed after the file field above for it to work %>
+		<%= label_tag "avatar-input", class: "ui medium label" do %>
+			<%= content_tag(:i, "", class: "upload icon") %>
+			<span>Upload Avatar</span>
+		<% end %>
+	</div>
+
+	<div class="two fields margin-top-half">
+		<% # First name field %>
+		<div class="field">
+			<label>First Name</label>
+			<%= f.text_field :first_name, autofocus: true, placeholder: "John" %>
+		</div>
+
+		<% # Lat name field %>
+		<div class="field">
+			<label>Last Name</label>
+			<%= f.text_field :last_name, placeholder: "Smith" %>
+		</div>
+	</div>
+
+	<% # Username field %>
+	<div class="field">
+		<label>Username</label>
+		<%= f.text_field :username, placeholder: "johnsmith646" %>
+	</div>
+
+	<% # Email field %>
+	<div class="required field">
+		<label>Email</label>
+		<%= f.email_field :email, placeholder: "email@address.com" %>
+	</div>
+
+	<% # Devise checker %>
+	<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+		<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+	<% end %>
+
+	<% # New Password Field %>
+	<div class="field">
+		<label>New Password <i>(leave blank if you don't want to change it)</i></label>
+		<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
+	</div>
+
+	<% # Confirm new password field %>
+	<div class="field">
+		<label>Confirm New Password</label>
+		<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+	</div>
+
+	<% # Old Password field %>
+	<div class="required field">
+		<label>Current Password <i>(we need your current password to confirm your changes)</i></label>
+		<%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter your current password" %>
+	</div>
+
+	<% # Update/Submit action %>
+	<div class="actions">
+		<%= f.submit "Update", class: "ui dashboard-settings button" %>
+	</div>
+
+<% end %>
+
+<% # Delete account option %>
+<div class="ui row margin-top">
+	<div class="ui divider margin-top"></div>
+	<%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure, this cannot be undone?" }, method: :delete, class: "ui sell-red-button button" %>
+</div>
