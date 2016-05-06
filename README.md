@@ -115,7 +115,10 @@ Password: `MhalliF123`
 ###:e-mail: Mail Server
 ####Application Access  
 SMTP Server: `mail.slehmann36.com`  
-Port: `25`  
+Port: `587`  
+Authentication Type: `NTLM`  
+SSL/TLS: `False`
+Domain: `slehmann36.com`  
 Username: `PropertyDome@slehmann36.com` (Case insensitive)  
 Password: `sJ2PVZ2cbvYqMMN` 
 
