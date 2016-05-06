@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 	self.table_name = "users"
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
-	devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
+	devise :database_authenticatable, :registerable, :confirmable, :timeoutable, :lockable, :recoverable, :rememberable, :trackable, :validatable
 
 	# Validate the password complexity
 	validate :password_complexity
