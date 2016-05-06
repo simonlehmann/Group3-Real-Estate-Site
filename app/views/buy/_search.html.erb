@@ -39,7 +39,9 @@
 					<% # Backup blank dropdown if getting the suburbs and postcodes doesn't work %>
 					<%= select_tag "search-field", nil, class: "ui fluid multiple search selection dropdown", prompt: "Search by suburb, address or keyword;", multiple: true %>
 				<% end %>
-				<div type="submit" class="ui toggle button"><span class="search-action">Search</span></div>
+				<%= link_to search_path, class: "ui toggle button" do %>
+					<span class="search-action">Search</span>
+				<% end %>
 			</div>
 		</div>
 	</div>
