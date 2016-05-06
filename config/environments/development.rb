@@ -40,7 +40,7 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   # Default Devise mailer settings
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # <- Change 'localhost' to the sites production domain name and port to 80 for deployment e.g { host: 'propertydome.com', port: 80 }
 
   # Paperclip config for mac osx image_magick_path:
   Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
