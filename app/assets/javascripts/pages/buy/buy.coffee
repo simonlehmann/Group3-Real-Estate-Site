@@ -19,6 +19,7 @@ ready = ->
 		$('#search-field').empty()
 		$('#search-field').dropdown 'clear'
 		changeImage(state)
+		remove_classes(state)
 		# Update the dropdown via an Ajax call to the server
 		$.ajax
 			type: 'POST'
