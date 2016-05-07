@@ -99,6 +99,26 @@ module ApplicationHelper
 		return @states_short
 	end
 
+	#return shortended state
+	def get_state_short(state)
+		temp_short = ""
+		case state
+		when "Queensland"
+			temp_short = "QLD"
+		when "Victoria"
+			temp_short = "VIC"
+		when "Tasmania"
+			temp_short = "TAS"
+		else
+			temp_array = state.split(" ")
+			temp_array.each do |word|
+				# Grab the first character and upcase it in case it's not
+				temp_short += word[0].upcase
+			end
+		end
+		return temp_short
+	end
+
 	# Return a 2D array useful for dropdowns that have a short display text but long value required for the database calls
 	# a states_short_long is formatted like this ["ACT", "Australian Capital Territory"] or in a [text, value] format used for select_tags
 	def get_states_short_long
