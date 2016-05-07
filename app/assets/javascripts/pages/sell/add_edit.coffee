@@ -262,9 +262,21 @@ ready = ->
 		keyboardShortcuts: false
 		# Called if validate form call detects an error
 		onFailure: (formErrors, fields) ->
-			console.log formErrors
-			console.log fields
-			fields[0].attr('id')
+			# Get the field with the error (so we can find the tab it's in)
+			input_with_error = $('.field.error')
+			# Get the tab it's in
+			tab = input_with_error.closest('.ui.tab')
+			# If the tab with the error field isn't active then remove the active class from the active tab and add it
+			# to the tab with the error so it will become visible
+			if !tab.hasClass('active')
+				# Using data-tab selector so we remove it from the menu item and the active tab as well
+				active_tab = $('.ui.tab.active')
+				# Now we have the active tab, lets remove the class from it and the menu item and then add it to the one we want
+				# to activate (and it's corresponding menu item)
+				$('[data-tab="' + active_tab.data('tab') + '"]').removeClass('active')
+				$('[data-tab="' + tab.data('tab') + '"]').addClass('active')
+				
+			# Return false so it doesn't submit until there's no errors
 			return false
 
 	# ---- Enter Keypress to submit form
