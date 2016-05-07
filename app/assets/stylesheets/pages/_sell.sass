@@ -149,10 +149,19 @@
 	.left.corner.label.rejected
 		background-color: $red-primary
 		border-color: $red-primary
+	// The house type styles (adding a bottom border to the marker icon to make it look more like a land icon)
+	.house-type
+		.marker.icon
+			border-bottom: 1px solid black
+			padding-bottom: 1.15em
 	
 // Override the colour of the pagination class links so they can be seen
 .pagination a
-	color: #000000
+	color: $grey-primary
+.pagination a:hover,
+.pagination a:focus,
+.pagination a:active
+	color: $grey-primary-hover
 
 //--------- Add-Edit Page styles
 // Remove bottom border from tabular menu
