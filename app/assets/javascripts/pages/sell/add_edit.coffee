@@ -352,7 +352,7 @@ ready = ->
 		return false
 
 	# Handle the selection of the main image so we can update the main image
-	$("input[id^='select-cover-image'").change ->
+	$("input[id^='select-cover-image']").change ->
 		# Get the checkbox and the photo id we need to store as the main image
 		checkbox = $(this)
 		checkbox_id = $(this).attr('id')
@@ -360,7 +360,7 @@ ready = ->
 		# Loop through the over checkboxes and turn them off if this one is checked
 		if checkbox.prop 'checked', true
 			checkbox.siblings('span').text('Main Image')
-			$("input[id^='select-cover-image'").each ->
+			$("input[id^='select-cover-image']").each ->
 				if $(this).attr('id') != checkbox_id
 					if $(this).prop 'checked', true
 						$(this).prop 'checked', false

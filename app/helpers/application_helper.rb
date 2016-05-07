@@ -12,7 +12,8 @@ module ApplicationHelper
 
 	# Return an array of unique states from the database
 	def get_states
-		return @locations = Location.find_each().map{ |loc| loc.state }.uniq!.sort!
+		@locations = ["Australian Capital Territory", "New South Wales", "Northern Territory", "Other Territories", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"]
+		return @locations #  Use this line if you want it to grab from the database = Location.find_each().map{ |loc| loc.state }.uniq!.sort!
 	end
 
 	# Return an array of unique state accronyms from the databse
