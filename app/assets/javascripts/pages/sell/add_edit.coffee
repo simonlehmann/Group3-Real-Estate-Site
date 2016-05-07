@@ -12,6 +12,7 @@ ready = ->
 	$('.add-edit.tabular.menu .item').tab()
 
 	# Turn on the dropdowns on the add edit page, making the state, suburb and postcode search dropdowns support full text search
+	$('.add-edit-type.dropdown').dropdown()
 	$('.add-edit-state.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-suburb.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-postcode.dropdown').dropdown fullTextSearch: true
@@ -147,6 +148,12 @@ ready = ->
 
 	# Form validation rules
 	validation_rules = 
+		type: # Can't be empty
+			identifier: 'listing[listing_type]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a listing type'
+			}]
 		address: # Can't be empty
 			identifier: 'listing[listing_address]'
 			rules: [{
@@ -345,7 +352,7 @@ ready = ->
 		return false
 
 	# Handle the selection of the main image so we can update the main image
-	$("input[id^='select-cover-image'").change ->
+	$("input[id^='select-cover-image']").change ->
 		# Get the checkbox and the photo id we need to store as the main image
 		checkbox = $(this)
 		checkbox_id = $(this).attr('id')
@@ -353,7 +360,7 @@ ready = ->
 		# Loop through the over checkboxes and turn them off if this one is checked
 		if checkbox.prop 'checked', true
 			checkbox.siblings('span').text('Main Image')
-			$("input[id^='select-cover-image'").each ->
+			$("input[id^='select-cover-image']").each ->
 				if $(this).attr('id') != checkbox_id
 					if $(this).prop 'checked', true
 						$(this).prop 'checked', false
