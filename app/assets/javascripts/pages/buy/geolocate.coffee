@@ -37,11 +37,23 @@ ready = ->
 
   changeImage = (state) ->
     if state.includes('WA')
-      $('.search-section').addClass 'melb-img'
-    else if state.includes('MEL')
-      $('.search-section').addClass 'melb-img'
+      $('.search-section').addClass 'wa-img'
+    else if state.includes('VIC')
+      $('.search-section').addClass 'vic-img'
+    else if state.includes('QLD')
+      $('.search-section').addClass 'qld-img'
+    else if state.includes('ACT')
+      $('.search-section').addClass 'act-img'
+    else if state.includes('NSW')
+      $('.search-section').addClass 'nsw-img'
+    else if state.includes('SA')
+      $('.search-section').addClass 'sa-img'
+    else if state.includes('NT')
+      $('.search-section').addClass 'nt-img'
+    else if state.includes('TAS')
+      $('.search-section').addClass 'tas-img'
     else
-      $('.search-section').addClass 'perth-img'
+      $('.search-section').addClass 'wa-img'
     return
 
   setDefaultImage = ->

@@ -8,7 +8,7 @@
 #
 ready = ->
 	#search dropdown
-	$('.search-section .ui.dropdown').dropdown allowAdditions: true
+	$('.search-section .ui.dropdown').dropdown allowAdditions: true, fullTextSearch: true
 	# Update the search dropdown options based upon the choice of state when it's changed via an ajax call
 	$('#search-state-field').change ->
 		# Get the state 
