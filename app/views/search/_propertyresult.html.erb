@@ -2,6 +2,15 @@
 	<div class="ui card property-card">
 		<div class="content">
 			<h3 class="ui header">
+				<span class="house-type">
+					<% if listing.listing_type == "House" %>
+						<i class="home icon"></i>
+					<% elsif listing.listing_type == "Apartment" %>
+						<i class="building icon"></i>
+					<% else %>
+						<i class="marker icon"></i>
+					<% end %>
+				</span>
 				<%# address %>
 				<%= link_to "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}", url_for("#{listing.listing_address}"), class: "title-link" %>
 				<div class="property-info">
@@ -54,6 +63,8 @@
 					sell-feature-tag is purple
 					location-feature-tag & property-feature-tag is blue
 				 	price-feature-tag is red %>
+				<div class="ui property-feature-tag label"><%= listing.listing_type %></div>
+				<div class="ui property-feature-tag label"><%= listing.listing_land_size %> sqm</div>
 				<div class="ui sell-feature-tag label">Home Theatre</div>
 				<div class="ui sell-feature-tag label">NBN</div>
 				<div class="ui sell-feature-tag label">Pool</div>
@@ -62,6 +73,15 @@
 				<div class="ui location-feature-tag label">1.3km from your Work</div>
 				<div class="ui property-feature-tag label">5.1km from Schools</div>
 				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
+				<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
+					<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
+					<% # A label for each tag in the list %>
+					<% tags.each do |tag| %>
+					<div class="ui sell-feature-tag label">
+						<% # tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
+						<%= tag[0] %>
+					</div>
+				<% end %>
 			</div>
 		</div>
 		<div class="extra content">
