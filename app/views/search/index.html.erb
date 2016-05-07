@@ -42,16 +42,9 @@
 				showing 3 exact results
 				<span></span>
 			</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
+			<%= render partial: "search/propertyresult", object: @listings %>
 			<p class="ui dividing header search-divider">broadening search with no pool</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
 			<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
 		</div>
 	</div>
 </section>
