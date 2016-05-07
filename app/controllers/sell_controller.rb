@@ -84,7 +84,7 @@ class SellController < ApplicationController
 		@status = ListingStatus.create(listing_status_label: "None")
 		@listing.listing_status_id = @status.listing_status_id
 
-		# Store the first image as the cover image (will need to change this later)
+		# Store the first image as the cover image (This is replaced below after we've actually got images)
 		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
 
 		# ***************** DELETE WHEN ADMIN INTERFACE IS BUILT
@@ -117,6 +117,13 @@ class SellController < ApplicationController
 			params[:images].each do |image|
 				ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
 			end
+		end
+
+		# --------- Update the cover image to be the first of the images we've just added
+		first_image = ListingImage.where(listing_image_listing_id: @listing_id).first
+		if first_image
+			@listing.listing_cover_image_id = first_image.listing_image_id
+			@listing.save
 		end
 
 		# --------- Redirect back to the index view now we've saved everything (sending a notice message)
@@ -307,7 +314,7 @@ class SellController < ApplicationController
 			# Helper method to limit the accessible parameters for the listing object to those for the listing (as listed in permit())
 			# normally listing parameters would be accessed via params[:listing][:listing_state] but there's a risk that unwanted params might be added and
 			# could affect the database, so we only permit the ones we want here.
-			params.require(:listing).permit(:listing_address, :listing_suburb, :listing_state, :listing_post_code, 
+			params.require(:listing).permit(:listing_type, :listing_address, :listing_suburb, :listing_state, :listing_post_code, 
 				:listing_bedrooms, :listing_bathrooms, :listing_parking, :listing_land_size, :listing_price_type, 
 				:listing_price_min, :listing_price_max, :listing_description, :listing_title, :listing_subtitle)
 		end
