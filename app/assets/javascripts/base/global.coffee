@@ -23,6 +23,8 @@
     	$('.search-section').addClass 'nt-img'
   	else if state == 'Tasmania'
     	$('.search-section').addClass 'tas-img'
+    else if state == 'Other Territories'
+    	$('.search-section').addClass 'ot-img'
   	else
     	$('.search-section').addClass 'wa-img'
     return
@@ -36,6 +38,7 @@
 		['nt-img', 'Northern Territory'],
 		['tas-img', 'Tasmania'],
 		['act-img', 'Australian Capitol Territory'],
+		['ot-img', 'Other Territories'],
 		['nsw-img', 'New South Wales']
 		]
 	i = 0
