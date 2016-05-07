@@ -3,7 +3,7 @@
 		<div class="content">
 			<h3 class="ui header">
 				<%# address %>
-				<%= link_to "#{listing.listing_address}", url_for("#{listing.listing_address}"), class: "title-link" %>
+				<%= link_to "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}", url_for("#{listing.listing_address}"), class: "title-link" %>
 				<div class="property-info">
 				<%# num of bedrooms %>
 				<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
@@ -18,7 +18,9 @@
 			<%# is favorited, if so add class to i favd %>
 			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
 			<%# status of property, might be handy for this to include a link to property page %>
-			<a class="ui red right ribbon label"><%= listing.listing_status %></a>
+			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
+			<% end %>
 			<%# img its also a link needs to be changed to url for actual link of property object %>
 			<%= link_to url_for("#{listing.listing_address}") do %>
 				<%= image_tag "propertyimagetemp.png", alt: "Property Image" %>
