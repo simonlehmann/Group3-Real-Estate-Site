@@ -2,6 +2,14 @@
 #   Date: 18/04/2016
 # 
 #   The following coffeescript is for the sales add/edit page
+#   
+#   It contains all the js functions used on the add/edit page. including
+#   	* Tab changing
+#   	* Dropdown settings
+#   	* Dropdown change evenets
+#   	* Form validation rules
+#   	* Form actions
+#   	* Image upload code (preview, setting image as main image, marking for deletion)
 # 
 #   Todo:
 
@@ -20,6 +28,9 @@ ready = ->
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
 
+	# --------- FORM INPUT STATE CHANGE EVENTS
+	#
+	# ---- Price Type Change
 	# Change the sell price type input fields based upon the dropdown selection
 	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
 	price_dropdown_selection_change = (value) ->
@@ -51,7 +62,7 @@ ready = ->
 		value = @value
 		price_dropdown_selection_change(value)
 
-	# Custom Tags
+	# ---- Custom Tags
 	# Add tags to the selection field based upon the entered info in the add-edit-additional-tags-dropdown
 	# Get the tag area, the tag type dropdown, the tag input value and the add button
 	additional_tag_area = $('#add-edit-additional-tags')
@@ -146,6 +157,8 @@ ready = ->
 					$('#listing_listing_post_code').dropdown 'clear'
 					$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
 
+	# --------- FORM OBJECT ITSELF
+	# 
 	# Form validation rules
 	validation_rules = 
 		type: # Can't be empty
@@ -238,21 +251,64 @@ ready = ->
 				type: 'empty'
 				prompt: 'Please enter a subtitle'
 			}]
-
+	
+	# ---- Set up form using validation rules above, plus additional settings
+	# 
 	# Bind the rules to the form and set form options (the only way I found to get the errors was to set inline to true)
 	$('#add-edit-listing-form').form
 		inline: true
 		fields: validation_rules
 		# Turn keyboard shortcuts off for the semantic form
 		keyboardShortcuts: false
+		# Called if validate form call detects an error
+		onFailure: (formErrors, fields) ->
+			# Get the field with the error (so we can find the tab it's in)
+			input_with_error = $('.field.error')
+			# Get the tab it's in
+			tab = input_with_error.closest('.ui.tab')
+			# If the tab with the error field isn't active then remove the active class from the active tab and add it
+			# to the tab with the error so it will become visible
+			if !tab.hasClass('active')
+				# Using data-tab selector so we remove it from the menu item and the active tab as well
+				active_tab = $('.ui.tab.active')
+				# Now we have the active tab, lets remove the class from it and the menu item and then add it to the one we want
+				# to activate (and it's corresponding menu item)
+				$('[data-tab="' + active_tab.data('tab') + '"]').removeClass('active')
+				$('[data-tab="' + tab.data('tab') + '"]').addClass('active')
+				
+			# Return false so it doesn't submit until there's no errors
+			return false
 
+	# ---- Enter Keypress to submit form
+	# 
 	# Submit the form with a keyboard enter key press if the dropdown fields aren't selected
 	$(document).keypress (key) ->
 		# Enter key (submit handler)	
 		if key.which == 13
 			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
 			if !$('key.target').hasClass('dropdown')
-				$('#add-edit-listing-form').form 'submit'
+				# Only submit the form if it's valid
+				if $('#add-edit-listing-form').form 'is valid'
+					$('#add-edit-listing-form').form 'submit'
+				# Otherwise, validate it so the onFailure method is called.
+				else
+					$('#add-edit-listing-form').form 'validate form'
+
+	# ---- Button click to submit form
+	# 
+	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
+	$('#add-edit-submit-button').on 'click', ->
+		# If we've changed the selector for the price type and we've updated the fixed price value then we need to store it in the max field as well
+		if $('#add-edit-price-dropdown').val() == 'F'
+			# We need to change it here when saving as you might have changed it after selecting fixed price (so min and max won't line up anymore)
+			$('#price-field-max-input').val($('#price-field-min-input').val())
+		# Submit the form only if it's valid
+		if $('#add-edit-listing-form').form 'is valid'
+			$('#add-edit-listing-form').form 'submit'
+		# Otherwise, validate it so the onFailure method is called.
+		else
+			$('#add-edit-listing-form').form 'validate form'
+		return
 
 	# ---------- Upload images code
 	# Custom File Upload button and on file selection change event handled in this below.
@@ -365,16 +421,6 @@ ready = ->
 					if $(this).prop 'checked', true
 						$(this).prop 'checked', false
 						$(this).siblings('span').text('Make Main Image')
-		return
-
-	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
-	$('#add-edit-submit-button').on 'click', ->
-		# If we've changed the selector for the price type and we've updated the fixed price value then we need to store it in the max field as well
-		if $('#add-edit-price-dropdown').val() == 'F'
-			# We need to change it here when saving as you might have changed it after selecting fixed price (so min and max won't line up anymore)
-			$('#price-field-max-input').val($('#price-field-min-input').val())
-		# Submit the form
-		$('#add-edit-listing-form').form 'submit'
 		return
 
 	return
