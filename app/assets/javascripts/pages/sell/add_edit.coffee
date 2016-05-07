@@ -12,6 +12,7 @@ ready = ->
 	$('.add-edit.tabular.menu .item').tab()
 
 	# Turn on the dropdowns on the add edit page, making the state, suburb and postcode search dropdowns support full text search
+	$('.add-edit-type.dropdown').dropdown()
 	$('.add-edit-state.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-suburb.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-postcode.dropdown').dropdown fullTextSearch: true
@@ -147,6 +148,12 @@ ready = ->
 
 	# Form validation rules
 	validation_rules = 
+		type: # Can't be empty
+			identifier: 'listing[listing_type]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a listing type'
+			}]
 		address: # Can't be empty
 			identifier: 'listing[listing_address]'
 			rules: [{

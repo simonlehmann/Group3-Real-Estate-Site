@@ -36,12 +36,25 @@
 
 		<% # Dividing header %>
 		<h4 class="ui dividing header">Property Information</h4>
+		
+		<% # House type field and street address field %>
+		<div class="two fields">
+			<div class="required four wide field">
+				<label>Listing Type</label>
+				<% types = ["House","Apartment","Land"] %>
+				<% if @action == "Save Changes" %>
+					<%= f.select :listing_type, options_for_select(types, @listing.listing_type), { prompt: "Select Type" }, { class: "ui fluid add-edit-type dropdown" } %>
+				<% else %>
+					<%= f.select :listing_type, options_for_select(types, "House"), { prompt: "Select Type" }, { class: "ui fluid add-edit-type dropdown" } %>
+				<% end %>
+			</div>
 
-		<% # Street Address input %>
-		<div class="required field">
-			<label>Street Address</label>
-			<% # The Street Address Field, will be filled by the @listing object if it exists %>
-			<%= f.text_field :listing_address, placeholder: "Street Address" %>
+			<% # Street Address input %>
+			<div class="required twelve wide field">
+				<label>Street Address</label>
+				<% # The Street Address Field, will be filled by the @listing object if it exists %>
+				<%= f.text_field :listing_address, placeholder: "Street Address" %>
+			</div>	
 		</div>
 
 		<% # Suburb and State Input %>
