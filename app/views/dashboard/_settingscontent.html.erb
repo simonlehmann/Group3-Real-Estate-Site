@@ -71,11 +71,22 @@
 		<% # The file field will be hidden and the label_tag below will replace it's functionality %>
 		<%= f.file_field :avatar, class: "dashboard-settings file-input-field", id: "avatar-input" %>
 		<% # This label tag must be placed after the file field above for it to work %>
-		<%= label_tag "avatar-input", class: "ui medium label" do %>
+		<%= label_tag "avatar-input", class: "ui medium button" do %>
 			<%= content_tag(:i, "", class: "upload icon") %>
 			<span>Upload Avatar</span>
 		<% end %>
 	</div>
+	
+	<% # Show a link to crop the image if one exists already for the given user %>
+	<% if current_user.avatar.url(:thumb) %>
+		<div class="row margin-top-half">
+			<% # Link to the view %>
+			<%= link_to dashboard_settings_crop_path, class: "ui medium crop-label button" do %>
+				<%= content_tag(:i, "", class: "crop icon") %>
+				<span>Crop Avatar</span>
+			<% end %>
+		</div>
+	<% end %>
 
 	<div class="two fields margin-top-half">
 		<% # First name field %>

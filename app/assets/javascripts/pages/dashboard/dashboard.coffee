@@ -42,6 +42,12 @@ ready = ->
 			reader.readAsDataURL image
 			return
 		return
+	
+	# Load the papercrop module as it doesn't like turbolinks :(
+	if window.location.pathname.includes('crop')
+		# Can't figure out how to stop this creating a second picker on a page refresh
+		init_papercrop()
+			
 
 $(document).ready ready
 $(document).on 'page:load', ready

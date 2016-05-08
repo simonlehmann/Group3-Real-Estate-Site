@@ -46,6 +46,8 @@ gem 'dotenv', '~> 2.1.1'
 gem "paperclip", "~> 4.2"
 # Required for NTLM SMTP authentication type
 gem 'ruby-ntlm'
+# Papercrop
+gem 'papercrop'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

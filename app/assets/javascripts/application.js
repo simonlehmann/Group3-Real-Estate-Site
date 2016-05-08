@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //
+// Required for Papercrop
+//= require jquery.jcrop
+//= require papercrop
+//
 // Base files (global javascript)
 //= require base/global
 //= require base/map

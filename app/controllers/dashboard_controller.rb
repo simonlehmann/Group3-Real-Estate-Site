@@ -37,4 +37,10 @@ class DashboardController < ApplicationController
 		# Render the index template (which contains all the tabs)
 		render "dashboard/index"
 	end
+
+	# Show the crop avatar page outside of uploading a new image
+	def crop
+		@user = current_user
+		render "dashboard/crop"
+	end
 end

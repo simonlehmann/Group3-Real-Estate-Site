@@ -1,0 +1,66 @@
+<%
+#   Created: Daniel Swain
+#   Date: 08/05/2016
+#
+#   Partial to let user crop their avatar, it's used by the registration controller (as a put action)
+#   and also used from dashboard/settings/crop to manually crop an existing image
+%>
+
+<div class="ui container nobanner-container">
+	<div class="ui middle aligned grid container">
+		<div class="ui center aligned column">
+			<% # The header %>
+			<h2 class="header">Crop Your Avatar</h2>
+
+			<% # Dividing bar %>
+			<div class="ui divider"></div>
+			
+			<% # The Crop Form %>
+			<div class="ui centered one column grid">
+				<div class="ui fourteen wide column">
+					<% # This actually uses a registration action called crop_avatar to save the changes as it needs to go through devise %>
+					<%= form_for @user, url: {controller: "registrations", action: "crop_avatar"}, html: { method: :put, class: "ui form crop-form" } do |f| %>
+						<% # Set up as two fields with the original on the right. Unfortunately we aren't given much styling options for the picture fields %>
+						<div class="ui two fields">
+							<% # The current thumbnail and cropped image preview %>
+							<div class="field">
+								<% # Grouped so they align vertically %>
+								<div class="grouped fields">
+									<% # Existing Paperclip thumbnail file %>
+									<div class="field">
+										<label>Existing Thumbnail</label>
+										<%= image_tag @user.avatar.url(:thumb) %>
+									</div>
+
+									<div class="ui field margin-top">
+										<p>If you would like to customise the thumbnail image above then use the crop tool on the right.</p>
+										<p>Select the area of the image you would like to have as your profile picture thumbnail.</p>
+										<p>What you can see in the preview window below is what will be saved</p>
+									</div>
+									
+									<% # Papercrop preview %>
+									<div class="ui field margin-top">
+										<label>Cropped Image</label>
+										<%= f.crop_preview :avatar, width: 100%>
+									</div>
+									
+									<% # Submit and cancel buttons %>
+									<div class="ui field margin-top">
+										<%= link_to "Cancel", dashboard_settings_path, class: "ui dashboard-settings cancel button" %>
+										<%= f.submit "Crop and Save", class: "ui dashboard-settings button" %>
+									</div>
+								</div>
+							</div>
+							
+							<% # The originial image with a jCrop field for cropping, width is set to 500px here, otherwise it'd be as big as the image is. %>
+							<div class="field" id="crop-field-holder">
+								<label>Original Image</label>
+								<%= f.cropbox :avatar, width: 500 %>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
