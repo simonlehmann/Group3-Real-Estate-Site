@@ -22,10 +22,13 @@ class RegistrationsController < Devise::RegistrationsController
 				set_flash_message :notice, flash_key
 			end
 			sign_in resource_name, resource, bypass: true
+			# If there's an avatar present in the params then lets crop it as it's been saved.
 			if params[:user][:avatar].present?
+				# Get the current user (used in the form in the crop form which is what we're rendering)
 				@user = current_user
 				render "dashboard/crop"
 			else
+				# No image, so we've saved the update with no image change, lets go to the after update path which is set below.
 				respond_with resource, location: after_update_path_for(resource)
 			end	
 		else
@@ -40,8 +43,8 @@ class RegistrationsController < Devise::RegistrationsController
 		@user = current_user
 		# We've added the cropping params to the permitted parameters so lets save them
 		if @user.update_attributes(account_update_params)
-			flash[:notice] = "Avatar successfully cropped"
-			respond_with resource, location: after_update_path_for(resource)
+			flash[:updated] = "Avatar successfully cropped"
+			redirect_to :dashboard_settings
 		else
 			flash[:errors] = "Avatar not changed, there was an error"
 			redirect_to :dashboard_settings
