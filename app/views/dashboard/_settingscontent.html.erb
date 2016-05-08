@@ -70,9 +70,12 @@
 		</div>
 	</div>
 	
+	<% # Avatar Crop preview field %>
+	<% # This is set to display: none on page load and is brought into view (with the file-upload-preview above being hidden) only when you've selected a crop %>
 	<div class="field" id="avatar-crop-preview-image" style="display: none;">
 		<label>Avatar</label>
 		<div>
+			<% # The papercrop image crop preview that does the Jcrop magic %>
 			<%= f.crop_preview :avatar, :width => 100 %>
 		</div>
 	</div>
