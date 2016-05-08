@@ -29,6 +29,20 @@ class RegistrationsController < Devise::RegistrationsController
 			redirect_to :dashboard_settings
 		end
 	end
+
+	# Crop Avatar action used to perform the actual image cropping. This is incase we want to do it via a url on mobiles
+	# (currently disabled as the action is handled in the update action above by moving the crop selection into a modal on the dashboard#settings page
+	# def crop_avatar
+	# 	@user = current_user
+	# 	# We've added the cropping params to the permitted parameters so lets save them
+	# 	if @user.update_attributes(account_update_params)
+	# 		flash[:updated] = "Avatar successfully cropped"
+	# 		redirect_to :dashboard_settings
+	# 	else
+	# 		flash[:errors] = "Avatar not changed, there was an error"
+	# 		redirect_to :dashboard_settings
+	# 	end
+	# end
 	
 	protected
 
@@ -56,7 +70,8 @@ class RegistrationsController < Devise::RegistrationsController
 	# Used when updating the user, we require the user object and permit the other
 	def account_update_params
 		# Edit this to include the params you need to include/permit when updating (devise will handle it)
-		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password,
+			:avatar_original_w, :avatar_original_h, :avatar_box_w, :avatar_aspect, :avatar_crop_x, :avatar_crop_y, :avatar_crop_w, :avatar_crop_h)
 	end
 
 	# If we make it so the user is :confirmable then we need to override the following method as well

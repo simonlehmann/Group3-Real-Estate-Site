@@ -81,11 +81,14 @@ class User < ActiveRecord::Base
 	# A user can have many blockages from them, but will destroy them all when the user object is deleted
 	has_many :blockages_from, class_name: "Blockage", inverse_of: :blockage_from_user, foreign_key: "blockage_id", dependent: :destroy
 
-	# User avatar
+	# User avatar (NB. Changed default_url from /avatars to avatars as that was causing problems with papercrop)
 	has_attached_file :avatar, styles: {
 		thumb: "100x100#",
 		medium: "300x300#"
-	}, :default_url => "/avatars/:style/missing.png"
+	}, :default_url => "avatars/:style/missing.png"
 	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+	
+	# To be able to crop the avatar using papercrop
+	crop_attached_file :avatar
 
 end
