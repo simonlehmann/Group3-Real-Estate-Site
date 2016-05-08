@@ -9,32 +9,37 @@
 #   TODO:
 #
  %>
-<section class="search-container nobanner-container ui center aligned container">
+<section class="property-container nobanner-container ui center aligned container">
 	<div class="ui sixteen wide center aligned grid">
-		<h1>Property#index</h1>
-		<p>Find me in app/views/property/index.html.erb</p>
-	</div>
-	<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+		<div id="toppic-links">
+			<%= link_to "< back to search results", "search_path", id:"back-search-link" %>
+			<span id="next-prev-links">
+				<%= link_to "< previous", buy_path %>
+				<%= link_to "next >", buy_path %>
+			</span>
 		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("favProp.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+		<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
 		</div>
 	</div>
 </section>
