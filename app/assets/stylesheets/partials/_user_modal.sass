@@ -12,13 +12,13 @@
 #user-login-signup-modal
 	// Center the modal in the screen with the custom size
 	// Change the negtive margins to better handle the vertical positioning
-	width: 450px
-	min-width: 450px
+	width: 600px
+	min-width: 600px
 	position: fixed
 	top: 50%
 	left: 50%
-	margin-top: -250px // Set this to half the height of the modal (it's unknown though, so I'm estimating)
-	margin-left: -275px // Set this to half the width of the modal
+	// Margin top has been removed for the time being as it was not working as expected. Reverting to using Semantic's inbuilt top positioning
+	margin-left: -300px // Half the width of the modal
 	border-radius: 0.5em // To get rid of the white corners.
 	// Close button is positioned absolutely, here I'm overriding the positioning
 	.close

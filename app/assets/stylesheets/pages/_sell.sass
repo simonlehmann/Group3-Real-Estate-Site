@@ -9,6 +9,7 @@
 	color: $red-primary !important
 
 // Buttons & Ribbon
+.sell-red,
 .sell-red-button,
 .sell-red-ribbon
 	background-color: $red-primary !important
@@ -27,6 +28,11 @@
 .sell-red-button-alt:active,
 .sell-red-button-alt:focus
 	background-color: $red-primary !important
+
+// The tag labels should be coloured differently including colouring them on the add/edit page
+.add-edit.custom-tags a.ui.label
+	background-color: $purple-primary !important
+	color: $white-primary !important
 
 // The Ribbon border handles the ribbon fold
 .sell-red-ribbon
@@ -83,21 +89,82 @@
 	.status-time.input
 		max-width: 7em
 
-// Send element to bottom of container (were all rem's)
+// Styles for the manage status modal header and border and top positioning
+.manage-status.modal
+	margin-top: -275px !important
+	border-radius: 0.5em
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	.header
+		min-height: 3em
+		background-color: $grey-primary
+		color: $white-primary
+
+// Remove margin right on icons in property feature elements on manage page
+// Size the icon and text together to ensure they match.
+.sell-listing-feature 
+	font-size: 1.2em
+	.icon
+		margin-right: 0px
+	
+// Send element to bottom of container
 .manage-property-bottom
 	position: absolute
 	bottom: 1em
 	left: 1em
 	span
 		padding-right: 1em
+	// The top row for the tags (situated in the bottom row) giving it some bottom padding to better separate it from
+	// the view, favourite, comment counts. Also add margin-bottom to the labels in this row incase they wrap around on smaller screens
+	.top-row
+		margin-bottom: 1em
+		.label
+			margin-bottom: 0.5em
+
 .manage-property-bottom-right
 	position: absolute
 	bottom: 1em
 	right: 1em
+	// Fix the border radius not showing on the left side of the delete button
+	.button
+		border-radius: 0.28em !important
 
+// Styles for manage-listing-card (to get appoved corner label curved to match card
+.manage-listing-card
+	overflow: hidden
+	// Left-pad to keep header out from under the corner label
+	.content .header h2
+		margin-left: 1em
+	// Colour the left corner labels
+	.left.corner.label
+		color: $white-primary
+	.left.corner.label.approved
+		background-color: $green-primary
+		border-color: $green-primary
+	.left.corner.label.review
+		background-color: $orange-primary
+		border-color: $orange-primary
+	.left.corner.label.rejected
+		background-color: $red-primary
+		border-color: $red-primary
+	// The house type styles (adding a bottom border to the marker icon to make it look more like a land icon)
+	.house-type
+		.marker.icon
+			border-bottom: 1px solid black
+			padding-bottom: 1.15em
+	.shower img
+		width: 25px !important
+		height: auto
+	
 // Override the colour of the pagination class links so they can be seen
 .pagination a
-	color: #000000
+	color: $grey-primary
+.pagination a:hover,
+.pagination a:focus,
+.pagination a:active
+	color: $grey-primary-hover
 
 //--------- Add-Edit Page styles
 // Remove bottom border from tabular menu
@@ -107,7 +174,7 @@
 // Styling for add edit property card
 // It positions the delete button in the top right and styles the button
 // It also styles the bottom attached label
-.add-edit.property-card.delete
+.add-edit.property-card.delete-button
 	position: absolute
 	top: 0.3em
 	right: 0.1em
@@ -122,6 +189,45 @@
 	background-color: $grey-primary !important
 	color: $white-primary !important
 	text-align: center
+	// Add margin left to the checkboxes
+	input[type="checkbox"]
+		margin-left: 0.5em
+// The add-edit new file indication button which only shows on the new preview cards when they're added by the file picker
+// The button will be positioned to follow the same positioning as the delete button
+.add-edit.property-card.upload-button
+	position: absolute
+	top: 0.3em
+	right: 0.1em
+	.button
+		background-color: $red-primary !important
+		color: $white-primary !important
+	.button:hover,
+	.button:active,
+	.button:focus
+		cursor: auto !important
+
+// Hide the file input field so we can style the label to look nicer
+// Label styles are below
+.add-edit.file-input-field
+	width: 0.1px
+	height: 0.1px
+	opacity: 0
+	overflow: hidden
+	position: absolute
+	z-index: -1
+// Style the replacement label
+.add-edit.file-input-field + label
+	padding: 0.75em
+	border-radius: 0.2em
+	color: $white-primary
+	background-color: $red-primary
+	display: inline-block
+	cursor: pointer
+// File upload label hover
+.add-edit.file-input-field:focus + label,
+.add-edit.file-input-field + label:hover
+	background-color: $red-primary-hover
+
 
 // Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
 // Using min-height so it can grow if a lot of tags are added.

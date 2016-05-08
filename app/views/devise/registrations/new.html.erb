@@ -22,7 +22,7 @@
 %>
 
 <div class="ui container nobanner-container">
-	<div class="ui middle aligned grid container margin-top">
+	<div class="ui middle aligned grid container">
 		<div class="ui center aligned column">
 			<% # The header %>
 			<h2 class="header">Sign up</h2>
@@ -45,7 +45,7 @@
 							<% if @minimum_password_length %>
 								<em>(<%= @minimum_password_length %> characters minimum)</em>
 							<% end %>
-							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password" %>
+							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your password", class: "password-popup" %>
 						</div>
 
 						<div class="field">

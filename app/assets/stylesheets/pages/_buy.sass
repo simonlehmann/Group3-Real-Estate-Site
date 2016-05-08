@@ -1,10 +1,14 @@
+// Created: Jayden Spencer
+// Date: 05/04/2016
+// The following styles are for the buy page
+//
 //buy search section properties
 .search-section
 	margin-top: -60px
 	padding-top: 5em
 	width: 100%
 	min-height: 70vh
-	background: url(image_path('landing-header.png')) no-repeat
+	background-color: $grey-primary
 	background-size: auto 120%
 	//search section header
 	.ui.inverted.header
@@ -39,6 +43,22 @@
 	.search-action
 		width: 5em
 		font-size: 1.2em
+	//Fix for placement of multiple search selection dropdown icon (it's not centered like the single search select icon is)
+	.ui.selection.dropdown > .dropdown.icon
+		// This is the value from search selection in semantic (multiple search selection uses padding: 0.5em)
+		padding: 0.78571429em 
+	// Fix for placement of the multiple search selection placeholder text (it's not centered like the single search select icon is)
+	.ui.multiple.search.dropdown > .text
+		top: auto // Overiding top: 0
+		margin: 0.53em 0em 0.53em 0.71428571em // Overiding margin: 0.45240952em 0em 0.45240952em 0.71428571em
+		padding: 0em // Overiding padding: inherit
+	// Fix for cursor placement in multiple search dropdown
+	.ui.multiple.search.dropdown > input.search
+		margin-left: 0.4em // Overiding maring-left: 0.71428571em
+	//padding on search bar to place two inputs closer together
+	.ui.row.search-row .column
+		padding-left: 0.25em
+		padding-right: 0.25em
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
@@ -50,7 +70,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 //favourites section
 .favourites-section
 	height: 30vh
-	max-height: 300px
+	min-height: 295px
 	padding-top: 1.2%
 	background-color: $grey-primary
 	h2
@@ -78,6 +98,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		color: $white-primary
 	ul#stats-circles
 		list-style: none
+		padding-left: 0px
 		li
 			margin-left: 3%
 			margin-right: 3%
@@ -88,3 +109,31 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .twitter-feed
 	.twitter
 		color: $blue-twitter
+
+//Header images for geolocater
+.wa-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.vic-img
+	background: url(image_path('sell-header.png')) no-repeat
+.qld-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.act-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nsw-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.sa-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nt-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.tas-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.ot-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%

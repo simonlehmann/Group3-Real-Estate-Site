@@ -38,11 +38,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-# Gem for interacting with twitter api in ruby
+# Gem for twitter api
 gem 'twitter', '~> 5.16.0'
-# Loads environment variables from '.env'
+# Loads environmental variables from '.env'
 gem 'dotenv', '~> 2.1.1'
-
+# Handles file uploads
+gem "paperclip", "~> 4.2"
+# Required for NTLM SMTP authentication type
+gem 'ruby-ntlm'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

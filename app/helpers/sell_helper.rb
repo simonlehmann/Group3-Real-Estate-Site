@@ -7,7 +7,7 @@ module SellHelper
 
 	# Get the main image for the given listing
 	def listing_get_main_image(listing)
-		return main_image = ListingImage.find(listing.listing_cover_image_id)
+		return main_image = ListingImage.find_by_listing_image_id(listing.listing_cover_image_id)
 	end
 
 	# Get and return an array of images for the listing
@@ -35,6 +35,9 @@ module SellHelper
 				status_end_time = Time.parse(status_object.listing_status_end_time.to_s).strftime("%H:%M")
 				# Set the return string
 				status_return = "#{status_label}: #{status_date}, #{status_start_time} - #{status_end_time}"
+			elsif status_label == "None"
+				# The status is none so set a "none" text
+				status_return = "Click here to set a status"
 			else
 				# Just send the label as there's no date/times
 				status_return = status_label
@@ -93,5 +96,28 @@ module SellHelper
 	def add_edit_get_tag_types_for_category(category)
 		tags = TagType.where(tag_type_category: category)
 		return tags
+	end
+
+	# Return the tags in a more readable format (they're stored in the database with integer values and relations)
+	def add_edit_get_readable_tags_collection(tags)
+		readable_tags = []
+		# Convert each tag to a readable version
+		# An option tag requires formmating like follows ["Text", "Value"] and we want [ "Qty Label", "qty_label_category" ]
+		# So we need to conver the tags into an array with the formmating above
+		tags.each do |tag|
+			# Get the tag_label, which we refer to as qty
+			qty = tag.tag_label
+			# Get the tag type from the TagType database using the tag_type_id stored with the tag, we need this for the Label and Category
+			tag_type = TagType.find(tag.tag_type_id)
+			# Get the tag type label and category in a readable format
+			tag_type_label = tag_type.tag_type_label
+			tag_type_category = tag_type.tag_type_category
+			# Some logic to change the tag display if it's only a singleton (i.e. qty = 1) and pluralise the tag type label if > 1
+			tag_display = qty.to_i > 1 ? "#{qty} #{tag_type_label.pluralize}" : tag_type_label
+			# Save the retrieved values in our readable_tags array
+			readable_tags << [ tag_display, "#{qty}_#{tag_type_label}_#{tag_type_category}"]
+		end
+		# Return the formatted tags array list
+		return readable_tags
 	end
 end

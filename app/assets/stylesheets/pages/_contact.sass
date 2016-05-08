@@ -1,19 +1,18 @@
-// Place all the styles related to the contact controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
-
-
+// Created: Erdal Erkilic
+// Date: 20/04/2016
+// The following styles are for the contact page
+//
 //in contact-page class container
 //if its just a h1 by iteself this will then be global!
 .contact-container
 	width: 100%
-	background-image: url("landing-header.png")
+	margin-top: -50vh
 	#welcome
 		text-align: center
 	#contact-section-1
-		background-color: $grey-blue-primary
+		background-color: $blue-grey-contact
 	#contact-section-2
-		background-color: $grey-primary
+		background-color: $grey-contact
 
 	.nice
 		width: 70%
@@ -21,5 +20,18 @@
 		margin-top: 5%
 		margin-bottom: 5%
 
-	h1, p
+	h1, h3, p, .link
 		color: white
+	#contact-submit-button
+		color: $white-primary
+		background-color: $purple-saturated
+		position: absolute
+		bottom: 10px
+	#contact-submit-button:hover
+		background-color: $purple-primary
+	.bold-text
+		font-weight: bold
+	#top-bottom
+		height: 85%
+	#bottom-bottom
+		height: 15%

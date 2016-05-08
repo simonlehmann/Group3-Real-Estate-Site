@@ -22,7 +22,7 @@
 %>
 
 <div class="ui container nobanner-container">
-	<div class="ui middle aligned grid container margin-top">
+	<div class="ui middle aligned grid container">
 		<div class="ui center aligned column">
 			<% # The header %>
 			<h2 class="header">Log in to Propertydome</h2>
@@ -33,6 +33,23 @@
 			<% # The Devise form (Do Not Touch Form Actions) %>
 			<div class="ui centered one column grid">
 				<div class="ui six wide column devise-form">
+					<% # Devise errors %>
+					<% if flash %>
+						<div class="ui negative message">
+							<% # The close icon %>
+							<i class="close icon"></i>
+							<% # The error title %>
+							<div class="header">Please fix the following errors and try again.</div>
+							<% # Display the error list %>
+							<div class="ui list">
+								<% flash.each do |name, msg| %>
+									<% if name == "alert" %>
+										<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+									<% end %>
+								<% end %>
+							</div>
+						</div>
+					<% end %>
 					<% # error class required to show devise_error_messages (they only show if they exist) %>
 					<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form error" }) do |f| %>
 						<% # Email field %>
@@ -54,9 +71,6 @@
 								</div>
 							</div>
 						<% end -%>
-						
-						<% # Devise error messages (only show if they exist) %>
-						<%= devise_error_messages! %>
 
 						<% # Log in action %>
 						<div class="actions">

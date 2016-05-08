@@ -1,0 +1,50 @@
+<%
+#   Created: Jayden Spencer
+#   Date: 27/04/2016
+#   
+#   The search page for the site.
+#   
+#   Partials:
+#   	
+#   TODO:
+# => fix filter button to have a different hover state and push it down further
+# => search bar has content
+# => property listing has content
+ %>
+<section class="search-container nobanner-container ui container">
+	<div class="ui sixteen wide grid stackable">
+		<div class="ui rail four wide column" id="search-sticky">
+			<% #search sub menu navigation %>
+			<section class="ui sticky search-submenu">
+				<div class="ui segment">
+					<%= render partial:"search/searchconfig" %>
+				</div>
+			</section>
+		</div>
+		<% #search results content %>
+		<div class="ui twelve wide column" id="search-feed">
+			<div class="ui dropdown button search-filter">
+				<span class="text">Recent</span>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item">
+						<span class="text">Recent</span>
+					</div>
+					<div class="item">
+						<span class="text">Cheapest</span>
+					</div>
+					<div class="item">
+						<span class="text">Popular</span>
+					</div>
+				</div>
+			</div>
+			<p class="ui dividing header search-divider">
+				showing 3 exact results
+				<span></span>
+			</p>
+			<%= render partial: "search/propertyresult", object: @listings %>
+			<p class="ui dividing header search-divider">broadening search with no pool</p>
+			<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
+		</div>
+	</div>
+</section>

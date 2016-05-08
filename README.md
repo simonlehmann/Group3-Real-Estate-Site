@@ -86,24 +86,46 @@ You can confirm the install using the same commands as for windows in your termi
 9. Terminal (Shortcut to open terminal in project folder, see Daniel/Jayden for configuration tips for use in class)
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
+## :globe_with_meridians: Live Site
+ The `master` branch will be live available at:  
+ URL: http://app.slehmann36.com
+ > **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
+ > **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
+ 
+
 ## :id: Demo User
 You can use the below login credentials to log into the demo account:  
 Email: ```propertydomeau@gmail.com```  
 Password: ```Password123```  
 
 ## :computer: Server Information
-During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
+During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's Infrastructure. 
 ###:key: MySQL Database Server Information
-#### Application Access
+####Application Access
 URL: `db.slehmann36.com`  
 Username: `pdappuser`  
 Password: `MhalliF123`  
 Require SSL `True`
 
 ####PhpMyAdmin Access
-URL: `https://db.slehmann36.com/phpmyadmin/`  
+URL: `https://db.slehmann36.com/phpmyadmin`  
 Username: `admin`  
 Password: `MhalliF123`
+
+###:e-mail: Mail Server
+####Application Access  
+SMTP Server: `mail.slehmann36.com`  
+Port: `587`  
+Authentication Type: `NTLM`  
+SSL/TLS: `False`  
+Domain: `slehmann36.com`  
+Username: `PropertyDome@slehmann36.com` (Case insensitive)  
+Password: `sJ2PVZ2cbvYqMMN` 
+
+####Outlook Web App Access  
+URL: `https://mail.slehmann36.com/owa`  
+Username: `PropertyDome@slehmann36.com` (Case insensitive)  
+Password: `sJ2PVZ2cbvYqMMN` 
 
 :exclamation:Don't you bastards break my server!
 
