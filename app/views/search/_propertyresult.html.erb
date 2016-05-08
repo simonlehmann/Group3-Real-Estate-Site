@@ -95,7 +95,7 @@
 								<%= "#{time_ago_in_words(listing.listing_created_at)} ago" %>
 							<% else %>
 								<%# date 07 May, 2016 %>
-								<%= listing.listing_created_at.strftime("%b %d, %Y") %>
+								<%= listing.listing_created_at.strftime("%d %b, %Y") %>
 							<% end %>
 						</div>
 					</div>
