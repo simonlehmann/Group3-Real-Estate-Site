@@ -7,7 +7,7 @@ module SellHelper
 
 	# Get the main image for the given listing
 	def listing_get_main_image(listing)
-		return main_image = ListingImage.find(listing.listing_cover_image_id)
+		return main_image = ListingImage.find_by_listing_image_id(listing.listing_cover_image_id)
 	end
 
 	# Get and return an array of images for the listing

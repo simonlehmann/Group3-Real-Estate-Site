@@ -7,8 +7,10 @@
 # * Move lightbox to property page, when its time!
 #
 ready = ->
+	# Add initial header image
+	$('.search-section').addClass 'wa-img'
 	#search dropdown
-	$('.search-section .ui.dropdown').dropdown allowAdditions: true
+	$('.search-section .ui.dropdown').dropdown allowAdditions: true, fullTextSearch: true
 	# Update the search dropdown options based upon the choice of state when it's changed via an ajax call
 	$('#search-state-field').change ->
 		# Get the state 
@@ -16,6 +18,8 @@ ready = ->
 		# Clear the old data from the search dropdown
 		$('#search-field').empty()
 		$('#search-field').dropdown 'clear'
+		changeImage(state)
+		remove_classes(state)
 		# Update the dropdown via an Ajax call to the server
 		$.ajax
 			type: 'POST'
@@ -27,7 +31,6 @@ ready = ->
 				# Update the default text as it has been cleared (the options are already there on a success call, they were updated via
 				# update_search_suburbs.js.erb)
 				$('#search-field').siblings('.default.text').text('Search by suburb, address or keyword;')
-
 	#remove nav active class
 	$('.main-nav a').removeClass('active')
 	#add slick-carousel

@@ -6,6 +6,7 @@
 #   Column names in db are as follows (all requried unless specified as NULLABLE):
 #   	listing_id: int
 #   	listing_cover_image_id: int NULLABLE
+#   	listing_type: set('House','Apartment','Land')
 #   	listing_address: varchar(256)
 #   	listing_suburb: varchar(32)
 #   	listing_state: set('Australian Capital Territory','New South Wales','Northern Territory','Queensland','South Australia','Tasmania','Victoria','Western Australia')
@@ -75,4 +76,5 @@ class Listing < ActiveRecord::Base
 	
 	# A listing can have many favourites, deleting the listing will delete all the favourites from the favourites database table
 	has_many :favourites, class_name: "Favourite", inverse_of: :favourite_listing, foreign_key: "favourite_id", dependent: :destroy
+
 end

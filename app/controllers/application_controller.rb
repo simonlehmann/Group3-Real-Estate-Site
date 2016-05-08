@@ -39,9 +39,9 @@ end
 def get_user_details
 	user = current_user
 	if user
-		@username = user.username
-		@first_name = user.first_name
-		@last_name = user.last_name
+		@username = user.username if user.username != ""
+		@first_name = user.first_name if user.first_name != ""
+		@last_name = user.last_name if user.last_name != ""
 		@email = user.email
 	end
 end

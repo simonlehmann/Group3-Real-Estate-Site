@@ -39,9 +39,18 @@
 			<% # Header containing address and edit listing button %>
 			<div class="header">
 				<div class="ui two column grid">
-					<% # The address %>
+					<% # The address, with an icon for the property type %>
 					<div class="ui left floated left aligned twelve wide column">
 						<h2>
+							<span class="house-type">
+								<% if listing.listing_type == "House" %>
+									<i class="home icon"></i>
+								<% elsif listing.listing_type == "Apartment" %>
+									<i class="building icon"></i>
+								<% else %>
+									<i class="marker icon"></i>
+								<% end %>
+							</span>
 							<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %>
 						</h2>
 					</div>
@@ -63,7 +72,7 @@
 					<div class="four wide column">
 						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
 							<% # Get the main image path using our sell_helper.rb method listing_get_main_image(listing) %>
-							<%= image_tag listing_get_main_image(listing).listing_image_path, class: "ui centered medium image" %>
+							<%= image_tag listing_get_main_image(listing).image.url(:medium), class: "ui centered medium image" %>
 							
 							<% # Status ribbon, clicking this will open the edit modal. %>
 							<% if listing_get_status_object(listing) %>
@@ -160,7 +169,7 @@
 						<% # The remaining listing features %>
 	 					<p class="sell-listing-feature"><b><%= listing.listing_land_size %> sqm</b></p>
 	 					<p class="sell-listing-feature"><b><%= listing.listing_bedrooms %></b> <i class="bed icon"></i></p>
-	 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="bed icon"></i></p>
+	 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i></p>
 	 					<p class="sell-listing-feature"><b><%= listing.listing_parking %></b> <i class="car icon"></i></p>
 
 						<% # Delete Property Listing button %>

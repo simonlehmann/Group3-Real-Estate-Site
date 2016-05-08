@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428055918) do
+ActiveRecord::Schema.define(version: 20160506141127) do
 
   create_table "blockages", primary_key: "blockage_id", force: :cascade do |t|
     t.integer  "blockage_to_user_id",   limit: 4, null: false
@@ -32,13 +32,16 @@ ActiveRecord::Schema.define(version: 20160428055918) do
   add_index "favourites", ["favourite_user_id"], name: "index_favourites_on_favourite_user_id", using: :btree
 
   create_table "listing_images", primary_key: "listing_image_id", force: :cascade do |t|
-    t.string   "listing_image_path",         limit: 128, null: false
-    t.string   "listing_image_path_low_res", limit: 128, null: false
-    t.datetime "listing_image_created_at",               null: false
-    t.integer  "listing_image_listing_id",   limit: 4,   null: false
+    t.integer  "listing_image_listing_id", limit: 4,   null: false
+    t.string   "image_file_name",          limit: 255
+    t.string   "image_content_type",       limit: 255
+    t.integer  "image_file_size",          limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "user_id",                  limit: 4
   end
 
   add_index "listing_images", ["listing_image_listing_id"], name: "index_listing_images_on_listing_image_listing_id", using: :btree
+  add_index "listing_images", ["user_id"], name: "index_listing_images_on_user_id", using: :btree
 
   create_table "listing_status", primary_key: "listing_status_id", force: :cascade do |t|
     t.string "listing_status_label",      limit: 0, null: false
@@ -49,28 +52,29 @@ ActiveRecord::Schema.define(version: 20160428055918) do
 
   create_table "listings", primary_key: "listing_id", force: :cascade do |t|
     t.integer  "listing_cover_image_id", limit: 4
-    t.string   "listing_address",        limit: 256,                                          null: false
-    t.string   "listing_suburb",         limit: 32,                                           null: false
-    t.string   "listing_state",          limit: 0,                                            null: false
-    t.integer  "listing_post_code",      limit: 4,                                            null: false
-    t.integer  "listing_bedrooms",       limit: 4,                                            null: false
-    t.integer  "listing_bathrooms",      limit: 4,                                            null: false
-    t.integer  "listing_parking",        limit: 4,                                            null: false
-    t.integer  "listing_land_size",      limit: 4,                                            null: false
-    t.string   "listing_title",          limit: 64,                                           null: false
-    t.string   "listing_subtitle",       limit: 128,                                          null: false
-    t.text     "listing_description",    limit: 65535,                                        null: false
-    t.string   "listing_price_type",     limit: 0,                              default: "F", null: false
-    t.decimal  "listing_price_min",                    precision: 12, scale: 2,               null: false
-    t.decimal  "listing_price_max",                    precision: 12, scale: 2,               null: false
+    t.string   "listing_type",           limit: 0,                              default: "House", null: false
+    t.string   "listing_address",        limit: 256,                                              null: false
+    t.string   "listing_suburb",         limit: 32,                                               null: false
+    t.string   "listing_state",          limit: 0,                                                null: false
+    t.integer  "listing_post_code",      limit: 4,                                                null: false
+    t.integer  "listing_bedrooms",       limit: 4,                                                null: false
+    t.integer  "listing_bathrooms",      limit: 4,                                                null: false
+    t.integer  "listing_parking",        limit: 4,                                                null: false
+    t.integer  "listing_land_size",      limit: 4,                                                null: false
+    t.string   "listing_title",          limit: 64,                                               null: false
+    t.string   "listing_subtitle",       limit: 128,                                              null: false
+    t.text     "listing_description",    limit: 65535,                                            null: false
+    t.string   "listing_price_type",     limit: 0,                              default: "F",     null: false
+    t.decimal  "listing_price_min",                    precision: 12, scale: 2,                   null: false
+    t.decimal  "listing_price_max",                    precision: 12, scale: 2,                   null: false
     t.integer  "listing_status_id",      limit: 4
-    t.integer  "listing_user_id",        limit: 4,                                            null: false
-    t.integer  "listing_views",          limit: 4,                              default: 0,   null: false
-    t.integer  "listing_favourites",     limit: 4,                              default: 0,   null: false
-    t.integer  "listing_comments",       limit: 4,                              default: 0,   null: false
-    t.datetime "listing_created_at",                                                          null: false
-    t.datetime "listing_updated_at",                                                          null: false
-    t.datetime "listing_to_end_at",                                                           null: false
+    t.integer  "listing_user_id",        limit: 4,                                                null: false
+    t.integer  "listing_views",          limit: 4,                              default: 0,       null: false
+    t.integer  "listing_favourites",     limit: 4,                              default: 0,       null: false
+    t.integer  "listing_comments",       limit: 4,                              default: 0,       null: false
+    t.datetime "listing_created_at",                                                              null: false
+    t.datetime "listing_updated_at",                                                              null: false
+    t.datetime "listing_to_end_at",                                                               null: false
     t.datetime "listing_ended_at"
     t.boolean  "listing_approved"
   end
@@ -129,8 +133,20 @@ ActiveRecord::Schema.define(version: 20160428055918) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.string   "avatar_file_name",       limit: 255
+    t.string   "avatar_content_type",    limit: 255
+    t.integer  "avatar_file_size",       limit: 4
+    t.datetime "avatar_updated_at"
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
+    t.integer  "failed_attempts",        limit: 4,   default: 0
+    t.string   "unlock_token",           limit: 255
+    t.datetime "locked_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
