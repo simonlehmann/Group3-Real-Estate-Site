@@ -62,11 +62,18 @@
 <% # The remaining settings actions to go here %>
 <%= form_for(current_user, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
 	<% # Avatar preview field %>
-	<div class="field">
+	<div class="field" id="file-upload-preview-image">
 		<label>Avatar</label>
 		<div class="ui image avatar-target">
 			<% # This image is replaced by the live preview %>
 			<%= image_tag(current_user.avatar.url(:thumb)) %>
+		</div>
+	</div>
+	
+	<div class="field" id="avatar-crop-preview-image" style="display: none;">
+		<label>Avatar</label>
+		<div>
+			<%= f.crop_preview :avatar, :width => 100 %>
 		</div>
 	</div>
 	

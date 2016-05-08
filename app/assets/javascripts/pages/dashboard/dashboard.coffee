@@ -44,7 +44,20 @@ ready = ->
 		return
 		
 	# Show a preview of the to be uploaded image if the user is choosing a new one.
-	$('#user-avatar-crop-modal').modal 
+	$('#user-avatar-crop-modal').modal(
+		onVisible: ->
+			# Show the preview on the dashboard/settings page so it can render the cropped area when this modal is closed
+			# Done in onVisible so it only shows when the Modal obscure's it
+			$('#avatar-crop-preview-image').css 'display', 'block'
+		onApprove: ->
+			$('#avatar-crop-preview-image').css 'display', 'block'
+			$('#file-upload-preview-image').css 'display', 'none'
+		onHide: ->
+			# When the modal starts hiding, if the crop button didn't set the file-upload-preview-image to display none then hide the crop
+			# preview as the user didn't make a crop
+			is_file_upload_shown = $('#file-upload-preview-image').css 'display'
+			if is_file_upload_shown != 'none'
+				$('#avatar-crop-preview-image').css 'display', 'none'
 		onShow: ->
 			# On modal show, if we have chosen to load a new file then show a preview in the crop modal
 			# so we can crop it after it is saved.
@@ -91,12 +104,10 @@ ready = ->
 				
 				# Load the image using the file reader above
 				reader.readAsDataURL image
+		).modal 'attach events', '.open-crop-modal', 'show'
 
-	# Show the cropper modal
-	$('#user-avatar-crop-modal').modal 'attach events', '.open-crop-modal', 'show'
 	# Save the crop selection
 	$('#user-avatar-crop-modal #user-avatar-crop-modal-save').click ->
-		console.log 'save clicked'
 		# Get the crop values
 		crop_x = parseInt($('#avatar_crop_x').val())
 		crop_y = parseInt($('#avatar_crop_y').val())
@@ -120,9 +131,12 @@ ready = ->
 		if crop_x != 0 and crop_y != 0 and prev_x != 0 and prev_y != 0
 			if real_w != 0 and real_h != 0 and holder_w != 0 and holder_h != 0 and holder_a != 0 and real_a != 0
 				# Saving crop to image being uploaded
+				
+				# Lets hide the file-upload-avatar-preview window as we wan't to show the crop preview to see the live crop result before an upload
+				$('#file-upload-avatar-preview').css 'display', 'none'
+				
 				# Interpolate from the real_ and holder_ values, along with the prev_ values to calculate the correct crop_ values
 				# we need to correctly crop the uploaded image to match the selected area (see not in modal code above)
-				
 				# Calculated values, from simple maths/ratio's as the images are the same, just transformed i.e. holder_w / crop_x == real_w / prev_w ...
 				calc_x = parseInt((real_w / holder_w) * prev_x)
 				calc_y = parseInt((real_h / holder_h) * prev_y)
@@ -156,6 +170,10 @@ ready = ->
 				$('#avatar-crop-values #avatar_crop_h').val(calc_h)
 			else
 				# Saving crop to existing image
+				
+				# Lets hide the file-upload-avatar-preview window as we wan't to show the crop preview to see the live crop result before an upload
+				$('#file-upload-avatar-preview').css 'display', 'none'
+				
 				# Set the Form fields that share ids to be enabled as we want to save them
 				# The values in them from the crop selector are correct as the jcrop-holder has the dimensions 
 				# that match the image as it's cropping an existing image and is loaded correctly. That means 
@@ -180,7 +198,6 @@ ready = ->
 
 	# Crop selection form cancel button clicker
 	$('#user-avatar-crop-modal #user-avatar-crop-modal-cancel').click ->
-		console.log 'cancel clicked'
 		# Set the form fields that hold the crop values to be disabled so they aren't sent when we save the form
 		$('#avatar-crop-values #avatar_crop_x').prop 'disabled', true
 		$('#avatar-crop-values #avatar_crop_y').prop 'disabled', true
@@ -189,6 +206,9 @@ ready = ->
 		# Clear the calculated temp aspect values from their input fields (as they might not be whole numbers)
 		$('#img-real-aspect').val(0)
 		$('#img-crop-window-aspect').val(0)
+		# Hide the preview on the dashboard/settings page so it can render the cropped area when this modal is closed
+		$('#file-upload-preview-image').css 'display', 'block'
+		$('#avatar-crop-preview-image').css 'display', 'none'
 
 
 $(document).ready ready
