@@ -2,8 +2,13 @@
 #   Created: Daniel Swain
 #   Date: 08/05/2016
 #
-#   Partial to let user crop their avatar, it's used by the registration controller (as a put action)
-#   and also used from dashboard/settings/crop to manually crop an existing image
+#   Partial to let user crop their avatar, 
+#   
+#   Note:
+#   	* Since the latest update this isn't used by the registration controller (as a put action) or via dashboard/settings/crop to manually crop an existing image
+#   	This is kept in the tree for future work where we want to crop an image on a device like a mobile phone (with minimal mobile support)
+#   	It is lagging behind _crop_modal and would require updating to function again. Although the form submition to the crop_avatar action in the registrations 	
+#   	controller is still valid and is still a valid controller.
 %>
 
 <div class="ui container nobanner-container">

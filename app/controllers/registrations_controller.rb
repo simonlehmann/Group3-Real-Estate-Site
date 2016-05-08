@@ -22,15 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
 				set_flash_message :notice, flash_key
 			end
 			sign_in resource_name, resource, bypass: true
-			# If there's an avatar present in the params then lets crop it as it's been saved.
-			if params[:user][:avatar].present?
-				# Get the current user (used in the form in the crop form which is what we're rendering)
-				@user = current_user
-				render "dashboard/crop"
-			else
-				# No image, so we've saved the update with no image change, lets go to the after update path which is set below.
-				respond_with resource, location: after_update_path_for(resource)
-			end	
+			respond_with resource, location: after_update_path_for(resource)
 		else
 			clean_up_passwords resource
 			flash[:errors] = flash[:notice].to_a.concat resource.errors.full_messages
@@ -38,18 +30,19 @@ class RegistrationsController < Devise::RegistrationsController
 		end
 	end
 
-	# Crop Avatar action used to perform the actual image cropping
-	def crop_avatar
-		@user = current_user
-		# We've added the cropping params to the permitted parameters so lets save them
-		if @user.update_attributes(account_update_params)
-			flash[:updated] = "Avatar successfully cropped"
-			redirect_to :dashboard_settings
-		else
-			flash[:errors] = "Avatar not changed, there was an error"
-			redirect_to :dashboard_settings
-		end
-	end
+	# Crop Avatar action used to perform the actual image cropping. This is incase we want to do it via a url on mobiles
+	# (currently disabled as the action is handled in the update action above by moving the crop selection into a modal on the dashboard#settings page
+	# def crop_avatar
+	# 	@user = current_user
+	# 	# We've added the cropping params to the permitted parameters so lets save them
+	# 	if @user.update_attributes(account_update_params)
+	# 		flash[:updated] = "Avatar successfully cropped"
+	# 		redirect_to :dashboard_settings
+	# 	else
+	# 		flash[:errors] = "Avatar not changed, there was an error"
+	# 		redirect_to :dashboard_settings
+	# 	end
+	# end
 	
 	protected
 

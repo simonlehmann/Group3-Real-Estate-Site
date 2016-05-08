@@ -39,8 +39,10 @@ class DashboardController < ApplicationController
 	end
 
 	# Show the crop avatar page outside of uploading a new image
-	def crop
-		@user = current_user
-		render "dashboard/crop"
-	end
+	# (Turned off as this action isn't used for the time being.
+	# The crop action is now handled on dashboard/settings inside a modal)
+	# def crop
+	# 	@user = current_user
+	# 	render "dashboard/crop"
+	# end
 end

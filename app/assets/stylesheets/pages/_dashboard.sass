@@ -52,3 +52,16 @@
 .crop-label.button:focus,
 .crop-label.button:active
 	background-color: $purple-primary-hover
+// To hide the jCrop radio that shows when you select
+#user-avatar-crop-modal
+	overflow: hidden
+	border-radius: 0.35em
+	border-color: $grey-primary
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	.header
+		min-height: 3em
+		background-color: $grey-primary
+		color: $white-primary
