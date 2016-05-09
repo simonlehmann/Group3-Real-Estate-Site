@@ -30,6 +30,43 @@ class RegistrationsController < Devise::RegistrationsController
 		end
 	end
 
+	# Overriding the default devise method for user creation so we can create a default user avatar for the user
+	# This is so they immediately have the ability to crop their icons from the moment they upload a new one as
+	# it requires an avatar to exist for it to work. This method is unchanged unless noted
+	def create
+		build_resource(sign_up_params)
+		resource.save
+		yield resource if block_given?
+
+		# Now the resource is saved lets add the default profile image to it.
+		usericons_path = Rails.root.join("public/usericons/") # Get the path to the usericons folder
+		colours = %w( blue green orange pink purple red ) # Word array of colour choices
+		pnrg = Random.new # A random generator
+		colour = colours[pnrg.rand(0...colours.length)] # Pick a colour from colours randomly
+		avatar = File.open(usericons_path.join("usericon_#{colour}.png")) # Open the file
+		# Attach the avatar, save the avatar to the new user and then close the file.
+		resource.avatar = avatar
+		resource.save
+		avatar.close
+
+		# Back to normal devise method
+		if resource.persisted?
+			if resource.active_for_authentication?
+				set_flash_message! :notice, :signed_up
+				sign_up(resource_name, resource)
+				respond_with resource, location: after_sign_up_path_for(resource)
+			else
+				set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+				expire_data_after_sign_in!
+				respond_with resource, location: after_inactive_sign_up_path_for(resource)
+			end
+		else
+			clean_up_passwords resource
+			set_minimum_password_length
+			respond_with resource
+		end
+	end
+
 	# Crop Avatar action used to perform the actual image cropping. This is incase we want to do it via a url on mobiles
 	# (currently disabled as the action is handled in the update action above by moving the crop selection into a modal on the dashboard#settings page
 	# def crop_avatar
