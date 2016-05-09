@@ -40,7 +40,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 		# Now the resource is saved lets add the default profile image to it.
 		usericons_path = Rails.root.join("public/usericons/") # Get the path to the usericons folder
-		colours = %w( blue green orange pink purple red ) # Word array of colour choices
+		colours = %w( blue green orange pink purple red ) # Word array of colour choices so we can give them a random image
 		pnrg = Random.new # A random generator
 		colour = colours[pnrg.rand(0...colours.length)] # Pick a colour from colours randomly
 		avatar = File.open(usericons_path.join("usericon_#{colour}.png")) # Open the file
@@ -49,7 +49,7 @@ class RegistrationsController < Devise::RegistrationsController
 		resource.save
 		avatar.close
 
-		# Back to normal devise method
+		# Back to normal devise method, this will redirect the user back to the dashboard_settings page now the user is created.
 		if resource.persisted?
 			if resource.active_for_authentication?
 				set_flash_message! :notice, :signed_up
