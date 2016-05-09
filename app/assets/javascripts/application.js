@@ -20,6 +20,9 @@
 //= require base/nav
 //= require base/user_login
 //
+// Top of Page Button
+//= require top_of_page_button.js
+//
 // Buy Page specific files
 //= require pages/buy/buy
 //
