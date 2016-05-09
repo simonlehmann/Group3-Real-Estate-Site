@@ -226,5 +226,7 @@
 	<%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure, this cannot be undone?" }, method: :delete, class: "ui sell-red-button button" %>
 </div>
 
-<% # Render the _crop_modal %>
-<%= render "dashboard/crop_modal" %>
+<% # Render the _crop_modal only if a user has an existing image to crop. %>
+<% if current_user.avatar_file_name != nil %>
+	<%= render "dashboard/crop_modal" %>
+<% end %>

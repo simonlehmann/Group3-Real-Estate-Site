@@ -61,18 +61,37 @@
 		margin-top: 2.5em
 
 //--------- Manage Property Page Styles
-// Manage property table header
+// Manage property table header, primarily relating the sort selection dropdown
 .manage-table-header
 	background-color: $grey-primary !important
 	color: $white-primary !important
-	.ui.buttons
-		.button
-			background-color: $grey-primary !important
-			color: $white-primary !important
-		.button:hover,
-		.button:active,
-		.button:focus
-			background-color: $grey-primary-hover !important
+	.ui.selection.dropdown
+		min-width: 10em
+	.ui.button.dropdown,
+	.ui.button.dropdown .text
+		border: none !important
+		background-color: $grey-primary !important
+		color: $white-primary !important
+	.ui.button.dropdown:hover,
+	.ui.button.dropdown:active,
+	.ui.button.dropdown:focus,
+	.ui.button.dropdown .text:hover,
+	.ui.button.dropdown .text:active,
+	.ui.button.dropdown .text:focus
+		background-color: $grey-primary-hover !important
+	.ui.button.dropdown .menu,
+	.ui.button.dropdown .menu .item
+		border: none !important
+		background-color: $grey-primary-hover !important
+		color: $white-primary !important
+	.ui.button.dropdown .menu .item:hover,
+	.ui.button.dropdown .menu .item:active,
+	.ui.button.dropdown .menu .item:focus
+		background-color: $grey-primary !important
+	.ui.button.dropdown .dropdown.icon
+		padding: 0px
+	.ui.button.dropdown .default.text
+		color: $white-primary
 
 // Add margin to next element after sticky to prevent overlap
 .manage-properties
@@ -108,28 +127,37 @@
 	font-size: 1.2em
 	.icon
 		margin-right: 0px
-	
-// Send element to bottom of container
-.manage-property-bottom
-	position: absolute
-	bottom: 1em
-	left: 1em
-	span
-		padding-right: 1em
-	// The top row for the tags (situated in the bottom row) giving it some bottom padding to better separate it from
-	// the view, favourite, comment counts. Also add margin-bottom to the labels in this row incase they wrap around on smaller screens
-	.top-row
-		margin-bottom: 1em
-		.label
-			margin-bottom: 0.5em
 
-.manage-property-bottom-right
-	position: absolute
-	bottom: 1em
-	right: 1em
-	// Fix the border radius not showing on the left side of the delete button
-	.button
-		border-radius: 0.28em !important
+// Display counts at bottom of descriptions using flex
+.flex-row-with-bottom
+	height: auto
+	display: flex !important
+	flex-direction: column
+	.top-row
+		// Fill the remaining space thereby pushing the next elements to the bottom
+		flex-grow: 1
+		padding-bottom: 1em
+	.manage-property-bottom
+		span
+			padding-right: 1em
+		// The top row for the tags (situated in the bottom row) giving it some bottom padding to better separate it from
+		// the view, favourite, comment counts. Also add margin-bottom to the labels in this row incase they wrap around on smaller screens
+		.tag-row
+			margin-bottom: 0.5em
+			.label
+				margin-bottom: 0.5em
+
+// On mobiles make the bed/bath/shower into a row and pad the delete button right using flex
+.flex-column-with-right
+	display: flex !important
+	flex-direction: row
+	.left-items
+		// Fill the remaining right space pushing the next elements to the right
+		flex-grow: 1
+
+// Fix the border radius not showing on the left side of the delete button
+.manage-property-delete	.button
+	border-radius: 0.28em !important
 
 // Styles for manage-listing-card (to get appoved corner label curved to match card
 .manage-listing-card
@@ -155,7 +183,8 @@
 			border-bottom: 1px solid black
 			padding-bottom: 1.15em
 	.shower img
-		width: 25px !important
+		// Matched with Semantic icon class widths to ensure responsive reflow with them
+		width: 1.18em !important
 		height: auto
 	
 // Override the colour of the pagination class links so they can be seen
@@ -227,7 +256,6 @@
 .add-edit.file-input-field:focus + label,
 .add-edit.file-input-field + label:hover
 	background-color: $red-primary-hover
-
 
 // Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
 // Using min-height so it can grow if a lot of tags are added.
