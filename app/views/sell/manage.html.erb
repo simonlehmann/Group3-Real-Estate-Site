@@ -31,11 +31,24 @@
 				</div>
 				<% # Sort Button, eventually clicking the first button will change the filter between ascending and descending %>
 				<div class="center aligned column">
-					<div class="ui buttons">
+					<%= select_tag :listing_filter, options_for_select([ [ "Comments", 1 ], [ "Date Modified", 2 ], [ "Expiry", 3 ], [ "Popularity", 4 ], [ "Views", 5 ] ]), { prompt: "Select Filter", include_blank: false, class: "ui floating labelled icon button dropdown", id: "manage-filter" } %>
+					<!-- <div class="ui floating labelled icon button selection dropdown" id="manage-filter">
+						<i class="filter icon"></i>
+						<span class="text">Select Filter</span>
+						<div class="menu">
+							<div class="item">Comments</div>
+							<div class="item">Date Modified</div>
+							<div class="item">Expiry</div>
+							<div class="item">Popularity</div>
+							<div class="item">Views</div>
+						</div>
+					</div> -->
+					
+					<!-- <div class="ui buttons">
 						<div class="ui icon button"><i class="filter icon"></i></div>
-						<div class="ui drop button">Select Filter</div>
-						<div class="ui combo top right pointing dropdown icon button" id="manage-filter">
+						<div class="ui combo top right pointing dropdown icon button" >
 							<i class="dropdown icon"></i>
+							<div class="default text">Select Filter</div>
 							<div class="menu">
 								<div class="item">Comments</div>
 								<div class="item">Date Modified</div>
@@ -44,7 +57,7 @@
 								<div class="item">Views</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<% # Add Property Button %>
 				<div class="right floated right aligned column">

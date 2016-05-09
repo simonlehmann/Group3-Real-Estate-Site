@@ -61,18 +61,37 @@
 		margin-top: 2.5em
 
 //--------- Manage Property Page Styles
-// Manage property table header
+// Manage property table header, primarily relating the sort selection dropdown
 .manage-table-header
 	background-color: $grey-primary !important
 	color: $white-primary !important
-	.ui.buttons
-		.button
-			background-color: $grey-primary !important
-			color: $white-primary !important
-		.button:hover,
-		.button:active,
-		.button:focus
-			background-color: $grey-primary-hover !important
+	.ui.selection.dropdown
+		min-width: 10em
+	.ui.button.dropdown,
+	.ui.button.dropdown .text
+		border: none !important
+		background-color: $grey-primary !important
+		color: $white-primary !important
+	.ui.button.dropdown:hover,
+	.ui.button.dropdown:active,
+	.ui.button.dropdown:focus,
+	.ui.button.dropdown .text:hover,
+	.ui.button.dropdown .text:active,
+	.ui.button.dropdown .text:focus
+		background-color: $grey-primary-hover !important
+	.ui.button.dropdown .menu,
+	.ui.button.dropdown .menu .item
+		border: none !important
+		background-color: $grey-primary-hover !important
+		color: $white-primary !important
+	.ui.button.dropdown .menu .item:hover,
+	.ui.button.dropdown .menu .item:active,
+	.ui.button.dropdown .menu .item:focus
+		background-color: $grey-primary !important
+	.ui.button.dropdown .dropdown.icon
+		padding: 0px
+	.ui.button.dropdown .default.text
+		color: $white-primary
 
 // Add margin to next element after sticky to prevent overlap
 .manage-properties
@@ -237,7 +256,6 @@
 .add-edit.file-input-field:focus + label,
 .add-edit.file-input-field + label:hover
 	background-color: $red-primary-hover
-
 
 // Style the custom tag box to hide the dropdown icon and to increase the height of the field if there's nothing in it
 // Using min-height so it can grow if a lot of tags are added.
