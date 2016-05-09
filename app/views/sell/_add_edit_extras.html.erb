@@ -1,0 +1,56 @@
+<%
+#   Created: Daniel Swain
+#   Date: 09/04/2016
+#   
+#   Partial for adding/editing optional extras in the add_edit property flow
+#   
+#   Collections:
+#   	* @listing: the property listing to be edited (only if editing)
+#   	* @photos: the photos for the property listing
+#
+#   Todo:
+#   	* Logic for the checkboxes maybe? otherwise just leave this here until phase 2
+%>
+
+<% # Header %>
+<div class="ui centered row">
+	<h3 class="header">Select any optional premium listing features below:</h3>
+</div>
+
+<% # Main content, in this case the extra premium feature option checkboxes. %>
+<div class="ui centered eight wide column">
+	<div class="ui grouped fields">
+		<div class="field">
+			<div class="ui checkbox">
+				<input type="checkbox" name="listing-premium" />
+				<label>
+					<b>Premium Listing ($0.20)</b> - Show higher in search results.
+				</label>
+			</div>
+		</div>
+		<div class="field">
+			<div class="ui checkbox">
+				<input type="checkbox" name="listing-additional-photos" />
+				<label>
+					<b>Additional Photos ($0.10 per 10)</b> - Add more photos to your listing.
+				</label>
+			</div>
+		</div>
+		<div class="field">
+			<div class="ui checkbox">
+				<input type="checkbox" name="listing-floor-plan" />
+				<label>
+					<b>Floor Plan ($0.10)</b> - Add a floor plan to your listing.
+				</label>
+			</div>
+		</div>
+		<div class="field">
+			<div class="ui checked checkbox">
+				<input type="checkbox" name="listing-premium-none" checked="" />
+				<label>
+					<b>No Premium Features</b> - List for free with up to 10 photos.
+				</label>
+			</div>
+		</div>
+	</div>
+</div>

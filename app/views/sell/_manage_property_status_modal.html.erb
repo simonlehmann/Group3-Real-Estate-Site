@@ -6,69 +6,75 @@
 #   This represents the modal used to edit the status for the selected property
 #   
 #   Local variables (i.e. can be refered to just by 'name' not '@name' in pe tags:
-#   	* id: The id of the property
+#   	* status_id: The id of the status object in the database
+#   	* status_object: the actual status object
+#   	* listing_id: The id of the listing object in the database
 #   	* address: The property address
-#   	* status: The property's status
 #   
 #   Todo:
-#   	* Add date and time pickers to date and time fields
-#   	* Save action
+#   	* Save choices you make in the modal to the database object
+#   	* Change how 'Remove Status' reads if you don't have a status set
 %>
 
-<% # The staus modal %>
-<div class="ui small manage-status modal">
+<% # The status modal %>
+<div class="ui small manage-status modal" id=<%= listing_id %>>
+	<% # The modal close button %>
+	<i class="close icon"></i>
+
 	<% # Modal header %>
 	<div class="header">
-		<div class="ui center aligned grid">
-			Edit Status for: <%= address %>
-		</div>
+		Edit Status for: <%= address %>
 	</div>
 
 	<% # Modal content %>
 	<div class="content">
-		<% # The modal is made up of accordians for each selection, clicking the checkbox opens up that accordian and hides the others %>
+		<% # The modal is made up of accordions for each selection, clicking the checkbox opens up that accordion and hides the others %>
 		<div class="ui accordion">
 
 			<% # Home Open Accordian %>
-			<div class="active title">
+			<div class="title" id="home-open-title">
 				<div class="ui radio checkbox">
-					<input type="radio" name="radio" checked="checked">
+					<input type="radio" name="radio">
 					<label>Home Open</label>
 				</div>
 			</div>
-			<div class="active content">
+			<div class="content" id="home-open-content">
 				<p>Enter the date and time for your next Home Open.</p>
 				<p>This will mark your property as "Upcoming Home Open" with the date and time specified, updating your search results and sending notifications to those subscribed to this property</p>
 
 				<% # Date and time pickers %>
 				<div class="ui three column grid">
-					<div class="left floated column">
+					<% # The container id is so the date and time picker is correctly displayed under the column, not at the end of the input field %>
+					<% # Home Open Date %>
+					<div class="left floated column" id="home-date-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Date:
 							</div>
 							<div class="ui status-date input" >
-								<input type="text" name="homeDate" placeholder="DD-MM-YYYY">
+								<input class="no-picker-set" type="text" name="home-date" placeholder="DD/MM/YYYY" id="home-date-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
-					<div class="centered column">
+					<% # Home Open Start Time %>
+					<div class="centered column" id="home-start-time-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Start Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="homeStartTime" placeholder="HH:MM">
+								<input class="no-picker-set" type="text" name="home-start-time" placeholder="HH:MM" id="home-start-time-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
-					<div class="right floated column">
+					<% # Home open End Time %>
+					<div class="right floated column" id="home-end-time-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								End Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="homeEndTime" placeholder="HH:MM">
+								<input class="no-picker-set" type="text" name="home-end-time" placeholder="HH:MM" id="home-end-time-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
@@ -76,45 +82,49 @@
 			</div>
 
 			<% # Auction Accordian %>
-			<div class="title">
+			<div class="title" id="auction-title">
 				<div class="ui radio checkbox">
 					<input type="radio" name="radio">
 					<label>Auction</label>
 				</div>
 			</div>
-			<div class="content">
+			<div class="content" id="auction-content">
 				<p>Enter the date and time for your next Auction.</p>
 				<p>This will mark your property as "Upcoming Auction" with the date and time specified, updating your search results and sending notifications to those subscribed to this property</p>
 				
 				<% # Date and time pickers %>
 				<div class="ui three column grid">
-					<div class="left floated column">
+					<% # The container id is so the date and time picker is correctly displayed under the column, not at the end of the input field %>
+					<% # Auction Start Date %>
+					<div class="left floated column" id="auction-date-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Date:
 							</div>
-							<div class="ui status-date input" >
-								<input type="text" name="auctionDate" placeholder="DD-MM-YYYY">
+							<div class="ui status-date input">
+								<input class="no-picker-set" type="text" name="auction-date" placeholder="DD/MM/YYYY" id="auction-date-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
-					<div class="centered column">
+					<% # Auction Start Time %>
+					<div class="centered column" id="auction-start-time-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								Start Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="auctionStartTime" placeholder="HH:MM">
+								<input class="no-picker-set" type="text" name="auction-start-time" placeholder="HH:MM" id="auction-start-time-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
-					<div class="right floated column">
+					<% # Auction End Time %>
+					<div class="right floated column" id="auction-end-time-container-<%= listing_id %>">
 						<div class="ui labeled input">
 							<div class="ui label">
 								End Time:
 							</div>
 							<div class="ui status-time input">
-								<input type="text" name="auctionEndTime" placeholder="HH:MM">
+								<input class="no-picker-set" type="text" name="auction-end-time" placeholder="HH:MM" id="auction-end-time-<%= listing_id %>">
 							</div>
 						</div>
 					</div>
@@ -122,35 +132,35 @@
 			</div>
 
 			<% # Under Offer Accordian %>
-			<div class="title">
+			<div class="title" id="under-offer-title">
 				<div class="ui radio checkbox">
 					<input type="radio" name="radio">
 					<label>Under Offer</label>
 				</div>
 			</div>
-			<div class="content">
+			<div class="content" id="under-offer-content">
 				<p>This will mark your property as "Under Offer" in search results and in notifications to those subscribed to this property.</p>
 			</div>
 
 			<% # Sold Accordian %>
-			<div class="title">
+			<div class="title" id="sold-title">
 				<div class="ui radio checkbox">
 					<input type="radio" name="radio">
 					<label>Sold</label>
 				</div>
 			</div>
-			<div class="content">
+			<div class="content" id="sold-content">
 				<p>This will mark your property as "Sold" in search results and in notifications to those subscribed to this property.</p>
 			</div>
 
 			<% # Remove Status Accordian %>
-			<div class="title">
+			<div class="title" id="remove-status-title">
 				<div class="ui radio checkbox">
 					<input type="radio" name="radio">
-					<label>Remove Status</label>
+					<label>No Status</label>
 				</div>
 			</div>
-			<div class="content">
+			<div class="content" id="remove-status-content">
 				<p>This will remove any previous status you have currently set on this property.</p>
 			</div>
 		</div>	
@@ -158,6 +168,7 @@
 
 	<% # The action buttons %>
 	<div class="actions">
+		<% # The actions for this are set in sell.coffee in the onDeny and onApprove callbacks for the modal %>
 		<div class="ui cancel button">Cancel</div>
 		<div class="ui approve primary button">Save</div>
 	</div>

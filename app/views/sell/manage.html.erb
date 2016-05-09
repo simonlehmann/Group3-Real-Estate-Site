@@ -11,18 +11,18 @@
 #   	* manage_property_card: Used to generate each property to be managed
 #   
 #   Collections:
-#   	* @properties: An array of property hashes, which are passed to the manage_property_card partials.
+#   	* @listings: A collection of listings from the database
+#   	
+#   Notes: 
+#   	For pagination (infinite-scroll) the amount of listings displayed per page is configured in the listing.rb file in models.
 #   
 #   Todo:
 #   	* Change sort icon to ascending/descending icon default to ???
 #   	* Implement sort in ascending and descending order (clicking icon changes sort method between the two)
-#   	* Currently when you click any of the buttons in the property card the table header overflows it's container, 
-#   	  investigate why this happens and if it goes away when those buttons actually redirect to actions.
-#   	* Pass actual info to status modals and only change the one selected.
  %>
-<div class="ui container">
+<div class="ui container nobanner-container sell-top">
 	<% # Manage Properties table header%>
-	<div class="ui fixed sticky center aligned fluid card manage-table-header">
+	<div class="ui fixed sticky center aligned fluid card manage-table-header manage-properties">
 		<div class="content">
 			<div class="ui centered middle aligned three column grid">
 				<% # Table header %>
@@ -31,11 +31,24 @@
 				</div>
 				<% # Sort Button, eventually clicking the first button will change the filter between ascending and descending %>
 				<div class="center aligned column">
-					<div class="ui buttons">
+					<%= select_tag :listing_filter, options_for_select([ [ "Comments", 1 ], [ "Date Modified", 2 ], [ "Expiry", 3 ], [ "Popularity", 4 ], [ "Views", 5 ] ]), { prompt: "Select Filter", include_blank: false, class: "ui floating labelled icon button dropdown", id: "manage-filter" } %>
+					<!-- <div class="ui floating labelled icon button selection dropdown" id="manage-filter">
+						<i class="filter icon"></i>
+						<span class="text">Select Filter</span>
+						<div class="menu">
+							<div class="item">Comments</div>
+							<div class="item">Date Modified</div>
+							<div class="item">Expiry</div>
+							<div class="item">Popularity</div>
+							<div class="item">Views</div>
+						</div>
+					</div> -->
+					
+					<!-- <div class="ui buttons">
 						<div class="ui icon button"><i class="filter icon"></i></div>
-						<div class="ui drop button">Select Filter</div>
-						<div class="ui combo top right pointing dropdown icon button" id="manage-filter">
+						<div class="ui combo top right pointing dropdown icon button" >
 							<i class="dropdown icon"></i>
+							<div class="default text">Select Filter</div>
 							<div class="menu">
 								<div class="item">Comments</div>
 								<div class="item">Date Modified</div>
@@ -44,48 +57,56 @@
 								<div class="item">Views</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<% # Add Property Button %>
 				<div class="right floated right aligned column">
 					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
 						<%= content_tag(:i, "", class: "plus icon") %>
-			  			Add Your Property
+						Add Your Property
 					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
+	<% # A Notice or Error message box used to display alerts when a user has added or updated a property (it's dismissable) %>
+	<% if flash[:listing_notice] %>
+		<% # A positive message block that is dismissable %>
+		<div class="ui positive message">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_notice] %>
+			</div>
+		</div>
+	<% end %>
+	<% if flash[:listing_error] %>
+		<% # A negative message block that is dismissable %>
+		<div class="ui negative message">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_error] %>
+			</div>
+		</div>
+	<% end %>
 	
-	<% # The properties the user has %>
-	<div class="ui cards">
-		<% # properties are sent from the controller as an array of hashes of each property the user has listed. %>
-		<% @properties.each do |property| %>
-			<% # Render the manager_property_card with the property values %>
-			<%= render 'sell/manage_property_card', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status],
-					image_path: property[:image_path],
-					description: property[:description],
-					counts: property[:counts]
-				} %>
-
-			<% # Render the manager_property_status modals with the appropriate settings %>
-			<%= render 'sell/manage_property_status_modal', {
-					id: property[:id],
-					address: property[:address],
-					status: property[:status]
-				} %>
-		<% end %>
+	<% # The property listings the user has. Now using infinite scroll%>
+	<div class="infinite-table">
+		<div class="ui cards" id="manage-property-card-table">
+			<%= render partial: 'sell/manage_property_card', object: @listings %>
+		</div>
+		<% # The link to the next batch of listings. %>	
+		<div class="ui centered grid margin-top">
+			<p class="pagination">
+				<%= link_to_next_page(@listings, 'Show More Listings', remote: true) %>
+			</p>
+			<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>
+			<div id="loading-animation" style="display: none; margin-top: -40px;">
+				<%= render partial: 'layouts/loading_no_text' %>
+			</div>
+		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-

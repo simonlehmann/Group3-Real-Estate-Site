@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyString
+  suburb: MyString
+  state: MyString
+  post_code: 1
+  bedrooms: 1
+  bathrooms: 1
+  parking: 1
+  land_size: 1
+  title: MyString
+  subtitle: MyString
+  description: MyString
+  price_type: MyString
+  price_min: 1
+  price_max: 1
+  created_at: 2016-04-13 13:37:33
+
+two:
+  address: MyString
+  suburb: MyString
+  state: MyString
+  post_code: 1
+  bedrooms: 1
+  bathrooms: 1
+  parking: 1
+  land_size: 1
+  title: MyString
+  subtitle: MyString
+  description: MyString
+  price_type: MyString
+  price_min: 1
+  price_max: 1
+  created_at: 2016-04-13 13:37:33

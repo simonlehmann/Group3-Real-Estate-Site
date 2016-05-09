@@ -1,0 +1,90 @@
+<%
+#   Created by: Simon Lehmann & Daniel Swain
+#   Date: 20/04/2016
+#
+#   The edit registration details page
+#
+#   This has been updated to match our styles
+%>
+
+<%
+#   ------------------------- NOTICE, READ FIRST -------------------------
+#
+#   DO NOT UPDATE THIS PAGE IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE
+#
+#   THIS PAGE IS THE DEFAULT STAND ALONE ACTION.
+#
+#   IF YOU WANT TO USE THIS ACTION IN YOUR OWN PAGE THEN USE THE SAME form_for TAG AND ASSOCIATED FIELDS AS BELOW
+#
+#   BUT DO NOT EDIT THIS ONE
+#
+#   SEE THE _user_modal.html.erb FOR AN EXAMPLE
+%>
+
+<div class="ui container nobanner-container">
+	<div class="ui middle aligned grid container">
+		<div class="ui center aligned column">
+			<% # The header %>
+			<h2 class="header">Edit <%= resource_name.to_s.humanize %> Account</h2>
+
+			<% # Dividing bar %>
+			<div class="ui divider"></div>
+
+			<% # The Devise form (Do Not Touch Form Actions) %>
+			<div class="ui centered one column grid">
+				<div class="ui eight wide column devise-form">
+					<% # error class required to show devise_error_messages (they only show if they exist) %>
+					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "ui form error" }) do |f| %>
+						<% # Email field %>
+						<div class="field">
+							<label>Email</label>
+							<%= f.email_field :email, autofocus: true, placeholder: "email@address.com" %>
+						</div>
+
+						<% # Devise checker %>
+						<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+							<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+						<% end %>
+
+						<% # New Password Field %>
+						<div class="field">
+							<label>New Password <i>(leave blank if you don't want to change it)</i></label>
+							<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
+						</div>
+
+						<% # Confirm new password field %>
+						<div class="field">
+							<label>Confirm New Password</label>
+							<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+						</div>
+
+						<% # Old Password field %>
+						<div class="field">
+							<label>Current Password <i>(we need your current password to confirm your changes)</i></label>
+							<%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter your current password" %>
+						</div>
+
+						<% # Devise error messages (only show if they exist) %>
+						<%= devise_error_messages! %>
+
+						<% # Update/Submit action %>
+						<div class="actions">
+							<%= f.submit "Update", class: "ui button" %>
+						</div>
+
+					<% end %>
+				</div>
+			</div>
+
+			<% # Dividing bar %>
+			<div class="ui divider margin-top"></div>
+
+			<% # Cancel account section %>
+			<h3 class="header">Cancel my account</h3>
+
+			<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "ui sell-red-button button" %></p>
+
+			<%= link_to "Back", :back %>
+		</div>
+	</div>
+</div>

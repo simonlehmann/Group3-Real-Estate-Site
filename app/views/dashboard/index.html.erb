@@ -1,0 +1,66 @@
+<% 
+#   Created: Jayden Spencer
+#   
+#   This is the user dashboard page that shows the user activity, setting ....
+#   
+#   Instance Variables:
+#   	* @activity_active: set the appropriate classes for the active tab (from controller)
+#   	* @messages_active: set the appropriate classes for the active tab (from controller)
+#   	* @favourites_active: set the appropriate classes for the active tab (from controller)
+#   	* @settings_active: set the appropriate classes for the active tab (from controller)
+#   
+#   Partials:
+#   	* _activitycontent: the activity feed
+#   	* _favouritescontent: the favourites
+#   	* _messagescontent: the messages
+#   	* _settingscontent: the settings
+%>
+<section class="dashboard-container nobanner-container ui container">
+	<div class="ui sixteen wide grid stackable">
+		<div class="ui rail four wide column">
+			<% #dashboard sub menu navigation %>
+			<section class="ui sticky dashboard-submenu">
+				<div class="ui large vertical dashboard-tabular menu">
+					<% #shows activity feed and num of new activities %>
+					<a class="item <%= @activity_active %>" data-tab="activity">
+						<div class="ui purple label" id="activity-label-count">1</div>
+						Activity Feed
+					</a>
+					<% #inbox %>
+					<a class="item <%= @messages_active %>" data-tab="messages">
+						<div class="ui label" id="messages-label-count">51</div>
+						Messages
+					</a>
+					<% #users favourite properties %>
+					<a class="item <%= @favourites_active %>" data-tab="favourites">
+						<div class="ui label" id="favourites-label-count">1</div>
+						Favourites
+					</a>
+					<a class="item <%= @settings_active %>" data-tab="settings">
+						Account Settings
+					</a>
+				</div>
+			</section>
+		</div>
+		<% #dashboard content, this will switch based on nav selection %>
+		<div class="ui twelve wide column" id="activity-feed">
+			<% # The actual tabs %>
+			<div class="ui tab <%= @activity_active %>" data-tab="activity">
+				<% # User activity %>
+				<%= render "dashboard/activitycontent" %>
+			</div>
+			<div class="ui tab <%= @messages_active %>" data-tab="messages">
+				<% # User messages %>
+				<%= render "dashboard/messagescontent" %>
+			</div>
+			<div class="ui tab <%= @favourites_active %>" data-tab="favourites">
+				<% # User favourites %>
+				<%= render "dashboard/favouritescontent" %>
+			</div>
+			<div class="ui tab <%= @settings_active %>" data-tab="settings">
+				<% # User account settings %>
+				<%= render "dashboard/settingscontent" %>
+			</div>
+		</div>
+	</div>
+</section>

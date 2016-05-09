@@ -11,13 +11,13 @@ Please refer to the folloring links for any project information:
 To work on this project, you will need to set up your local development environment. Refer to the below guides for setting up your local development environment for your platform.
 > The project already has everything required to work on both Windows and Mac OS X development environments.
 
-## Get Repository
+### Get Repository
 To get this repository into a local directory you'll need to do the following
 * Create a project folder
 * cd into this folder using your terminal i.e ```cd /path/to/project/folder```
 * Type ```git init```
 * Type ```git remote add origin https://github.com/slehmann36/Group3-Real-Estate-Site.git```
-* To pull the branch you want to work on type ```git pull origin branch`` replacing <branch> with the branch tag (like feature1)
+* To pull the branch you want to work on type ```git pull origin branch``` replacing <branch> with the branch tag (like feature1)
 * Work on feature branch then if you want to commit your changes type ```git add .``` or ```git add --all``` (NB. type ```git status``` to see what changes you need to track)
 * Once they're added type ```git commit -m "Enter your commit message here"```
 * To push to your branch you enter ```git push origin branch```
@@ -86,9 +86,48 @@ You can confirm the install using the same commands as for windows in your termi
 9. Terminal (Shortcut to open terminal in project folder, see Daniel/Jayden for configuration tips for use in class)
 10. ColorPicker (highlight a colour and the ```CTRL + Shift + C``` and you get a colour picker that will replace the highlighted value with a hex colour value you selected...... AWESOME)
 
+## :globe_with_meridians: Live Site
+ The `master` branch will be live available at:  
+ URL: http://app.slehmann36.com
+ > **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
+ > **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
+ 
+
+## :id: Demo User
+You can use the below login credentials to log into the demo account:  
+Email: ```propertydomeau@gmail.com```  
+Password: ```Password123```  
+
 ## :computer: Server Information
-During the development of the application, it will be hosted on the Web24 VPS provided by Central Institute of Technology. 
-> :key: Login details will be provided here...
+During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's Infrastructure. 
+###:key: MySQL Database Server Information
+####Application Access
+URL: `db.slehmann36.com`  
+Username: `pdappuser`  
+Password: `MhalliF123`  
+Require SSL `True`
+
+####PhpMyAdmin Access
+URL: `https://db.slehmann36.com/phpmyadmin`  
+Username: `admin`  
+Password: `MhalliF123`
+
+###:e-mail: Mail Server
+####Application Access  
+SMTP Server: `mail.slehmann36.com`  
+Port: `587`  
+Authentication Type: `NTLM`  
+SSL/TLS: `False`  
+Domain: `slehmann36.com`  
+Username: `PropertyDome@slehmann36.com` (Case insensitive)  
+Password: `sJ2PVZ2cbvYqMMN` 
+
+####Outlook Web App Access  
+URL: `https://mail.slehmann36.com/owa`  
+Username: `PropertyDome@slehmann36.com` (Case insensitive)  
+Password: `sJ2PVZ2cbvYqMMN` 
+
+:exclamation:Don't you bastards break my server!
 
 This server will have the following capabilities:
 * Web Server (to host the application)

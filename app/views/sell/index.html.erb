@@ -9,7 +9,7 @@
  %>
 
 <% # Banner %>
-<div class="sell-banner">
+<div class="sell-banner sell-top">
 	<div class="ui center aligned container">
 		<h1 class="ui inverted header">LOOKING TO SELL YOUR HOME?</h1>
 		<% 
@@ -18,12 +18,35 @@
 		%>
 		<%= link_to new_sell_path, class: "ui big right labeled icon button sell-red-button" do  %>
 			<%= content_tag(:i, "", class: "plus icon") %>
-  			Add Your Property
+			Add Your Property
 		<% end %>
 	</div>
 </div>
 
 <% # Main Page container %>
 <div class="ui center aligned container">
+	<% # A Notice or Error message box used to display alerts when a user has added or updated a property (it's dismissable) %>
+	<% if flash[:listing_notice] %>
+		<% # A positive message block that is dismissable %>
+		<div class="ui positive message margin-top">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_notice] %>
+			</div>
+		</div>
+	<% end %>
+	<% if flash[:listing_error] %>
+		<% # A negative message block that is dismissable %>
+		<div class="ui negative message margin-top">
+			<% # The close icon %>
+			<i class="close icon"></i>
+			<% # Message content %>
+			<div class="content">
+				<%= flash[:listing_error] %>
+			</div>
+		</div>
+	<% end %>
 	<%= render "sell/index_advertising" %>
 </div>

@@ -1,27 +1,35 @@
-<footer class="ui centered eight wide grid">
-	<div class="ui two wide column">
-		<h5>Additional Links</h5>
-		<div class="ui link list">
-			<a class="item">Contact Us</a>
-			<a class="item">Privacy Policy</a>
-			<a class="item">Terms and Conditions</a>
-			<a class="item">Meet the Team</a>
+<% #TODO: switch additional links to erb links and link to actual page %>
+<footer>
+	<div class="ui center aligned container">
+		<div class="ui centered three column grid footer-push">
+			<div class="left floated left aligned column">
+				<h5>About Us</h5>
+				<p>This is a realestate website, we allow our users to buy and sell properties in the best way possible.</p>
+			</div>
+			<div class="ui center aligned column">
+				<h5>Social Media</h5>
+				<% #facebook link %>
+				<button class="ui big circular facebook icon button">
+					<i class="facebook icon"></i>
+				</button>
+				<% #twitter link %>
+				<button class="ui big circular twitter icon button">
+					<i class="twitter icon"></i>
+				</button>
+				<% #gplus link %>
+				<button class="ui big circular google plus icon button">
+					<i class="google plus icon"></i>
+				</button>
+			</div>
+			<div class="right floated right aligned column">
+				<h5>Additional Links</h5>
+				<div class="ui link list">
+					<%= link_to "Contact Us", contact_path, class: "item" %>
+					<%= link_to "Privacy Policy", privacy_path, class: "item"  %>
+					<%= link_to "Terms and Conditions", terms_path, class: "item"  %>
+					<a class="item">Meet the Team</a>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="ui three wide center aligned column">
-		<h5>Social Media</h5>
-		<button class="ui big circular facebook icon button">
-			<i class="facebook icon"></i>
-		</button>
-		<button class="ui big circular twitter icon button">
-			<i class="twitter icon"></i>
-		</button>
-		<button class="ui big circular google plus icon button">
-			<i class="google plus icon"></i>
-		</button>
-	</div>
-	<div class="three wide column">
-		<h5>About Us</h5>
-		<p>This is a realestate website, we allow our users to buy and sell properties in the best way possible.</p>
 	</div>
 </footer>

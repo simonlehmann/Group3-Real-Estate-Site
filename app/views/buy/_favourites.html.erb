@@ -1,3 +1,47 @@
+<%
+#   Created: Jayden Spencer
+#   Date: 04/04/2016
+#   
+#   Favourites Partial from /buy
+#
+#	TODO:
+#		* Actual data favoruites with model
+#
+ %>
 <div class="ui center aligned container">
-	<h2 class="ui header"><i class="icon star"></i>Your Favourites</h2>
+	<!-- Section Header -->
+	<h2 class="ui header"><i class="star icon"></i>Your Favourites</h2>
+	<!-- Slick Carousel -->
+	<div class="favouritesSlide" data-slick='{"slidesToShow": 4, "slidesToScroll": 1}'>
+		<div>
+			<!-- need to be changed to a clickable card that displays some information (reference to design) -->
+			<!-- temp buy page path is ok -->
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+		<div>
+			<%= link_to image_tag("favProp.png", alt:"Favourite Image"), buy_path %>
+			<p class="address">22 Mystery Shack rd Appocross WA</p>
+		</div>
+	</div>
 </div>

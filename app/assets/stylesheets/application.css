@@ -1,5 +1,20 @@
 /*
 	*= require_self
 	//main.sass imports all files
+	//insert your partial in main.sass for your appropriate page
 	*= require main
+	
+	// Required for papercrop
+	*= require jquery.jcrop
+
+	// Bower component themes
+	// Date picker
+	*= require pickadate/lib/themes/classic
+	*= require pickadate/lib/themes/classic.date
+	*= require pickadate/lib/themes/classic.time
+	// Slick carousel
+	*= require slick-carousel/slick/slick-theme
+	*= require slick-carousel/slick/slick
+	// Slick carousel Lightbox
+	*= require slick-lightbox/dist/slick-lightbox
  */

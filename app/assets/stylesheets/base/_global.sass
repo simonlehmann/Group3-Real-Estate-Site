@@ -1,9 +1,45 @@
+//set whole websites text to roboto
 html
-	font-family: $roboto
-a
-	color: $white-primary
-a:hover,
-a:focus
-	color: $white-hover
+	font-family: $roboto !important
+body
+	height: 100%
+//star icon
 .star
 	color: $yellow-primary
+//set header on top
+header
+	z-index: 100
+// Margin and padding for elements
+.margin-top
+	margin-top: 2em !important
+.margin-top-half
+	margin-top: 1em !important
+//For pages without a banner! -- Margin for a container to place it under header
+.nobanner-container
+	margin-top: 8em
+// The following fix the footer issues so the footer is on the bottom even if the site has less content
+.site
+	display: flex
+	flex-direction: column
+	min-height: 100% // Needs to be % not vh
+.site-content
+	flex: 1 0 auto
+.site-content::after
+	content: '\00a0'
+	display: block
+	height: 0px
+	visibility: hidden
+	margin-top: 1.5em
+//tag labels for property features
+.sell-feature-tag,
+	background-color: $purple-primary !important
+	color: $white-primary !important
+.location-feature-tag,
+	background-color: $blue-primary !important
+	color: $white-primary !important
+.property-feature-tag,
+	background-color: $blue-primary !important
+	color: $white-primary !important
+.price-feature-tag,
+	background-color: $red-primary !important
+	color: $white-primary !important

@@ -1,24 +1,28 @@
 header
+	//base properties
 	z-index: 100
+	position: absolute
 	color: $white-primary
 	height: 60px
 	width: 100%
 	padding-top: 0.5em
 	top: 0px
-	background-color: transparent
-	transition: all 0.4s ease
-	.ui.circular.labels .label, .ui.circular.label
+	//set a link tags to white
+	a
 		color: $white-primary
-		padding-right: 1em !important
-		background-color: $green-saturated
-	a.ui.circular.label:hover
-		background-color: $green-primary
+	a:hover,
+	a:focus
+		color: $white-hover
+	.nav-username
+		font-weight: bold
 	.ui.action.input:not([class*="left action"]) > .button
 		color: $white-primary
 		background-color: $green-primary
+	//company logo header
 	.propertydome-logo
 		height: 2.8em
 		width: auto
+	//buy, sell, activity/contact button menu
 	.ui.secondary.pointing.menu
 		border-bottom: 0px transparent
 	.ui.menu .item,
@@ -28,7 +32,7 @@ header
 		border-color: $white-primary
 	.ui.secondary.pointing.menu .active.item
 		border-bottom-width: 3px
-	.ui.secondary.pointing.menu .item:hover
+	.ui.secondary.pointing.menu .item:hover,
 	.ui.secondary.pointing.menu .active.item:hover
 		color: $white-hover
 		border-color: $white-hover
@@ -40,19 +44,70 @@ header
 		color: $white-hover
 		.item:hover
 			color: $white-hover !important
-	a:hover,
-	a:active
-		color: $white-hover
+	.ui.compact.menu .item:last-child
+		border-radius: 0px
+//navigation links
 .nav-links
 	a:not(:first-child)
 		padding-left: 20%
 		margin-left: 20%
-.nav-fixed
+//nav in header image
+#top-nav
+	background-color: transparent
+//nav that follows screen
+#sticky-nav
+	z-index: 9999
 	position: fixed
-	top: 0px
-.nav-fixed.nav-buy
 	background-color: $green-secondary
-.nav-fixed.nav-sell
-	background-color: $red-primary
-.nav-fixed.nav-dashboard
-	background-color: $purple-primary
+	width: 100%
+	//nav fill colour fased on class/page url
+#sticky-nav .nav-buy
+	background-color: $green-secondary !important
+#sticky-nav .nav-sell
+	background-color: $red-secondary !important
+#sticky-nav .nav-dashboard
+	background-color: $purple-secondary !important
+//user profile notification badge
+.nav-buy
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $green-saturated
+	.alert-badge:hover
+		background-color: $green-primary !important
+.nav-sell
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $red-saturated
+	.alert-badge:hover
+		background-color: $red-primary !important
+.nav-dashboard
+	.alert-badge
+		color: $white-primary !important
+		padding-right: 1em !important
+		background-color: $purple-saturated
+	.alert-badge:hover
+		background-color: $purple-primary !important
+//user login/sign up
+.user-login
+	color: $white-primary !important
+	background-color: transparent !important
+.user-login:hover
+	color: $white-hover !important
+//join button on top-nav (image header) is now green or red border/background on hover where as in sticky it is white
+#top-nav
+	.nav-buy
+		.user-signup
+			box-shadow: 0px 0px 0px 2px $green-primary inset !important
+		.ui.inverted.button:hover,
+		.ui.inverted.button:focus
+			color: $white-primary
+			background-color: $green-primary
+	.nav-sell
+		.user-signup
+			box-shadow: 0px 0px 0px 2px $red-primary inset !important
+		.ui.inverted.button:hover,
+		.ui.inverted.button:focus
+			color: $white-primary
+			background-color: $red-primary

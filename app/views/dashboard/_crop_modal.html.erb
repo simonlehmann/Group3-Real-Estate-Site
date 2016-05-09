@@ -1,0 +1,53 @@
+<%
+#   Created: Daniel Swain
+#   Date: 08/05/2016
+#
+#   Partial erb used to allow a user to crop their profile image inside a modal.
+#
+#   Todo: 
+#   	* Save the result of the crop and update the preview image on the dashboard_settings page without a page reset.
+%>
+
+<% # The status modal %>
+<div class="ui small user-avatar-crop modal" id="user-avatar-crop-modal">
+	<% # The modal close button %>
+	<i class="close icon"></i>
+	
+	<% # Modal header %>
+	<div class="header" id="user-avatar-crop-modal-header">
+		Crop your avatar
+	</div>
+
+	<% # Modal content %>
+	<div class="content">
+		<div class="ui centered middle aligned grid">
+			<% # The username/email and password form fields %>
+			<div class="row">
+				<div class="ui centered one column grid">
+					<div class="ui centered center aligned ten wide column">
+						<%= form_for current_user, url: {controller: "registrations", action: "crop_avatar"}, html: { method: :put, class: "ui form", id: "user-avatar-crop-form" } do |f| %>
+							<% # The originial image with a jCrop field for cropping, width is set to 500px here, otherwise it'd be as big as the image is. %>
+							<div class="field">
+								<label>Use the tool below to crop your avatar.</label>
+								<%= f.cropbox :avatar, width: 400 %>
+							</div>
+
+							<div class="actions margin-top-half">
+								<div class="ui cancel button" id="user-avatar-crop-modal-cancel">Cancel</div>
+								<div class="ui approve dashboard-settings button" id="user-avatar-crop-modal-save">Crop Image</div>
+							</div>
+						<% end %>
+						<% # Used in the calculation of how to crop an image when it's showing an image that hasn't been uploaded yet. Please leave in %>
+						<% # have a look in dashboard.coffee for an idea of its purpose %>
+						<div id="hidden-image" style="visibility: hidden;">
+							<% # put an image here %>
+							<img src="" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>

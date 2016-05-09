@@ -1,3 +1,5 @@
+//triangle shape creation
+//properties: width, height, direction and fill color
 =triangle($width: 100px, $height: 40px, $direction: down, $triangle-color: purple)
 	width: 0
 	height: 0
@@ -17,11 +19,15 @@
 		border-left: $width/2 solid transparent
 		border-right: $width/2 solid transparent
 		border-top: $height solid $triangle-color
-
-=circle($width: 50px, $color: purple)
+//circle shape creation
+//properties: width and fill color
+=circle($width: 50px, $circle-color: purple, $border-style: none, $border-width: 0px, $border-color: $transparent)
 	width: $width
 	height: $width
-	background-color: $color
+	border-style: $border-style
+	border-width: $border-width
+	border-color: $border-color
+	background-color: $circle-color
 	-webkit-border-radius: $width/2
 	-moz-border-radius: $width/2
 	border-radius: $width/2

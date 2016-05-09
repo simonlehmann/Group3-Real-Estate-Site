@@ -1,53 +1,163 @@
+// Created: Jayden Spencer
+// Date: 05/04/2016
+// The following styles are for the buy page
+//
+//buy search section properties
 .search-section
 	margin-top: -60px
 	padding-top: 5em
 	width: 100%
-	height: 80vh
-	max-height: 700px
-	background: url(image_path('landing-header.png')) no-repeat
-	background-size: 100%
+	min-height: 70vh
+	background-color: $grey-primary
+	background-size: auto 120%
+	//search section header
 	.ui.inverted.header
 		padding-top: 3em
 		h1
 			font-size: 4em
 			text-align: center
-	.ui.action.input:not([class*="left action"]) > .button
+	//search input button
+	.ui.action.input > .button
 		background-color: $green-primary
 		color: $white-primary
 		width: 18%
-	.ui.action.input:not([class*="left action"]) > .button:hover
+	//search input button:hover
+	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	//search input, search icon
 	.ui[class*="right labeled"].icon.button
 		color: $white-primary
 		margin-top: 2.4em
 		background-color: $blue-primary
 		margin-left: -15px
+	//search input, search icon:hover
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
-	.ui.labeled.input:not([class*="corner labeled"]) .label:first-child
+	.ui.labeled.input .label:first-child
 		width: 7%
 		background-color: $white-primary
 		vertical-align: middle
-	.ui.action.input:not([class*="left action"]) > .dropdown, .ui.action.input:not([class*="left action"]) > .button,
-	.ui.action.input:not([class*="left action"]) > .buttons > .button
+	.ui.action.input > .dropdown, .ui.action.input > .button,
+	.ui.action.input > .buttons > .button
 		border: none
 	.search-action
 		width: 5em
+		font-size: 1.2em
+	//Fix for placement of multiple search selection dropdown icon (it's not centered like the single search select icon is)
+	.ui.selection.dropdown > .dropdown.icon
+		// This is the value from search selection in semantic (multiple search selection uses padding: 0.5em)
+		padding: 0.78571429em 
+	// Fix for placement of the multiple search selection placeholder text (it's not centered like the single search select icon is)
+	.ui.multiple.search.dropdown > .text
+		top: auto // Overiding top: 0
+		margin: 0.53em 0em 0.53em 0.71428571em // Overiding margin: 0.45240952em 0em 0.45240952em 0.71428571em
+		padding: 0em // Overiding padding: inherit
+	// Fix for cursor placement in multiple search dropdown
+	.ui.multiple.search.dropdown > input.search
+		margin-left: 0.4em // Overiding maring-left: 0.71428571em
+	//padding on search bar to place two inputs closer together
+	.ui.row.search-row .column
+		padding-left: 0.25em
+		padding-right: 0.25em
+//triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
 	padding-right: 0px
+//triangle creation from mixin
 .triangle-lead
 	+triangle(125px, 45px, down, $grey-primary)
 	text-align: center
-	
+//favourites section
 .favourites-section
 	height: 30vh
-	max-height: 300px
+	min-height: 295px
 	padding-top: 1.2%
 	background-color: $grey-primary
 	h2
 		color: $white-primary !important
 		text-align: left
+	.favouritesSlide
+		div
+			margin-left: 5px
+			margin-right: 5px
+		img
+			width: 100%
+			height: auto
+//stats section
+.stats-section
+	@extend .favourites-section
+	h2
+		font-size: 2.2em
+		margin-top: 16px
+		text-align: center
+	p
+		line-height: 1.16em
+		margin: -0.8em 2em
+		font-size: 1.1em
+		font-style: bold
+		color: $white-primary
+	ul#stats-circles
+		list-style: none
+		padding-left: 0px
+		li
+			margin-left: 3%
+			margin-right: 3%
+			display: inline-block
+	.circle
+		+circle(135px, $transparent, solid, 4px, $blue-primary)
+//twitter section
 .twitter-feed
 	.twitter
 		color: $blue-twitter
+.feature-property-container
+	.left
+		float: left
+		margin: 0px 15px 35px 0px
+	.main-divs
+		background-color: $white-fav
+		margin-bottom: 10px
+	.picture-div
+		img
+			width: 100%
+			height: auto
+	.tags
+		float: bottom
+	.top
+		height: 70%
+	.bottom
+		height: 30%
+
+.favouritesSlide
+	.address
+		color: white
+		background-color: $grey-fav
+		width: 100%
+		padding-top: 10px
+		padding-bottom: 10px
+//Header images for geolocater
+.wa-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.vic-img
+	background: url(image_path('sell-header.png')) no-repeat
+.qld-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.act-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nsw-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.sa-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nt-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.tas-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.ot-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%

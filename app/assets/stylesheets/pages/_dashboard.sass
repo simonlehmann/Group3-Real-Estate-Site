@@ -1,0 +1,67 @@
+.dashboard-container
+	a
+		color: $grey-light
+	a:hover,
+	a:focus
+		color: $grey-primary-hover
+// Hide the file input field so we can style the label to look nicer
+// Label styles are below
+.dashboard-settings.file-input-field
+	width: 0.1px
+	height: 0.1px
+	opacity: 0
+	overflow: hidden
+	position: absolute
+	z-index: -1
+// Style the replacement label
+.dashboard-settings.file-input-field + label
+	padding: 0.75em
+	border-radius: 0.2em
+	width: auto
+	color: $white-primary !important
+	background-color: $purple-primary
+	display: inline-block
+	cursor: pointer
+// File upload label hover
+.dashboard-settings.file-input-field:focus + label,
+.dashboard-settings.file-input-field + label:hover
+	background-color: $purple-primary-hover
+// Style the submit button and other dashboard settings button with the right class combo
+.dashboard-settings.button
+	background-color: $purple-primary
+	color: $white-primary !important
+.dashboard-settings.button:hover,
+.dashboard-settings.button:active,
+.dashboard-settings.button:focus
+	background-color: $purple-primary-hover
+// Show the avatar as the thumbnail it will look like in the preview window
+.avatar-target
+	height: 100px
+	width: 100px
+	overflow: hidden
+// Cropbutton styles to mirror the file upload for continuity
+.crop-label.button
+	padding: 0.75em
+	border-radius: 0.2em
+	width: auto
+	color: $white-primary !important
+	background-color: $purple-primary
+	display: inline-block
+	cursor: pointer
+.crop-label.button:hover,
+.crop-label.button:focus,
+.crop-label.button:active
+	background-color: $purple-primary-hover
+// To hide the jCrop radio that shows when you select
+#user-avatar-crop-modal
+	overflow: hidden
+	border-radius: 0.35em
+	border-color: $grey-primary
+	// Close button is positioned absolutely, here I'm overriding the positioning
+	.close
+		top: 0.7em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+		right: 0em // Default is -1.5em which doesn't work for us as we're sizing the modal manually
+	.header
+		min-height: 3em
+		background-color: $grey-primary
+		color: $white-primary
