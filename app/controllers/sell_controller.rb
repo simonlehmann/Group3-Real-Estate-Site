@@ -11,6 +11,8 @@
 # 		* destroy: delete the property.
 # 	
 # 	Private functions/methods:
+# 		* get_sorted_listings(user, sort_type, sort_method, page): get a list of listings for the provided user, using the sort method and sort column and only
+# 			for the provided page (i.e. page 1 of 5)
 # 		* require_login: check if a the requesting caller is logged in, if not then redirect to the login path
 # 		* listing_params: Ensure only the params we want can be saved when calling update_attributes on a listing object (helps to minimise malicious actions)
 # 		* status_params: Ensure only the params we want can be saved when calling update_attributes on a status object (helps to minimise malicious actions)
@@ -28,17 +30,34 @@ class SellController < ApplicationController
 	before_action :require_login, except: [:index]
 
 	# Show the main sell page view
+	# 
 	# Method: GET
 	# URL: /sell
 	# Helper: sell_index_path
 	def index
-		# Get the user if it's logged in (a devise convinience method)
+		# Get the user if it's logged in (a devise convenience method)
 		user = current_user
-		user_has_property = false
+		user_has_property = false # Default to not having properties, we check for this before rendering the page
+		
 		# try and get the listings for the current user if they're logged in.
 		if user
-			# Get the listings through the user_listings association on the currently logged in user object
-			@listings = user.user_listings.order(:listing_created_at).page(params[:page])
+			# If we have provided a sort type then lets get the next set of results and sort using the provided sort method
+			# An example parameters list is as follows
+			# 
+			# Parameters: {"page"=>"2", "sort_type"=>"4", "is_sort"=>"true", "_"=>"1462789142490"}
+			# 
+			# We need to pass these parameters back through so we can continue retreiving sorted results in our infinite scrolling method using manage.js.erb
+			if params[:sort_type] and params[:is_sort] == "true"
+				# Reconnect with the params so they get sent through again.
+				@sort_type = params[:sort_type].to_i # The sort type (1, 2, 3, 4 or 5) see update_sort for a description of the choices
+				@is_sort = true
+				@page = params[:page]
+				# Get a new set of the listings based on the selected sort method
+				@listings = get_sorted_listings(user, @sort_type, "desc", params[:page])
+			else
+				# Get the listings through the user_listings association on the currently logged in user object
+				@listings = user.user_listings.order(:listing_created_at).page(params[:page])
+			end
 			# Set the user_has_property boolean to true if the query returns listings.
 			user_has_property = true if @listings.size > 0
 		end
@@ -56,11 +75,11 @@ class SellController < ApplicationController
 	end
 
 	# Show the add/edit form ready for user input and adding a new property
+	# 
 	# Method: GET
 	# URL: /sell/new
 	# Helper: new_sell_path
 	def new
-		# Add logic for new stuff
 		# Create a new Listing object that will be used by the form to save later
 		@listing = Listing.new
 		# Set the action descriptor to "Create Listing"
@@ -69,6 +88,7 @@ class SellController < ApplicationController
 	end
 
 	# Add the property from the completed userform
+	#
 	# Method: POST
 	# URL: /sell
 	# Helper: sell_index_path
@@ -132,6 +152,7 @@ class SellController < ApplicationController
 	end
 
 	# Show the add/edit form ready for user input to edit an existing property
+	#
 	# Method: GET
 	# URL: /sell/:id/edit
 	# Helper: edit_sell_path
@@ -149,6 +170,7 @@ class SellController < ApplicationController
 	end
 
 	# Update the property from the completed userform
+	# 
 	# Method: PATCH/PUT
 	# URL: /sell/:id
 	# Helper: sell_path
@@ -210,7 +232,6 @@ class SellController < ApplicationController
 				end
 			end
 
-
 			# Delete images marked for deletion
 			if params[:destroy_images]
 				params[:destroy_images].each do |id|
@@ -236,6 +257,7 @@ class SellController < ApplicationController
 	end
 
 	# Update the status object via an Ajax call
+	#
 	# Method: PUT
 	# URL: /sell/:id/status
 	# Helper: status_sell_path
@@ -260,11 +282,14 @@ class SellController < ApplicationController
 			flash[:listing_error] = "There was an error saving the changes to your status. Please try again."
 			redirect_to action: :index
 		end
-		# use this line if you want to not refresh the page, but look into re rendering the partial using JS.erb files
-		# render nothing: true
 	end
 
 	# Update the suburbs from the state selector choice
+	# This is done via an Ajax call from add_edit.coffee
+	# 
+	# Method: PUT
+	# URL /sell/:id/suburbs
+	# Helper: suburbs_sell_path
 	def update_suburbs
 		@suburbs = get_suburbs(params[:listing_state])
 		@postcodes = get_postcodes(params[:listing_state])
@@ -274,10 +299,45 @@ class SellController < ApplicationController
 	end
 
 	# Update the postcodes from the suburb selector choice
+	# This is done via an Ajax call from add_edit.coffee
+	# 
+	# Method: PUT
+	# URL /sell/:id/postcodes
+	# Helper: postcodes_sell_path
 	def update_postcodes
 		@postcodes = get_postcodes_from_selection(params[:listing_state], params[:listing_suburb])
 		respond_to do |format|
 			format.js
+		end
+	end
+
+	# Change the listings array from the manage listing view to reflect the current sort selection
+	# This is done via an Ajax call from sell_main.coffee
+	# 
+	# Method: PUT
+	# URL: /update_sort
+	# Hepler: update_sort_path
+	def update_sort
+		# Get the sort type from the POST parameters
+		# This method only gets called when a user changes the sort type.
+		# All other reloads of the sorted data are handled by the sell#index action and manage.js.erb
+		# 
+		
+		# Get the params from the Ajax call and set the @is_sort to true and the @page to 1 so manage.js knows to clear the table
+		@sort_type = params[:listing_filter].to_i
+		@is_sort = true
+		@page = 1
+
+		# Get the current user
+		user = current_user
+		if user
+			# If we have a user, then lets try and sort their listings based upon the selected sort type
+			@listings = get_sorted_listings(user, @sort_type, "desc", params[:page])
+			# Send the @listings to manage.js.erb to update the view (this has access to @listings, @is_sort, @page and @sort_type)
+			respond_to do |format|
+				format.js {render :manage}
+			end
+		# Don't do anything if there's no user as this method is only accessible to signed in users
 		end
 	end
 
@@ -301,6 +361,32 @@ class SellController < ApplicationController
 
 	# private methods used by this controller but not accessible outside of it.
 	private
+
+		# Sort the @listings collection, a user object, sort_type, sort_method and page number must be supplied
+		# 
+		# For reference, the sort_type's are as follows. Default sort_method is DESC (descending)
+		# 1 = Comments, 2 = Date Modified, 3 = Expiry, 4 = Popularity & 5 = Views
+		def get_sorted_listings(user, sort_type, sort_method = "desc", page)
+			case sort_type
+			when 1
+				# Sort the comments using the provided method and only grab results for the provided page
+				@listings = user.user_listings.order(listing_comments: sort_method.to_s).page(page)
+			when 2
+				# Sort the updated at date using the provided method and only grab results for the provided page
+				@listings = user.user_listings.order(listing_updated_at: sort_method.to_s).page(page)
+			when 3
+				# Sort the expiry date using the provided method and only grab results for the provided page
+				@listings = user.user_listings.order(listing_to_end_at: sort_method.to_s).page(page)
+			when 4
+				# Sort the favourites using the provided method and only grab results for the provided page
+				@listings = user.user_listings.order(listing_favourites: sort_method.to_s).page(page)
+			when 5
+				# Sort the views using the provided method and only grab results for the provided page
+				@listings = user.user_listings.order(listing_views: sort_method.to_s).page(page)
+			end
+			# Return the sorted collection
+			return @listings
+		end
 
 		def require_login
 			# Redirect to the devise login view if the user tries to perform an action other than index and isn't signed in

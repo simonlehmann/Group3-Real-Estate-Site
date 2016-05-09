@@ -39,6 +39,6 @@ class ListingImage < ActiveRecord::Base
 	has_one :cover_image_listing, class_name: "Listing", inverse_of: :listing_cover_image, foreign_key: "listing_id"
 
 	# ListingImage has one attached file
-	has_attached_file :image, styles: {	large: "900x900#", medium: "300x300#" }, :default_url => "/images/:style/missing.png"
+	has_attached_file :image, styles: {	large_w: "1080x600#", large: "800x600#", medium: "300x300#" }, :default_url => "/images/:style/missing.png"
 	validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 end

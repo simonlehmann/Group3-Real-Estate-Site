@@ -7,9 +7,22 @@
 
 # Function containing all javascript needed on page load for the manage page and index page
 ready = ->
-	#--------- Dropdown Code
+	#--------- Sort Dropdown Code
 	# Sort dropdown for manage page, combo action replaces previous elements text with selection from dropdown
 	$('#manage-filter').dropdown()
+	
+	# Handle the sort change via the update_sort Ajax action in sell_controller
+	$('#manage-filter').change ->
+		# Get the sort value from the dropdown
+		selected_item = parseInt($('#manage-filter :selected').val())
+		# Now we have the sort method, lets send this to our sell controller to handle the sort and update the view
+		# There's no success handler as it's done by manage.js.erb
+		$.ajax
+			type: 'POST'
+			url: '/update-sort'
+			data:
+				_method: 'PUT'
+				listing_filter: selected_item
 
 	#--------- Sticky Code
 	# make the manage property table header sticky, it sticks to the ui.cards which is the next element

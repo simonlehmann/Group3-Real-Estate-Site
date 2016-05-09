@@ -8,21 +8,49 @@
 //   	
 //   Collections:
 //   	@listings: The listing information
+//   	
+//   Variables:
+//   	@is_sort: (boolean) this is used to tell this to either send through the sort parameters and/or clear the old @listings collection
+//   	@sort_type: (int) this is the sort type. It's not used here, but it needs to be sent through to the pagination link so the index action 
+//   		in the sell_controller know's to continue grabbing results with the correct sort method
+//   	@page: (int) not sent on, but is required to ensure we only clear the table on the first page of a sort change
 
-// Append new data to the infinite-table cards list (the .ui.cards selector)
-$("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>").appendTo($('.infinite-table .ui.cards'));
-// Show the loading animation as we're loading the next page
+<% if @is_sort and @sort_type and @page == 1 %>
+	<% # We are sorting so lets clear the table (but only do this if we're on the first page of new results) %>
+	<% # Empty the property card table %>
+	$('#manage-property-card-table').empty();
+	<% # Append the newly sorted listings to the property card table %>
+	$('#manage-property-card-table').append("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>");
+<% else %>
+	<% # We are not sorting, or we are on the next page so we don't clear the table %>
+	<% # Append new data to the infinit-table cards list as we're not sorting %>
+	$('#manage-property-card-table').append("<%=j render(partial: 'sell/manage_property_card', object: @listings) %>");
+<% end %>
+
+<% # Show the loading animation as we're loading the next page %>
 $('.infinite-table #loading-animation').css('display', 'block');
-// Refresh the sticky manage header so it gets the updated context size and doesn't dissappear halfway down the page
+<% # Refresh the sticky manage header so it gets the updated context size and doesn't dissaper halfway down the page %>
 $('.manage-table-header.ui.sticky').sticky('refresh');
-// Add the tooltop popup on the newly added cards
+<% # Add the tooltop popup on the newly added cards %>
 $('.manage-listing-card #listing-approval-label').popup({ hoverable: true });
 
-// Update pagination link
+<% # Update the pagination link in a way that works for both infinite scrolling and pagination %>
 <% if @listings.last_page? %>
-    $('.pagination').html('No more listings to manage.');
-    // Hide the loading animation because we're done with it now
-    $('#loading-animation').css('display', 'none');
+	<% # We've reached the end of our @listings collection so lets disable the pagination link and replace it's text %>
+	$('.pagination').html('No more listings to manage.');
+	<% # Hide the loading animation because we're done with it now %>
+	$('#loading-animation').css('display', 'none');
 <% else %>
-    $('.pagination').html("<%=j link_to_next_page(@listings, 'Show More Listings', remote: true) %>");
+	<% # We need to modify the pagination link so that it passess the sort stype through, if we're sorting %>
+	<% if @is_sort and @sort_type %>
+		<% # We're sorting so we need to append the sort_type parameter and is_sort parameter along with the page parameter %>
+		<% # Resulting URL will be /sell?page=#{@page}&sort_type=#{sort_type}&is_sort=#{is_sort} or /sell?page=2&sort_type=1&is_sort=true %>
+		<% # Note, the user never see's this url. It gets caught by the sell#index controller which gets the next batch of results, with a sorting applied %>
+		$('.pagination').html("<%=j link_to('Show More Listings', '/sell?page=' + (@listings.current_page + 1).to_s + '&sort_type=' + (@sort_type.to_s) + '&is_sort=' + (@is_sort.to_s) , remote: true, rel: 'next') %>");
+	<% else %>
+		<% # We're not sorting so we don't need to append the sort_type parameter and is_sort parameter %>
+		<% # Resulting URL will be /sell?page=#{@page} or /sell?page=3 %>
+		<% # Note, the user never see's this url. It gets caught by the sell#index controller which gets the next batch of results, with no sorting applied %>
+		$('.pagination').html("<%=j link_to('Show More Listings', '/sell?page=' + (@listings.current_page + 1).to_s, remote: true, rel: 'next') %>");
+	<% end %>		
 <% end %>

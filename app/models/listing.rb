@@ -28,7 +28,7 @@
 #   	listing_comments: int
 #   	listing_created_at: timestamp CURRENT_TIMESTAMP
 #   	listing_updated_at: timestamp ON UPDATE CURRENT TIMESTAMP
-#   	listing_toEnd_at: timestamp DEFAULT '0000-00-00 00:00:00'
+#   	listing_to_end_at: timestamp DEFAULT '0000-00-00 00:00:00'
 #   	listing_ended_at: timestamp NULLABLE
 #   	listing_approved: boolean DEFAULT = NULL, NULLABLE
 #   
