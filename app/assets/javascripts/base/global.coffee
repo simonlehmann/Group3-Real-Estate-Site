@@ -96,8 +96,19 @@ ready = ->
 		exclusive: true
 		variation: 'very wide'
 		content: 'Your password must be at least 8 characters long and include: 1 capital letter, 1 lowercase letter and either 1 symbol or 1 number.'
-	
-	return
+		return
+	#The following jQuery is for the top of page button
+	$('a.back-to-top').click ->
+		console.log("Clicked!")
+		console.log(5 + 6)
+		$('html, body').animate { scrollTop: 0 }, 700
+			false
+	#The following jQuery is for the top of page button
+	$(window).scroll ->
+		if $(window).scrollTop() > 200
+			$('a.back-to-top').fadeIn 'slow'
+		else
+			$('a.back-to-top').fadeOut 'slow'
 
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
