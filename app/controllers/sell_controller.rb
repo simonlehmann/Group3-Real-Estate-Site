@@ -50,10 +50,11 @@ class SellController < ApplicationController
 			if params[:sort_type] and params[:is_sort] == "true"
 				# Reconnect with the params so they get sent through again.
 				@sort_type = params[:sort_type].to_i # The sort type (1, 2, 3, 4 or 5) see update_sort for a description of the choices
-				@is_sort = true
-				@page = params[:page]
+				@sort_method = params[:sort_method].to_s # The sort method (asc or desc (desc = default))
+				@is_sort = true # Change from a string (sent in params) to the boolean required
+				@page = params[:page] # The current active page for the data (so if we've loaded 3/5 pages we still have 10 listings in the server we need to load)
 				# Get a new set of the listings based on the selected sort method
-				@listings = get_sorted_listings(user, @sort_type, "desc", params[:page])
+				@listings = get_sorted_listings(user, @sort_type, @sort_method, params[:page])
 			else
 				# Get the listings through the user_listings association on the currently logged in user object
 				@listings = user.user_listings.order(:listing_created_at).page(params[:page])
@@ -321,10 +322,10 @@ class SellController < ApplicationController
 		# Get the sort type from the POST parameters
 		# This method only gets called when a user changes the sort type.
 		# All other reloads of the sorted data are handled by the sell#index action and manage.js.erb
-		# 
 		
 		# Get the params from the Ajax call and set the @is_sort to true and the @page to 1 so manage.js knows to clear the table
 		@sort_type = params[:listing_filter].to_i
+		@sort_method = params[:listing_filter_method].to_s
 		@is_sort = true
 		@page = 1
 
@@ -332,7 +333,7 @@ class SellController < ApplicationController
 		user = current_user
 		if user
 			# If we have a user, then lets try and sort their listings based upon the selected sort type
-			@listings = get_sorted_listings(user, @sort_type, "desc", params[:page])
+			@listings = get_sorted_listings(user, @sort_type, @sort_method, @page)
 			# Send the @listings to manage.js.erb to update the view (this has access to @listings, @is_sort, @page and @sort_type)
 			respond_to do |format|
 				format.js {render :manage}
@@ -370,19 +371,19 @@ class SellController < ApplicationController
 			case sort_type
 			when 1
 				# Sort the comments using the provided method and only grab results for the provided page
-				@listings = user.user_listings.order(listing_comments: sort_method.to_s).page(page)
+				@listings = user.user_listings.order(listing_comments: sort_method).page(page)
 			when 2
 				# Sort the updated at date using the provided method and only grab results for the provided page
-				@listings = user.user_listings.order(listing_updated_at: sort_method.to_s).page(page)
+				@listings = user.user_listings.order(listing_updated_at: sort_method).page(page)
 			when 3
 				# Sort the expiry date using the provided method and only grab results for the provided page
-				@listings = user.user_listings.order(listing_to_end_at: sort_method.to_s).page(page)
+				@listings = user.user_listings.order(listing_to_end_at: sort_method).page(page)
 			when 4
 				# Sort the favourites using the provided method and only grab results for the provided page
-				@listings = user.user_listings.order(listing_favourites: sort_method.to_s).page(page)
+				@listings = user.user_listings.order(listing_favourites: sort_method).page(page)
 			when 5
 				# Sort the views using the provided method and only grab results for the provided page
-				@listings = user.user_listings.order(listing_views: sort_method.to_s).page(page)
+				@listings = user.user_listings.order(listing_views: sort_method).page(page)
 			end
 			# Return the sorted collection
 			return @listings

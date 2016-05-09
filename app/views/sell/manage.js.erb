@@ -1,19 +1,23 @@
-//   Created: Daniel Swain
-//   Date: 13/04/2016
-// 
-//   This is to append new data to the table in /sell/manage.html.erb (it's class is infinite-table')
-// 
-//   Partials:
-//   	manage_property_card: The property card that is loaded using an ajax call.
-//   	
-//   Collections:
-//   	@listings: The listing information
-//   	
-//   Variables:
-//   	@is_sort: (boolean) this is used to tell this to either send through the sort parameters and/or clear the old @listings collection
-//   	@sort_type: (int) this is the sort type. It's not used here, but it needs to be sent through to the pagination link so the index action 
-//   		in the sell_controller know's to continue grabbing results with the correct sort method
-//   	@page: (int) not sent on, but is required to ensure we only clear the table on the first page of a sort change
+<%
+#   Created: Daniel Swain
+#   Date: 13/04/2016
+#   
+#   This is to append new data to the table in /sell/manage.html.erb (it's class is infinite-table')
+#   
+#   Partials:
+#    	manage_property_card: The property card that is loaded using an ajax call.
+#    	
+#   Collections:
+#    	@listings: The listing information
+#    	
+#   Variables:
+#    	@is_sort: (boolean) this is used to tell this to either send through the sort parameters and/or clear the old @listings collection
+#    	@sort_type: (int) this is the sort type. It's not used here, but it needs to be sent through to the pagination link so the index action 
+#    		in the sell_controller know's to continue grabbing results with the correct sort method
+#    	@sort_method: (string) either 'asc' or 'desc'
+#    	@page: (int) not sent on, but is required to ensure we only clear the table on the first page of a sort change
+#
+%>
 
 <% if @is_sort and @sort_type and @page == 1 %>
 	<% # We are sorting so lets clear the table (but only do this if we're on the first page of new results) %>
@@ -44,9 +48,9 @@ $('.manage-listing-card #listing-approval-label').popup({ hoverable: true });
 	<% # We need to modify the pagination link so that it passess the sort stype through, if we're sorting %>
 	<% if @is_sort and @sort_type %>
 		<% # We're sorting so we need to append the sort_type parameter and is_sort parameter along with the page parameter %>
-		<% # Resulting URL will be /sell?page=#{@page}&sort_type=#{sort_type}&is_sort=#{is_sort} or /sell?page=2&sort_type=1&is_sort=true %>
+		<% # Resulting URL will be /sell?page=#{@page}&sort_type=#{sort_type}&is_sort=#{is_sort}&sort_method=#{sort_method} or /sell?page=2&sort_type=1&is_sort=true&sort_method=desc %>
 		<% # Note, the user never see's this url. It gets caught by the sell#index controller which gets the next batch of results, with a sorting applied %>
-		$('.pagination').html("<%=j link_to('Show More Listings', '/sell?page=' + (@listings.current_page + 1).to_s + '&sort_type=' + (@sort_type.to_s) + '&is_sort=' + (@is_sort.to_s) , remote: true, rel: 'next') %>");
+		$('.pagination').html("<%=j link_to('Show More Listings', '/sell?page=' + (@listings.current_page + 1).to_s + '&sort_type=' + (@sort_type.to_s) + '&is_sort=' + (@is_sort.to_s) + '&sort_method=' + (@sort_method.to_s) , remote: true, rel: 'next') %>");
 	<% else %>
 		<% # We're not sorting so we don't need to append the sort_type parameter and is_sort parameter %>
 		<% # Resulting URL will be /sell?page=#{@page} or /sell?page=3 %>
