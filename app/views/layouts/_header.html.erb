@@ -44,8 +44,10 @@
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
-					<% #number of alerts %>
-					<a class="ui circular label alert-badge"><i class="alarm icon"></i>2 </a>
+					<% # number of alerts %>
+					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do %>
+						<i class="alarm icon"></i>2 
+					<% end %>
 				<% #user is logged out login/signup selection %>
 				<% else %>
 					<button class="ui button user-login">Login</button>
