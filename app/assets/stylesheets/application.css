@@ -4,6 +4,9 @@
 	//insert your partial in main.sass for your appropriate page
 	*= require main
 	
+	// Required for papercrop
+	*= require jquery.jcrop
+
 	// Bower component themes
 	// Date picker
 	*= require pickadate/lib/themes/classic

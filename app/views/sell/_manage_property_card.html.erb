@@ -38,9 +38,9 @@
 
 			<% # Header containing address and edit listing button %>
 			<div class="header">
-				<div class="ui two column grid">
+				<div class="ui two column stackable grid">
 					<% # The address, with an icon for the property type %>
-					<div class="ui left floated left aligned twelve wide column">
+					<div class="ui left floated left aligned twelve wide computer twelve wide mobile twelve wide tablet column">
 						<h2>
 							<span class="house-type">
 								<% if listing.listing_type == "House" %>
@@ -56,7 +56,7 @@
 					</div>
 
 					<% # The Edit listing Button %>
-					<div class="ui right floated right aligned four wide column">
+					<div class="ui right floated right aligned four wide computer four wide mobile four wide tablet column">
 						<%= link_to edit_sell_path(listing.listing_id), class: "ui small right labeled icon button sell-red-button" do  %>
 							<%= content_tag(:i, "", class: "write icon") %>
 							Edit Listing
@@ -67,9 +67,9 @@
 
 			<% # The property listing body %>
 			<div class="description">
-				<div class="ui three column centered grid">
+				<div class="ui three column centered stackable grid">
 					<% # Property main listing image %>
-					<div class="four wide column">
+					<div class="four wide computer sixteen wide mobile column">
 						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
 							<% # Get the main image path using our sell_helper.rb method listing_get_main_image(listing) %>
 							<%= image_tag listing_get_main_image(listing).image.url(:medium), class: "ui centered medium image" %>
@@ -104,9 +104,9 @@
 					</div>
 					
 					<% # Description and information block %>
-					<div class="nine wide column">
+					<div class="nine wide computer sixteen wide mobile column flex-row-with-bottom">
 						<% # The Description %>
-						<div class="row">
+						<div class="top-row row">
 							<b>Description: </b><%= listing.listing_description %>
 						</div>
 						
@@ -115,7 +115,7 @@
 							<% # The row of feature tags (only showing the first 10) %>
 							<% if listing.listing_tags.size > 0  %>
 								<% # We have tags, so lets get the readable collection and display them %>
-								<div class="row top-row">
+								<div class="tag-row row">
 									<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
 									<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
 									<% # A label for each tag in the list %>
@@ -155,29 +155,62 @@
 						</div>
 					</div>
 					
-					<% # Features and Delete Button block %>
-					<div class="three wide right aligned column">
+					<% # Features and Delete Button block (will only show for computers) %>
+					<div class="three wide right aligned computer only column flex-row-with-bottom">
 						<% # Property Listing features %>
-						<% # Get the listing pricy type for display %>
-						<p class="sell-listing-feature">
-							<% if listing.listing_price_type == "F" %>
-								<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %></b>
-							<% else %>
-								<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %></b>
-							<% end %>
-						</p>
-						<% # The remaining listing features %>
-	 					<p class="sell-listing-feature"><b><%= listing.listing_land_size %> sqm</b></p>
-	 					<p class="sell-listing-feature"><b><%= listing.listing_bedrooms %></b> <i class="bed icon"></i></p>
-	 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i></p>
-	 					<p class="sell-listing-feature"><b><%= listing.listing_parking %></b> <i class="car icon"></i></p>
+						<div class="top-row">
+							<% # Get the listing price type for display %>
+							<p class="sell-listing-feature">
+								<% if listing.listing_price_type == "F" %>
+									<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %></b>
+								<% else %>
+									<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %></b>
+								<% end %>
+							</p>
+							<% # The remaining listing features %>
+		 					<p class="sell-listing-feature"><b><%= listing.listing_land_size %> sqm</b></p>
+		 					<p class="sell-listing-feature"><b><%= listing.listing_bedrooms %></b> <i class="bed icon"></i></p>
+		 					<p class="sell-listing-feature"><b><%= listing.listing_bathrooms %></b> <i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i></p>
+		 					<p class="sell-listing-feature"><b><%= listing.listing_parking %></b> <i class="car icon"></i></p>
+						</div>
 
 						<% # Delete Property Listing button %>
-						<div class="manage-property-bottom-right">
+						<div class="manage-property-delete">
 							<%= link_to sell_path(listing.listing_id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button", data: { confirm: "Are you sure you want to delete the listing for: #{listing.listing_address}? This cannot be undone."} do  %>
 								<%= content_tag(:i, "", class: "trash icon") %>
 								Delete
 							<% end %>
+						</div>
+					</div>
+
+					<% # Features and Delete button block styled for mobiles and tablets as a horizontal list %>
+					<div class="sixteen wide mobile tablet only column flex-column-with-right">
+						<div class="left-items">
+							<div class="ui horizontal list">
+							<% # Group the left items so they grow to fill the space left %>
+							
+								<div class="sell-listing-feature item">
+									<% # Get the listing price type for display %>
+									<% if listing.listing_price_type == "F" %>
+										<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %></b>
+									<% else %>
+										<b><%= number_to_currency(listing.listing_price_min, { precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %></b>
+									<% end %>
+								</div>
+								<% # The remaining listing features %>
+								<div class="sell-listing-feature item"><b><%= listing.listing_land_size %> sqm</b></div>
+								<div class="sell-listing-feature item"><b><%= listing.listing_bedrooms %></b> <i class="bed icon"></i></div>
+								<div class="sell-listing-feature item"><b><%= listing.listing_bathrooms %></b> <i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i></div>
+								<div class="sell-listing-feature item"><b><%= listing.listing_parking %></b> <i class="car icon"></i></div>
+							</div>
+						</div>
+							
+						<% # Delete Property Listing button %>
+						<div class="item manage-property-delete">
+							<%= link_to sell_path(listing.listing_id), method: :delete, class: "ui small right labeled icon bottom attached button sell-red-button", data: { confirm: "Are you sure you want to delete the listing for: #{listing.listing_address}? This cannot be undone."} do  %>
+							<%= content_tag(:i, "", class: "trash icon") %>
+							Delete
+						<% end %>
 						</div>
 					</div>
 				</div>

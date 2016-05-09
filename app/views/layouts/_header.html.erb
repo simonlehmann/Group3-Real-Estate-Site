@@ -24,14 +24,17 @@
 				<% #user logged in profile selection %>
 				<% if user_signed_in? %>
 					<div class="ui simple dropdown item">
-						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+						<% # Profile image as link to dashboard as well %>
+						<%= link_to dashboard_activity_path do %>
+							<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+						<% end %>
 						<% #user profile name %>
 						<% if @username %>
-						    <%= link_to "#{@username}", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to "#{@username}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% elsif @first_name and @last_name %>
-						    <%= link_to "#{@first_name} #{@last_name}", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to "#{@first_name} #{@last_name}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% else %>
-						    <%= link_to "#{@email}", buy_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to "#{@email}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% end %>
 						<div class="menu">
 							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>
