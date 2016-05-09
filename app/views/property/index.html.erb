@@ -1,0 +1,48 @@
+<%
+#   Created: Jayden Spencer
+#   Date: 27/04/2016
+#   
+#   The property page for the site.
+#   
+#   Partials:
+#   	
+#   TODO:
+#
+ %>
+<section class="property-container nobanner-container ui center aligned container">
+	<div class="ui sixteen wide center aligned grid">
+		<div id="toppic-links">
+			<%= link_to "< back to search results", "search_path", id:"back-search-link" %>
+			<span id="next-prev-links">
+				<%= link_to "< previous", buy_path %>
+				<%= link_to "next >", buy_path %>
+			</span>
+		</div>
+		<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
+			</div>
+			<div>
+				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			</div>
+		</div>
+		<h1>88 Millne Rd Bays Water WA 6053</h1>
+		<h2>Under offer for $1,234,567</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae cum tenetur facilis, asperiores unde, autem minima sint voluptatibus eos eaque repellat architecto nostrum maiores culpa aut. Id cum, adipisci maiores!</p>
+	</div>
+</section>

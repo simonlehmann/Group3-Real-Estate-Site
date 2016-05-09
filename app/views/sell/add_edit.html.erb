@@ -13,6 +13,8 @@
 #   Collections:
 #   	* @listing: the property listing to be edited (only if editing)
 #   	* @photos: the photos for the property listing
+#   	* @tags: the tags associated with the listing
+#   	* @action: a descriptor for the action (i.e. "Save Changes", "Create Listing")
 #   
 #   Todo:
 #   	* Bring in Jayden's search results property partial to preview
@@ -27,33 +29,86 @@
 			<a class="item active" data-tab="add-edit-1">Listing Information</a>
 			<a class="item" data-tab="add-edit-2">Photographs</a>
 			<a class="item" data-tab="add-edit-3">Extras</a>
+			<a class="item" data-tab="add-edit-4">Preview</a>
 		</div>
 	</div>
-	<div class="ui tab segment active" data-tab="add-edit-1">
-		<div class="ui one column grid">
-			<% # Render the tab body for the add/edit listing tab %>
-			<%= render 'sell/add_edit_listing' %>
+	<div class="ui segment">
+		<div class="ui row margin-top-half">
+			<% # Wrap all tabs in a single form so I have access to all input fields across tabs %>
+			<% if @action == "Create Listing" %>
+				<% # If the action is Create Listing, then set up the form with the method POST and the correct url (pointing to the sell_index_path) %>
+				<%= form_for @listing, url: sell_index_path, html: { id: "add-edit-listing-form", class: "ui form", method: "POST", multipart: true } do |f| %>
+					<div class="ui tab active" data-tab="add-edit-1">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit listing tab %>
+							<% # Note, need to pass the form object reference 'f' through as a local object %>
+							<%= render "sell/add_edit_listing", {f: f} %>
+						</div>
+					</div>
+					<div class="ui tab" data-tab="add-edit-2">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit photos tab %>
+							<%= render "sell/add_edit_photos", {f: f} %>					
+						</div>
+					</div>
 
-			<% # The button container for the add/edit listing tab (Don't show the save button) %>
-			<%= render 'sell/add_edit_buttons', { show_save_button: false } %>
+					<% # The extras tab %>
+					<div class="ui tab" data-tab="add-edit-3">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit extras tab %>
+							<%= render "sell/add_edit_extras", {f: f} %>
+						</div>
+					</div>
+
+					<% # The preview tab %>
+					<div class="ui tab" data-tab="add-edit-4">
+						<div class="ui one column centered grid">
+							<% # This will be where the search partial will be rendered to show the previews %>
+							<%= render "sell/add_edit_preview" %>
+						</div>
+					</div>
+				<% end %>
+			<% elsif @action == "Save Changes" %>
+				<% # If the action is Save Changes, then set up the form with the method PATCH and the correct url (pointing to the sell_path) %>
+				<%= form_for @listing, url: sell_path, html: { id: "add-edit-listing-form", class: "ui form", method: "PATCH", multipart: true } do |f| %>
+					<div class="ui tab active" data-tab="add-edit-1">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit listing tab %>
+							<% # Note, need to pass the form object reference 'f' through as a local object %>
+							<%= render "sell/add_edit_listing", {f: f} %>
+						</div>
+					</div>
+
+					<% # Photos tab %>
+					<div class="ui tab" data-tab="add-edit-2">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit photos tab %>
+							<%= render "sell/add_edit_photos", {f: f} %>					
+						</div>
+					</div>
+
+					<% # The extras tab %>
+					<div class="ui tab" data-tab="add-edit-3">
+						<div class="ui one column grid">
+							<% # Render the tab body for the add/edit extras tab %>
+							<%= render "sell/add_edit_extras", {f: f} %>
+						</div>
+					</div>
+
+					<% # The preview tab %>
+					<div class="ui tab" data-tab="add-edit-4">
+						<div class="ui one column centered grid">
+							<% # This will be where the search partial will be rendered to show the previews %>
+							<%= render "sell/add_edit_preview" %>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
-	</div>
-	<div class="ui tab segment" data-tab="add-edit-2">
-		<div class="ui one column grid">
-			<% # Render the tab body for the add/edit photos tab %>
-			<%= render 'sell/add_edit_photos' %>
 
-			<% # The button container for the photos tab (Show the save button) %>
-			<%= render 'sell/add_edit_buttons', { show_save_button: true } %>
-		</div>
-	</div>
-	<div class="ui tab segment" data-tab="add-edit-3">
-		<div class="ui one column grid">
-			<% # Render the tab body for the add/edit extras tab %>
-			<%= render 'sell/add_edit_extras' %>
-
-			<% # The button container for the add/edit extras tab (Show the save button) %>
-			<%= render 'sell/add_edit_buttons', { show_save_button: true } %>
+		<% # The form buttons %>
+		<div class="ui grid">
+			<%= render 'sell/add_edit_buttons' %>
 		</div>
 	</div>
 </div>

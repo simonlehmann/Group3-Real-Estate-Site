@@ -1,0 +1,70 @@
+<section class="search-section"></section>
+<section class="contact-container">
+	<h1 id="welcome" class="bold-text">Get In Touch</h1>
+	<div class="ui grid nice">
+		<section id="contact-section-1" class="eight wide column">
+			<form class="ui inverted form">
+				<h1 class="bold-text">Send a Message</h1>
+				<div class="fields">
+					<div class="six wide field required field">
+						<label>First Name</label>
+						<input placeholder="First Name" name="first-name" type="text">
+					</div>
+					<div class="six wide field">
+						<label>Last Name</label>
+						<input placeholder="Sir Name" name="last-name" type="text">
+					</div>
+				</div>
+				<div class="twelve wide field required field">
+					<label>Email</label>
+					<input placeholder="email@address.com" id="email" name="email" type="text">
+					<h2 id="result"></h2>
+				</div>
+				<div class="twelve wide field required field">
+				<label>Subject</label>
+					<select class="ui dropdown" id="contact-type-selector">
+						<option value="0">General Enquiry</option>
+						<option value="1">Report Bug</option>
+						<option value="2">Other</option>
+						<option value="3">Sales</option>
+						<option value="4">Security</option>
+						<option value="5">Disputes</option>
+					</select>
+				</div>
+				<div class="fields">
+					<div class="fourteen wide field required field">
+						<label>Text</label>
+						<textarea placeholder="Write in here to send us your thoughts" name="message" type="text"></textarea>
+					</div>
+					<div>
+						<button class="ui big circular icon button" id="contact-submit-button">
+							<i class="send outline icon"></i>
+						</button>
+					</div>
+				</div>
+				<div class="ui error message"></div>
+			</form>
+		</section>
+		<section id="contact-section-2" class="eight wide column">
+			<div id="top-bottom">
+				<h1 class="bold-text">Contact Information</h1>
+				<h3 class="bold-text">Email:</h3>
+				<p class="email"></p>
+				<h3 class="bold-text">Phone:</h3>
+				<p class="phone"></p>
+			</div>
+
+			<div class="ui three wide center aligned column bottom-bottom">
+				<button class="ui massive circular facebook icon button">
+					<i class="facebook icon"></i>
+				</button>
+				<button class="ui massive circular twitter icon button">
+					<i class="twitter icon"></i>
+				</button>
+				<button class="ui massive circular google plus icon button">
+					<i class="google plus icon"></i>
+				</button>
+			</div>
+		</section>
+	</div>
+</section>

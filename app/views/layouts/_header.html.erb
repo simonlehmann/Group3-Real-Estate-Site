@@ -1,4 +1,4 @@
-<header class="following bar nav-buy">
+<header class="following bar">
 	<div class="ui center aligned container">
 		<div class="ui centered three column grid">
 			<% #company logo %>
@@ -12,11 +12,10 @@
 					<%= link_to "Sell", sell_index_path, class: "sell-item item" %>
 					<% #if logged in show my activity button/path %>
 					<% if user_signed_in? %>
-						<%= link_to "My Activity", dashboard_path, class: "activity-item item" %>
+						<%= link_to "My Activity", dashboard_activity_path, class: "activity-item item" %>
 					<% #if logged out show contact us button/path %>
 					<% else %>
-						<% # TODO: change to contact_path when erdal merges his branch to master (or whatever his controller is called) %>
-						<%= link_to "Contact Us", dashboard_path, class: "activity-item item" %>
+						<%= link_to "Contact Us", contact_path, class: "activity-item item" %>
 					<% end %>
 				</div>
 			</div>
@@ -25,14 +24,23 @@
 				<% #user logged in profile selection %>
 				<% if user_signed_in? %>
 					<div class="ui simple dropdown item">
-						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
+						<% # Profile image as link to dashboard as well %>
+						<%= link_to dashboard_activity_path do %>
+							<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+						<% end %>
 						<% #user profile name %>
-						<%= link_to "Ron Swanson", buy_path %> <i class="dropdown icon"></i>
+						<% if @username %>
+						    <%= link_to "#{@username}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						<% elsif @first_name and @last_name %>
+						    <%= link_to "#{@first_name} #{@last_name}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						<% else %>
+						    <%= link_to "#{@email}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						<% end %>
 						<div class="menu">
-							<div class="item">My Activity</div>
-							<div class="item">My Messages</div>
-							<div class="item">Favourites</div>
-							<div class="item">Account Settings</div>
+							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>
+							<%= link_to "My Messages", dashboard_messages_path, class: "item" %>
+							<%= link_to "My Favourites", dashboard_favourites_path, class: "item" %>
+							<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
@@ -41,7 +49,7 @@
 				<% #user is logged out login/signup selection %>
 				<% else %>
 					<button class="ui button user-login">Login</button>
-					<button class="ui inverted green button user-signup">Join</button>
+					<button class="ui inverted white button user-signup">Join</button>
 				<% end %>
 			</div>
 		</div>

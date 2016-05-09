@@ -1,24 +1,48 @@
+<%
+#   Created: Jayden Spencer
+#   Date: 04/04/2016
+#   
+#   Search Partial from /buy
+#
+#	TODO:
+#		* Actual data completion
+#		* Dropdown features menu
+#		* Group feature tag underneath search bar
+#
+ %>
 <% #Main search input field on index root %>
 <div class="ui centered grid">
-	<div class="ui ten wide centered center aligned column">
-		<div class="ui big fluid right action labeled input">
-			<div class="ui label">
-				<i class="search icon"></i>
-			</div>
-			<div class="ui fluid multiple search selection dropdown">
-				<input name="tags" type="hidden">
-				<i class="dropdown icon"></i>
-				<div class="default left aligned text">Search by state, suburb, address or keyword;</div>
-				<div class="menu">
-					<% #TEMP DATA %>
-					<div class="item" data-value="angular">Angular</div>
-					<div class="item" data-value="javascript">Javascript</div>
-					<div class="item" data-value="css">CSS</div>
-					<div class="item" data-value="sass">Sass</div>
-					<div class="item" data-value="android">Android</div>
+	<div class="ui twelve wide two column row search-row">
+		<% # The state selector dropdown %>
+		<div class="ui two wide column">
+			<% states_short_long = get_states_short_long() %>
+			<% if states_short_long %>
+				<% # Fill a select tag with the state choices and WA selected as default %>
+				<%= select_tag "search-state-field", options_for_select(states_short_long, [cookies[:state_short],cookies[:state_long]]), class: "ui big fluid search selection dropdown", prompt: "State", multiple: false %>
+			<% else %>
+				<% # A backup select_tag if we can't connect to the database, the selection array is formatted [text, data-value] (we use long form state as the data value). WA selected as default %>
+				<%= select_tag "search-state-field", options_for_select([["ACT","Australian Capital Territory"],["NSW","New South Wales"],["NT","Northern Territory"],["OT","Other Territories"],["QLD","Queensland"],["SA","South Australia"],["TAS","Tasmania"],["VIC","Victoria"],["WA","Western Australia"]],["WA","Western Australia"]), class: "ui big fluid search selection dropdown", prompt: "State", multiple: false %>
+			<% end %>
+		</div>
+		<% # The search by suburb, address or keyword dropdown and input field. Including the search button %>
+		<div class="ui fourteen wide column">
+			<div class="ui big fluid right action labeled input">
+				<div class="ui label">
+					<i class="search icon"></i>
 				</div>
+				<% # get the suburbs list in this format ["Suburb1, Postcode1", "Suburb2, Postcode2", ...] %>
+				<% suburbs_postcodes = get_suburbs_postcodes() %>
+				<% if suburbs_postcodes %>
+					<% # Fill a select tag with the suburbs_postcodes and no default selection %>
+					<%= select_tag "search-field", options_for_select(suburbs_postcodes), class: "ui fluid multiple search selection dropdown", prompt: "Search by suburb, address or keyword;", multiple: true %>
+				<% else %>
+					<% # Backup blank dropdown if getting the suburbs and postcodes doesn't work %>
+					<%= select_tag "search-field", nil, class: "ui fluid multiple search selection dropdown", prompt: "Search by suburb, address or keyword;", multiple: true %>
+				<% end %>
+				<%= link_to search_path, class: "ui toggle button" do %>
+					<span class="search-action">Search</span>
+				<% end %>
 			</div>
-			<div type="submit" class="ui toggle button"><span class="search-action">Search</span></div>
 		</div>
 	</div>
 </div>

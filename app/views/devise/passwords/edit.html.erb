@@ -44,7 +44,7 @@
 							<% if @minimum_password_length %>
 								<em>(<%= @minimum_password_length %> characters minimum)</em><br />
 							<% end %>
-							<%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Enter your new password" %>
+							<%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
 						</div>
 						
 						<% # Confirm Password Field %>

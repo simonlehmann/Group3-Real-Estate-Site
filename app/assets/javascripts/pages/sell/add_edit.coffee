@@ -2,6 +2,14 @@
 #   Date: 18/04/2016
 # 
 #   The following coffeescript is for the sales add/edit page
+#   
+#   It contains all the js functions used on the add/edit page. including
+#   	* Tab changing
+#   	* Dropdown settings
+#   	* Dropdown change evenets
+#   	* Form validation rules
+#   	* Form actions
+#   	* Image upload code (preview, setting image as main image, marking for deletion)
 # 
 #   Todo:
 
@@ -11,36 +19,42 @@ ready = ->
 	# Support tab's on the add_edit page
 	$('.add-edit.tabular.menu .item').tab()
 
-	# Turn on the dropdowns on the add edit page
-	$('.add-edit-suburb.dropdown').dropdown()
-	$('.add-edit-state.dropdown').dropdown()
+	# Turn on the dropdowns on the add edit page, making the state, suburb and postcode search dropdowns support full text search
+	$('.add-edit-type.dropdown').dropdown()
+	$('.add-edit-state.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-suburb.dropdown').dropdown fullTextSearch: true
+	$('.add-edit-postcode.dropdown').dropdown fullTextSearch: true
 	$('.add-edit-price.dropdown').dropdown()
 	$('.add-edit-additional-tags.dropdown').dropdown()
 	$('.add-edit-additional-tags-input.dropdown').dropdown()
 
-	# Dimmer on hover of the add/edit page add-new-picture card
-	$('.add-new-picture.card .image').dimmer on: 'hover'
-
+	# --------- FORM INPUT STATE CHANGE EVENTS
+	#
+	# ---- Price Type Change
 	# Change the sell price type input fields based upon the dropdown selection
 	# Define a function to change the form fields that are available based upon the price dropdown value and set them as required if they're active
 	price_dropdown_selection_change = (value) ->
 		if value == 'F'
 			# Fixed Price
-			$('#price-field-fixed').show()
-			$('#price-field-fixed').addClass 'required'
+			# Show the min field for fixed price, but change the label
+			$('#price-field-min').show()
+			$('#price-field-min label').text 'Price'
+			# Hide the max price field and set it's input field value to the minimum value
 			$('#price-field-max').hide()
-			$('#price-field-min').hide()
+			$('#price-field-max-input').val($('#price-field-min-input').val())
+			# Handle the classes
+			$('#price-field-min').addClass 'required'
 			$('#price-field-max').removeClass 'required'
-			$('#price-field-min').removeClass 'required'
 		else if value == 'R'
 			# Ranged Price
-			console.log value
-			$('#price-field-fixed').hide()
-			$('#price-field-fixed').removeClass 'required'
-			$('#price-field-max').show()
+			# Show the min and max fields
 			$('#price-field-min').show()
-			$('#price-field-max').addClass 'required'
+			$('#price-field-max').show()
+			# Change the min field label text
+			$('#price-field-min label').text 'Minimum'
+			# Handle the classes
 			$('#price-field-min').addClass 'required'
+			$('#price-field-max').addClass 'required'
 	# Set what is displayed based upon the initial value
 	price_dropdown_selection_change($('#add-edit-price-dropdown').val())
 	# Set what is displayed based upon the selected value
@@ -48,7 +62,7 @@ ready = ->
 		value = @value
 		price_dropdown_selection_change(value)
 
-	# Custom Tags
+	# ---- Custom Tags
 	# Add tags to the selection field based upon the entered info in the add-edit-additional-tags-dropdown
 	# Get the tag area, the tag type dropdown, the tag input value and the add button
 	additional_tag_area = $('#add-edit-additional-tags')
@@ -58,17 +72,25 @@ ready = ->
 	additional_button = $('#add-edit-additional-tags-button')
 	# Add a click function to the add tag button
 	additional_button.on 'click', ->
-		# Get the input value and the dropdown selection
-		value = additional_input.val()
-		selection = additional_dropdown.children("option").filter(":selected").val()
-		console.log value
-		console.log selection
-		if value != "" and selection != ""
+		# Get the input quantity and the dropdown selection text and value
+		qty = additional_input.val()
+		# The value field has the tag_type_category as well (needed for the database saving), 
+		# where as the text of the option choice is only the tag_type_label (which we want to display)
+		value = additional_dropdown.children("option").filter(":selected").val()
+		selection = additional_dropdown.children("option").filter(":selected").text()
+		if value != "" and selection != "" and qty != ""
 			# Add the tag to the tag area if the value isn't empty
-			new_tag_value = value + "_" + selection
-			new_tag_text = value + " " + selection
-			# Add an option to the selection box with the new tag value and text
-			additional_tag_area.html('<option value="' + new_tag_value + '">' + new_tag_text + '</option>')
+			new_tag_value = qty + "_" + value
+			# Store the display value as a singledton if only 1 qty was picked (i.e. 1 Pool = Pool)
+			# Else, call the @get_plural(string) function located in global.coffee
+			new_tag_text = if qty > 1 then get_plural(selection) else selection
+			# Create an option tag
+			opt = document.createElement('option')
+			opt.value = new_tag_value
+			opt.innerHTML = new_tag_text
+			console.log opt
+			# Add the option to the selection box with the new tag value and text (whilst keeping the old values (this used to override the selections))
+			additional_tag_area.append(opt)
 			# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
 			setTimeout (->
 				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
@@ -77,11 +99,330 @@ ready = ->
 			# Reset the additional tag dropdowns to their initial selected values and placeholder text
 			additional_input.dropdown 'clear'
 			additional_dropdown.dropdown 'clear'
-			additional_input.dropdown 'set text', "Enter Qty For Additional Feature"
-			additional_dropdown.dropdown 'set text', "Additional Feature"
+			additional_input.dropdown 'set text', 'Enter Qty For Additional Feature'
+			additional_dropdown.dropdown 'set text', 'Additional Feature'
 		else
 			# Otherwise send an alert
-			alert "Please select an additional feature and quantity and try again"
+			alert 'Please select an additional feature and quantity and try again'
+
+	# Refresh the addition tag dropdown selector field incase we're editing an exisitng listing which has tags
+	# (the server will set them selected, but Semantic, needs to add the tags)
+	additional_tag_area.find('option').each (i) ->
+		# If it's not the placeholder option and options existing on page load then they're from the server and need to be set selected
+		if $(this).val() != ''
+			additional_tag_area.dropdown 'set selected', $(this).val()
+		return
+	
+	# Change the suburb/postcode dropdown options based on the selected state
+	$('#listing_listing_state').change ->
+		# Get the state and the listing id (needed to dynamically update the suburb/postcode dropdowns)
+		state = $('#listing_listing_state :selected').text()
+		listing_id = $('#listing_listing_state').data('id')
+		# Clear the old data from the dropdowns
+		$('#listing_listing_suburb').dropdown 'clear'
+		$('#listing_listing_post_code').dropdown 'clear'
+		# Update the dropdowns via an Ajax call to the server
+		$.ajax
+			type: 'POST'
+			url: '/sell/' + listing_id + '/suburbs'
+			data:
+				_method: 'PUT'
+				listing_state: state
+			success: (response) ->
+				# Clear the default first item selection and update the default text
+				$('#listing_listing_suburb').dropdown 'clear'
+				$('#listing_listing_post_code').dropdown 'clear'
+				$('#listing_listing_suburb').siblings('.default.text').text('Select Suburb')
+				$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
+
+	# Change the postcode dropdown options based upon the selected state and suburb
+	$('#listing_listing_suburb').change ->
+		# Get the state and listing id
+		state = $('#listing_listing_state :selected').text()
+		suburb = $('#listing_listing_suburb :selected').text()
+		listing_id = $('#listing_listing_state').data('id')
+		# State and suburb are selected so lets update the postcode
+		if state != '' and state != 'Select State' and suburb != '' and suburb != 'Select Suburb'
+			$('#listing_listing_post_code').dropdown 'clear'
+			# Update the postcode based upon the selected options
+			$.ajax
+				type: 'POST'
+				url: '/sell/' + listing_id + '/postcodes'
+				data:
+					_method: 'PUT'
+					listing_state: state
+					listing_suburb: suburb
+				success: (response) ->
+					# Clear the default first item selection and update the default text
+					$('#listing_listing_post_code').dropdown 'clear'
+					$('#listing_listing_post_code').siblings('.default.text').text('Select Postcode')
+
+	# --------- FORM OBJECT ITSELF
+	# 
+	# Form validation rules
+	validation_rules = 
+		type: # Can't be empty
+			identifier: 'listing[listing_type]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a listing type'
+			}]
+		address: # Can't be empty
+			identifier: 'listing[listing_address]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a street address'
+			}]
+		state: # Can't be empty
+			identifier: 'listing[listing_state]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a state'
+			}]
+		suburb: # Can't be empty
+			identifier: 'listing[listing_suburb]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a suburb'
+			}]
+		postcode: # Can't be empty
+			identifier: 'listing[listing_post_code]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a postcode'
+			}]
+		bedrooms: # Can't be empty
+			identifier: 'listing[listing_bedrooms]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of bedrooms'
+			}]
+		bathrooms: # Can't be empty
+			identifier: 'listing[listing_bathrooms]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of bathrooms'
+			}]
+		parking: # Can't be empty
+			identifier: 'listing[listing_parking]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the number of parking spots'
+			}]
+		lot_size: # Can't be empty
+			identifier: 'listing[listing_land_size]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter the lot size'
+			}]
+		price_type: # Can't be empty
+			identifier: 'listing[listing_price_type]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please select a price type'
+			}]
+		price_min: # Can't be empty
+			identifier: 'listing[listing_price_min]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a price'
+			}]
+		price_max: # Can't be empty
+			identifier: 'listing[listing_price_max]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a maximum price'
+			}]
+		description: # Can't be empty
+			identifier: 'listing[listing_description]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a description'
+			}]
+		title: # Can't be empty
+			identifier: 'listing[listing_title]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a title'
+			}]
+		subtitle: # Can't be empty
+			identifier: 'listing[listing_subtitle]'
+			rules: [{
+				type: 'empty'
+				prompt: 'Please enter a subtitle'
+			}]
+	
+	# ---- Set up form using validation rules above, plus additional settings
+	# 
+	# Bind the rules to the form and set form options (the only way I found to get the errors was to set inline to true)
+	$('#add-edit-listing-form').form
+		inline: true
+		fields: validation_rules
+		# Turn keyboard shortcuts off for the semantic form
+		keyboardShortcuts: false
+		# Called if validate form call detects an error
+		onFailure: (formErrors, fields) ->
+			# Get the field with the error (so we can find the tab it's in)
+			input_with_error = $('.field.error')
+			# Get the tab it's in
+			tab = input_with_error.closest('.ui.tab')
+			# If the tab with the error field isn't active then remove the active class from the active tab and add it
+			# to the tab with the error so it will become visible
+			if !tab.hasClass('active')
+				# Using data-tab selector so we remove it from the menu item and the active tab as well
+				active_tab = $('.ui.tab.active')
+				# Now we have the active tab, lets remove the class from it and the menu item and then add it to the one we want
+				# to activate (and it's corresponding menu item)
+				$('[data-tab="' + active_tab.data('tab') + '"]').removeClass('active')
+				$('[data-tab="' + tab.data('tab') + '"]').addClass('active')
+				
+			# Return false so it doesn't submit until there's no errors
+			return false
+
+	# ---- Enter Keypress to submit form
+	# 
+	# Submit the form with a keyboard enter key press if the dropdown fields aren't selected
+	$(document).keypress (key) ->
+		# Enter key (submit handler)	
+		if key.which == 13
+			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
+			if !$('key.target').hasClass('dropdown')
+				# Only submit the form if it's valid
+				if $('#add-edit-listing-form').form 'is valid'
+					$('#add-edit-listing-form').form 'submit'
+				# Otherwise, validate it so the onFailure method is called.
+				else
+					$('#add-edit-listing-form').form 'validate form'
+
+	# ---- Button click to submit form
+	# 
+	# Submit the form using the action defined by the form itself. (As the button is outside of the form I need to call submit on it via javascript)
+	$('#add-edit-submit-button').on 'click', ->
+		# If we've changed the selector for the price type and we've updated the fixed price value then we need to store it in the max field as well
+		if $('#add-edit-price-dropdown').val() == 'F'
+			# We need to change it here when saving as you might have changed it after selecting fixed price (so min and max won't line up anymore)
+			$('#price-field-max-input').val($('#price-field-min-input').val())
+		# Submit the form only if it's valid
+		if $('#add-edit-listing-form').form 'is valid'
+			$('#add-edit-listing-form').form 'submit'
+		# Otherwise, validate it so the onFailure method is called.
+		else
+			$('#add-edit-listing-form').form 'validate form'
+		return
+
+	# ---------- Upload images code
+	# Custom File Upload button and on file selection change event handled in this below.
+	# 
+	# Because we're styling the label to perform the actions of the button we need this code to update the label with the chosen file(s)
+	# 
+	# Preview the added image and add a new add image button when the input field value changes (i.e. we've chosen some files)
+	# Also update the replacement file picker label (as we're hiding the #picture-input element) to display the file name(s)
+	$ ->
+		$('#picture-input').on 'change', (event) ->
+			# Remove any previous preview image cards from the cards list
+			$(".ui.cards [id^='blank-picture-card']").remove()
+			
+			# Get reference to the input field that's hidden and the label we're using to display the selection
+			$input = $(this)
+			$label = $input.next('label')
+			labelVal = $label.html()
+			
+			# Get the files from the input field
+			files = event.target.files
+			
+			# Update the label based upon the selected files
+			if files and files.length > 1
+				# More than one file so lets grab the caption we've hidden in the $input field and update it
+				fileName = (@getAttribute('data-multiple-caption') or '').replace('{count}', @files.length)
+			else if event.target.value
+				# Only one file. Grab it's file name
+				fileName = event.target.value.split('\\').pop()
+			# If we have the filename lets update the label
+			if fileName
+				$label.find('span').html fileName
+			else
+				$label.html labelVal
+
+			# Iterate over each file and create a preview for it
+			$.each files, (key, value) ->
+				# Counter so we can generate a unique image card id to target
+				count = key + 1
+				# Generate the unique image card, set its id = count and set it to display: block (as the blank one is hidden)
+				temp = $('#blank-picture-card').clone()
+				temp.attr('id', 'blank-picture-card-' + count)
+				temp.css('display', 'block')
+				# Append the card to the ui cards containing element
+				temp.appendTo('#listing-photos-list')
+				# Get the image
+				image = value
+				# Create a new file reader that will load the file into the div we specify
+				reader = new FileReader
+				reader.onload = (file) ->
+					# Create an image tag
+					img = new Image
+					img.src = file.target.result
+					# Put the image in the div we've specified
+					$('#blank-picture-card-' + count + ' .image-target').html img
+					# Size it to fit in the preview if it's a smaller height than the containing card (2 parent levels up)
+					item = $('#blank-picture-card-' + count + ' .image-target img')
+					img_height = item.height()
+					div_height = item.parent().parent().height()
+					# If the img_height is less than the container height then size it and crop to fit
+					if img_height < div_height
+						# Resize it to be as big as the container
+						item.css
+							'width': 'auto',
+							'height': div_height
+						# Get the new width and containers actually width
+						img_width = item.width()
+						div_width = item.parent().parent().width()
+						# Set a left margin so the image is centered in the container (overflow will be hidden)
+						new_margin = (div_width - img_width) / 2 + 'px'
+						item.css 'margin-left', new_margin
+					return
+				# Render the preview image using the created reader
+				reader.readAsDataURL image
+				return
+			return
+		return
+
+	# Hide the image the delete button was clicked on and mark it for deletion by the server when the form is updated
+	$('.add-edit.property-card.delete-button').click ->
+		# Get the id of the image we're deleting
+		image_to_delete = $(this).data('id')
+		# Get the parent element which we need to hide the card
+		card_to_hide = $(this).parent()
+		# Mark the associated checkbox as checked so we tell rails to delete the photo
+		$('#destroy-image-' + image_to_delete).prop 'checked', true
+		# Hide the card 
+		# We hide rather than remove so that the hidden checkbox remains otherwise we won't actually delete it
+		card_to_hide.css 'display', 'none'
+		# Return False as the button actually submits the form otherwise (which we don't want to happen)
+		return false
+
+	# Show an indicator that the file will be uploaded and disable the click action on it so it doesn't submit the form
+	# This is assigned this way so any preview image cards we add dynamically (see above function) have a button click assigned
+	# If we don't do this, then clicking the delete button for the dynamic cards submits the form
+	$(document).on 'click', '.add-edit.property-card.upload-button', ->
+		alert 'This photo will be uploaded when you submit the form'
+		return false
+
+	# Handle the selection of the main image so we can update the main image
+	$("input[id^='select-cover-image']").change ->
+		# Get the checkbox and the photo id we need to store as the main image
+		checkbox = $(this)
+		checkbox_id = $(this).attr('id')
+		photo_id = $(this).parent().data('id')
+		# Loop through the over checkboxes and turn them off if this one is checked
+		if checkbox.prop 'checked', true
+			checkbox.siblings('span').text('Main Image')
+			$("input[id^='select-cover-image']").each ->
+				if $(this).attr('id') != checkbox_id
+					if $(this).prop 'checked', true
+						$(this).prop 'checked', false
+						$(this).siblings('span').text('Make Main Image')
+		return
+
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 

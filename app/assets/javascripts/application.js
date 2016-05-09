@@ -11,8 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
+//
+// Required for Papercrop
+//= require jquery.jcrop
+//= require papercrop
 //
 // Base files (global javascript)
 //= require base/global
@@ -25,6 +29,8 @@
 //
 // Buy Page specific files
 //= require pages/buy/buy
+// Geocoding for header
+//= require pages/buy/geolocate
 //
 // Sell Page specific files
 //= require pages/sell/sell_main
@@ -32,8 +38,17 @@
 //= require pages/sell/status_modals
 //= require pages/sell/infinite_scroll
 //
+// Search Page specific files
+//= require pages/search/search
+//
+// Property Page specific files
+//= require pages/property/property
+//
 // Dashboard Page specific files 
 //= require pages/dashboard/dashboard
+//
+// Contact Page specific files
+//= require pages/contact/contact
 //
 // Static Pages file
 //= require pages/static/static_pages
@@ -46,8 +61,15 @@
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require pickadate/lib/picker.time
+//
 // Load Bower Package = Slick-Carousel
 //= require slick-carousel/slick/slick
 //
+// Load Bower Package = Slick-Lightbox
+//= require slick-lightbox/dist/slick-lightbox.min
+//
 // Infinite Scolling/Pagination using Jquery
 //= require jquery.infinite-pages
+//
+// Moved turbolinks to bottom as suggested by jquery-turbolinks gem
+//= require turbolinks

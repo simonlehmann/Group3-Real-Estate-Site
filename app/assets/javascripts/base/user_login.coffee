@@ -90,14 +90,9 @@ ready = ->
 		# Set callback actions and show it
 		user_modal.modal(
 			onHide: ->
-				console.log 'Model being closed'
 				# Clear the input fields when it's closed
-				user_modal.find('#user-email-input').val("")
-				user_modal.find('#user-password-input').val("")
-				user_modal.find('#user-confirm-password-input').val("")
-			onApprove: ->
-				console.log 'Submit was hit'
-
+				user_modal.find('#user-sign-up-form .field input').val("")
+				user_modal.find('#user-login-form .field input').val("")
 		).modal 'show'
 
 		

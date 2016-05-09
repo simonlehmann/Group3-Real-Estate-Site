@@ -4,6 +4,9 @@
 	//insert your partial in main.sass for your appropriate page
 	*= require main
 	
+	// Required for papercrop
+	*= require jquery.jcrop
+
 	// Bower component themes
 	// Date picker
 	*= require pickadate/lib/themes/classic
@@ -12,4 +15,6 @@
 	// Slick carousel
 	*= require slick-carousel/slick/slick-theme
 	*= require slick-carousel/slick/slick
+	// Slick carousel Lightbox
+	*= require slick-lightbox/dist/slick-lightbox
  */
