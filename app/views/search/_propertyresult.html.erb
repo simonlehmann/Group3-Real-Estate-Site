@@ -12,7 +12,7 @@
 					<% end %>
 				</span>
 				<%# address %>
-				<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}"), class: "title-link" do %>
+				<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
 					<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
 				<% end %>
 				<div class="property-info">
@@ -33,7 +33,7 @@
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
 			<% end %>
 			<%# img its also a link needs to be changed to url for actual link of property object %>
-			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}") do %>
+			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
 				<%= image_tag "propertyimagetemp.png", alt: "Property Image" %>
 			<% end %>
 		</div>
