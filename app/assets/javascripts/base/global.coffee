@@ -5,6 +5,51 @@
 # 
 #   Todo:
 
+# Function used for changing the header image based on state
+@changeImage = (state) ->
+	if state == 'Western Australia'
+    	$('.search-section').addClass 'wa-img'
+  	else if state == 'Victoria'
+   		$('.search-section').addClass 'vic-img'
+  	else if state == 'Queensland'
+    	$('.search-section').addClass 'qld-img'
+  	else if state == 'Australian Capital Territory'
+    	$('.search-section').addClass 'act-img'
+  	else if state == 'New South Wales'
+    	$('.search-section').addClass 'nsw-img'
+  	else if state == 'South Australia'
+    	$('.search-section').addClass 'sa-img'
+  	else if state == 'Northern Territory'
+    	$('.search-section').addClass 'nt-img'
+  	else if state == 'Tasmania'
+    	$('.search-section').addClass 'tas-img'
+    else if state == 'Other Territories'
+    	$('.search-section').addClass 'ot-img'
+  	else
+    	$('.search-section').addClass 'wa-img'
+    return
+# Function used to remove current applied state classes except the selected state
+@remove_classes = (state) ->
+	classes = [
+		['wa-img', 'Western Australia'],
+		['vic-img', 'Victoria'],
+		['qld-img', 'Queensland'],
+		['sa-img', 'South Australia'],
+		['nt-img', 'Northern Territory'],
+		['tas-img', 'Tasmania'],
+		['act-img', 'Australian Capitol Territory'],
+		['ot-img', 'Other Territories'],
+		['nsw-img', 'New South Wales']
+		]
+	i = 0
+	while i < classes.length
+  		j = 0
+  		while j < classes[i].length
+  			if state != classes[i][1]
+    			$('.search-section').removeClass(classes[i][0])
+    		j++
+  		i++
+  	return
 # Utility function to pluralise a string
 @get_plural = (string) ->
 	# Check the last character for a 'y' or an 's'

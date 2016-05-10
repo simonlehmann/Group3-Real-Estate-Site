@@ -14,6 +14,9 @@ ready = ->
 	#fav a property by adding favd class toggle
 	$('.property-card .fav-property').click( ->
 		$(this).children('i').toggleClass('favd'))
+	#remove label in nav menu when the x is clicked
+	$('.delete.icon').click( ->
+		$(this).parent().remove())
 	
 
 # Turbolinking only runs the $(document).ready on initial page load. 

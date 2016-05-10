@@ -29,6 +29,57 @@ class RegistrationsController < Devise::RegistrationsController
 			redirect_to :dashboard_settings
 		end
 	end
+
+	# Overriding the default devise method for user creation so we can create a default user avatar for the user
+	# This is so they immediately have the ability to crop their icons from the moment they upload a new one as
+	# it requires an avatar to exist for it to work. This method is unchanged unless noted
+	def create
+		build_resource(sign_up_params)
+		resource.save
+		yield resource if block_given?
+
+		# Now the resource is saved lets add the default profile image to it.
+		usericons_path = Rails.root.join("public/usericons/") # Get the path to the usericons folder
+		colours = %w( blue green orange pink purple red ) # Word array of colour choices so we can give them a random image
+		pnrg = Random.new # A random generator
+		colour = colours[pnrg.rand(0...colours.length)] # Pick a colour from colours randomly
+		avatar = File.open(usericons_path.join("usericon_#{colour}.png")) # Open the file
+		# Attach the avatar, save the avatar to the new user and then close the file.
+		resource.avatar = avatar
+		resource.save
+		avatar.close
+
+		# Back to normal devise method, this will redirect the user back to the dashboard_settings page now the user is created.
+		if resource.persisted?
+			if resource.active_for_authentication?
+				set_flash_message! :notice, :signed_up
+				sign_up(resource_name, resource)
+				respond_with resource, location: after_sign_up_path_for(resource)
+			else
+				set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+				expire_data_after_sign_in!
+				respond_with resource, location: after_inactive_sign_up_path_for(resource)
+			end
+		else
+			clean_up_passwords resource
+			set_minimum_password_length
+			respond_with resource
+		end
+	end
+
+	# Crop Avatar action used to perform the actual image cropping. This is incase we want to do it via a url on mobiles
+	# (currently disabled as the action is handled in the update action above by moving the crop selection into a modal on the dashboard#settings page
+	# def crop_avatar
+	# 	@user = current_user
+	# 	# We've added the cropping params to the permitted parameters so lets save them
+	# 	if @user.update_attributes(account_update_params)
+	# 		flash[:updated] = "Avatar successfully cropped"
+	# 		redirect_to :dashboard_settings
+	# 	else
+	# 		flash[:errors] = "Avatar not changed, there was an error"
+	# 		redirect_to :dashboard_settings
+	# 	end
+	# end
 	
 	protected
 
@@ -56,7 +107,8 @@ class RegistrationsController < Devise::RegistrationsController
 	# Used when updating the user, we require the user object and permit the other
 	def account_update_params
 		# Edit this to include the params you need to include/permit when updating (devise will handle it)
-		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password,
+			:avatar_original_w, :avatar_original_h, :avatar_box_w, :avatar_aspect, :avatar_crop_x, :avatar_crop_y, :avatar_crop_w, :avatar_crop_h)
 	end
 
 	# If we make it so the user is :confirmable then we need to override the following method as well

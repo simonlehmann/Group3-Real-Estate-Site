@@ -7,9 +7,10 @@
 #   Partials:
 #   	
 #   TODO:
-# => fix filter button to have a different hover state and push it down further
-# => search bar has content
-# => property listing has content
+# => property listing has actual image content
+# => nav side bar is fixed
+# => nav side bar is works with recieved content
+# => nav side bar label clear when clicked
  %>
 <section class="search-container nobanner-container ui container">
 	<div class="ui sixteen wide grid stackable">
@@ -42,16 +43,9 @@
 				showing 3 exact results
 				<span></span>
 			</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
+			<%= render partial: "search/propertyresult", object: @listings %>
 			<p class="ui dividing header search-divider">broadening search with no pool</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
 			<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
 		</div>
 	</div>
 </section>

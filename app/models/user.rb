@@ -87,5 +87,8 @@ class User < ActiveRecord::Base
 		medium: "300x300#"
 	}, :default_url => "/avatars/:style/missing.png"
 	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+	
+	# To be able to crop the avatar using papercrop
+	crop_attached_file :avatar
 
 end

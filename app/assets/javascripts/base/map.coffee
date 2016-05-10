@@ -80,12 +80,12 @@ searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
     radius: currentRadius
-    type: [ search_attr ]
+    name: [ search_attr ]
   }, callback
   return
 
 searchPetrol = ->
-  search = 'gas starions'
+  search = 'gas_station'
   deleteMarkers()
   infowindow = new (google.maps.InfoWindow)
   service = new (google.maps.places.PlacesService)(map)

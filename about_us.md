@@ -61,17 +61,17 @@ ___
 ## Michael White
 
 __Social Links:__
-- Link 1:
-- Link 2:
+- Link 1: http://www.otirod.com
+- Link 2: https://github.com/doritobandito
 - ...
 
-__Personal/Full Website Link:__ put link here
+__Personal/Full Website Link:__ www.otirod.com
 
-__Role__: Enter Your Role here
+__Role__: Developer
 
 __Blurb__:
 
-Enter About you text here
+Michael is a applications developer who loves working with object orientated languages and enjoys long strolls down the path of finding creative solutions for exciting projects.
 ___
 ## Simon Lehmann
 
