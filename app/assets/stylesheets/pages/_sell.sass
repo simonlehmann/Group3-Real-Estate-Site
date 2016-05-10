@@ -38,10 +38,6 @@
 .sell-red-ribbon
 	border-color: $red-primary-hover !important
 
-// Disable the cursor: pointer that Semantic-UI uses for a star icon
-.star.icon
-	cursor: default !important
-
 //--------- Index Page Styles
 // The banner on the index sell page and all it's elements
 .sell-banner
@@ -193,6 +189,14 @@
 		// Matched with Semantic icon class widths to ensure responsive reflow with them
 		width: 1.18em !important
 		height: auto
+	// Disable the cursor: pointer that Semantic-UI uses for a star icon
+	.star.icon
+		cursor: default !important
+	// Style the hover link text
+	.title-link
+		color: $grey-primary
+	.title-link:hover
+		color: $red-primary-hover
 	
 // Override the colour of the pagination class links so they can be seen
 .pagination a

@@ -30,13 +30,13 @@ class ListingImage < ActiveRecord::Base
 	# Relations
 	
 	# A listing image can only be associated with one listing (it is stored in this table)
-	belongs_to :image_listing, class_name: "Listing", inverse_of: :listing_images, foreign_key: "listing_id"
+	belongs_to :image_listing, class_name: "Listing", inverse_of: :listing_images, foreign_key: "listing_image_listing_id"
 
 	# A listing image can only belong to one user
-	belongs_to :image_user, class_name: "User", inverse_of: :user_listing_images
+	belongs_to :image_user, class_name: "User", inverse_of: :user_listing_images, foreign_key: "user_id"
 	
 	# A listing cover image can only be associated with one listing (it will be stored in the listing table)
-	has_one :cover_image_listing, class_name: "Listing", inverse_of: :listing_cover_image, foreign_key: "listing_id"
+	has_one :cover_image_listing, class_name: "Listing", inverse_of: :listing_cover_image, foreign_key: "listing_cover_image_id"
 
 	# ListingImage has one attached file
 	has_attached_file :image, styles: {	large_w: "1080x600#", large: "800x600#", medium: "300x300#" }, :default_url => "/images/:style/missing.png"

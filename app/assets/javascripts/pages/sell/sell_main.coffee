@@ -61,7 +61,10 @@ ready = ->
 					_method: 'PUT'
 					listing_filter: selected_item
 					listing_filter_method: filter_method
-					listing_filter_reset: 'true'				
+					listing_filter_reset: 'true'
+				success: (response) ->
+					# Blur the button on successful filter so it doesn't remain focused/in an active state
+					$('#manage-filter-method').blur()
 
 	#--------- Sticky Code
 	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
