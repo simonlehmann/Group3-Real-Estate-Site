@@ -68,5 +68,8 @@
 // Infinite Scolling/Pagination using Jquery
 //= require jquery.infinite-pages
 //
+// To Top Button
+//= require base/to-top-button
+//
 // Moved turbolinks to bottom as suggested by jquery-turbolinks gem
 //= require turbolinks
