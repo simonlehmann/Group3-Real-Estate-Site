@@ -42,11 +42,20 @@ Rails.application.configure do
   # Default Devise mailer settings
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # <- Change host to site's production domain name and port to 80 for deployment e.g { host: 'propertydome.com', port: 80 }
 
-  # Paperclip config for mac osx image_magick_path:
-  # Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
-  # Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
-
-  Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
+  # Programatically configure Paperclip to hopefully work on OS X and Windows
+  # This is done by checking for the windows directory for the FILE binary folder 
+  # installed when Paperclip and ImageMagick are set up. If the folder exists, then use Windows.
+  # Otherwise, use OS X config variables
+  if File.directory?('C:\Program Files (x86)\GnuWin32\bin')
+    puts "------------- Using Window's config for Paperclip Gem -------------"
+    Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
+    puts "------------- Paperclip configured using 'C:\\Program Files (x86)\\GnuWin32\\bin' -------------"
+  else
+    puts "------------- Using OS X's config for Paperclip Gem -------------"
+    Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
+    Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
+    puts "------------- Paperclip configured using '/opt/ImageMagick/bin' -------------"
+  end  
   
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
