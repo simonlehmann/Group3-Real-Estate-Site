@@ -33,7 +33,9 @@ Rails.application.routes.draw do
   # AJAX actions (Used to update contact without a full page request)
   # Update the search bar suburbs on index page based upon the selected state value
   put '/update-search-suburbs' => 'buy#update_search_suburbs'
-  
+  # get params from search field on /buy to /search
+  put '/search' => 'search#get_search'
+
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show] do    
     member do
