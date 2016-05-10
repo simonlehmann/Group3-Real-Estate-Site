@@ -6,6 +6,21 @@
 # TODO:
 #
 ready = ->
+	$('#buy-search-submit').click( ->
+		search_tags = $('#search-field :selected').val()
+		console.log search_tags
+		if search_tags.length
+			$.ajax
+				type: 'POST'
+				url: '/search'
+				data:
+					_method: 'PUT'
+					search_values: search_tags
+			return true)
+
+
+
+	#sticky nav
 	$('.ui.sticky.search-submenu').sticky
 		offset: 71
 		context: '#search-feed'
