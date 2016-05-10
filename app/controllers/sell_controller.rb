@@ -160,8 +160,6 @@ class SellController < ApplicationController
 	def edit
 		# Get the listing from the database
 		@listing = Listing.find_by_listing_id(params[:id])
-		# Grab the photos for the listing
-		@photos = ListingImage.where(listing_image_listing_id: @listing.listing_id)
 		# Grab the tags associated with the listing
 		@tags = @listing.listing_tags
 		# Set the action descriptor to "Save Changes"
