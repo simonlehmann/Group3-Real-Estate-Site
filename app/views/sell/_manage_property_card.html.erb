@@ -51,7 +51,9 @@
 									<i class="marker icon"></i>
 								<% end %>
 							</span>
-							<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %>
+							<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
+								<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{listing.listing_state} #{listing.listing_post_code}" %>
+							<% end %>
 						</h2>
 					</div>
 
@@ -71,8 +73,8 @@
 					<% # Property main listing image %>
 					<div class="four wide computer sixteen wide mobile column">
 						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
-							<% # Get the main image path using our sell_helper.rb method listing_get_main_image(listing) %>
-							<%= image_tag listing_get_main_image(listing).image.url(:medium), class: "ui centered medium image" %>
+							<% # Get the cover image through the listing.listing_cover_image association and then get the image %>
+							<%= image_tag listing.listing_cover_image.image.url(:medium), class: "ui centered medium image" %>
 							
 							<% # Status ribbon, clicking this will open the edit modal. %>
 							<% if listing_get_status_object(listing) %>
