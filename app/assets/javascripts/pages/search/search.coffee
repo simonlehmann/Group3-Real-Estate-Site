@@ -30,7 +30,7 @@ ready = ->
 	$('.property-card .fav-property').click( ->
 		$(this).children('i').toggleClass('favd'))
 	#remove label in nav menu when the x is clicked
-	$('.delete.icon').click( ->
+	$('.search-submenu .delete.icon').click( ->
 		$(this).parent().remove())
 	
 

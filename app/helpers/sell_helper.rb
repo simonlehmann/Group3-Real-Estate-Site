@@ -98,6 +98,23 @@ module SellHelper
 		return tags
 	end
 
+	# Return a list of tag types that aren't used, this is to ensure no duplicates get added
+	def add_edit_get_unused_tag_types(existing_tags, category)
+		# Lets get the list of tag_types that we wish to exclude
+		tags_to_exclude = []
+		existing_tags.each do |tag|
+			tags_to_exclude << TagType.find_by_tag_type_id(tag.tag_type_id).tag_type_label
+		end
+		# If we have tags to exclude then lets grab the remaining from the database, otherwise just get all of them for that category
+		if tags_to_exclude.length > 0
+			tags = TagType.where(tag_type_category: category).where.not(tag_type_label: tags_to_exclude)
+		else
+			tags = TagType.where(tag_type_category: category)
+		end
+		# return the tags that are unused so the user can't insert duplicates
+		return tags
+	end
+
 	# Return the tags in a more readable format (they're stored in the database with integer values and relations)
 	def add_edit_get_readable_tags_collection(tags)
 		readable_tags = []
