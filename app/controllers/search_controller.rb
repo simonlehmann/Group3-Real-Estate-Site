@@ -4,16 +4,27 @@ class SearchController < ApplicationController
 	include SellHelper
 	
 	def index
-		test = params[:test]
-		puts "-------- Getting results -------"
-		puts test
-		suburb = Location.find_by_id(test.split("_").last.to_i).suburb
-		puts "--------- I think it's this suburb"
-		puts suburb
-		puts " ------------- getting from database ----"
-		@listings = Listing.where(listing_suburb: suburb)
+		search_suburbs = params[:suburb]
+		search_feature = params[:feature]
+		search_free = params[:free]
+		puts "Suburbs:"
+		puts search_suburbs
+		puts "Features:"
+		puts search_feature
+		puts "Free:"
+		puts search_free
+		#split suburb ids from suburb_0000 and find_by_id
+		suburbs_ids =  split_suburbs(search_suburbs)
+		suburbs = Location.find_by_id(suburbs_ids).suburb
+
+		@listings = Listing.where(listing_suburb: suburbs)
 		puts @listings
-		puts "---------------------------------------"
+	end
+	#split suburbs from suburb_0000 to 0000
+	def split_suburbs(suburbs_data)
+		suburbs = Array.new
+		suburbs_data.each{ |sub| suburbs << sub.split("_").last.to_i }
+		return suburbs
 	end
 
 	def get_search
@@ -23,13 +34,11 @@ class SearchController < ApplicationController
 		# if last char is & cuts it off
 		puts search_query[-1, 1]
 		if search_query[-1, 1] == "&" then search_query.chop! end
-		puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-		puts search_query
-		puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+		#console output to test if queries gone through
+		puts "--->>> #{search_query}"
 
-		#redirect_to search_path(test: @test)
 		respond_to do |format|
-			format.js { render :js => "window.location.href = '#{search_path}?{#{search_query}}'"}
+			format.js { render :js => "window.location.href = '#{search_path}?#{search_query}'"}
 		end
 	end
 	#main query builder/holder
