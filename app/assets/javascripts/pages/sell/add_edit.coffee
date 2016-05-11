@@ -473,6 +473,26 @@ ready = ->
 						$(this).siblings('span').text('Make Main Image')
 		return
 
+	# ---------- Extra's tab code
+	# 
+	# Handle clicks in the extra's tag checkboxes to untick the listing-premium-none option if another one is clicked
+	$('#listing-extra-checkboxes input[type="checkbox"]').change ->
+		if $(this).prop('name') == 'listing-premium-none'
+			# The listing-premium-none checkbox was hit, lets uncheck any other checkboxes if this one is now true
+			if $(this).prop('checked') == true
+				# As listing-preium-none is now checked, lets uncheck any other checkboxes that are also checked
+				# Users can't be allowed to save listings with premium features AND also saying they want no premium features
+				$('#listing-extra-checkboxes input[type="checkbox"]').each ->
+					if $(this).prop('name') != 'listing-premium-none'
+						$(this).first().prop 'checked', false
+		else
+			# Another checkbox was hit, lets set the listing-premium-none checkbox to unchecked if it is already checked
+			is_lpn_checked = $('#listing-extra-checkboxes input[name="listing-premium-none"]').prop 'checked'
+			if $(this).prop('checked') == true and is_lpn_checked == true
+				# Set the listing-premium-none checked property to false
+				$('#listing-extra-checkboxes input[name="listing-premium-none"]').prop 'checked', false
+			
+
 	return
 
 # Turbolinking only runs the $(document).ready on initial page load. 
