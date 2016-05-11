@@ -45,4 +45,3 @@ ready = ->
 		e.target.blur()
 	
 $(document).ready ready
-$(document).on 'page:load', ready

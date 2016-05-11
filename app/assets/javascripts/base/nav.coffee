@@ -57,4 +57,3 @@ $(window).scroll ->
 		$('#sticky-nav').fadeOut(250)
 
 $(document).ready ready
-$(document).on 'page:load', ready
