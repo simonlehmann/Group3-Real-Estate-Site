@@ -15,12 +15,9 @@ class SearchController < ApplicationController
 		puts search_free
 		#split suburb ids from suburb_0000 and find_by_id
 		suburb_ids =  split_suburbs(search_suburbs)
-
+		#put array of suburb names using .map and with id of suburb
 		suburbs = suburb_ids.map { |id| Location.find_by_id(id).suburb }
 
-		puts "==============="
-		puts suburbs
-		puts "==============="
 		@listings = Listing.where(listing_suburb: suburbs).order('listing_created_at DESC')
 		puts @listings
 	end
@@ -40,7 +37,7 @@ class SearchController < ApplicationController
 		if search_query[-1, 1] == "&" then search_query.chop! end
 		#console output to test if queries gone through
 		puts "--->>> #{search_query}"
-
+		#render page with query in url
 		respond_to do |format|
 			format.js { render :js => "window.location.href = '#{search_path}?#{search_query}'"}
 		end
