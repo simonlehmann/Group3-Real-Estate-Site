@@ -14,10 +14,14 @@ class SearchController < ApplicationController
 		puts "Free:"
 		puts search_free
 		#split suburb ids from suburb_0000 and find_by_id
-		suburbs_ids =  split_suburbs(search_suburbs)
-		suburbs = Location.find_by_id(suburbs_ids).suburb
+		suburb_ids =  split_suburbs(search_suburbs)
 
-		@listings = Listing.where(listing_suburb: suburbs)
+		suburbs = suburb_ids.map { |id| Location.find_by_id(id).suburb }
+
+		puts "==============="
+		puts suburbs
+		puts "==============="
+		@listings = Listing.where(listing_suburb: suburbs).order('listing_created_at DESC')
 		puts @listings
 	end
 	#split suburbs from suburb_0000 to 0000
