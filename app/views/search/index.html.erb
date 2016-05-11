@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<p class="ui dividing header search-divider">
-				showing 3 exact results
+				<%= "showing #{@listings.length} exact results" %>
 				<span></span>
 			</p>
 			<%= render partial: "search/propertyresult", object: @listings %>
