@@ -4,21 +4,25 @@
 # The following coffeescript is for the search page
 # 
 # TODO:
-#
+# add a false to search so it has a tool tip to add some criteria or sililar
 ready = ->
+	#search button and configure query
 	$('#buy-search-submit').click( ->
-		search_tags = $('#search-field :selected').val()
-		console.log search_tags
+		#initialise array
+		search_tags = []
+		#get each :selected tag and push their value into the search_tags array
+		$('#search-field :selected').each ->
+			search_tags.push $(this).val()
+		#there is length to the seach thats perform ajax action to search page and query
 		if search_tags.length
 			$.ajax
 				type: 'POST'
 				url: '/search'
+				dataType: 'json'
 				data:
 					_method: 'PUT'
-					search_values: search_tags
+					search_values: JSON.stringify(search_tags)
 			return true)
-
-
 
 	#sticky nav
 	$('.ui.sticky.search-submenu').sticky
