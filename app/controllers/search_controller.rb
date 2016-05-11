@@ -35,8 +35,8 @@ class SearchController < ApplicationController
 		# if last char is & cuts it off
 		puts search_query[-1, 1]
 		if search_query[-1, 1] == "&" then search_query.chop! end
-		#console output to test if queries gone through
-		puts "--->>> #{search_query}"
+		#sanitize url
+		search_query.gsub!(/[!@%#^*]/, '')
 		#render page with query in url
 		respond_to do |format|
 			format.js { render :js => "window.location.href = '#{search_path}?#{search_query}'"}
