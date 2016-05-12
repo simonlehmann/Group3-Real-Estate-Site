@@ -11,8 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
+//
+// Required for Papercrop
+//= require jquery.jcrop
+//= require papercrop
 //
 // Base files (global javascript)
 //= require base/global
@@ -63,3 +67,9 @@
 //
 // Infinite Scolling/Pagination using Jquery
 //= require jquery.infinite-pages
+//
+// To Top Button
+//= require base/to-top-button
+//
+// Moved turbolinks to bottom as suggested by jquery-turbolinks gem
+//= require turbolinks

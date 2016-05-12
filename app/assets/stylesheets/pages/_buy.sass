@@ -9,7 +9,6 @@
 	width: 100%
 	min-height: 70vh
 	background-color: $grey-primary
-	background: url(image_path('landing-header.png')) no-repeat
 	background-size: auto 120%
 	//search section header
 	.ui.inverted.header
@@ -17,6 +16,8 @@
 		h1
 			font-size: 4em
 			text-align: center
+	.ui.multiple.dropdown > .label
+		font-size: 0.9em
 	//search input button
 	.ui.action.input > .button
 		background-color: $green-primary
@@ -44,6 +45,9 @@
 	.search-action
 		width: 5em
 		font-size: 1.2em
+	//Search button height one height of original search bar
+	.ui.action.input:not([class*="left action"]) > .button:last-child
+		height: 50px
 	//Fix for placement of multiple search selection dropdown icon (it's not centered like the single search select icon is)
 	.ui.selection.dropdown > .dropdown.icon
 		// This is the value from search selection in semantic (multiple search selection uses padding: 0.5em)
@@ -68,15 +72,17 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .triangle-lead
 	+triangle(125px, 45px, down, $grey-primary)
 	text-align: center
+	margin-top: 12px
 //favourites section
 .favourites-section
 	height: 30vh
-	min-height: 295px
-	padding-top: 1.2%
+	min-height: 305px
+	padding-top: 1%
 	background-color: $grey-primary
 	h2
 		color: $white-primary !important
 		text-align: left
+		margin-bottom: 2px !important
 	.favouritesSlide
 		div
 			margin-left: 5px
@@ -110,8 +116,55 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .twitter-feed
 	.twitter
 		color: $blue-twitter
+.feature-property-container
+	.left
+		float: left
+		margin: 0px 15px 35px 0px
+	.main-divs
+		background-color: $white-fav
+		margin-bottom: 10px
+	.picture-div
+		img
+			width: 100%
+			height: auto
+	.tags
+		float: bottom
+	.top
+		height: 70%
+	.bottom
+		height: 30%
 
-.perth-img
+.favouritesSlide
+	.address
+		color: white
+		background-color: $grey-fav
+		width: 100%
+		padding-top: 10px
+		padding-bottom: 10px
+//Header images for geolocater
+.wa-img
 	background: url(image_path('landing-header.png')) no-repeat
-.melb-img
+	background-size: auto 120%
+.vic-img
 	background: url(image_path('sell-header.png')) no-repeat
+.qld-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.act-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nsw-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.sa-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.nt-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.tas-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%
+.ot-img
+	background: url(image_path('landing-header.png')) no-repeat
+	background-size: auto 120%

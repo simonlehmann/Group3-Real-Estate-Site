@@ -36,12 +36,24 @@ ready = ->
     return
 
   changeImage = (state) ->
-    if state.includes('WA')
-      $('.search-section').addClass 'melb-img'
-    else if state.includes('MEL')
-      $('.search-section').addClass 'melb-img'
+    if state.includes('WA' || 'Western Australia')
+      $('.search-section').addClass 'wa-img'
+    else if state.includes('VIC' || 'Victoria')
+      $('.search-section').addClass 'vic-img'
+    else if state.includes('QLD' || 'Queensland')
+      $('.search-section').addClass 'qld-img'
+    else if state.includes('ACT' || 'Australian Capital Territory')
+      $('.search-section').addClass 'act-img'
+    else if state.includes('NSW' || 'New South Wales')
+      $('.search-section').addClass 'nsw-img'
+    else if state.includes('SA' || 'South Australia')
+      $('.search-section').addClass 'sa-img'
+    else if state.includes('NT' || 'Northern Territory')
+      $('.search-section').addClass 'nt-img'
+    else if state.includes('TAS' || 'Tasmania')
+      $('.search-section').addClass 'tas-img'
     else
-      $('.search-section').addClass 'perth-img'
+      $('.search-section').addClass 'wa-img'
     return
 
   setDefaultImage = ->
@@ -70,4 +82,3 @@ ready = ->
     return
 
 $(document).ready ready
-$(document).on 'page:load', ready

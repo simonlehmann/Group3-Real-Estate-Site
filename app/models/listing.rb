@@ -28,7 +28,7 @@
 #   	listing_comments: int
 #   	listing_created_at: timestamp CURRENT_TIMESTAMP
 #   	listing_updated_at: timestamp ON UPDATE CURRENT TIMESTAMP
-#   	listing_toEnd_at: timestamp DEFAULT '0000-00-00 00:00:00'
+#   	listing_to_end_at: timestamp DEFAULT '0000-00-00 00:00:00'
 #   	listing_ended_at: timestamp NULLABLE
 #   	listing_approved: boolean DEFAULT = NULL, NULLABLE
 #   
@@ -68,11 +68,11 @@ class Listing < ActiveRecord::Base
 	belongs_to :listing_user, class_name: "User", inverse_of: :user_listings
 	
 	# A listing can have many images, deleting the listing will delete all the images from the listing_images database table (not the files though)
-	has_many :listing_images, class_name: "ListingImage", inverse_of: :image_listing, foreign_key: "listing_image_id", dependent: :destroy
+	has_many :listing_images, class_name: "ListingImage", inverse_of: :image_listing, foreign_key: "listing_image_listing_id", dependent: :destroy
 	
 	# A listing can have one cover image (the ListingImage class is where we set the has_on relationship, we just store it in this table),
 	# deleting the listing will delete the associated status object
-	belongs_to :listing_cover_image, class_name: "ListingImage", inverse_of: :cover_image_listing, foreign_key: "listing_image_id", dependent: :destroy
+	belongs_to :listing_cover_image, class_name: "ListingImage", inverse_of: :cover_image_listing, foreign_key: "listing_cover_image_id", dependent: :destroy
 	
 	# A listing can have many favourites, deleting the listing will delete all the favourites from the favourites database table
 	has_many :favourites, class_name: "Favourite", inverse_of: :favourite_listing, foreign_key: "favourite_id", dependent: :destroy

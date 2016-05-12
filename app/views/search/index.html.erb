@@ -7,9 +7,10 @@
 #   Partials:
 #   	
 #   TODO:
-# => fix filter button to have a different hover state and push it down further
-# => search bar has content
-# => property listing has content
+# => property listing has actual image content
+# => nav side bar is fixed
+# => nav side bar is works with recieved content
+# => nav side bar label clear when clicked
  %>
 <section class="search-container nobanner-container ui container">
 	<div class="ui sixteen wide grid stackable">
@@ -21,8 +22,9 @@
 				</div>
 			</section>
 		</div>
-		<% #search results content %>
+		<%# search results content %>
 		<div class="ui twelve wide column" id="search-feed">
+			<%# search filter %>
 			<div class="ui dropdown button search-filter">
 				<span class="text">Recent</span>
 				<i class="dropdown icon"></i>
@@ -38,20 +40,19 @@
 					</div>
 				</div>
 			</div>
+			<%# result amount header %>
 			<p class="ui dividing header search-divider">
-				showing 3 exact results
-				<span></span>
+				<%= "showing #{@listings.length} exact results" %>
 			</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<p class="ui dividing header search-divider">broadening search with no pool</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
-			<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
-			<%= render partial:"search/propertyresult" %>
-			<%= render partial:"search/propertyresult" %>
+			<%# if results found display result partial otherwise display no results found! %>
+			<% if @listings.length > 0 %>
+				<%= render partial: "search/propertyresult", object: @listings %>
+				<p class="ui dividing header search-divider">broadening search with no pool</p>
+				<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
+			<% else %>
+				<h2 class="ui header">No Results Found!</h2>
+			<% end %>
 		</div>
 	</div>
 </section>
+<%= render partial: "layouts/to_top_button" %>

@@ -34,6 +34,8 @@ gem 'jquery-infinite-pages'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+# Added jquery-turbolinks to enable some libraries that struggle with turbolinks to work better
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -46,6 +48,8 @@ gem 'dotenv', '~> 2.1.1'
 gem "paperclip", "~> 4.2"
 # Required for NTLM SMTP authentication type
 gem 'ruby-ntlm'
+# Papercrop
+gem 'papercrop'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
