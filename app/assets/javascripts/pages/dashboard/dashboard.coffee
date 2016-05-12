@@ -127,8 +127,8 @@ ready = ->
 		holder_h = if isNaN(parseInt($('#img-crop-window-height').val())) then 0 else parseInt($('#img-crop-window-height').val())
 		holder_a = if isNaN($('#img-crop-window-aspect').val()) then 0 else $('#img-crop-window-aspect').val()
 		# The stock crop box is placed 0 0 and 250 high and wide, so if it hasn't moved, I'm going to ignore it.
-		# But it's cool if it's 250x250 still
-		if crop_x != 0 and crop_y != 0 and prev_x != 0 and prev_y != 0
+		# But it's cool if it's 250x250 still and it's cool if it's still on the top or left side as long as not both
+		if (crop_x != 0 or crop_y != 0) and (prev_x != 0 or prev_y != 0)
 			if real_w != 0 and real_h != 0 and holder_w != 0 and holder_h != 0 and holder_a != 0 and real_a != 0
 				# Saving crop to image being uploaded
 				
@@ -212,4 +212,3 @@ ready = ->
 
 
 $(document).ready ready
-$(document).on 'page:load', ready

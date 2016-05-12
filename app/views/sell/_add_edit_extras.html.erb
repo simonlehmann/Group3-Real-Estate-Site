@@ -9,7 +9,6 @@
 #   	* @photos: the photos for the property listing
 #
 #   Todo:
-#   	* Logic for the checkboxes maybe? otherwise just leave this here until phase 2
 %>
 
 <% # Header %>
@@ -19,37 +18,33 @@
 
 <% # Main content, in this case the extra premium feature option checkboxes. %>
 <div class="ui centered eight wide column">
-	<div class="ui grouped fields">
+	<div class="ui grouped fields" id="listing-extra-checkboxes">
 		<div class="field">
 			<div class="ui checkbox">
-				<input type="checkbox" name="listing-premium" />
-				<label>
-					<b>Premium Listing ($0.20)</b> - Show higher in search results.
-				</label>
+				<input type="checkbox" name="listing-featured" id="listing-featured" />
+				<% # Setting label for= to checkbox id to enable label to toggle the checkbox state out of the box without JS %>
+				<label for="listing-featured"><b>Featured Listing ($0.20)</b> - Show higher in search results.</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui checkbox">
-				<input type="checkbox" name="listing-additional-photos" />
-				<label>
-					<b>Additional Photos ($0.10 per 10)</b> - Add more photos to your listing.
-				</label>
+				<input type="checkbox" name="listing-additional-photos" id="listing-additional-photos"/>
+				<% # Setting label for= to checkbox id to enable label to toggle the checkbox state out of the box without JS %>
+				<label for="listing-additional-photos"><b>Additional Photos ($0.10 per 10)</b> - Add more photos to your listing.</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui checkbox">
-				<input type="checkbox" name="listing-floor-plan" />
-				<label>
-					<b>Floor Plan ($0.10)</b> - Add a floor plan to your listing.
-				</label>
+				<input type="checkbox" name="listing-floor-plan" id="listing-floor-plan"/>
+				<% # Setting label for= to checkbox id to enable label to toggle the checkbox state out of the box without JS %>
+				<label for="listing-floor-plan"><b>Floor Plan ($0.10)</b> - Add a floor plan to your listing.</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui checked checkbox">
-				<input type="checkbox" name="listing-premium-none" checked="" />
-				<label>
-					<b>No Premium Features</b> - List for free with up to 10 photos.
-				</label>
+				<input type="checkbox" name="listing-premium-none" id="listing-premium-none" checked="" />
+				<% # Setting label for= to checkbox id to enable label to toggle the checkbox state out of the box without JS %>
+				<label for="listing-premium-none"><b>No Premium Features</b> - List for free with up to 10 photos.</label>
 			</div>
 		</div>
 	</div>
