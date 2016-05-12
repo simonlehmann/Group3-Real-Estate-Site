@@ -94,7 +94,7 @@ module SellHelper
 
 	# Return the tag_type objects for a particular category
 	def add_edit_get_tag_types_for_category(category)
-		tags = TagType.where(tag_type_category: category)
+		tags = TagType.where(tag_type_category: category).order(tag_type_label: :asc)
 		return tags
 	end
 
@@ -107,9 +107,9 @@ module SellHelper
 		end
 		# If we have tags to exclude then lets grab the remaining from the database, otherwise just get all of them for that category
 		if tags_to_exclude.length > 0
-			tags = TagType.where(tag_type_category: category).where.not(tag_type_label: tags_to_exclude)
+			tags = TagType.where(tag_type_category: category).where.not(tag_type_label: tags_to_exclude).order(tag_type_label: :asc)
 		else
-			tags = TagType.where(tag_type_category: category)
+			tags = TagType.where(tag_type_category: category).order(tag_type_label: :asc)
 		end
 		# return the tags that are unused so the user can't insert duplicates
 		return tags
@@ -135,6 +135,7 @@ module SellHelper
 			readable_tags << [ tag_display, "#{qty}_#{tag_type_label}_#{tag_type_category}"]
 		end
 		# Return the formatted tags array list
-		return readable_tags
+		return readable_tags.sort!
 	end
+
 end
