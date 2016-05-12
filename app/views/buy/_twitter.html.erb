@@ -10,8 +10,7 @@
  %>
 <h2 class="ui header"><i class="icon twitter"></i>Latest Tweets</h2>
 <ul>
-	<% TwitterApi.client %>
 	<% TwitterApi.our_public_tweets.each do |tweet| %>
-		<li><%= tweet.text %></li>
+		<li><%= parsed_tweet tweet %></li>
 	<% end %>
 </ul>
