@@ -16,13 +16,13 @@
 					<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
 				<% end %>
 				<div class="property-info">
-				<%# num of bedrooms %>
-				<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
-				<%# num of bathrooms %>
-				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
-				<%# num of carspaces %>
-				<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
-			</div>
+					<%# num of bedrooms %>
+					<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
+					<%# num of bathrooms %>
+					<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
+					<%# num of carspaces %>
+					<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
+				</div>
 			</h3>
 		</div>
 		<div class="ui fluid image">
