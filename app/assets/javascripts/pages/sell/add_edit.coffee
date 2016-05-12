@@ -107,7 +107,7 @@ ready = ->
 					# Refresh the dropdown with the newly re-added option
 					additional_dropdown.dropdown 'refresh' 
 				), 0.1
-
+				
 	# Get the remaining dropdown and input fields
 	additional_dropdown = $('#add-edit-additional-tags-dropdown')
 	additional_dropdown.dropdown sortSelect: true # Sort the dropdown on creation from the select element
