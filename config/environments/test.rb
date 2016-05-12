@@ -29,7 +29,7 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :test
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
@@ -39,4 +39,22 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # For mail delivery debugging
+  config.action_mailer.raise_delivery_errors = true
+
+  # Set mail server connection protocal
+  config.action_mailer.delivery_method = :smtp
+
+  # Define mail server connection parameters
+  config.action_mailer.smtp_settings = {
+    address: "mail.slehmann36.com",
+    port: 587,
+    domain: "slehmann36.com",
+    authentication: "ntlm", # <- Change this to required authentication type for deployment!
+    enable_starttls_auto: false, # <- Change this back to true for deployment!
+    user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
+    password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
+  }
+
 end
