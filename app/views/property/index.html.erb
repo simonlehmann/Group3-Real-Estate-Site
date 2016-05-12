@@ -5,109 +5,37 @@
 #   The property page for the site.
 #   
 #   Partials:
-#   	
+#   	- Property Navigation, handles going back wherever you came from and going to another property
+#   	- Property Header Image, handles the slick carousel, slick lightbox, favourites top left button and status ribbon on top right
+#       - Property Details, handles address, prices, tags, description, property details
 #   TODO:
-#
+# 		- Insert Map
+# 		- Insert comments section
+#       - Insert featured properties
+# 		- Make page mobile friendly
+# 		- Put in actual data
  %>
 <section class="property-container nobanner-container ui center aligned container">
 	<div class="ui sixteen wide center aligned grid">
-		<div id="toppic-links">
-			<%# Back Link %>
-			<%= link_to "< back to search results", "search_path", id:"back-search-link" %>
-			<%# Prev/Next Tags %>
-			<span id="next-prev-links">
-				<%= link_to "< previous", buy_path %>
-				<%= link_to "next >", buy_path %>
-			</span>
-		</div>
-		<div class="ui fluid image">
-			<%# Favourite Star %>
-			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
-			<%# Status %>
-			<a class="ui red right ribbon label status-ribbon">inspection time 4:20am to 4:21am</a>
-			<%# Property Images %>
-			<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-				</div>
-				<div>
-					<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-				</div>
-			</div>
-		</div>
+		<%= render partial:"property/propertyNav" %>
+		<%# Partial for image header with favourite prop, status and slick carousel and lightbox %>
+		<%= render partial:"property/propertyHeaderImage" %>
 	</div>
 </section>
 <section class="ui ten wide center aligned grid row">
-	<% #Property Info section %>
+	<%# Property Info section %>
 	<div class="ui six wide left aligned column property-information">
-		<%# Address and Bed Bath and Beyond Property Details %>
-		<h1 class="ui header">
-			88 Millne Rd Bays Water WA 6053
-			<div class="property-info">
-				<%# num of bedrooms %>
-				<i class="large bed icon"></i> <span>2</span>
-				<%# num of bathrooms %>
-				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span>1</span>
-				<%# num of carspaces %>
-				<i class="large car icon"></i> <span>3</span>
-			</div>
-		</h1>
-		<%# Price and some status %>
-		<h2>Under offer for $1,234,567</h2>
-		<%# Tags Area %>
-		<div class="extra content tag-field">
-			<div class="ui large transparent left">
-				<%# tags:
-					sell-feature-tag is purple
-					location-feature-tag & property-feature-tag is blue
-				 	price-feature-tag is red %>
-				<div class="ui property-feature-tag label">properrty feature</div>
-				<div class="ui property-feature-tag label"> sqm</div>
-				<div class="ui sell-feature-tag label">Home Theatre</div>
-				<div class="ui sell-feature-tag label">NBN</div>
-				<div class="ui sell-feature-tag label">Pool</div>
-				<div class="ui sell-feature-tag label">Front Garden</div>
-				<div class="ui sell-feature-tag label">Back Garden</div>
-				<div class="ui location-feature-tag label">1.3km from your Work</div>
-				<div class="ui property-feature-tag label">5.1km from Schools</div>
-				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
-				<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
-			</div>
-		</div>
-		<%# Description %>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae cum tenetur facilis, asperiores unde, autem minima sint voluptatibus eos eaque repellat architecto nostrum maiores culpa aut. Id cum, adipisci maiores!</p>
+		<%# Partial for property details desktop-leftColumn %>
+		<%= render partial:"property/propertyDetails" %>
 	</div>
-	<% #User and Realestate section %>
+	<%# User and Realestate section %>
 	<div class="ui four wide left aligned column realestate-section">
-		<%# USER image/link %>
-		<%# profile path will need to change for profile/:id %>
-		<div class="middle aligned column user-column">
-			<%= link_to buy_path  do %>
-				<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
-				<%# Username %>
-				<span>Ron Swanson</span>
-				<%# User Company %>
-				<span>Ron's Realestate Company</span>
-				<%# User Phone %>
-				<button>call</button>
-				<%# User Email %>
-				<button>email</button>
-			<% end %>
-		</div>
+		<%# Partial for realestate info desktop-rightColumn %>
+		<%= render partial:"property/propertyRealestate" %>
 	</div>
+	<%# put 100% width %>
+	<%= render partial:"map/map" %>
+	<%# Insert map section here %>
+	<%# Insert comments section here %>
+	<%# Insert featured property section here %>
 </section>

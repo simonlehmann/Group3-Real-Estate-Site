@@ -1,8 +1,29 @@
 // Created: Jayden Spencer
-// Date: 30/04/2016
+// Date: 7/05/2016
 // 
 // The following styles are for all property pages.
 .property-container
+	//header nav links
+	#header-nav-links
+		width: 100%
+		padding-bottom: 5px
+	#back-search-link
+		float: left
+	#next-prev-links
+		float: right
+	//favourite corner section
+	.ui.left.corner.label,
+	.ui.left.corner.label:after
+		left: 0.59em !important
+	//favourite corner icon
+	.ui.left.corner.label .icon
+		left: -3px !important
+	//status ribbon
+	.status-ribbon
+		left: calc(100% + -1rem + 1em ) !important
+		width: 300px
+		z-index: 5
+	//slick photoslider
 	.slick-slider
 		margin-bottom: 0px !important
 	.propertySlide
@@ -18,14 +39,9 @@
 			li button:hover,
 			li button:focus
 				background-color: rgba(18, 175, 92, 0.75) !important
+		//image inside of property slide
 		img
 			width: 100%
 			max-width: 1125px
 			height auto
-	#toppic-links
-		width: 100%
-		padding-bottom: 5px
-	#back-search-link
-		float: left
-	#next-prev-links
-		float: right
+	
