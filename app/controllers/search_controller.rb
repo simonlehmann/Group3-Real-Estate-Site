@@ -13,19 +13,14 @@ class SearchController < ApplicationController
 		puts search_feature
 		puts "Free:"
 		puts search_free
-		#split suburb ids from suburb_0000 and find_by_id
-		suburb_ids =  split_suburbs(search_suburbs)
-		#put array of suburb names using .map and with id of suburb
-		suburbs = suburb_ids.map { |id| Location.find_by_id(id).suburb }
+		
 
-		@listings = Listing.where(listing_suburb: suburbs).order('listing_created_at DESC')
+		@listings = Listing.where(listing_suburb: search_suburbs).order('listing_created_at DESC')
 		puts @listings
 	end
 	#split suburbs from suburb_0000 to 0000
-	def split_suburbs(suburbs_data)
-		suburbs = Array.new
-		suburbs_data.each{ |sub| suburbs << sub.split("_").last.to_i }
-		return suburbs
+	def split_suburbs(suburb_data)
+		return suburbs = suburb_data.split("_").last.to_i
 	end
 
 	def get_search
@@ -35,8 +30,6 @@ class SearchController < ApplicationController
 		# if last char is & cuts it off
 		puts search_query[-1, 1]
 		if search_query[-1, 1] == "&" then search_query.chop! end
-		#sanitize url
-		search_query.gsub!(/[!@%#^*]/, '')
 		#render page with query in url
 		respond_to do |format|
 			format.js { render :js => "window.location.href = '#{search_path}?#{search_query}'"}
@@ -51,9 +44,18 @@ class SearchController < ApplicationController
 
 		data.each do |value|
 			#iterate through values from search data and create search
+			#sanitize url
+			value.gsub!(/[!@%#^*]/, '')
 			case value
 				when /suburb/
-					suburbs << build_subterm(suburbs, "suburb", value)
+					#split suburb id from suburb_0000 and find_by_id
+					suburb_id = split_suburbs(value)
+					puts suburb_id
+					#put array of suburb name with id of suburb
+					suburb_name = Location.find_by_id(suburb_id).suburb
+					puts suburb_name
+					#put built suburb term into suburbs
+					suburbs << build_subterm(suburbs, "suburb", suburb_name)
 				when /feature/
 					features << build_subterm(features, "feature", value)
 				else
@@ -67,7 +69,7 @@ class SearchController < ApplicationController
 	#build part of the query
 	def build_subterm(part_query, type, term)
 		#if part_query (suburbs, features or free) insert &, otherwise dont
-		return "#{type}[]=#{term}&"
+		return "#{type}[]=#{term.gsub(/\s/, '+')}&"
 	end
 	#combine query terms method
 	#add suburbs to query
