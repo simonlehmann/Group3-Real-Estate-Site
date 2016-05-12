@@ -8,9 +8,9 @@ class PropertyController < ApplicationController
 		request_path = request.original_fullpath
 		#split path name and get id
 		property_id = request_path.split("-").last.to_i
-		puts property_id
 		#get property by id from DB
 		@listing = Listing.find_by_listing_id(property_id)
-		puts @listing
+		@prev_loc = save_my_previous_url()
+		puts @prev_loc
 	end
 end
