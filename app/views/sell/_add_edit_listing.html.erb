@@ -227,9 +227,15 @@
 			<label>Add A Property Feature Tag</label>
 			<div class="ui action input">
 				<% # The tag type dropdown %>
-				<% # Get the tag type objects for the desired categories, but only get tags that aren't already in the users tags list, to avoid duplication %>
-				<% indoor_tags = add_edit_get_unused_tag_types(@tags, "Indoor Features") %>
-				<% outdoor_tags = add_edit_get_unused_tag_types(@tags, "Outdoor Features") %>
+				<% if @tags %>
+					<% # Get the tag type objects for the desired categories, but only get tags that aren't already in the users tags list, to avoid duplication %>
+					<% indoor_tags = add_edit_get_unused_tag_types(@tags, "Indoor Features") %>
+					<% outdoor_tags = add_edit_get_unused_tag_types(@tags, "Outdoor Features") %>
+				<% else %>
+					<% # If we don't have any tags then just get all of the tags for the categories %>
+					<% indoor_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
+					<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
+				<% end %>
 				<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
 					<option value="">Additional Feature</option>
 					<% # Add tags to the dropdown from the database, storing the value as label_category so we can properly add tags to the database from the selections%>
