@@ -34,7 +34,7 @@
 			<% end %>
 			<%# img its also a link needs to be changed to url for actual link of property object %>
 			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
-				<%= image_tag "propertyimagetemp.png", alt: "Property Image" %>
+				<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
 			<% end %>
 		</div>
 		<div class="content">
@@ -67,23 +67,18 @@
 				 	price-feature-tag is red %>
 				<div class="ui property-feature-tag label"><%= listing.listing_type %></div>
 				<div class="ui property-feature-tag label"><%= listing.listing_land_size %> sqm</div>
-				<div class="ui sell-feature-tag label">Home Theatre</div>
-				<div class="ui sell-feature-tag label">NBN</div>
-				<div class="ui sell-feature-tag label">Pool</div>
-				<div class="ui sell-feature-tag label">Front Garden</div>
-				<div class="ui sell-feature-tag label">Back Garden</div>
-				<div class="ui location-feature-tag label">1.3km from your Work</div>
-				<div class="ui property-feature-tag label">5.1km from Schools</div>
-				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
 				<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
-					<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
-					<% # A label for each tag in the list %>
-					<% tags.each do |tag| %>
+				<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
+				<% # A label for each tag in the list %>
+				<% tags.each do |tag| %>
 					<div class="ui sell-feature-tag label">
 						<% # tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
 						<%= tag[0] %>
 					</div>
 				<% end %>
+				<div class="ui location-feature-tag label">1.3km from your Work</div>
+				<div class="ui property-feature-tag label">5.1km from Schools</div>
+				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
 			</div>
 		</div>
 		<div class="extra content">
