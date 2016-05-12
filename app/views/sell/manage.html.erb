@@ -15,11 +15,11 @@
 #   	
 #   Notes: 
 #   	For pagination (infinite-scroll) the amount of listings displayed per page is configured in the listing.rb file in models.
+#   	For pagination/sort please look at manage.js.erb. It is used to change the sort/filter method and to allow infinite scrolling of a users listings
 #   
 #   Todo:
-#   	* Change sort icon to ascending/descending icon default to ???
-#   	* Implement sort in ascending and descending order (clicking icon changes sort method between the two)
- %>
+%>
+
 <div class="ui container nobanner-container sell-top">
 	<% # Manage Properties table header%>
 	<div class="ui fixed sticky center aligned fluid card manage-table-header manage-properties">
@@ -29,23 +29,18 @@
 				<div class="left floated left aligned column">
 					<h1>Manage Your Properties</h1>
 				</div>
-				<% # Sort Button, eventually clicking the first button will change the filter between ascending and descending %>
+
+				<% # Sort/Filter action (choose sort column and asc/desc filter method) %>
 				<div class="center aligned column">
-					<div class="ui buttons">
-						<div class="ui icon button"><i class="filter icon"></i></div>
-						<div class="ui drop button">Select Filter</div>
-						<div class="ui combo top right pointing dropdown icon button" id="manage-filter">
-							<i class="dropdown icon"></i>
-							<div class="menu">
-								<div class="item">Comments</div>
-								<div class="item">Date Modified</div>
-								<div class="item">Expiry</div>
-								<div class="item">Popularity</div>
-								<div class="item">Views</div>
-							</div>
-						</div>
-					</div>
+					<% # The sort choices (i.e. what columns to sort via) %>
+					<%= select_tag :listing_filter, options_for_select([ [ "Comments", 1 ], [ "Date Modified", 2 ], [ "Expiry", 3 ], [ "Popularity", 4 ], [ "Views", 5 ] ]), { prompt: "Sort Listings", include_blank: false, class: "ui floating labelled icon button dropdown", id: "manage-filter" } %>
+					
+					<% # The filter_method button. Used to switch between Ascending and Descending (desc == default) %>
+					<button class="ui button" id="manage-filter-method" data-filter-method="desc">
+						<i class="sort content descending icon"></i>
+					</button>
 				</div>
+				
 				<% # Add Property Button %>
 				<div class="right floated right aligned column">
 					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
@@ -56,6 +51,7 @@
 			</div>
 		</div>
 	</div>
+
 	<% # A Notice or Error message box used to display alerts when a user has added or updated a property (it's dismissable) %>
 	<% if flash[:listing_notice] %>
 		<% # A positive message block that is dismissable %>

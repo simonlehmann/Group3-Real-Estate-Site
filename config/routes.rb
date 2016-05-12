@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # Devise configuration (note, setting path to '' means we don't have /users/sign_up it will be /sign_up)
   # Also, changing the sign_in and edit paths to /login and /edit_account
   devise_for :users, path: '', path_names: { sign_in: 'login', edit: 'edit_account' }, controllers: { registrations: "registrations" }
+  # Devise scope to allow us to crop an image
+  devise_scope :user do
+    put 'dashboard/settings/crop' => 'registrations#crop_avatar', as: :crop_avatar
+  end
 
   # Root URL maps to the buy controller root action which redirects to the index action
   root 'buy#root'
@@ -18,6 +22,7 @@ Rails.application.routes.draw do
   get '/dashboard/messages' => 'dashboard#messages'
   get '/dashboard/favourites' => 'dashboard#favourites'
   get '/dashboard/settings' => 'dashboard#settings'
+  # get '/dashboard/settings/crop' => 'dashboard#crop' # This url has been turned off as we're using a modal now for this action.
   get '/contact' => 'contact#index'
   
   # Static Pages routes
@@ -28,7 +33,10 @@ Rails.application.routes.draw do
   # AJAX actions (Used to update contact without a full page request)
   # Update the search bar suburbs on index page based upon the selected state value
   put '/update-search-suburbs' => 'buy#update_search_suburbs'
-  
+  # get params from search field on /buy to /search
+  put '/search' => 'search#get_search'
+  put '/update-sort' => 'sell#update_sort'
+
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show] do    
     member do
