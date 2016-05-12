@@ -18,7 +18,6 @@ ready = ->
 			$.ajax
 				type: 'POST'
 				url: '/search'
-				dataType: 'json'
 				data:
 					_method: 'PUT'
 					search_values: JSON.stringify(search_tags)
@@ -34,11 +33,10 @@ ready = ->
 	$('.property-card .fav-property').click( ->
 		$(this).children('i').toggleClass('favd'))
 	#remove label in nav menu when the x is clicked
-	$('.delete.icon').click( ->
+	$('.search-submenu .delete.icon').click( ->
 		$(this).parent().remove())
 	
 
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready
-$(document).on 'page:load', ready

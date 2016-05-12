@@ -66,41 +66,86 @@ ready = ->
 	# Add tags to the selection field based upon the entered info in the add-edit-additional-tags-dropdown
 	# Get the tag area, the tag type dropdown, the tag input value and the add button
 	additional_tag_area = $('#add-edit-additional-tags')
-	additional_tag_area.dropdown allowAdditions: true
+	additional_tag_area.dropdown 
+		allowAdditions: true
+		# Event Callback so that on add to this dropdown, lets remove the corresponding choice from the additional_dropdown
+		onAdd: (addedValue, addedText, $addedChoice) ->
+			# Get the option value we want to remove from the additional_dropdown list
+			split_vals = addedValue.split('_')
+			# This is formatted ['qty', 'tag_type', 'tag_category'], lets remove the select option with the value of the tag_type + tag_category
+			removing_value = split_vals[1] + '_' + split_vals[2]
+			# Remove this value from the dropdown
+			additional_dropdown.find('option[value="' + removing_value + '"]').remove()
+			# Refresh the dropdown so it reflects the change (done after a short timeout due to a quirk with Semantic UI dropdowns)
+			setTimeout (->
+				additional_dropdown.dropdown 'refresh' 
+			), 0.1
+		# Event callback to add the tag back into the additional_dropdown as an option when a tag is removed
+		onRemove: (removedValue, removedText, $removedChoice) ->
+			# Get the option value we need to add back into the list
+			split_vals = removedValue.split('_')
+			# This is formatted ['qty', 'tag_type', 'tag_category'], lets remove the select option with the value of the tag_type + tag_category
+			adding_value = split_vals[1] + '_' + split_vals[2]
+			# check if this option already exists in the additional_dropdown as an option
+			check_if_there = additional_dropdown.find('option[value="' + adding_value + '"]')
+			# No option exists so lets add it to the additional_dropdown field
+			if !check_if_there.length
+				# Append the additional dropdown back to the list in alphabeticall order, but we want to stop once it's added
+				option_added = false
+				# Compare each option in the list and if it's added set option_added to true return false to exit the loop
+				additional_dropdown.find('option').each ->
+					if !option_added and $(this).text() > split_vals[1] and $(this).val != ""
+						# I found that I had to add the option tag like this as it would fail if I passed an action option object
+						$('<option value="' + adding_value + '">' + split_vals[1] + '</option>').insertBefore($(this))
+						option_added = true
+						return false # Exit the each loop early
+				# If after the loop we haven't added it, lets add it in right at the end
+				if !option_added
+					$('<option value="' + adding_value + '">' + split_vals[1] + '</option>').appendTo(additional_dropdown)
+				# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
+				setTimeout (->
+					# Refresh the dropdown with the newly re-added option
+					additional_dropdown.dropdown 'refresh' 
+				), 0.1
+
+	# Get the remaining dropdown and input fields
 	additional_dropdown = $('#add-edit-additional-tags-dropdown')
+	additional_dropdown.dropdown sortSelect: true # Sort the dropdown on creation from the select element
 	additional_input = $('#add-edit-additional-tags-input')
 	additional_button = $('#add-edit-additional-tags-button')
+
 	# Add a click function to the add tag button
 	additional_button.on 'click', ->
 		# Get the input quantity and the dropdown selection text and value
 		qty = additional_input.val()
 		# The value field has the tag_type_category as well (needed for the database saving), 
 		# where as the text of the option choice is only the tag_type_label (which we want to display)
-		value = additional_dropdown.children("option").filter(":selected").val()
-		selection = additional_dropdown.children("option").filter(":selected").text()
+		value = additional_dropdown.find('option:selected').val()
+		selection = additional_dropdown.find('option:selected').text()
 		if value != "" and selection != "" and qty != ""
 			# Add the tag to the tag area if the value isn't empty
 			new_tag_value = qty + "_" + value
 			# Store the display value as a singledton if only 1 qty was picked (i.e. 1 Pool = Pool)
 			# Else, call the @get_plural(string) function located in global.coffee
-			new_tag_text = if qty > 1 then get_plural(selection) else selection
+			new_tag_text = if qty > 1 then qty + ' ' + get_plural(selection) else selection
 			# Create an option tag
 			opt = document.createElement('option')
 			opt.value = new_tag_value
 			opt.innerHTML = new_tag_text
-			console.log opt
 			# Add the option to the selection box with the new tag value and text (whilst keeping the old values (this used to override the selections))
 			additional_tag_area.append(opt)
 			# Due to how Semantic works, a timeout/delay had to be added to get this to work, if there's errors try changing the value from 1 to a larger number
 			setTimeout (->
 				additional_tag_area.dropdown 'refresh' # Refresh the dropdown with the new data
 				additional_tag_area.dropdown 'set selected', new_tag_value # Select the new option based upon it's value
-			), 1
+			), 0.1
+			# Remove the option from the addition_dropdown select list
+			additional_dropdown.find('option[value="' + value + '"]').remove()
 			# Reset the additional tag dropdowns to their initial selected values and placeholder text
 			additional_input.dropdown 'clear'
 			additional_dropdown.dropdown 'clear'
-			additional_input.dropdown 'set text', 'Enter Qty For Additional Feature'
 			additional_dropdown.dropdown 'set text', 'Additional Feature'
+			additional_input.dropdown 'set selected', '1'
 		else
 			# Otherwise send an alert
 			alert 'Please select an additional feature and quantity and try again'
@@ -111,6 +156,11 @@ ready = ->
 		# If it's not the placeholder option and options existing on page load then they're from the server and need to be set selected
 		if $(this).val() != ''
 			additional_tag_area.dropdown 'set selected', $(this).val()
+		# Refresh the dropdown to see the changes from the removal
+		setTimeout (->
+			# Refresh to get the latest list of options
+			additional_dropdown.dropdown 'refresh' 
+		), 0.1
 		return
 	
 	# Change the suburb/postcode dropdown options based on the selected state
@@ -428,4 +478,3 @@ ready = ->
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready
-$(document).on 'page:load', ready
