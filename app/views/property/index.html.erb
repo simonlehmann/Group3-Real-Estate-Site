@@ -21,21 +21,23 @@
 		<%# Partial for image header with favourite prop, status and slick carousel and lightbox %>
 		<%= render partial:"property/propertyHeaderImage" %>
 	</div>
+	<section class="ui sixteen wide center aligned grid row property-details-section">
+		<%# Property Info section %>
+		<div class="ui twelve wide left aligned column property-information">
+			<%# Partial for property details desktop-leftColumn %>
+			<%= render partial:"property/propertyDetails" %>
+		</div>
+		<%# User and Realestate section %>
+		<div class="ui four wide center aligned column realestate-section">
+			<%# Partial for realestate info desktop-rightColumn %>
+			<%= render partial:"property/propertyRealestate" %>
+		</div>
+	</section>
+	<div class="ui fluid center aligned container map-section">
+		<%= render partial:"map/map" %>
+	</div>
 </section>
-<section class="ui ten wide center aligned grid row">
-	<%# Property Info section %>
-	<div class="ui six wide left aligned column property-information">
-		<%# Partial for property details desktop-leftColumn %>
-		<%= render partial:"property/propertyDetails" %>
-	</div>
-	<%# User and Realestate section %>
-	<div class="ui four wide left aligned column realestate-section">
-		<%# Partial for realestate info desktop-rightColumn %>
-		<%= render partial:"property/propertyRealestate" %>
-	</div>
-	<%# put 100% width %>
-	<%= render partial:"map/map" %>
+
 	<%# Insert map section here %>
 	<%# Insert comments section here %>
 	<%# Insert featured property section here %>
-</section>

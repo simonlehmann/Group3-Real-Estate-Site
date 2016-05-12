@@ -1,15 +1,26 @@
 <%# USER image/link %>
 <%# profile path will need to change for profile/:id %>
-<div class="middle aligned column user-column">
-	<%= link_to buy_path  do %>
-		<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
-		<%# Username %>
-		<span>Ron Swanson</span>
+<ul id="realestateDetails">
+	<li>
+		<%= link_to buy_path  do %>
+			<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui small circular image" %>
+			<%# Username %>
+			<span>Ron Swanson</span>
+		<% end %>
+	</li>
+	<li>
 		<%# User Company %>
 		<span>Ron's Realestate Company</span>
+	</li>
+	<li>
 		<%# User Phone %>
-		<button>call</button>
+		<button class="ui inverted green button">Call</button>
+	</li>
+	<li>
 		<%# User Email %>
-		<button>email</button>
-	<% end %>
-</div>
+		<button class="ui inverted green button">Email</button>
+	</li>
+</ul>
+
+
+
