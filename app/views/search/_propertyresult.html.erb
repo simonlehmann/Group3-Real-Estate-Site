@@ -1,3 +1,15 @@
+<% 
+#   Created: Jayden Spencer
+#   
+#   Render a single property listing result
+#   
+#   Note, this is also used in the add_edit_preview page to render a listing search result preview and therefore has some addition
+#   	logic to handle having a listing object with nil values (which is what is there when a new listing is being created)
+#   
+#   Local collections:
+#   	listing: this represents a listing object from the search result or add/edit listing view
+%>
+
 <% # Render a property result using the local variable 'listing' which represents a listing object from the @listings collection %>
 <div class="ui fluid card property-card">
 	<div class="content">
@@ -11,58 +23,122 @@
 					<i class="marker icon"></i>
 				<% end %>
 			</span>
+
 			<%# address %>
-			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
-				<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
+			<% # Logic added to only include url if the page is the search page as the add edit listing page shouldn't use a url %>
+			<% # Also, added logic to support showing a preview on a new listing, which has a @listing object, but all fields are nil %>
+			<%= puts controller_name %>
+			<% if listing.listing_address %>
+				<%# We have a listing address so lets check the controller and if it's the search page, show a link, else just the address %>
+				<% if controller_name == "search" %>
+					<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
+						<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
+					<% end %>
+				<% else %>
+					<% # Just use the listing address as we're on the preview page and don't want it to be a link %>
+					<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
+				<% end %>
+			<% else %>
+				<% # Show some placeholder text for the listing address, I'm using an id'd span so I can live update this on the add/edit page %>
+				<span id="search-preview-address">Listing Address</span>
 			<% end %>
 			<div class="property-info">
-				<%# num of bedrooms %>
-				<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
-				<%# num of bathrooms %>
-				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
-				<%# num of carspaces %>
-				<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
+				<%# num of bedrooms (added span id for live preview on add/edit page). 
+				Using a ternary to place either the actual value or a placeholder if we're viewing the preview and none exist.
+				reminder, in ruby a ternary is (boolean expression ? value if true : value if false) %>
+				<i class="large bed icon"></i> <span id="search-preview-bedrooms"><%= listing.listing_bedrooms ? listing.listing_bedrooms : 2 %></span>
+				<%# num of bathrooms (added span id for live preview on add/edit page). 
+				Using a ternary to place either the actual value or a placeholder if we're viewing the preview and none exist.
+				reminder, in ruby a ternary is (boolean expression ? value if true : value if false) %>
+				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span id="search-preview-bathrooms"><%= listing.listing_bathrooms ? listing.listing_bathrooms : 2 %></span>
+				<%# num of carspaces (added span id for live preview on add/edit page). 
+				Using a ternary to place either the actual value or a placeholder if we're viewing the preview and none exist.
+				reminder, in ruby a ternary is (boolean expression ? value if true : value if false) %>
+				<i class="large car icon"></i> <span id="search-preview-parking"><%= listing.listing_parking ? listing.listing_parking : 2 %></span>
 			</div>
 		</h3>
 	</div>
 	<div class="ui fluid image">
 		<%# is favorited, if so add class to i favd %>
-		<a class="ui left corner label fav-property"><i class="star icon"></i></a>
-		<%# img its also a link needs to be changed to url for actual link of property object. %>
-		<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
-			<% if listing.listing_cover_image %>
-				<%# Get the cover image if it exists %>
-				<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
-			<% else %>
-				<%# Placeholder image incase there's no main image  %>
-				<%= image_tag "placeholder_w.png", alt: "Property Image" %>
-			<% end %>
+		<% # only show this in the search controller sent you here %>
+		<% if controller_name == "search" %>
+			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
 		<% end %>
-		<%# status of property, might be handy for this to include a link to property page
+
+		<%
+		# To handle a new listing action we need to check if the listing has any blank fields. As listing.listing_address is not able to be null 
+		# this is a good field to use to check. If this exists, then we're either getting a search result or previewing an existing listing.
+		# If it doesn't then we're adding a new listing and we need to act accordingly. 
+		%>
+		<% if listing.listing_address %>
+
+			<%# status of property, might be handy for this to include a link to property page
 			"click here to set a status" means if it doesnt have a stus dont have ribbon 
 			Has to be below the image so it appears above it %>
-		<% if listing_get_status_readable(listing) != "Click here to set a status" %>
-			<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
+			<% # only showing this if we have a listing with content (i.e. not a new listing) %>
+			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
+			<% end %>
+
+			<% # We have a listing with valid data so lets either make this image a link (search controller) or just show the image (all other controllers) %>
+			<% if controller_name == "search" %>	
+				<% # Got here via search, lets make this a link %>
+				<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
+					<% if listing.listing_cover_image %>
+						<%# Get the cover image if it exists %>
+						<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
+					<% else %>
+						<%# Placeholder image incase there's no main image %>
+						<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+					<% end %>
+				<% end %>
+			<% else %>
+				<% # Just show the image without the url link as we're on the add/edit page and don't want it to link to a listing that may or may not exist %>
+				<% if listing.listing_cover_image %>
+					<%# Get the cover image if it exists %>
+					<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
+				<% else %>
+					<%# Placeholder image incase there's no main image  %>
+					<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<% # Placeholder image for the search preview on a new listing action %>
+			<%= image_tag "placeholder_w.png", alt: "Property Image", id: "search-preview-cover-image" %>
 		<% end %>
 	</div>
+
 	<div class="content">
 		<h2>
 			<%# price %>
 			<% if listing.listing_price_type == "F" %>
-				<%= number_to_currency(listing.listing_price_min, {
-					precision: 0 }) %>
+				<%# Placeholder for the add/edit new preview (added span id for live preview on add/edit page). 
+				Using a ternary to place either the actual value or a placeholder if we're viewing the preview and none exist.
+				reminder, in ruby a ternary is (boolean expression ? value if true : value if false) %>
+				<span id="search-preview-fixed-price">
+					<%= number_to_currency(listing.listing_price_min ? listing.listing_price_min : 450000, {	precision: 0 }) %>
+				</span>
 			<% else %>
-				<%= number_to_currency(listing.listing_price_min, {
-					precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %>
+				<%# Placeholder for the add/edit new preview (added span id for live preview on add/edit page). 
+				Using a ternary to place either the actual value or a placeholder if we're viewing the preview and none exist.
+				reminder, in ruby a ternary is (boolean expression ? value if true : value if false) %>
+				<span id="search-preview-min-price">
+					<%= number_to_currency(listing.listing_price_min ? listing.listing_price_min : 400000, {	precision: 0 }) %>
+				</span> - 
+				<span id="search-preview-max-price">
+					<%= number_to_currency(listing.listing_price_max ? listing.listing_price_max : 450000, { precision: 0, unit: "" }) %>
+				</span>
 			<% end %>
 			<span class="right floated property-info-stats">
 				<span>
 					<%# num of favourites on property %>
-					<i class="star icon"></i> <%= listing.listing_favourites %> favourites
+					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> favourites
 				</span>
 				<span>
 					<%# num of comments on property %>
-					<i class="comment icon"></i> <%= listing.listing_comments %> comments
+					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> comments
 				</span>
 			</span>
 		</h3>
@@ -95,29 +171,53 @@
 				<div class="column">
 					<%# time since posted only hours, then only days %>
 					<div class="left floated meta">
-						<% if listing.listing_created_at > Time.now.beginning_of_day %>
-							<%# 1 hour ago, less than a minute ago %>
-							<%= "#{time_ago_in_words(listing.listing_created_at)} ago" %>
+						<% # Need to check if there is a listing data, otherwise display a placeholder for the add/edit new preview view %>
+						<% if listing.listing_created_at %>
+							<% if listing.listing_created_at > Time.now.beginning_of_day %>
+								<%# 1 hour ago, less than a minute ago %>
+								<%= "#{time_ago_in_words(listing.listing_created_at)} ago" %>
+							<% else %>
+								<%# date 07 May, 2016 %>
+								<%= listing.listing_created_at.strftime("%d %b, %Y") %>
+							<% end %>
 						<% else %>
-							<%# date 07 May, 2016 %>
-							<%= listing.listing_created_at.strftime("%d %b, %Y") %>
+							<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+							<span id="search-preview-created-at">dd Mon, YYYY</span>
 						<% end %>
 					</div>
 				</div>
+
 				<%# USER image/link %>
 				<%# profile path will need to change for profile/:id %>
+				<% # If you got here via the search controller then show a link to the user, otherwise handle the preview without a link %>
 				<div class="right floated middle aligned column user-column">
-					<%= link_to url_for("#{listing.listing_user.username}")  do %>
-						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui avatar image" %>
-						<span><%= listing.listing_user.username %></span>
+					<% # got here via search, so link to user %>
+					<% if controller_name == "search" %>
+						<%= link_to url_for("#{listing.listing_user.username}")  do %>
+							<%= image_tag listing.listing_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+							<span><%= listing.listing_user.username %></span>
+						<% end %>
+					<% # Didn't get here via search (i.e. add/edit preview) lets just use the current_user as the listing_user might not exist %>
+					<% else %>
+						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+						<span>Username</span>
 					<% end %>
 				</div>
+
 				<%# COMPANY image/link %>
 				<%# profile path will need to change for profile/:id %>
+				<% # If you got here via the search controller then show a link to the user, otherwise handle the preview without a link %>
 				<div class="right floated middle aligned column company-column">
-					<%= link_to url_for("#{listing.listing_user.username}") do %>
-						<%= image_tag "userprofile-header.png", alt: "User Profile Image", class: "ui tiny image" %>
-						<span><%= listing.listing_user.username %></span>
+					<% # got here via search, so link to user %>
+					<% if controller_name == "search" %>
+						<%= link_to url_for("#{listing.listing_user.username}") do %>
+							<%= image_tag listing.listing_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui tiny image" %>
+							<span><%= listing.listing_user.username %></span>
+						<% end %>
+					<% # Didn't get here via search (i.e. add/edit preview) lets just use the current_user as the listing_user might not exist %>
+					<% else %>
+						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui tiny image" %>
+						<span>Company Name</span>
 					<% end %>
 				</div>
 			</div>
