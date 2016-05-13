@@ -5,53 +5,47 @@
 #   The property page for the site.
 #   
 #   Partials:
-#   	
+#   	- Property Navigation, handles going back wherever you came from and going to another property
+#   	- Property Header Image, handles the slick carousel, slick lightbox, favourites top left button and status ribbon on top right
+#       - Property Details, handles address, prices, tags, description, property details
 #   TODO:
-#
+# 		- Map actually works with location
+# 		- Make the map styled to suit page and has dropdown and that sorta thing
+# 		- Insert comments section
+#       - Insert featured properties
+# 		- Make page mobile friendly
+# 		- Favourites toggle, works with listing and is styled nicely
+# 		- back to #location and next/previous buttons are styled
+# 		- next/previous buttons work
+# 		- description is styled and if length has a dropdown/expand area
+# 		- call/email buttons work
+# 		- realestate company data is filled
+# 		- carousel images are filled and the number changed based on count (for the dots)
+# 		- carousel lightbox works
  %>
 <section class="property-container nobanner-container ui center aligned container">
 	<div class="ui sixteen wide center aligned grid">
-		<div id="toppic-links">
-			<%= link_to "< back to search results", "search_path", id:"back-search-link" %>
-			<span id="next-prev-links">
-				<%= link_to "< previous", buy_path %>
-				<%= link_to "next >", buy_path %>
-			</span>
+		<%= render partial:"property/propertyNav" %>
+		<%# Partial for image header with favourite prop, status and slick carousel and lightbox %>
+		<%= render partial:"property/propertyHeaderImage" %>
+	</div>
+	<section class="ui sixteen wide center aligned grid row property-details-section">
+		<%# Property Info section %>
+		<div class="ui twelve wide left aligned column property-information">
+			<%# Partial for property details desktop-leftColumn %>
+			<%= render partial:"property/propertyDetails" %>
 		</div>
-		<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-			</div>
-			<div>
-				<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-			</div>
+		<%# User and Realestate section %>
+		<div class="ui four wide center aligned column realestate-section">
+			<%# Partial for realestate info desktop-rightColumn %>
+			<%= render partial:"property/propertyRealestate" %>
 		</div>
+	</section>
+	<div class="ui fluid center aligned container map-section">
+		<%= render partial:"map/map" %>
 	</div>
 </section>
-<section class="ui ten wide center aligned grid row">
-	<% #Property Info section %>
-	<div class="ui six wide left aligned column property-information">
-		<h1>88 Millne Rd Bays Water WA 6053</h1>
-		<h2>Under offer for $1,234,567</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae cum tenetur facilis, asperiores unde, autem minima sint voluptatibus eos eaque repellat architecto nostrum maiores culpa aut. Id cum, adipisci maiores!</p>
-	</div>
-	<% #User and Realestate section %>
-	<div class="ui four wide left aligned column realestate-section">
-		<h3>real estate company and all that</h3>
-	</div>
-</section>
+
+	<%# Insert map section here %>
+	<%# Insert comments section here %>
+	<%# Insert featured property section here %>

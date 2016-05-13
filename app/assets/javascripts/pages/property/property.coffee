@@ -9,7 +9,7 @@ ready = ->
 	#add slick-carousel
 	$(".propertySlide").slick(
 		dots: true,
-		speed: 800,
+		speed: 1200,
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 4000)
