@@ -67,13 +67,10 @@ ready = ->
 					$('#manage-filter-method').blur()
 
 	#--------- Sticky Code
-	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
-	$('.manage-table-header.ui.sticky').sticky
-		offset: 60
-		context: '.ui.cards'	
-	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
-	if window.location.pathname.includes('sell')
-		$('.manage-table-header.ui.sticky').sticky 'refresh'
+	# No longer using the semantic Sticky method, but using the visibility fixed method as this works better when the page content is small
+	$('.manage-table-header').visibility
+		type: 'fixed'
+		offset: 60 # Offset = page offset so the header sticks to the bottom of the header when it gets the fixed class applied
 	
 	# Popup tooltip for the approval corner label in the manage table cards when you hover over the label
 	$('.manage-listing-card #listing-approval-label').popup	hoverable: true

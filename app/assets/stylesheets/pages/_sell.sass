@@ -96,6 +96,23 @@
 		padding-right: 0.7em
 		padding-left: 0.7em
 
+// Manage table header fixing using Semantic Visibility, rather than semantic's Fixed, to fix the bounce issue with only one listing
+.manage-table-header.visibility
+	// The temporary element Semantic creates so it can expand the fixed header into it when the fixed class gets applied (removes jittery animation)
+	padding: 0em
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
+	transition: all 0.5s ease
+	background: transparent
+	width: inherit !important // Set width to inherit otherwise it breaks it's size when it gets fixed
+	z-index: 100 !important // Overlay the container of cards
+
+// The actual header element gets this style applied when it is fixed
+.manage-table-header.visibility.fixed
+	position: fixed
+	width: inherit !important // Set width to inherit otherwise it breaks it's size when it gets fixed
+	z-index: 100 !important // Overlay the container of cards
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2)
+
 // Add margin to next element after sticky to prevent overlap
 .manage-properties
 	z-index: 99
