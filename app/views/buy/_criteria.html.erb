@@ -1,0 +1,156 @@
+<%
+#   Created: Michael White
+#   Date: 13/05/2016
+#   
+#   Criteria Partial from /buy
+#
+%>
+<div class="criteria-selection">
+	<div class="big ui dropdown right labeled icon button">
+		<span class="text" id="button-name">Add Search Criteria</span>
+		<i class="right add icon"></i>
+		<div class="menu">
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Appliances</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Appliances") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Bathrooms</span>
+				<div class="menu">
+					<div class="item">1 Bathroom</div>
+					<div class="item">2 Bathrooms</div>
+					<div class="item">3 Bathrooms</div>
+					<div class="item">4 Bathrooms</div>
+					<div class="item">5 Bathrooms</div>
+					<div class="item">6 Bathrooms</div>
+					<div class="item">7 Bathrooms</div>
+					<div class="item">8 Bathrooms</div>
+					<div class="item">9 Bathrooms</div>
+					<div class="item">10 Bathrooms</div>
+				</div>
+			</div>
+					<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Bedrooms</span>
+				<div class="menu">
+					<div class="item">1 Bedroom</div>
+					<div class="item">2 Bedrooms</div>
+					<div class="item">3 Bedrooms</div>
+					<div class="item">4 Bedrooms</div>
+					<div class="item">5 Bedrooms</div>
+					<div class="item">6 Bedrooms</div>
+					<div class="item">7 Bedrooms</div>
+					<div class="item">8 Bedrooms</div>
+					<div class="item">9 Bedrooms</div>
+					<div class="item">10 Bedrooms</div>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Eco Friendly</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Eco Friendly") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Heating Cooling</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Heating Cooling") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">House Type</span>
+				<div class="menu">
+					<div class="item">Apartment</div>
+					<div class="item">House</div>
+					<div class="item">Land</div>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Leisure</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Leisure") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Outdoor Features</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Parking</span>
+				<div class="menu">
+					<div class="item">1 Parking Bay</div>
+					<div class="item">2 Parking Bays</div>
+					<div class="item">3 Parking Bays</div>
+					<div class="item">4 Parking Bays</div>
+					<div class="item">5 Parking Bays</div>
+					<div class="item">6 Parking Bays</div>
+					<div class="item">7 Parking Bays</div>
+					<div class="item">8 Parking Bays</div>
+					<div class="item">9 Parking Bays</div>
+					<div class="item">10 Parking Bays</div>
+				</div>
+			</div>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Price</span>
+				<div class="menu">
+					<div class="item">$100,000</div>
+					<div class="item">$200,000</div>
+					<div class="item">$300,000</div>
+					<div class="item">$400,000</div>
+					<div class="item">$500,000</div>
+					<div class="item">$600,000</div>
+					<div class="item">$700,000</div>
+					<div class="item">$800,000</div>
+					<div class="item">$900,000</div>
+					<div class="item">$1,000,000</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="criteria-tag-field">
+	
+</div>

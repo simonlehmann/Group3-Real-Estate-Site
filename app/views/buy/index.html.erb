@@ -22,11 +22,7 @@
 	<div class="ui center aligned container">
 		<h1 class="ui inverted header">LOOKING TO BUY A HOME?</h1>
 		<%= render "buy/search" %>
-		<% #search criteria dropdown button %>
-		<button class="big ui right labeled icon button">
-			<i class="right add icon"></i>
-			Add Search Criteria
-		</button>
+		<%= render partial: "buy/criteria" %>
 	</div>
 </div>
 <% #render favourites section when logged in %>

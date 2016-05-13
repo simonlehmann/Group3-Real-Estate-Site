@@ -1,3 +1,10 @@
+# Created: Michael White
+# Date: 05/04/2016
+# 
+# The following coffeescript is for the index/buy page.
+# 
+# TODO:
+#
 ready = ->
   getLocation = ->
     if navigator.geolocation
