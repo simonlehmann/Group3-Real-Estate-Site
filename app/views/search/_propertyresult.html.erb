@@ -28,14 +28,21 @@
 		<div class="ui fluid image">
 			<%# is favorited, if so add class to i favd %>
 			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
+			<%# img its also a link needs to be changed to url for actual link of property object. %>
+			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
+				<% if listing.listing_cover_image %>
+					<%# Get the cover image if it exists %>
+					<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
+				<% else %>
+					<%# Placeholder image incase there's no main image  %>
+					<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+				<% end %>
+			<% end %>
 			<%# status of property, might be handy for this to include a link to property page
-				"click here to set a status" means if it doesnt have a stus dont have ribbon %>
+				"click here to set a status" means if it doesnt have a stus dont have ribbon 
+				Has to be below the image so it appears above it %>
 			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
-			<% end %>
-			<%# img its also a link needs to be changed to url for actual link of property object %>
-			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
-				<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
 			<% end %>
 		</div>
 		<div class="content">
