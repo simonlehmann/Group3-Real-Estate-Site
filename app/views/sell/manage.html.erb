@@ -16,13 +16,13 @@
 #   Notes: 
 #   	For pagination (infinite-scroll) the amount of listings displayed per page is configured in the listing.rb file in models.
 #   	For pagination/sort please look at manage.js.erb. It is used to change the sort/filter method and to allow infinite scrolling of a users listings
-#   
+#   	
 #   Todo:
 %>
 
 <div class="ui container nobanner-container sell-top">
 	<% # Manage Properties table header%>
-	<div class="ui fixed sticky center aligned fluid card manage-table-header manage-properties">
+	<div class="ui center aligned fluid card manage-table-header visibility manage-properties">
 		<div class="content">
 			<div class="ui centered middle aligned three column grid">
 				<% # Table header %>
@@ -92,4 +92,7 @@
 			</div>
 		</div>
 	</div>
+
+	<% # Render the to top button %>
+	<%= render partial: "layouts/to_top_button" %>
 </div>
