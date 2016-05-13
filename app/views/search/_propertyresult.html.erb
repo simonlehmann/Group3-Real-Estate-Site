@@ -16,25 +16,26 @@
 					<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
 				<% end %>
 				<div class="property-info">
-				<%# num of bedrooms %>
-				<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
-				<%# num of bathrooms %>
-				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
-				<%# num of carspaces %>
-				<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
-			</div>
+					<%# num of bedrooms %>
+					<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
+					<%# num of bathrooms %>
+					<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
+					<%# num of carspaces %>
+					<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
+				</div>
 			</h3>
 		</div>
 		<div class="ui fluid image">
 			<%# is favorited, if so add class to i favd %>
 			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
-			<%# status of property, might be handy for this to include a link to property page %>
+			<%# status of property, might be handy for this to include a link to property page
+				"click here to set a status" means if it doesnt have a stus dont have ribbon %>
 			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
 			<% end %>
 			<%# img its also a link needs to be changed to url for actual link of property object %>
 			<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
-				<%= image_tag "propertyimagetemp.png", alt: "Property Image" %>
+				<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
 			<% end %>
 		</div>
 		<div class="content">
@@ -67,23 +68,18 @@
 				 	price-feature-tag is red %>
 				<div class="ui property-feature-tag label"><%= listing.listing_type %></div>
 				<div class="ui property-feature-tag label"><%= listing.listing_land_size %> sqm</div>
-				<div class="ui sell-feature-tag label">Home Theatre</div>
-				<div class="ui sell-feature-tag label">NBN</div>
-				<div class="ui sell-feature-tag label">Pool</div>
-				<div class="ui sell-feature-tag label">Front Garden</div>
-				<div class="ui sell-feature-tag label">Back Garden</div>
-				<div class="ui location-feature-tag label">1.3km from your Work</div>
-				<div class="ui property-feature-tag label">5.1km from Schools</div>
-				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
 				<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
-					<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
-					<% # A label for each tag in the list %>
-					<% tags.each do |tag| %>
+				<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
+				<% # A label for each tag in the list %>
+				<% tags.each do |tag| %>
 					<div class="ui sell-feature-tag label">
 						<% # tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
 						<%= tag[0] %>
 					</div>
 				<% end %>
+				<div class="ui location-feature-tag label">1.3km from your Work</div>
+				<div class="ui location-feature-tag label">5.1km from Schools</div>
+				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
 			</div>
 		</div>
 		<div class="extra content">

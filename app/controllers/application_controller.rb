@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
 			store_location_for(:user, request.fullpath)
 		end
 	end
+	
+	def save_my_previous_url
+		# session[:previous_url] is a Rails built-in variable to save last url.
+		session[:my_previous_url] = URI(request.referer || '').path
+	end
 
 	# Go to the previous url or the root_path after updating your account details using devise's built in form actions
 	def after_update_path_for(resource)
