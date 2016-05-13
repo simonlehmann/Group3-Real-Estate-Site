@@ -16,19 +16,20 @@
 					<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
 				<% end %>
 				<div class="property-info">
-				<%# num of bedrooms %>
-				<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
-				<%# num of bathrooms %>
-				<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
-				<%# num of carspaces %>
-				<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
-			</div>
+					<%# num of bedrooms %>
+					<i class="large bed icon"></i> <span><%= listing.listing_bedrooms %></span>
+					<%# num of bathrooms %>
+					<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= listing.listing_bathrooms %></span>
+					<%# num of carspaces %>
+					<i class="large car icon"></i> <span><%= listing.listing_parking %></span>
+				</div>
 			</h3>
 		</div>
 		<div class="ui fluid image">
 			<%# is favorited, if so add class to i favd %>
 			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
-			<%# status of property, might be handy for this to include a link to property page %>
+			<%# status of property, might be handy for this to include a link to property page
+				"click here to set a status" means if it doesnt have a stus dont have ribbon %>
 			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(listing) %></a>
 			<% end %>
@@ -77,7 +78,7 @@
 					</div>
 				<% end %>
 				<div class="ui location-feature-tag label">1.3km from your Work</div>
-				<div class="ui property-feature-tag label">5.1km from Schools</div>
+				<div class="ui location-feature-tag label">5.1km from Schools</div>
 				<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
 			</div>
 		</div>
