@@ -5,10 +5,10 @@
 # 
 # TODO:
 #
+
 ready = ->
 	$('.criteria-selection .dropdown.button').dropdown
 		action: 'select'
 		onChange: (value, text, $choice) ->
 			$choice.remove()
-
 $(document).ready ready
