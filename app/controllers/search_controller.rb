@@ -2,7 +2,6 @@ class SearchController < ApplicationController
 	
 	include ApplicationHelper
 	include SellHelper
-	
 	def index
 		@search_suburbs = params[:suburb]
 		search_feature = params[:feature]
@@ -13,7 +12,9 @@ class SearchController < ApplicationController
 		puts search_feature
 		puts "Free:"
 		puts search_free
-
+		#get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
+		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
+		#get property listings
 		@listings = Listing.where(listing_suburb: @search_suburbs).order('listing_created_at DESC')
 		
 	end
@@ -50,7 +51,6 @@ class SearchController < ApplicationController
 				when /suburb/
 					#split suburb id from suburb_0000 and find_by_id
 					suburb_id = split_suburbs(value)
-					puts suburb_id
 					#put array of suburb name with id of suburb
 					suburb_name = Location.find_by_id(suburb_id).suburb
 					puts suburb_name
