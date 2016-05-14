@@ -6,11 +6,6 @@
 # TODO:
 # add a false to search so it has a tool tip to add some criteria or sililar
 ready = ->
-	#get suburb data from suburb container that gets data from the controller
-	#suburb_tags = $('.suburb-container').data 'suburbs'
-	#suburb_ids = $('.suburb-container').data('subids')
-	#loop though the suburb tags and append to side nav
-
 	#search button and call search toconfigure query
 	$('#buy-search-submit').click( ->
 		doSearch()

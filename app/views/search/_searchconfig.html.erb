@@ -4,7 +4,8 @@
 			<h5>Location:</h5>
 			<% @suburbs.each do |sub| %>
 				<%= content_tag :div, class: "ui property-feature-tag label suburb-label", data: {subid: sub.id, suburb: sub.suburb} do %>
-					<%= sub %>
+					<%= sub.suburb %>
+					<i class='delete icon'></i>
 				<% end %>
 			<% end %>
 		<% end %>
