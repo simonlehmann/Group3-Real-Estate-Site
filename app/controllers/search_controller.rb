@@ -13,11 +13,11 @@ class SearchController < ApplicationController
 		puts search_feature
 		puts "Free:"
 		puts search_free
-		
 
 		@listings = Listing.where(listing_suburb: search_suburbs).order('listing_created_at DESC')
-		puts @listings
+		
 	end
+
 	#split suburbs from suburb_0000 to 0000
 	def split_suburbs(suburb_data)
 		return suburbs = suburb_data.split("_").last.to_i
