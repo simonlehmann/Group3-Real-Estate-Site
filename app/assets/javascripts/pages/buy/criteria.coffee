@@ -5,19 +5,34 @@
 # 
 # TODO:
 #
-class Item
-	constructor: (@text, @category) ->
-
-items = []
-
 ready = ->
-	$('.criteria-selection .dropdown.button').dropdown
+	add_criteria_dropdown = $('.criteria-selection .dropdown.button')
+	criteria_tag_field = $('#tag_dropdown')
+
+	add_criteria_dropdown.dropdown
 		action: 'select'
 		onChange: (value, text, $choice) ->
-			$choice.remove()
-			
-		items[0] = new Item('item1', 'cat1')
-		items[1] = new Item('item2', 'cat2')
-		console.log items[0].text, items[1].text
+			choiceVal = $choice.context.attributes.value.textContent
+			$('<a class="ui label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
+			setTimeout (->
+				# Refresh the dropdown with the newly added criteria
+				criteria_tag_field.dropdown 'refresh' 
+			), 0.1
+			if !criteria_tag_field.dropdown 'is visible'
+				criteria_tag_field.show()
+			$choice.hide()
+
+	$(document).on 'click', '#tag_dropdown .delete.icon', (e) ->
+    	e.preventDefault()
+    	toSearch = $(this).parent().text()
+    	$('.criteria-selection .item').each (index) ->
+    		console.log $(this).text()
+    		if $(this).text() == toSearch
+    			$(this).show()
+    	$(this).parent().remove()
+    	if criteria_tag_field.find('a').length < 1
+    		criteria_tag_field.hide()
+
+	criteria_tag_field.hide()
 
 $(document).ready ready
