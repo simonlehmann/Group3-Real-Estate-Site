@@ -4,17 +4,17 @@ class SearchController < ApplicationController
 	include SellHelper
 	
 	def index
-		search_suburbs = params[:suburb]
+		@search_suburbs = params[:suburb]
 		search_feature = params[:feature]
 		search_free = params[:free]
 		puts "Suburbs:"
-		puts search_suburbs
+		puts @search_suburbs
 		puts "Features:"
 		puts search_feature
 		puts "Free:"
 		puts search_free
 
-		@listings = Listing.where(listing_suburb: search_suburbs).order('listing_created_at DESC')
+		@listings = Listing.where(listing_suburb: @search_suburbs).order('listing_created_at DESC')
 		
 	end
 

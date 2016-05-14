@@ -6,6 +6,8 @@
 # TODO:
 # add a false to search so it has a tool tip to add some criteria or sililar
 ready = ->
+	suburb_tags = $('.suburb-container').data 'suburbs'
+	
 	#search button and configure query
 	$('#buy-search-submit').click( ->
 		#initialise array
