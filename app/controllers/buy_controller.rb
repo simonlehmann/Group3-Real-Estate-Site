@@ -25,6 +25,7 @@ class BuyController < ApplicationController
 		#store new cookie with informationa
 		cookies.permanent[:state_long] = params[:selected_state]
 		cookies.permanent[:state_short] = get_state_short(params[:selected_state])
+		# Respon via the update_search_suburbs.js.erb which will update the search-field dropdown suburb choices
 		respond_to do |format|
 			format.js
 		end
