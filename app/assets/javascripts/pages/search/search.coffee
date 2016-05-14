@@ -16,9 +16,9 @@ ready = ->
 		#get each :selected tag and push their value into the search_tags array
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
-		if suburb_tags != null
-			$('#location .suburb-label').each ->
-				sub = 'suburb_' + $('.suburb-label').data('suburbid')
+		if $('#location div').length
+			$('#location div').each ->
+				sub = 'suburb_' + $('.suburb-label').data('subid')
 				console.log sub
 				search_tags.push sub
 				
@@ -45,8 +45,6 @@ ready = ->
 	$('.search-submenu .delete.icon').click( ->
 		#remove from navbar
 		$(this).parent().remove()
-		suburb_tags.splice($.inArray($(this).text(), suburb_tags),1);
-		suburb_ids.splice($.inArray($(this).data('suburbid'), suburb_ids),1);
 		#perform click on search, to reload the page without the new tag
 		doSearch())	
 
