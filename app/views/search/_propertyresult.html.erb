@@ -129,19 +129,28 @@
 					<%= number_to_currency(listing.listing_price_max ? listing.listing_price_max : 450000, { precision: 0, unit: "" }) %>
 				</span>
 			<% end %>
-			<span class="right floated property-info-stats">
-				<span>
-					<%# num of favourites on property %>
-					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> favourites
-				</span>
-				<span>
-					<%# num of comments on property %>
-					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> comments
-				</span>
-			</span>
-		</h3>
+		</h2>
+		<%# USER image/link %>
+		<%# profile path will need to change for profile/:id %>
+		<%# If you got here via the search controller then show a link to the user, otherwise handle the preview without a link %>
+		<div class="ui right floated right aligned user-column">
+			<%# got here via search, so link to user %>
+			<%# user image %>
+			<% if controller_name == "search" %>
+				<ul>
+					<li><%= image_tag listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %></li>
+					<li>
+						<%= link_to url_for("#{listing.listing_user.username}") do %>
+							<span><%= listing.listing_user.username %></span>
+						<% end %>
+					</li>
+				</ul>
+				<%# Didn't get here via search (i.e. add/edit preview) lets just use the current_user as the listing_user might not exist %>
+				<% else %>
+					<%= image_tag current_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %>
+					<span>Username</span>
+				<% end %>
+		</div>
 	</div>
 	<div class="extra content tag-field">
 		<div class="ui large transparent left">
@@ -151,7 +160,7 @@
 			 	price-feature-tag is red %>
 			<div class="ui property-feature-tag label"><%= listing.listing_type %></div>
 			<div class="ui property-feature-tag label"><%= listing.listing_land_size %> sqm</div>
-			<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
+			<%# Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
 			<% tags = add_edit_get_readable_tags_collection(listing.listing_tags) %>
 			<% # A label for each tag in the list %>
 			<% tags.each do |tag| %>
@@ -166,61 +175,35 @@
 		</div>
 	</div>
 	<div class="extra content">
-		<div class="ui large transparent right">
-			<div class="ui three column very relaxed grid">
-				<div class="column">
-					<%# time since posted only hours, then only days %>
-					<div class="left floated meta">
-						<% # Need to check if there is a listing data, otherwise display a placeholder for the add/edit new preview view %>
-						<% if listing.listing_created_at %>
-							<% if listing.listing_created_at > Time.now.beginning_of_day %>
-								<%# 1 hour ago, less than a minute ago %>
-								<%= "#{time_ago_in_words(listing.listing_created_at)} ago" %>
-							<% else %>
-								<%# date 07 May, 2016 %>
-								<%= listing.listing_created_at.strftime("%d %b, %Y") %>
-							<% end %>
-						<% else %>
-							<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-							<span id="search-preview-created-at">dd Mon, YYYY</span>
-						<% end %>
-					</div>
-				</div>
-
-				<%# USER image/link %>
-				<%# profile path will need to change for profile/:id %>
-				<% # If you got here via the search controller then show a link to the user, otherwise handle the preview without a link %>
-				<div class="right floated middle aligned column user-column">
-					<% # got here via search, so link to user %>
-					<% if controller_name == "search" %>
-						<%= link_to url_for("#{listing.listing_user.username}")  do %>
-							<%= image_tag listing.listing_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
-							<span><%= listing.listing_user.username %></span>
-						<% end %>
-					<% # Didn't get here via search (i.e. add/edit preview) lets just use the current_user as the listing_user might not exist %>
+		<div class="ui large transparent right">	
+			<%# time since posted only hours, then only days %>
+			<span class="left floated meta">
+				<% # Need to check if there is a listing data, otherwise display a placeholder for the add/edit new preview view %>
+				<% if listing.listing_created_at %>
+					<% if listing.listing_created_at > Time.now.beginning_of_day %>
+						<%# 1 hour ago, less than a minute ago %>
+						<%= "#{time_ago_in_words(listing.listing_created_at)} ago" %>
 					<% else %>
-						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
-						<span>Username</span>
+						<%# date 07 May, 2016 %>
+						<%= listing.listing_created_at.strftime("%d %b, %Y") %>
 					<% end %>
-				</div>
-
-				<%# COMPANY image/link %>
-				<%# profile path will need to change for profile/:id %>
-				<% # If you got here via the search controller then show a link to the user, otherwise handle the preview without a link %>
-				<div class="right floated middle aligned column company-column">
-					<% # got here via search, so link to user %>
-					<% if controller_name == "search" %>
-						<%= link_to url_for("#{listing.listing_user.username}") do %>
-							<%= image_tag listing.listing_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui tiny image" %>
-							<span><%= listing.listing_user.username %></span>
-						<% end %>
-					<% # Didn't get here via search (i.e. add/edit preview) lets just use the current_user as the listing_user might not exist %>
-					<% else %>
-						<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui tiny image" %>
-						<span>Company Name</span>
-					<% end %>
-				</div>
-			</div>
+				<% else %>
+					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+					<span id="search-preview-created-at">dd Mon, YYYY</span>
+				<% end %>
+			</span>
+			<span class="right floated meta property-info-stats">
+				<span>
+					<%# num of favourites on property %>
+					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> favourites
+				</span>
+				<span>
+					<%# num of comments on property %>
+					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
+					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> comments
+				</span>
+			</span>
 		</div>
 	</div>
 </div>
