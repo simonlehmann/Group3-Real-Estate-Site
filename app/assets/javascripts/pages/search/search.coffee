@@ -17,11 +17,10 @@ ready = ->
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
 		if $('#location div').length
-			$('#location div').each ->
-				sub = 'suburb_' + $('.suburb-label').data('subid')
-				console.log sub
-				search_tags.push sub
-				
+			#iterate through suburb tags
+			$('#location .suburb-label').each ->
+				sub = 'suburb_' + $(this).data('subid')
+				search_tags.push sub			
 		#there is length to the seach thats perform ajax action to search page and query
 		if search_tags
 			$.ajax
