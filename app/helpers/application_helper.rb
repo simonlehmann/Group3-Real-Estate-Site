@@ -293,4 +293,9 @@ module ApplicationHelper
 
 		_parsed_tweet.html_safe
 	end
+
+	def convert_twitter_date date
+		formatted_date = date.strftime('%b %m')
+		return formatted_date
+	end
 end
