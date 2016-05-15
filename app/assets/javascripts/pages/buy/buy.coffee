@@ -43,5 +43,10 @@ ready = ->
 	#dot carousel, fix for when you click on a dot and its still focused/in an active state
 	$(document).on 'click', '.slick-dots li button, .slick-prev, .slick-next .slick-slide .slick-current .slick-active', (e) ->
 		e.target.blur()
+
+	myTag = $('.truncate').text()
+	if myTag.length > 15
+		truncated = myTag.trim().substring(0, 50) + '…'
+		$('.truncate').text truncated
 		
 $(document).ready ready
