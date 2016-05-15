@@ -37,7 +37,7 @@
 		['sa-img', 'South Australia'],
 		['nt-img', 'Northern Territory'],
 		['tas-img', 'Tasmania'],
-		['act-img', 'Australian Capitol Territory'],
+		['act-img', 'Australian Capital Territory'],
 		['ot-img', 'Other Territories'],
 		['nsw-img', 'New South Wales']
 		]
