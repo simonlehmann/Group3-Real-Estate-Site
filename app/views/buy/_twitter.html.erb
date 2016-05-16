@@ -15,14 +15,18 @@
 		<div class="ui items">
 			<div class="item">
 				<div class="image" id="tweetImage">
+					<% # Get twitter users profile image to display %>
 					<img src="<%= tweet.user.profile_image_url %>">
 				</div>
 				<div class="content">
-					<a href="<%= tweet.user.url %>" target="_blank" class="header"><%= tweet.user.name %></a>
+					<% # Set href to the tweet, 'target=_blank' to open in new tab, text displayed is the accounts username %>
+					<a href="http://twitter.com/<%= tweet.user.name %>/status/<%= tweet.id %>" target="_blank" class="header"><%= tweet.user.name %></a>
 					<div class="meta">
+						<% # Set the content of the post to the tweets content %>
 						<span><%= parsed_tweet tweet %></span>
 					</div>
 					<div class="extra">
+						<% # Set the date of the post %>
 						<%= convert_twitter_date tweet.created_at %>
 					</div>
 				</div>
