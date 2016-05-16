@@ -35,6 +35,8 @@
 $('.infinite-table #loading-animation').css('display', 'block');
 <% # Add the tooltop popup on the newly added cards %>
 $('.manage-listing-card #listing-approval-label').popup({ hoverable: true });
+<% # Call the cut_off_description_field() function to trim the descriptions for the newly rendered cards %>
+cut_off_description_field();
 
 <% # Update the pagination link in a way that works for both infinite scrolling and pagination %>
 <% if @listings.last_page? %>
