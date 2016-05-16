@@ -1,6 +1,14 @@
 <%# Created: Tylden Horan
 # Date 23/04/2016
 # Top of Page Button %>
-<a href="#" class="back-to-top">
+
+<%# colour_class is a local variable used to specify the to-top-button colour, if blank then it will be green.
+colours available are : "red-to-top" and "purple-to-top" (i.e. for sell pages and dashboard) %>
+
+<%# This button is rendered using the following inside a pe (or < % = ) tag
+	render partial: "layouts/to_top_button", locals: { colour_class: "red-to-top"} <- provide a blank colour_class if you want it to be green
+%>
+
+<a href="#" class="back-to-top <%= colour_class %>">
 	<i class="chevron circle up icon"></i>
 </a>
