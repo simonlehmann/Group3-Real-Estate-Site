@@ -128,22 +128,22 @@
 			<div class="required field">
 				<label>Bedrooms</label>
 				<% # The bedrooms for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_bedrooms, min: 1, placeholder: "Bedrooms" %>
+				<%= f.number_field :listing_bedrooms, in: 1..50, placeholder: "Bedrooms" %>
 			</div>
 			<div class="required field">
 				<label>Bathrooms</label>
 				<% # The bathrooms for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_bathrooms, min: 1, placeholder: "Bathrooms" %>
+				<%= f.number_field :listing_bathrooms, in: 1..50, placeholder: "Bathrooms" %>
 			</div>
 			<div class="required field">
 				<label>Parking</label>
 				<% # The parking for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_parking, min: 1, placeholder: "Parking" %>
+				<%= f.number_field :listing_parking, in: 1..50, placeholder: "Parking" %>
 			</div>
 			<div class="required field">
 				<label>Lot Size (sqm)</label>
 				<% # The lot size for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_land_size, min: 1, placeholder: "Lot Size" %>
+				<%= f.number_field :listing_land_size, in: 1..100000, placeholder: "Lot Size" %>
 			</div>
 		</div>
 
@@ -161,12 +161,12 @@
 			<div class="field" id="price-field-min">
 				<label>Minimum</label>
 				<% # The minimum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_min, min: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
+				<%= f.number_field :listing_price_min, in: 1..9999999999, step: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
 			</div>
 			<div class="field" id="price-field-max">
 				<label>Maximum</label>
 				<% # The maximum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_max, min: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
+				<%= f.number_field :listing_price_max, in: 1..9999999999, step: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
 			</div>
 		</div>
 
@@ -175,7 +175,7 @@
 			<label>Description</label>
 			<% # The text area will grab the description from the @listing object if it exists, otherwise it'll be the placeholder. %>
 			<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. %>
-			<%= f.text_area :listing_description, placeholder: "Enter a description for your property.\n\nAvoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing." %>
+			<%= f.text_area :listing_description, placeholder: "Enter a description for your property.\n\nAvoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing.", maxlength: 2000 %>
 		</div>
 	</div>
 
