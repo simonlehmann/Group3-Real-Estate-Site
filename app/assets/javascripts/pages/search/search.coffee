@@ -38,8 +38,8 @@ ready = ->
 	$('.search-container .search-filter').dropdown
 		allowCategorySelection: true
 	#fav a property by adding favd class toggle
-	$('.property-card .fav-property').click( ->
-		$(this).children('i').toggleClass('favd'))
+	#$('.property-card .fav-property').click( ->
+		#$(this).children('i').toggleClass('favd'))
 	#remove label in nav menu when the x is clicked
 	$('.search-submenu .delete.icon').click( ->
 		#remove from navbar
@@ -51,7 +51,18 @@ ready = ->
 	#no where near done
 	$('.fav-property').click (->
 		listing_id = $(this).data 'id'
-		is_favourited = $(this).hasClass 'favd')
+		is_favourited = $(this).hasClass 'favd'
+
+		if listing_id.length != 0 and is_favourited.length != 0
+				$.ajax
+					type: 'POST'
+					url: 'toggle-favourites'
+					data:
+						_method: 'PUT'
+						listing_id: listing_id
+						is_favourited: is_favourited
+					success: (response) ->
+						$(this).children('i').toggleClass('favd'))
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready

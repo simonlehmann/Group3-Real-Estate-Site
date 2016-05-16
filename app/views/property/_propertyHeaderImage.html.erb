@@ -1,6 +1,6 @@
 <div class="ui fluid image">
 	<%# Favourite Star %>
-	<a class="ui left corner label fav-property"><i class="star icon"></i></a>
+	<a class="ui left corner label fav-property" data-id="<% @listing.listing_id %>"><i class="star icon"></i></a>
 	<%# Status "click here to set a status" means if it doesnt have a stus dont have ribbon %>
 			<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>

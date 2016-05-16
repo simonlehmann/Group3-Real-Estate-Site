@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   # get params from search field on /buy to /search
   put '/search' => 'search#get_search'
   put '/update-sort' => 'sell#update_sort'
+  put '/toggle-favourites' => 'search#toggle_favourites'
 
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
   resources :sell, except: [:show] do    
