@@ -1,4 +1,5 @@
 // Button to scroll to top of page
+// Base class
 a.back-to-top
 	color: $green-primary
 	font-size: 3.2em
@@ -9,3 +10,12 @@ a.back-to-top
 	bottom: 20px
 a.back-to-top:hover
 	color: $green-secondary
+// Colour variants (using !important to override page specific anchor tag colouring, required for dashboard page)
+a.red-to-top
+	color: $red-primary !important
+a.red-to-top:hover
+	color: $red-primary-hover !important
+a.purple-to-top
+	color: $purple-primary !important
+a.purple-to-top:hover
+	color: $purple-primary-hover !important
