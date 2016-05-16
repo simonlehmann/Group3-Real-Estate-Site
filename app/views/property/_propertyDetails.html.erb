@@ -1,0 +1,49 @@
+<%# Address and Bed Bath and Beyond Property Details %>
+<h1 class="ui header">
+	<%= "#{@listing.listing_address}, #{@listing.listing_suburb}, #{get_state_short(@listing.listing_state)} #{@listing.listing_post_code}" %>
+	<div class="property-bbb">
+		<%# num of bedrooms %>
+		<i class="large bed icon"></i> <span><%= @listing.listing_bedrooms %></span>
+		<%# num of bathrooms %>
+		<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i> <span><%= @listing.listing_bathrooms %></span>
+		<%# num of carspaces %>
+		<i class="large car icon"></i> <span><%= @listing.listing_parking %></span>
+	</div>
+</h1>
+<%# Price and some status %>
+<h2 class="ui header">
+	Under offer for 
+	<% if @listing.listing_price_type == "F" %>
+		<%= number_to_currency(@listing.listing_price_min, {
+			precision: 0 }) %>
+	<% else %>
+		<%= number_to_currency(@listing.listing_price_min, {
+			precision: 0 }) %> - <%= number_to_currency(@listing.listing_price_max, { precision: 0, unit: "" }) %>
+	<% end %>
+</h2>
+<%# Tags Area %>
+<div class="extra content tag-field">
+	<div class="ui large transparent left">
+		<%# tags:
+			sell-feature-tag is purple
+			location-feature-tag & property-feature-tag is blue
+		 	price-feature-tag is red %>
+		<div class="ui property-feature-tag label"><%= @listing.listing_type %></div>
+		<div class="ui property-feature-tag label"><%= @listing.listing_land_size %> sqm</div>
+		<% # Get the tag list in a readable format (this returns a 2d array, but we only need the first element) %>
+		<% tags = add_edit_get_readable_tags_collection(@listing.listing_tags) %>
+		<% # A label for each tag in the list %>
+		<% tags.each do |tag| %>
+			<div class="ui sell-feature-tag label">
+				<%# tag[0] = "Value Tag_Label", tag[1] = "value_tag-label_tag-category" %>
+				<%= tag[0] %>
+			</div>
+		<% end %>
+		<div class="ui location-feature-tag label">1.3km from your Work</div>
+		<div class="ui location-feature-tag label">5.1km from Schools</div>
+		<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
+	</div>
+</div>
+<%# Description %>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae cum tenetur facilis, asperiores unde, autem minima sint voluptatibus eos eaque repellat architecto nostrum maiores culpa aut. Id cum, adipisci maiores!</p>
+	

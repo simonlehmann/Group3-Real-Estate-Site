@@ -1,4 +1,4 @@
-<%
+<%#
 #   Created: Jayden Spencer
 #   Date: 27/04/2016
 #   
@@ -46,7 +46,11 @@
 			</p>
 			<%# if results found display result partial otherwise display no results found! %>
 			<% if @listings.length > 0 %>
-				<%= render partial: "search/propertyresult", object: @listings %>
+				<% # Jayden, I've moved the loop here as I wasn't able to refer to your partial on my end as I don't have a @listings collection to pass to it %>
+				<% @listings.each do |listing| %>
+					<% # Render the search results partial using the local listing variable %>
+					<%= render partial: "search/propertyresult", locals: {listing: listing} %>
+				<% end %>
 				<p class="ui dividing header search-divider">broadening search with no pool</p>
 				<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
 			<% else %>

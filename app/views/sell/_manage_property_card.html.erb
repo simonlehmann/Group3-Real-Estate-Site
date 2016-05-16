@@ -73,9 +73,14 @@
 					<% # Property main listing image %>
 					<div class="four wide computer sixteen wide mobile column">
 						<div class="ui image" id="main-image-listing-<%= listing.listing_id %>">
-							<% # Get the cover image through the listing.listing_cover_image association and then get the image %>
-							<%= image_tag listing.listing_cover_image.image.url(:medium), class: "ui centered medium image" %>
-							
+							<% if listing.listing_cover_image %>
+								<% # Get the cover image through the listing.listing_cover_image association and then get the image %>
+								<%= image_tag listing.listing_cover_image.image.url(:medium), class: "ui centered medium image" %>
+							<% else %>
+								<% # There was no cover image so lets just show the placeholder %>
+								<%= image_tag "placeholder.png", class: "ui centered medium image" %>
+							<% end %>
+
 							<% # Status ribbon, clicking this will open the edit modal. %>
 							<% if listing_get_status_object(listing) %>
 								<% # If there is a status then we do this %>

@@ -114,6 +114,23 @@ ready = ->
 	additional_input = $('#add-edit-additional-tags-input')
 	additional_button = $('#add-edit-additional-tags-button')
 
+	# Limit the additional_input dropdown to be 1 for tags that can only have 1 qty
+	additional_dropdown.on 'change', ->
+		# Get the selection from the dropdown
+		selection = additional_dropdown.find('option:selected').text()
+		# If the selection is in the following list then disable the qty dropdown so it stays as 1
+		switch selection
+			# NB, need to lead with a ',' to prevent the new line causing an unexpected indentation in coffeescript
+			when 'Airconditioning', 'Ducted Cooling', 'Ducted Heating', 'Evaporative AC', 'Gas Heating', 'Reverse Cycle', 'Split System'
+			,	'Grey Water', 'Solar', 'Solar Hot Water', 'Pay TV', 'Satelite TV', 'Ocean Views', 'NBN', 'Established Home', 'New Home'
+			,	'Pet Friendly', 'Wheelchair Access'
+				# ADD the Semantic class 'disabled' to the div containing the dropdown class to disable it
+				$('.add-edit-additional-tags-input.dropdown').addClass 'disabled'
+			else
+				# For the remaining selections mulitples are allowed so lets remove the Semantic class 'disabled' from the div containing the dropdown class to
+				# re-enable it.
+				$('.add-edit-additional-tags-input.dropdown').removeClass 'disabled'
+
 	# Add a click function to the add tag button
 	additional_button.on 'click', ->
 		# Get the input quantity and the dropdown selection text and value
@@ -491,7 +508,35 @@ ready = ->
 			if $(this).prop('checked') == true and is_lpn_checked == true
 				# Set the listing-premium-none checked property to false
 				$('#listing-extra-checkboxes input[name="listing-premium-none"]').prop 'checked', false
-			
+	
+	# --------- Previews tab code
+	# 
+	# Show or hide the property listing preview on the button click
+	$('#show-search-preview').click ->
+		# Toggle display of the preview partial
+		$('#search-result-preview').toggleClass 'toggle-display'
+		# Change the text of the show preview button and toggle the sell-red-button class on and off to make it more obvious
+		if $(this).text() == 'Show Search Preview'
+			$(this).text 'Hide Search Preview'
+			$(this).toggleClass 'sell-red-button'
+		else
+			$(this).text 'Show Search Preview'
+			$(this).toggleClass 'sell-red-button'
+
+	# Show or hide the property listing preview on the button click
+	$('#show-listing-preview').click ->
+		# Toggle display of the preview partial
+		$('#property-listing-preview').toggleClass 'toggle-display'
+		# Change the text of the show preview button and toggle the sell-red-button class on and off to make it more obvious
+		if $(this).text() == 'Show Listing Preview'
+			$(this).text 'Hide Listing Preview'
+			$(this).toggleClass 'sell-red-button'
+		else
+			$(this).text 'Show Listing Preview'
+			$(this).toggleClass 'sell-red-button'
+
+
+
 
 	return
 

@@ -27,5 +27,8 @@ module Propertydome
 
     # Add Bower Assets to the asset path
     config.assets.paths << Rails.root.join(* %w(vendor assets bower_components))
+
+    # Load TwitterApi Assets
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

@@ -8,26 +8,26 @@
 # Function used for changing the header image based on state
 @changeImage = (state) ->
 	if state == 'Western Australia'
-    	$('.search-section').addClass 'wa-img'
-  	else if state == 'Victoria'
-   		$('.search-section').addClass 'vic-img'
-  	else if state == 'Queensland'
-    	$('.search-section').addClass 'qld-img'
-  	else if state == 'Australian Capital Territory'
-    	$('.search-section').addClass 'act-img'
-  	else if state == 'New South Wales'
-    	$('.search-section').addClass 'nsw-img'
-  	else if state == 'South Australia'
-    	$('.search-section').addClass 'sa-img'
-  	else if state == 'Northern Territory'
-    	$('.search-section').addClass 'nt-img'
-  	else if state == 'Tasmania'
-    	$('.search-section').addClass 'tas-img'
-    else if state == 'Other Territories'
-    	$('.search-section').addClass 'ot-img'
-  	else
-    	$('.search-section').addClass 'wa-img'
-    return
+		$('.search-section').addClass 'wa-img'
+	else if state == 'Victoria'
+		$('.search-section').addClass 'vic-img'
+	else if state == 'Queensland'
+		$('.search-section').addClass 'qld-img'
+	else if state == 'Australian Capital Territory'
+		$('.search-section').addClass 'act-img'
+	else if state == 'New South Wales'
+	 	$('.search-section').addClass 'nsw-img'
+	else if state == 'South Australia'
+		$('.search-section').addClass 'sa-img'
+	else if state == 'Northern Territory'
+		$('.search-section').addClass 'nt-img'
+	else if state == 'Tasmania'
+		$('.search-section').addClass 'tas-img'
+	else if state == 'Other Territories'
+		$('.search-section').addClass 'ot-img'
+	else
+		$('.search-section').addClass 'wa-img'
+	return
 # Function used to remove current applied state classes except the selected state
 @remove_classes = (state) ->
 	classes = [
@@ -37,25 +37,37 @@
 		['sa-img', 'South Australia'],
 		['nt-img', 'Northern Territory'],
 		['tas-img', 'Tasmania'],
-		['act-img', 'Australian Capitol Territory'],
+		['act-img', 'Australian Capital Territory'],
 		['ot-img', 'Other Territories'],
 		['nsw-img', 'New South Wales']
 		]
 	i = 0
 	while i < classes.length
-  		j = 0
-  		while j < classes[i].length
-  			if state != classes[i][1]
-    			$('.search-section').removeClass(classes[i][0])
-    		j++
-  		i++
-  	return
+		j = 0
+		while j < classes[i].length
+			if state != classes[i][1]
+				$('.search-section').removeClass(classes[i][0])
+			j++
+		i++
+	return
+
 # Utility function to pluralise a string
 @get_plural = (string) ->
-	# Check the last character for a 'y' or an 's'
-	last_char = string.slice(-1)
-	# Return the pluralised string based on the last_char
-	return if last_char == 'y' then string.slice(0,-1) + 'ies' else string + 's'
+	# Check for words that are not required to be pluralised, else pluralise them
+	switch string
+		# For the following tag type labels, just return the string as we don't want it pluralised
+		# NB, need to lead with a ',' to prevent the new line causing an unexpected indentation in coffeescript
+		when 'Airconditioning', 'Ducted Cooling', 'Ducted Heating', 'Evaporative AC', 'Gas Heating', 'Reverse Cycle', 'Split System'
+		,	'Grey Water', 'Solar', 'Solar Hot Water', 'Pay TV', 'Satelite TV', 'Ocean Views', 'NBN', 'Established Home', 'New Home'
+		,	'Pet Friendly', 'Wheelchair Access'
+			return string
+		else
+			# Handle words we want pluralised, this supports words ending in 'y' as well as normal words. Not locale specific
+			# Check the last character for a 'y' or an 's'
+			last_char = string.slice(-1)
+			# Return the pluralised string based on the last_char
+			return if last_char == 'y' then string.slice(0,-1) + 'ies' else string + 's'
+
 
 # Function containing all javascript needed on page load
 ready = ->

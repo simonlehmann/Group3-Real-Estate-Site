@@ -9,6 +9,7 @@
 #   
 #   ToDo:
 #   	* Bring in the search and property partials for the preview
+#   	* Check what the partials look like when creating a new listing
 %>
 
 <% # Header %>
@@ -18,6 +19,24 @@
 
 <% # Choice for the buttons to show the two preview types. %>
 <div class="ui middle aligned column">
-	<div class="ui button">Search Preview</div>
-	<div class="ui button">Listing Preview</div>
+	<div class="ui button sell-red-button" id="show-search-preview">Show Search Preview</div>
+	<div class="ui button sell-red-button" id="show-listing-preview">Show Listing Preview</div>
+</div>
+
+<% # The Search partial preview rendered here (initially display none). Clicking the button above will toggle the display of this partial  %>
+<div class="ui ten wide column" id="search-result-preview" style="display: none;">
+	<% # Header and divider %>
+	<h4>Example Search Result</h4>
+	<div class="ui divider"></div>
+	<% # The actual preview partial %>
+	<%= render partial: "search/propertyresult", locals: {listing: @listing} %>
+</div>
+
+<% # The Property partial preview rendered here (initially display none). Clicking the button above will toggle the display of this partial  %>
+<div class="ui ten wide column" id="property-listing-preview" style="display: none;">
+	<% # Header and divider %>
+	<h4>Example Property Listing</h4>
+	<div class="ui divider"></div>
+	<% # The actual preview partial %>
+	<%= render partial: "search/propertyresult", locals: {listing: @listing} %>
 </div>

@@ -1,0 +1,24 @@
+<%# USER image/link %>
+<%# profile path will need to change for profile/:id %>
+<ul id="realestateDetails">
+	<li>
+		<%= link_to buy_path  do %>
+			<%= image_tag @listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %>
+			<%# Username %>
+			<span><%= @listing.listing_user.username %></span>
+			<span><%= @listing.listing_user.email %></span>
+		<% end %>
+	</li>
+	<li>
+		<%# User Company %>
+		<span>Realestate Company Name</span>
+	</li>
+	<li>
+		<%# User Phone %>
+		<button class="ui inverted green button">Call</button>
+	</li>
+	<li>
+		<%# User Email %>
+		<button class="ui inverted green button">Email</button>
+	</li>
+</ul>

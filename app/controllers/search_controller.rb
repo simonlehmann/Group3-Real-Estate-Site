@@ -2,33 +2,26 @@ class SearchController < ApplicationController
 	
 	include ApplicationHelper
 	include SellHelper
-	
 	def index
-		search_suburbs = params[:suburb]
+		@search_suburbs = params[:suburb]
 		search_feature = params[:feature]
 		search_free = params[:free]
 		puts "Suburbs:"
-		puts search_suburbs
+		puts @search_suburbs
 		puts "Features:"
 		puts search_feature
 		puts "Free:"
 		puts search_free
-		#split suburb ids from suburb_0000 and find_by_id
-		suburb_ids =  split_suburbs(search_suburbs)
-
-		suburbs = suburb_ids.map { |id| Location.find_by_id(id).suburb }
-
-		puts "==============="
-		puts suburbs
-		puts "==============="
-		@listings = Listing.where(listing_suburb: suburbs).order('listing_created_at DESC')
-		puts @listings
+		#get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
+		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
+		#get property listings
+		@listings = Listing.where(listing_suburb: @search_suburbs).order('listing_created_at DESC')
+		
 	end
+
 	#split suburbs from suburb_0000 to 0000
-	def split_suburbs(suburbs_data)
-		suburbs = Array.new
-		suburbs_data.each{ |sub| suburbs << sub.split("_").last.to_i }
-		return suburbs
+	def split_suburbs(suburb_data)
+		return suburbs = suburb_data.split("_").last.to_i
 	end
 
 	def get_search
@@ -38,9 +31,7 @@ class SearchController < ApplicationController
 		# if last char is & cuts it off
 		puts search_query[-1, 1]
 		if search_query[-1, 1] == "&" then search_query.chop! end
-		#console output to test if queries gone through
-		puts "--->>> #{search_query}"
-
+		#render page with query in url
 		respond_to do |format|
 			format.js { render :js => "window.location.href = '#{search_path}?#{search_query}'"}
 		end
@@ -54,9 +45,17 @@ class SearchController < ApplicationController
 
 		data.each do |value|
 			#iterate through values from search data and create search
+			#sanitize url
+			value.gsub!(/[!@%#^*]/, '')
 			case value
 				when /suburb/
-					suburbs << build_subterm(suburbs, "suburb", value)
+					#split suburb id from suburb_0000 and find_by_id
+					suburb_id = split_suburbs(value)
+					#put array of suburb name with id of suburb
+					suburb_name = Location.find_by_id(suburb_id).suburb
+					puts suburb_name
+					#put built suburb term into suburbs
+					suburbs << build_subterm(suburbs, "suburb", suburb_name)
 				when /feature/
 					features << build_subterm(features, "feature", value)
 				else
@@ -70,7 +69,7 @@ class SearchController < ApplicationController
 	#build part of the query
 	def build_subterm(part_query, type, term)
 		#if part_query (suburbs, features or free) insert &, otherwise dont
-		return "#{type}[]=#{term}&"
+		return "#{type}[]=#{term.gsub(/\s/, '+')}&"
 	end
 	#combine query terms method
 	#add suburbs to query
