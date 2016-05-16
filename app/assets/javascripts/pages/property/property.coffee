@@ -6,7 +6,8 @@
 # TODO:
 #
 ready = ->
-	description_height = $('.description-area')[0].scrollHeight
+	if $('.more-description').length
+		description_height = $('.description-area')[0].scrollHeight
 	#add slick-carousel
 	$(".propertySlide").slick(
 		dots: true,
@@ -21,7 +22,7 @@ ready = ->
 	#more description button click
 	$('.more-description').click (e) ->
 		if $(this).hasClass('description-expand')
-			$('.description-area').animate 'height': '260px'
+			$('.description-area').animate 'height': '255px'
 			$(this).removeClass('description-expand')
 			$(this).children('i').removeClass('chevron up icon')
 			$(this).children('i').addClass('chevron down icon')
