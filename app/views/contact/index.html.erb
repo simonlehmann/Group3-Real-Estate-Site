@@ -3,21 +3,21 @@
 	<h1 id="welcome" class="bold-text">Get In Touch</h1>
 	<div class="ui grid nice">
 		<section id="contact-section-1" class="eight wide column">
-			<form class="ui inverted form">
+			<%= form_tag send_mail_path, class: "ui inverted form" do %>
 				<h1 class="bold-text">Send a Message</h1>
 				<div class="fields">
 					<div class="six wide field required field">
 						<label>First Name</label>
-						<input placeholder="First Name" name="first-name" type="text">
+						<%= text_field :name, placeholder: "First Name" %>
 					</div>
 					<div class="six wide field">
 						<label>Last Name</label>
-						<input placeholder="Sir Name" name="last-name" type="text">
+						<%= text_field :last_name, placeholder: "Last Name" %>
 					</div>
 				</div>
 				<div class="twelve wide field required field">
 					<label>Email</label>
-					<input placeholder="email@address.com" id="email" name="email" type="text">
+					<%= email_field :email, placeholder: "email@address.com" %>
 					<h2 id="result"></h2>
 				</div>
 				<div class="twelve wide field required field">
@@ -34,16 +34,17 @@
 				<div class="fields">
 					<div class="fourteen wide field required field">
 						<label>Text</label>
-						<textarea placeholder="Write in here to send us your thoughts" name="message" type="text"></textarea>
+						<%= text_area :comments, placeholder: "Write in here to send us your thoughts" %>
 					</div>
 					<div>
 						<button class="ui big circular icon button" id="contact-submit-button">
 							<i class="send outline icon"></i>
 						</button>
+						<%= submit_tag("Send") %>
 					</div>
 				</div>
 				<div class="ui error message"></div>
-			</form>
+			<% end %>
 		</section>
 		<section id="contact-section-2" class="eight wide column">
 			<div id="top-bottom">
