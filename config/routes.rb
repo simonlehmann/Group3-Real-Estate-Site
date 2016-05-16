@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get '/dashboard/settings' => 'dashboard#settings'
   # get '/dashboard/settings/crop' => 'dashboard#crop' # This url has been turned off as we're using a modal now for this action.
   get '/contact' => 'contact#index'
-  
+
   # Static Pages routes
   get '/privacy' => 'static_pages#privacy'
   get '/terms' => 'static_pages#terms'
@@ -36,9 +36,12 @@ Rails.application.routes.draw do
   # get params from search field on /buy to /search
   put '/search' => 'search#get_search'
   put '/update-sort' => 'sell#update_sort'
+  # Send contact form email
+  #put '/contact' => 'contact#send_contact_email', as: :contact_send
+  match '/send_mail', to: 'contact#send_mail', via: 'post'
 
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
-  resources :sell, except: [:show] do    
+  resources :sell, except: [:show] do
     member do
       # This creates an extra put action for the sell resources to update the status using the update_status action
       put 'status' => 'sell#update_status'
