@@ -7,12 +7,15 @@
 # add a false to search so it has a tool tip to add some criteria or sililar
 ready = ->
 	#search button and call search toconfigure query
-	$('#buy-search-submit').click( ->
+	$('#buy-search-submit').click ->
 		doSearch()
 
 	doSearch = ->
-		#initialise array
+		#initialise array for search suburbs, price tags, property tags and feature tags
 		search_tags = []
+		property_tags = []
+		feature_tags = []
+		price_tags = []
 		#get each :selected tag and push their value into the search_tags array
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
@@ -20,8 +23,28 @@ ready = ->
 			#iterate through suburb tags
 			$('#location .suburb-label').each ->
 				sub = 'suburb_' + $(this).data('subid')
-				search_tags.push sub			
+				search_tags.push sub
+
+		# Get the extra search criteria added via the 'Add Search Criteria' dropdown
+		additional_criteria_tags = $('.criteria-tag-field a')
+		if additional_criteria_tags.length
+			# Split these into tag arrays based on their type
+			additional_criteria_tags.each ->
+				# Get the additional criteria category (i.e. Heating Cooling) from the data-cat value
+				# Get the additional criteria label (i.e. $100,000) from the data-catid value
+				category = $(this).data 'cat'
+				tag_label = $(this).data 'catid'
+				# Add the tag to either property_tags, feature_tags or price_tags depending on the category
+				switch category
+					when 'Price'
+						price_tags.push tag_label
+					when 'Features'
+						feature_tags.push tag_label
+					when 'Property'
+						property_tags.push tag_label
+
 		#there is length to the seach thats perform ajax action to search page and query
+		# This doesn't actually do anything atm. It will allow a blank search
 		if search_tags
 			$.ajax
 				type: 'POST'
@@ -29,7 +52,10 @@ ready = ->
 				data:
 					_method: 'PUT'
 					search_values: JSON.stringify(search_tags)
-			return true)
+					price_values: JSON.stringify(price_tags)
+					feature_values: JSON.stringify(feature_tags)
+					property_values: JSON.stringify(property_tags)
+			return true
 
 	#sticky nav
 	$('.ui.sticky.search-submenu').sticky

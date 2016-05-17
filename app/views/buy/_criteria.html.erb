@@ -14,6 +14,7 @@
 		<span class="text" id="button-name">Add Search Criteria</span>
 		<i class="right add icon"></i>
 		<div class="menu">
+			<%# Appliances Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Appliances</span>
@@ -27,38 +28,40 @@
 					<% end %>
 				</div>
 			</div>
+
+			<%# Bathroom Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Bathrooms</span>
 				<div class="menu">
-					<div class="item" value="Bathrooms">1 Bathroom</div>
-					<div class="item" value="Bathrooms">2 Bathrooms</div>
-					<div class="item" value="Bathrooms">3 Bathrooms</div>
-					<div class="item" value="Bathrooms">4 Bathrooms</div>
-					<div class="item" value="Bathrooms">5 Bathrooms</div>
-					<div class="item" value="Bathrooms">6 Bathrooms</div>
-					<div class="item" value="Bathrooms">7 Bathrooms</div>
-					<div class="item" value="Bathrooms">8 Bathrooms</div>
-					<div class="item" value="Bathrooms">9 Bathrooms</div>
-					<div class="item" value="Bathrooms">10 Bathrooms</div>
+					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
+					<% (1..10).each do |n| %>
+						<% if n == 1 %>
+							<%= content_tag(:div, "#{n} Bathroom", { class: "item", value: "Bathrooms" }) %>
+						<% else %>
+							<%= content_tag(:div, "#{n} Bathrooms", { class: "item", value: "Bathrooms" }) %>
+						<% end %>
+					<% end %>
 				</div>
 			</div>
-					<div class="item">
+			
+			<%# Bedrooms Category %>
+			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Bedrooms</span>
 				<div class="menu">
-					<div class="item" value="Bedrooms">1 Bedroom</div>
-					<div class="item" value="Bedrooms">2 Bedrooms</div>
-					<div class="item" value="Bedrooms">3 Bedrooms</div>
-					<div class="item" value="Bedrooms">4 Bedrooms</div>
-					<div class="item" value="Bedrooms">5 Bedrooms</div>
-					<div class="item" value="Bedrooms">6 Bedrooms</div>
-					<div class="item" value="Bedrooms">7 Bedrooms</div>
-					<div class="item" value="Bedrooms">8 Bedrooms</div>
-					<div class="item" value="Bedrooms">9 Bedrooms</div>
-					<div class="item" value="Bedrooms">10 Bedrooms</div>
+					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
+					<% (1..10).each do |n| %>
+						<% if n == 1 %>
+							<%= content_tag(:div, "#{n} Bedroom", { class: "item", value: "Bedrooms" }) %>
+						<% else %>
+							<%= content_tag(:div, "#{n} Bedrooms", { class: "item", value: "Bedrooms" }) %>
+						<% end %>
+					<% end %>
 				</div>
 			</div>
+			
+			<%# Eco Friendly Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Eco Friendly</span>
@@ -72,6 +75,8 @@
 					<% end %>
 				</div>
 			</div>
+
+			<%# Heating and Cooling Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Heating Cooling</span>
@@ -85,6 +90,8 @@
 					<% end %>
 				</div>
 			</div>
+
+			<%# House Type Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">House Type</span>
@@ -94,6 +101,23 @@
 					<div value="House Type" class="item">Land</div>
 				</div>
 			</div>
+			
+			<%# Indoor Features Category %>
+			<div class="item">
+				<i class="dropdown icon"></i>
+				<span class="text">Indoor Features</span>
+				<div class="menu">
+					<% additional_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
+					<% if additional_tags %>
+						<% # Create a menu item for each tag_type %>
+						<% additional_tags.each do |tag| %>
+							<div class="item" value="<%= tag.tag_type_category%>" data-value"<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+	
+			<%# Leisure Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Leisure</span>
@@ -107,6 +131,8 @@
 					<% end %>
 				</div>
 			</div>
+
+			<%# Outdoor Features Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Outdoor Features</span>
@@ -120,36 +146,32 @@
 					<% end %>
 				</div>
 			</div>
+
+			<%# Parking Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Parking</span>
 				<div class="menu">
-					<div class="item" value="Parking">1 Parking Bay</div>
-					<div class="item" value="Parking">2 Parking Bays</div>
-					<div class="item" value="Parking">3 Parking Bays</div>
-					<div class="item" value="Parking">4 Parking Bays</div>
-					<div class="item" value="Parking">5 Parking Bays</div>
-					<div class="item" value="Parking">6 Parking Bays</div>
-					<div class="item" value="Parking">7 Parking Bays</div>
-					<div class="item" value="Parking">8 Parking Bays</div>
-					<div class="item" value="Parking">9 Parking Bays</div>
-					<div class="item" value="Parking">10 Parking Bays</div>
+					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
+					<% (1..10).each do |n| %>
+						<% if n == 1 %>
+							<%= content_tag(:div, "#{n} Parking Bay", { class: "item", value: "Parking" }) %>
+						<% else %>
+							<%= content_tag(:div, "#{n} Parking Bays", { class: "item", value: "Parking" }) %>
+						<% end %>
+					<% end %>
 				</div>
 			</div>
+
+			<%# Price Category %>
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Price</span>
 				<div class="menu">
-					<div class="item" value="Price">$100,000</div>
-					<div class="item" value="Price">$200,000</div>
-					<div class="item" value="Price">$300,000</div>
-					<div class="item" value="Price">$400,000</div>
-					<div class="item" value="Price">$500,000</div>
-					<div class="item" value="Price">$600,000</div>
-					<div class="item" value="Price">$700,000</div>
-					<div class="item" value="Price">$800,000</div>
-					<div class="item" value="Price">$900,000</div>
-					<div class="item" value="Price">$1,000,000</div>
+					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
+					<% (1..10).each do |n| %>
+						<%= content_tag(:div, number_to_currency(n * 100000, precision: 0), { class: "item", value: "Price" }) %>
+					<% end %>
 				</div>
 			</div>
 		</div>
