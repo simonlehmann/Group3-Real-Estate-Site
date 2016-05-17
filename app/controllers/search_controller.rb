@@ -105,9 +105,26 @@ class SearchController < ApplicationController
 		is_favourited = params[:is_favourited]
 		user = current_user
 
-		if listing_id.length != 0 and is_favourited == "true"
+		puts listing_id
+		puts is_favourited
+		puts user
+		if listing_id and is_favourited and user
+			puts "inside first loop"
+			favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(listing_id, user.id)
+			puts "should have fav"
+			puts favourite
+
+			if is_favourited == "true"
+				favourite.destroy() if favourite
+			else
+				if !favourite
+					favourite = Favourite.create(favourite_listing_id: listing_id, favourite_user_id: user.id)
+				end
+			end
 			
 		end
-
+		respond_to do |format|
+			format.js
+		end
 	end
 end
