@@ -11,9 +11,11 @@ ready = ->
 		doSearch()
 
 	doSearch = ->
-		#initialise array for search suburbs and feature tags
+		#initialise array for search suburbs, price tags, property tags and feature tags
 		search_tags = []
+		property_tags = []
 		feature_tags = []
+		price_tags = []
 		#get each :selected tag and push their value into the search_tags array
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
@@ -32,9 +34,14 @@ ready = ->
 				# Get the additional criteria label (i.e. $100,000) from the data-catid value
 				category = $(this).data 'cat'
 				tag_label = $(this).data 'catid'
-				# Add the tag to the feature_tags params array
-				feature_tag = [	category, tag_label	]
-				feature_tags.push feature_tag
+				# Add the tag to either property_tags, feature_tags or price_tags depending on the category
+				switch category
+					when 'Price'
+						price_tags.push tag_label
+					when 'Features'
+						feature_tags.push tag_label
+					when 'Property'
+						property_tags.push tag_label
 
 		#there is length to the seach thats perform ajax action to search page and query
 		# This doesn't actually do anything atm. It will allow a blank search
@@ -45,7 +52,9 @@ ready = ->
 				data:
 					_method: 'PUT'
 					search_values: JSON.stringify(search_tags)
+					price_values: JSON.stringify(price_tags)
 					feature_values: JSON.stringify(feature_tags)
+					property_values: JSON.stringify(property_tags)
 			return true
 
 	#sticky nav
