@@ -140,8 +140,17 @@
 				<ul>
 					<li><%= image_tag listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %></li>
 					<li>
-						<%= link_to url_for("#{listing.listing_user.username}") do %>
-							<span><%= listing.listing_user.username %></span>
+						<%= link_to url_for("#{listing.listing_user.email}") do %>
+							<%# Username %>
+							<% if listing.listing_user.username.length != 0 %>
+									<span><%= listing.listing_user.username %></span>
+							<%# First name & Surname %>
+							<% elsif listing.listing_user.first_name.length != 0 and listing.listing_user.last_name.length != 0 %>
+									<span><%= listing.listing_user.first_name %> <%= listing.listing_user.last_name %></span>
+							<%# E-mail %>
+							<% else %>
+								<span><%= listing.listing_user.email %></span>
+							<% end %>
 						<% end %>
 					</li>
 				</ul>
