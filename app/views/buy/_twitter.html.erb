@@ -10,3 +10,28 @@
  %>
 <h2 class="ui header"><i class="icon twitter"></i>Latest Tweets</h2>
 
+<% # To enable the cache to work, in 'config/environments/development.rb', "config.action_controller.perform_caching = false" must be set to 'true' %>
+<% cache('our_public_tweets', expires_in: 1.hours) do %>
+	<% TwitterApi.our_public_tweets.each do |tweet| %>
+		<div class="ui items">
+			<div class="item">
+				<div class="image" id="tweetImage">
+					<% # Get twitter users profile image to display %>
+					<img src="<%= tweet.user.profile_image_url %>">
+				</div>
+				<div class="content">
+					<% # Set href to the tweet, 'target=_blank' to open in new tab, text displayed is the accounts username %>
+					<a href="http://twitter.com/<%= tweet.user.name %>/status/<%= tweet.id %>" target="_blank" class="header"><%= tweet.user.name %></a>
+					<div class="meta">
+						<% # Set the content of the post to the tweets content %>
+						<span><%= parsed_tweet tweet %></span>
+					</div>
+					<div class="extra">
+						<% # Set the date of the post %>
+						<%= convert_twitter_date tweet.created_at %>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>
