@@ -130,9 +130,26 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	.circle
 		+circle(135px, $transparent, solid, 4px, $blue-primary)
 //twitter section
-.twitter-feed
+.twitter-feed	
+	.ui .items
+		background-color: #F3F3F3
+		padding: 0px
 	.twitter
 		color: $blue-twitter
+	.tweets
+		min-width: 370px
+	.header-tweet
+		margin-top: 5px
+	#tweetImage
+	position: relative
+	left: 2%
+	margin-top: 2%
+	width: 60px
+	height: 60px
+	.tweet
+		padding-top: 3px
+	.meta
+		padding: 5px
 
 .feature-property-container
 	.left
@@ -187,10 +204,3 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .ot-img
 	background: url(image_path('landing-header.png')) no-repeat
 	background-size: auto 120%
-
-#tweetImage
-	width: 60px
-	height: 60px
-.ui .items
-	background-color: #F3F3F3
-	padding: 0px
