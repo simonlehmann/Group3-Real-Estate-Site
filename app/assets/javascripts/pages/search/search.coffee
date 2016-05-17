@@ -47,6 +47,22 @@ ready = ->
 		#perform click on search, to reload the page without the new tag
 		doSearch())	
 
+	#So this is erdals attempt at doing the coffee script for favouriting a property
+	#no where near done
+	$('.fav-property').click (->
+		listing_id = $(this).data 'id'
+		is_favourited = $(this).hasClass 'favd'
+
+		if listing_id.length != 0 and is_favourited.length != 0
+				$.ajax
+					type: 'POST'
+					url: 'toggle-favourites'
+					data:
+						_method: 'PUT'
+						listing_id: listing_id
+						is_favourited: is_favourited
+					success: (response) ->
+						$(this).children('i').toggleClass('favd'))
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready

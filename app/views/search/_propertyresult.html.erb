@@ -62,7 +62,7 @@
 		<%# is favorited, if so add class to i favd %>
 		<% # only show this in the search controller sent you here %>
 		<% if controller_name == "search" %>
-			<a class="ui left corner label fav-property"><i class="star icon"></i></a>
+			<a class="ui left corner label fav-property" data-id="<%= listing.listing_id %>"><i class="star icon"></i></a>
 		<% end %>
 
 		<%

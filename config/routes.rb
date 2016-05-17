@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   # get params from search field on /buy to /search
   put '/search' => 'search#get_search'
   put '/update-sort' => 'sell#update_sort'
+  put '/toggle-favourites' => 'search#toggle_favourites'
   # Send contact form email
   #put '/contact' => 'contact#send_contact_email', as: :contact_send
   match '/send_mail', to: 'contact#send_mail', via: 'post'

@@ -45,6 +45,9 @@ ready = ->
     		if $(this).text() == toSearch
     			# Show the option in criteria dropdown
     			$(this).show()
+    			# Remove the active state from the item when it is re-added to criteria dropdown
+    			$(this).removeClass('selected')
+    			$(this).removeClass('active')
     	# Remove the label
     	$(this).parent().remove()
     	# Check if there are any labels left in the dropdown
