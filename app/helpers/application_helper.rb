@@ -19,8 +19,7 @@
 #   	* get_suburbs_postcodes(state): Return an array [["Suburb, Postcode", "suburb_#{id}"], ...] for the given state (defaults to Western Australia).
 #   	
 #   TODO:
-#   	* When moved to production, delete parse_locations_json method and delete the commented blocks from the get_ methods that call it as they aren't req.
-#   	* When moved to production, uncomment out the get_locations method and uncomment the blocks in the get_ methods that call it as it will work
+#   
 #   	
 
 module ApplicationHelper
@@ -36,19 +35,17 @@ module ApplicationHelper
 	end
 
 	# ----------------- NOTE THIS METHOD IS FOR DEVELOPMENT ENVIRONMENT ONLY
-	# Delete this method, or comment it out when we're moving to production
-	# 
 	# It will Parse the json file and return the resulting array
+	# If the application is running in Development environment then this method will be called to get the locations from locations.json
 	def parse_locations_json
 		file_path = Rails.root.join("public/locations.json")
 		file = File.read(file_path)
 		return array = JSON.parse(file)
 	end
-	# ------------------ THE ABOVE METHOD IS FOR DEVELOPMENT ENVIRONMENT ONLY
 
 	# ----------------- NOTE, This is a method meant for production.
 	# This method won't work in Development, caching is turned off in development.
-	# Keep the method and turn it on in production by uncommenting the noted line in the other get locations methods
+	# If the application is running in Production environment then this method will be called to get the locations from the Rails cache
 	def get_locations
 		if Rails.cache.exist?("locations")
 			# Read the locations hash array from the cache and return it
@@ -152,15 +149,18 @@ module ApplicationHelper
 
 	# Return an array of suburbs for the chosen state
 	def get_suburbs(state = "Western Australia")
-		# ---------- Uncomment the array = get_locations() line below when in production
-		# array = get_locations() # Get the array from the cache, or load it in memory if it isn't in the cache
-		
-		# <<<<<<<<<< DELETE THESE LINES IN PRODUCTION (below)
-		array = parse_locations_json()
-		if !array and !array.size > 0
-			array = false
+		# Get suburbs array from either locations.json or database (latter on development environment only)
+		if Rails.env.production?
+			# Running in production environment
+			# Get the array from the cache, or load it in memory if it isn't in the cache
+			array = get_locations()
+		else
+			# Running in development environment
+			array = parse_locations_json()
+			if !array and !array.size > 0
+				array = false
+			end
 		end
-		# >>>>>>>>>>> DELETE THESE LINES IN PRODUCTION (above)
 		
 		# Empty return array used to store results from selection
 		@return_array = []
@@ -182,15 +182,18 @@ module ApplicationHelper
 
 	# Return an array of postcodes for the chosen state
 	def get_postcodes(state = "Western Australia")
-		# ---------- Uncomment the array = get_locations() line below when in production
-		# array = get_locations() # Get the array from the cache, or load it in memory if it isn't in the cache
-		
-		# <<<<<<<<<< DELETE THESE LINES IN PRODUCTION (below)
-		array = parse_locations_json()
-		if !array and !array.size > 0
-			array = false
+		# Get suburbs array from either locations.json or database (latter on development environment only)
+		if Rails.env.production?
+			# Running in production environment
+			# Get the array from the cache, or load it in memory if it isn't in the cache
+			array = get_locations()
+		else
+			# Running in development environment
+			array = parse_locations_json()
+			if !array and !array.size > 0
+				array = false
+			end
 		end
-		# >>>>>>>>>>> DELETE THESE LINES IN PRODUCTION (above)
 		
 		# Empty return array used to store results from selection
 		@return_array = []
@@ -213,15 +216,18 @@ module ApplicationHelper
 
 	# Return an array of poscodes from the chosen state + suburb
 	def get_postcodes_from_selection(state = "Western Australia", suburb)
-		# ---------- Uncomment the array = get_locations() line below when in production
-		# array = get_locations() # Get the array from the cache, or load it in memory if it isn't in the cache
-		
-		# <<<<<<<<<< DELETE THESE LINES IN PRODUCTION (below)
-		array = parse_locations_json()
-		if !array and !array.size > 0
-			array = false
+		# Get suburbs array from either locations.json or database (latter on development environment only)
+		if Rails.env.production?
+			# Running in production environment
+			# Get the array from the cache, or load it in memory if it isn't in the cache
+			array = get_locations()
+		else
+			# Running in development environment
+			array = parse_locations_json()
+			if !array and !array.size > 0
+				array = false
+			end
 		end
-		# >>>>>>>>>>> DELETE THESE LINES IN PRODUCTION (above)
 		
 		# Empty return array used to store results from selection
 		@return_array = []
@@ -247,15 +253,18 @@ module ApplicationHelper
 	# Get the suburbs and postcodes in a nice list formatted as ["Suburb, postcode", "key_for_search"] i.e. ["Perth (WA), 6000", "suburb_1"]
 	# The key will be helpful in search to know that this selection refers to an exact suburb and postcode
 	def get_suburbs_postcodes(state = "Western Australia")
-		# ---------- Uncomment the array = get_locations() line below when in production
-		# array = get_locations() # Get the array from the cache, or load it in memory if it isn't in the cache
-		
-		# <<<<<<<<<< DELETE THESE LINES IN PRODUCTION (below)
-		array = parse_locations_json()
-		if !array and !array.size > 0
-			array = false
+		# Get suburbs array from either locations.json or database (latter on development environment only)
+		if Rails.env.production?
+			# Running in production environment
+			# Get the array from the cache, or load it in memory if it isn't in the cache
+			array = get_locations()
+		else
+			# Running in development environment
+			array = parse_locations_json()
+			if !array and !array.size > 0
+				array = false
+			end
 		end
-		# >>>>>>>>>>> DELETE THESE LINES IN PRODUCTION (above)
 		
 		# Empty return array used to return results from state selection
 		@return_array = []
