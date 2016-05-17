@@ -19,12 +19,13 @@ ready = ->
 			# Get the category of the option
 			choiceVal = $choice.context.attributes.value.textContent
 			# If statement to determine which category the label is and create it appropriately
+			# Changed from value='choiceVal' to data-cat='choiceVal' and removed choiceVal from data-catid to simplify feature search function
 			if choiceVal == 'Price'
-				$('<a class="ui tag orange label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
+				$('<a class="ui tag orange label" data-catid="' + text + '" data-cat="'+ choiceVal + '">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
 			else if choiceVal == 'House Type' || choiceVal == 'Bedrooms' || choiceVal == 'Bathrooms' || choiceVal == 'Parking'
-				$('<a class="ui blue label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
+				$('<a class="ui blue label" data-catid="' + text + '" data-cat="'+ choiceVal + '">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
 			else if choiceVal == 'Appliances' || choiceVal == 'Eco Friendly' || choiceVal == 'Heating Cooling' || choiceVal == 'Leisure' || choiceVal == 'Outdoor Features'
-				$('<a class="ui purple label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
+				$('<a class="ui purple label" data-catid="' + text + '" data-cat="'+ choiceVal + '">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
 
 			setTimeout (->
 				# Refresh the dropdown with the newly added criteria
@@ -35,6 +36,7 @@ ready = ->
 				criteria_tag_field.show()
 			# Hide this option from the criteria dropdown
 			$choice.hide()
+
 	# When the delete icon on the label is clicked, do this
 	$(document).on 'click', '#tag_dropdown .delete.icon', (e) ->
     	e.preventDefault()
