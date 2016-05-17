@@ -18,13 +18,15 @@ ready = ->
 		onChange: (value, text, $choice) ->
 			# Get the category of the option
 			choiceVal = $choice.context.attributes.value.textContent
-			# If statement to determine which category the label is and create it appropriately
-			if choiceVal == 'Price'
-				$('<a class="ui tag orange label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
-			else if choiceVal == 'House Type' || choiceVal == 'Bedrooms' || choiceVal == 'Bathrooms' || choiceVal == 'Parking'
-				$('<a class="ui blue label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
-			else if choiceVal == 'Appliances' || choiceVal == 'Eco Friendly' || choiceVal == 'Heating Cooling' || choiceVal == 'Leisure' || choiceVal == 'Outdoor Features'
-				$('<a class="ui purple label" data-catid="' + choiceVal + "_" + text + '" value="'+ choiceVal + '">' + text + '</option><i class="delete icon"></i>').appendTo(criteria_tag_field)
+			# Switch statement to determine which category the label is and create it appropriately
+			# Changed from value='choiceVal' to data-cat='Price||Property||Features' to simplify feature search function
+			switch choiceVal
+				when 'Price'
+					$('<a class="ui tag orange label" data-catid="' + choiceVal + '_' + text + '" data-cat="Price">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
+				when 'House Type', 'Bedrooms', 'Bathrooms', 'Parking'
+					$('<a class="ui blue label" data-catid="' + choiceVal + '_' + text + '" data-cat="Property">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
+				when 'Appliances', 'Eco Friendly', 'Heating Cooling', 'Indoor Features', 'Leisure', 'Outdoor Features'
+					$('<a class="ui purple label" data-catid="' + choiceVal + '_' + text + '" data-cat="Features">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
 
 			setTimeout (->
 				# Refresh the dropdown with the newly added criteria
@@ -35,6 +37,7 @@ ready = ->
 				criteria_tag_field.show()
 			# Hide this option from the criteria dropdown
 			$choice.hide()
+
 	# When the delete icon on the label is clicked, do this
 	$(document).on 'click', '#tag_dropdown .delete.icon', (e) ->
     	e.preventDefault()
