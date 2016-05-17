@@ -99,4 +99,15 @@ class SearchController < ApplicationController
 		#return full configured query (build_query)
 		return query
 	end
+
+	def toggle_favourites
+		listing_id = params[:listing_id].to_i
+		is_favourited = params[:is_favourited]
+		user = current_user
+
+		if listing_id.length != 0 and is_favourited == "true"
+			
+		end
+
+	end
 end
