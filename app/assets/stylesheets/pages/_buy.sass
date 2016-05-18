@@ -84,6 +84,16 @@
 	.ui.row.search-row .column
 		padding-left: 0.25em
 		padding-right: 0.25em
+	#criteria_dropdown.active
+		i.right.add.icon
+			display: none
+	#criteria_dropdown:not(.active)
+		i.dropdown.icon
+			display: none
+	#tag_dropdown
+		cursor: default
+		.label i
+			cursor: pointer
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
