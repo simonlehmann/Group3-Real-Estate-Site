@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-	
+
 	include ApplicationHelper
 	include SellHelper
 
@@ -8,7 +8,7 @@ class SearchController < ApplicationController
 		@search_prices = params[:price]
 		@search_property = params[:property]
 		@search_feature = params[:feature]
-		
+
 		#get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
 		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
 
@@ -64,7 +64,7 @@ class SearchController < ApplicationController
 		# Now, because we were a bit cheeky, we can combine all of these (they're either blank or contain valid sql) and have one search query
 		# but only if the strings aren't empty as we need to put AND between the non empty strings
 		property_search_string = price_range_string != "" ? "#{price_range_string}" : ""
-		if bathrooms_string != "" 
+		if bathrooms_string != ""
 			property_search_string += property_search_string.length != 0 ? " AND #{bathrooms_string}" : "#{bathrooms_string}"
 		end
 		if bedrooms_string != ""
@@ -135,7 +135,7 @@ class SearchController < ApplicationController
 		@price_data = ActiveSupport::JSON.decode(params[:price_values])
 		@property_data = ActiveSupport::JSON.decode(params[:property_values])
 		@feature_data = ActiveSupport::JSON.decode(params[:feature_values])
-		
+
 		#build the query for suburbs, price, property and features
 		suburb_query = build_query(@search_data, "suburb")
 		price_query = build_query(@price_data, "price")
@@ -198,7 +198,7 @@ class SearchController < ApplicationController
 			return "#{type}[]=#{term.gsub(/\s/, '+')}&"
 		end
 	end
-	
+
 	#combine query terms method
 	#add suburbs to query
 	def combine_query(suburbs, prices, properties, features)
@@ -252,7 +252,7 @@ class SearchController < ApplicationController
 				query << "#{features}"
 			end
 		end
-		
+
 		#return full configured query (build_query)
 		return query
 	end
@@ -272,10 +272,19 @@ class SearchController < ApplicationController
 					favourite = Favourite.create(favourite_listing_id: listing_id, favourite_user_id: user.id)
 				end
 			end
-			
+
+			# Re-count listing favourites and update database
+			listing = Listing.find_by_listing_id(listing_id)
+			numOfFavs = listing.favourites.count
+			puts numOfFavs
+			listing.listing_favourites = numOfFavs
+			listing.save()
+
 		end
+
 		respond_to do |format|
 			format.js
 		end
+
 	end
 end
