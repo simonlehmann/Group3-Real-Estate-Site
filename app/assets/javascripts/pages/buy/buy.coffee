@@ -13,6 +13,7 @@ ready = ->
 	#search dropdown
 	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
 
+	#fix for semantic remove text when suburb is selected and user has typed in some text and clicked on suburb by mouse :D
 	$('#search-input-buy input').change ->
 		$(this).val('')
 	
