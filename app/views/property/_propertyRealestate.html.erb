@@ -2,11 +2,18 @@
 <%# profile path will need to change for profile/:id %>
 <ul id="realestateDetails">
 	<li>
-		<%= link_to buy_path  do %>
+		<%= link_to url_for("#{@listing.listing_user.email}") do %>
 			<%= image_tag @listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %>
 			<%# Username %>
-			<span><%= @listing.listing_user.username %></span>
-			<span><%= @listing.listing_user.email %></span>
+			<% if @listing.listing_user.username.length != 0 %>
+					<span><%= @listing.listing_user.username %></span>
+			<%# First name & Surname %>
+			<% elsif @listing.listing_user.first_name.length != 0 and @listing.listing_user.last_name.length != 0 %>
+					<span><%= @listing.listing_user.first_name %> <%= @listing.listing_user.last_name %></span>
+			<%# E-mail %>
+			<% else %>
+				<span><%= @listing.listing_user.email %></span>
+			<% end %>
 		<% end %>
 	</li>
 	<li>

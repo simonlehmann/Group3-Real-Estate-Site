@@ -31,6 +31,9 @@
 	//search input button:hover
 	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	//search loading icon
+	.search-loading
+		margin-left: 10px
 	//search input, search icon
 	.ui[class*="right labeled"].icon.button
 		color: $white-primary
@@ -81,6 +84,39 @@
 	.ui.row.search-row .column
 		padding-left: 0.25em
 		padding-right: 0.25em
+	//dropdown button
+	#criteria_dropdown.active
+		border-radius: 4px 4px 0px 0px
+		i.right.add.icon
+			display: none
+		//dropdown menu
+		.menu.visible
+			margin-top: -1px
+			border-color: transparent
+			border-radius: 0px 0px 4px 4px
+			//individual items - first dropdown
+			div
+				background-color: lighten($blue-primary, 1%)
+				color: $white-primary
+				border-color: transparent
+			div:hover
+				background-color: darken($blue-primary, 2%)
+			//includes all items in both dropdowns and puts a divider inbetween them (besides the last element)
+			div:not(:last-child)
+				border-bottom: 1px solid darken($blue-primary, 2%)
+			.menu
+				margin-top: -1px !important
+				div
+					background-color: lighten($blue-primary, 3%)
+				div:hover
+					background-color: darken($blue-primary, 3%)
+	#criteria_dropdown:not(.active)
+		i.dropdown.icon
+			display: none
+	#tag_dropdown
+		cursor: default
+		.label i
+			cursor: pointer
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
@@ -116,7 +152,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		text-align: center
 	p
 		line-height: 1.16em
-		margin: -0.8em 2em
+		margin: -0.3em 2em
 		font-size: 1.1em
 		font-style: bold
 		color: $white-primary
@@ -131,8 +167,30 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		+circle(135px, $transparent, solid, 4px, $blue-primary)
 //twitter section
 .twitter-feed
+	margin-top: 0 !important
+	.ui .items
+		background-color: #F3F3F3
+		padding: 0px
 	.twitter
 		color: $blue-twitter
+	.tweets
+		min-width: 370px
+	.header-tweet
+		margin-top: 5px
+	.header-tweet:hover
+		color: $green-secondary !important
+	.tweetImage
+		position: relative
+		left: 2%
+		margin-top: 2% !important
+		max-width: 80px !important
+		height: auto
+	.tweet
+		padding-top: 3px
+		a:hover
+			color: $green-secondary !important
+	.meta
+		padding: 4px
 
 .feature-property-container
 	.left
@@ -187,10 +245,3 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .ot-img
 	background: url(image_path('landing-header.png')) no-repeat
 	background-size: auto 120%
-
-#tweetImage
-	width: 60px
-	height: 60px
-.ui .items
-	background-color: #F3F3F3
-	padding: 0px
