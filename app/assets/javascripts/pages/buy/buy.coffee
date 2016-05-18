@@ -31,6 +31,9 @@ ready = ->
 				# Update the default text as it has been cleared (the options are already there on a success call, they were updated via
 				# update_search_suburbs.js.erb)
 				$('#search-field').siblings('.default.text').text('Search by suburb, address or keyword;')
+	$('#buy-search-submit').click( ->
+		$('.search-action').text('')
+		$('.search-action').html("<i class='loading sun icon search-loading'></i>"))
 	#remove nav active class
 	$('.main-nav a').removeClass('active')
 	#add slick-carousel
