@@ -1,4 +1,21 @@
 <div class="map-buttons">
+	<div id="distance-dropdown" class="ui selection dropdown">
+		<i class="dropdown icon"></i>
+		<div class="default text">Distance</div>
+		<div class="menu">
+			<div class="item" data-value="1">5km</div>
+			<div class="item" data-value="2">10km</div>
+		</div>
+	</div>
+	<div id="places-dropdown" class="ui selection dropdown">
+		<i class="dropdown icon"></i>
+		<div class="default text">Places</div>
+		<div class="menu">
+			<div class="item" data-value="1">Schools</div>
+			<div class="item" data-value="2">Food</div>
+			<div class="item" data-value="3">Petrol Stations</div>
+		</div>
+	</div>
 </div>
 <div id="map-canvas" data-addr="<%= @listing.listing_address %>, <%= @listing.listing_suburb %>, <%= @listing.listing_state %>">
 </div>
