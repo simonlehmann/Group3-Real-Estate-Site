@@ -5,13 +5,16 @@ currentLocation = undefined
 map = undefined
 markers = []
 service = undefined
+colour = undefined
 
 # On page ready, continue with this code
 ready = ->
   $('.map-buttons #places-dropdown').dropdown
     onChange: (value, text, $choice) ->
       deleteMarkers()
+      colour = value
       searchPlace(text)
+      console.log value
       return
   # Check if a map canvas exists
   if $('#map-canvas').length
@@ -49,14 +52,15 @@ initializeMap = ->
   marker = new (google.maps.Marker)(
       map: map
       position: currentLocation)
+  # Initiate service object
   service = new (google.maps.places.PlacesService)(map)
-
+# Function to find places based on search criteria
 searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
     radius: distance
     name: [ search_attr ]
-  }, callbackBlue
+  }, callback
   return
 
 deleteMarkers = ->
@@ -64,29 +68,24 @@ deleteMarkers = ->
   clearMarkers()
   return
 
-callbackBlue = (results, status, search) ->
-  console.log 'callback'
+callback = (results, status, search) ->
   if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addBlueMarker results[i].geometry.location
-      i++
-  return
-
-callbackGreen = (results, status, search) ->
-  if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addMarkerGreen results[i].geometry.location
-      i++
-  return
-
-callbackOrange = (results, status, search) ->
-  if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addMarkerOrange results[i].geometry.location
-      i++
+    switch (colour)
+      when '1'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
+      when '2'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
+      when '3'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
   return
 
 # Adds a marker to the map and push to the array.
