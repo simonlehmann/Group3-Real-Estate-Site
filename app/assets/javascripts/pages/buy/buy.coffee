@@ -10,7 +10,7 @@ ready = ->
 	# Add initial header image
 	$('.search-section').addClass 'wa-img'
 	#search dropdown
-	$('.search-section .ui.dropdown').dropdown allowAdditions: true, fullTextSearch: true
+	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
 	# Update the search dropdown options based upon the choice of state when it's changed via an ajax call
 	$('#search-state-field').change ->
 		# Get the state 
@@ -30,7 +30,7 @@ ready = ->
 			success: (response) ->
 				# Update the default text as it has been cleared (the options are already there on a success call, they were updated via
 				# update_search_suburbs.js.erb)
-				$('#search-field').siblings('.default.text').text('Search by suburb, address or keyword;')
+				$('#search-field').siblings('.default.text').text('Search by suburbs;')
 	$('#buy-search-submit').click( ->
 		$('.search-action').text('')
 		$('.search-action').html("<i class='loading sun icon search-loading'></i>"))

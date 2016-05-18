@@ -34,10 +34,10 @@
 				<% suburbs_postcodes = get_suburbs_postcodes(cookies[:state_long]) %>
 				<% if suburbs_postcodes %>
 					<% # Fill a select tag with the suburbs_postcodes and no default selection %>
-					<%= select_tag "search-field", options_for_select(suburbs_postcodes), class: "ui fluid multiple search selection dropdown", prompt: "Search by suburb, address or keyword;", multiple: true %>
+					<%= select_tag "search-field", options_for_select(suburbs_postcodes), class: "ui fluid multiple search selection dropdown", prompt: "Search by suburbs;", multiple: true %>
 				<% else %>
 					<% # Backup blank dropdown if getting the suburbs and postcodes doesn't work %>
-					<%= select_tag "search-field", nil, class: "ui fluid multiple search selection dropdown", prompt: "Search by suburb, address or keyword;", multiple: true %>
+					<%= select_tag "search-field", nil, class: "ui fluid multiple search selection dropdown", prompt: "Search by suburbs;", multiple: true %>
 				<% end %>
 				<div class="ui toggle button" id="buy-search-submit">
 					<span class="search-action">Search</span>
