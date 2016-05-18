@@ -54,21 +54,25 @@
 	.title-link:hover
 		color: $green-secondary
 	.fav-property
-		border-color: $transparent
+		border-color: $transparent !important
 		i
 			color: $grey-lighter
+			left: -0.2em !important
+			top: 0.3em !important
+			font-size: 2em !important
 		.favd
 			color: $yellow-primary
-	.shower img
-		width: 30px !important
-		height: auto
 	.fav-property:hover
 		border-color: $transparent
 		i
-			color: $grey-light
+			color: darken($grey-lighter, 25%)
 			cursor: pointer !important
 		.favd
 			color: $yellow-hover
+	//shower icon
+	.shower img
+		width: 30px !important
+		height: auto	
 	//extend width of status ribbon to be one line
 	.status-ribbon
 		width: 39%
