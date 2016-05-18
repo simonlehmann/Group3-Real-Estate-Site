@@ -1,6 +1,25 @@
 <div class="ui fluid image">
 	<%# Favourite Star %>
-	<a class="ui left corner label fav-property" data-id="<% @listing.listing_id %>"><i class="star icon"></i></a>
+
+	<% if controller_name == "property" %>
+		<%# If we have a current user, then use the check_if_listing_favourited_by_user Application
+		helper function to check if that listing is favd already and if so lets set the button as favd
+		from the get go %>
+		
+		<% if current_user %>
+			<% if check_if_listing_favourited_by_user(@listing.listing_id, current_user.id) %>
+				<a class="ui left corner label fav-property" data-id="<%= @listing.listing_id %>"><i class="star icon favd"></i></a>
+			<% else %>
+				<a class="ui left corner label fav-property" data-id="<%= @listing.listing_id %>"><i class="star icon"></i></a>
+			<% end %>
+
+			<%# The user isn't logged in, so we're not putting the listing id in the data-id value
+			so the AJAX doesn't run and an alert is sent (current temporary solution) %>
+		<% else %>
+			<a class="ui left corner label fav-property" data-id=""><i class="star icon"></i></a>
+		<% end %>
+	<% end %>
+
 	<%# Status "click here to set a status" means if it doesnt have a stus dont have ribbon %>
 			<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
 				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>
