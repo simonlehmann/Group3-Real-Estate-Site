@@ -14,7 +14,7 @@
 	<% TwitterApi.our_public_tweets.each do |tweet| %>
 		<div class="ui items tweets">
 			<div class="item">
-				<div id="tweetImage" class="ui tiny circular image">
+				<div class="ui tiny circular image tweetImage">
 					<% # Get twitter users profile image to display %>
 					<img src="<%= split_twitter_image(tweet.user.profile_image_url) %>">
 				</div>
