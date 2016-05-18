@@ -296,7 +296,7 @@ module ApplicationHelper
 
 	# Make twitter date human and UX friendly
 	def convert_twitter_date date
-		formatted_date = date.strftime('%b %m')
+		formatted_date = date.strftime('%d %b, %Y')
 		return formatted_date
 	end
 end
