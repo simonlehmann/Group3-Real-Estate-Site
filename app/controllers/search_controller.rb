@@ -3,12 +3,6 @@ class SearchController < ApplicationController
 	include ApplicationHelper
 	include SellHelper
 
-
-	# Parameters: {"search_values"=>"[\"suburb_6998\"]", 
-	# 	"price_values"=>"[\"Price_$700,000\"]", 
-	# 	"feature_values"=>"[\"Eco Friendly_Grey Water\",\"Heating Cooling_Airconditioning\",\"Leisure_Pay TV\",\"Indoor Features_Alarm\"]", 
-	# 	"property_values"=>"[\"Bedrooms_1 Bedroom\",\"Bathrooms_1 Bathroom\",\"Parking_10 Parking Bays\"]"}
-
 	def index
 		@search_suburbs = params[:suburb]
 		@search_prices = params[:price]
@@ -268,14 +262,8 @@ class SearchController < ApplicationController
 		is_favourited = params[:is_favourited]
 		user = current_user
 
-		puts listing_id
-		puts is_favourited
-		puts user
 		if listing_id and is_favourited and user
-			puts "inside first loop"
 			favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(listing_id, user.id)
-			puts "should have fav"
-			puts favourite
 
 			if is_favourited == "true"
 				favourite.destroy() if favourite

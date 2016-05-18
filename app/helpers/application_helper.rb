@@ -299,4 +299,13 @@ module ApplicationHelper
 		formatted_date = date.strftime('%b %m')
 		return formatted_date
 	end
+
+	def check_if_listing_favourited_by_user(listing_id, user_id)
+		favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(listing_id, user_id)
+		if favourite
+			return true
+		else
+			return false
+		end
+	end
 end
