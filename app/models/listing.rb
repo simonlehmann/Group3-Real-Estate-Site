@@ -76,6 +76,6 @@ class Listing < ActiveRecord::Base
 	belongs_to :listing_cover_image, class_name: "ListingImage", inverse_of: :cover_image_listing, foreign_key: "listing_cover_image_id", dependent: :destroy
 
 	# A listing can have many favourites, deleting the listing will delete all the favourites from the favourites database table
-	has_many :favourites, class_name: "Favourite", inverse_of: :favourite_listing, foreign_key: "favourite_id", dependent: :destroy
+	has_many :favourites, class_name: "Favourite", inverse_of: :favourite_listing, foreign_key: "favourite_listing_id", dependent: :destroy
 
 end
