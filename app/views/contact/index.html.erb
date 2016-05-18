@@ -8,39 +8,34 @@
 				<div class="fields">
 					<div class="six wide field required field">
 						<label>First Name</label>
-						<%= text_field :name, placeholder: "First Name" %>
+						<%= text_field_tag :first_name, nil, placeholder: "First Name" %>
 					</div>
 					<div class="six wide field">
 						<label>Last Name</label>
-						<%= text_field :last_name, placeholder: "Last Name" %>
+						<%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
 					</div>
 				</div>
 				<div class="twelve wide field required field">
 					<label>Email</label>
-					<%= email_field :email, placeholder: "email@address.com" %>
+					<%= email_field_tag :email, nil, placeholder: "email@address.com" %>
 					<h2 id="result"></h2>
 				</div>
 				<div class="twelve wide field required field">
-				<label>Subject</label>
-					<select class="ui dropdown" id="contact-type-selector">
-						<option value="0">General Enquiry</option>
-						<option value="1">Report Bug</option>
-						<option value="2">Other</option>
-						<option value="3">Sales</option>
-						<option value="4">Security</option>
-						<option value="5">Disputes</option>
-					</select>
+					<label>Subject</label>
+					<%= select_tag :subject, options_for_select(["General Enquiry", "Report Bug", "Other", "Sales", "Security", "Disputes"], "General Enquiry"), { class: "ui dropdown", id: "contact-type-selector" } %>
 				</div>
 				<div class="fields">
 					<div class="fourteen wide field required field">
 						<label>Text</label>
-						<%= text_area :comments, placeholder: "Write in here to send us your thoughts" %>
+						<%= text_area_tag :message, nil, placeholder: "Write in here to send us your thoughts" %>
 					</div>
 					<div>
 						<button class="ui big circular icon button" id="contact-submit-button">
 							<i class="send outline icon"></i>
 						</button>
-						<%= submit_tag("Send") %>
+						<%= button_tag type: "submit", class: "ui big circular icon button", id: "contact-submit-button" do %>
+							<%= content_tag(:i, "", class: "send outline icon") %>
+						<% end %>
 					</div>
 				</div>
 				<div class="ui error message"></div>

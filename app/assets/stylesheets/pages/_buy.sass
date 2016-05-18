@@ -31,6 +31,9 @@
 	//search input button:hover
 	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	//search loading icon
+	.search-loading
+		margin-left: 10px
 	//search input, search icon
 	.ui[class*="right labeled"].icon.button
 		color: $white-primary
@@ -131,8 +134,30 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		+circle(135px, $transparent, solid, 4px, $blue-primary)
 //twitter section
 .twitter-feed
+	margin-top: 0 !important
+	.ui .items
+		background-color: #F3F3F3
+		padding: 0px
 	.twitter
 		color: $blue-twitter
+	.tweets
+		min-width: 370px
+	.header-tweet
+		margin-top: 5px
+	.header-tweet:hover
+		color: $green-secondary !important
+	.tweetImage
+		position: relative
+		left: 2%
+		margin-top: 2% !important
+		max-width: 80px !important
+		height: auto
+	.tweet
+		padding-top: 3px
+	.meta
+		padding: 4px
+	.header
+
 .feature-property-container
 	.left
 		float: left
@@ -150,6 +175,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		height: 70%
 	.bottom
 		height: 30%
+
 
 .favouritesSlide
 	.address
@@ -185,10 +211,3 @@ div.lead-in.ui.one.wide.column.triangle-lead
 .ot-img
 	background: url(image_path('landing-header.png')) no-repeat
 	background-size: auto 120%
-
-#tweetImage
-	width: 60px
-	height: 60px
-.ui .items
-	background-color: #F3F3F3
-	padding: 0px

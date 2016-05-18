@@ -276,27 +276,13 @@ module ApplicationHelper
 		return @return_array.sort!
 	end
 
-	# Method to turn links in a tweet into a clickable link instead of plain text
-	def parsed_tweet tweet
-		_parsed_tweet = tweet.text.dup
-
-		# Turn URL's into clickable links
-		tweet.urls.each do |entity|
-			html_link = link_to(entity.display_url.to_s, entity.expanded_url.to_s, target: '_blank')
-			_parsed_tweet.sub!(entity.url.to_s, html_link)
+	#check if listing favourited by user
+	def check_if_listing_favourited_by_user(listing_id, user_id)
+		favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(listing_id, user_id)
+		if favourite
+			return true
+		else
+			return false
 		end
-		# Turn media links into clickable links
-		tweet.media.each do |entity|
-			html_link = link_to(entity.display_url.to_s, entity.expanded_url.to_s, target: '_blank')
-			_parsed_tweet.sub!(entity.url.to_s, html_link)
-		end
-
-		_parsed_tweet.html_safe
-	end
-
-	# Make twitter date human and UX friendly
-	def convert_twitter_date date
-		formatted_date = date.strftime('%b %m')
-		return formatted_date
 	end
 end

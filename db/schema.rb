@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20160506141127) do
     t.integer  "listing_views",          limit: 4,                              default: 0,       null: false
     t.integer  "listing_favourites",     limit: 4,                              default: 0,       null: false
     t.integer  "listing_comments",       limit: 4,                              default: 0,       null: false
+    t.boolean  "listing_is_featured",                                           default: false,   null: false
     t.datetime "listing_created_at",                                                              null: false
     t.datetime "listing_updated_at",                                                              null: false
     t.datetime "listing_to_end_at",                                                               null: false

@@ -1,159 +1,94 @@
-map = undefined
-geocoder = undefined
-infoWindow = undefined
+# Declare current location variable for use
+distance = 5000
+places = undefined
 currentLocation = undefined
+map = undefined
 markers = []
-currentRadius = 1000
+service = undefined
+colour = undefined
 
-# Moved into one ready function to be called across page load and document.ready as discussed on Slack
+# On page ready, continue with this code
 ready = ->
-  # To remove the console error, I'm only running this on the maps page
-  loc = window.location.pathname
-  console.log loc
-  if loc.includes('map')
-    #Declare variables/arrays etc
-    currentLocation = 
-      lat: -34.397
-      lng: 150.644
-    mapOptions = 
-      zoom: 14
-      center:
-        lat: -34.397
-        lng: 150.644
-    map = new (google.maps.Map)(document.getElementById('map-canvas'), mapOptions)
+  $('.map-buttons #places-dropdown').dropdown
+    onChange: (value, text, $choice) ->
+      deleteMarkers()
+      colour = value
+      searchPlace(text)
+      console.log value
+      return
+  # Check if a map canvas exists
+  if $('#map-canvas').length
+    # Get the properties address
+    location_addr = $('#map-canvas').data('addr')
+    # Initiate a new instance of geocoder
     geocoder = new (google.maps.Geocoder)
-    
-    # Work with submitted address  
-    $('#addr_submit').click ->
-      address = $('#addr_box').val()
-      geocodeAddress geocoder, map, address
-      return
-    $('#search_attr').click ->
-      search = $('#search_box').val()
-      currentRadius = $('#search_radius').val()
-      unless currentRadius
-        alert 'No radius set, using default of 1000.'
-        currentRadius = 1000
-      searchPlace search
-      return
-    $('#search_school').click ->
-      currentRadius = $('#search_radius').val()
-      unless currentRadius
-        alert 'No radius set, using default of 1000.'
-        currentRadius = 1000
-      searchSchool()
-      return
-    $('#search_food').click ->
-      currentRadius = $('#search_radius').val()
-      unless currentRadius
-        alert 'No radius set, using default of 1000.'
-        currentRadius = 1000
-      searchFood()
-      return
-    $('#search_petrol').click ->
-      currentRadius = $('#search_radius').val()
-      unless currentRadius
-        alert 'No radius set, using default of 1000.'
-        currentRadius = 1000
-      searchPetrol()
-      return
-  return
-
-# Convert Address into lat and long and show on map
-geocodeAddress = (geocoder, resultsMap, address) ->
-  geocoder.geocode { 'address': address }, (results, status) ->
+    # Conver the address into lat and lng values and store in currentLocation
+    geocodeAddress(location_addr, geocoder)
+# Function to get coords from human readable address
+geocodeAddress = (address, geocoder) ->
+  geocoder.geocode { 'address': address}, (results, status) ->
+    # Check if geocoder is available and working
     if status == google.maps.GeocoderStatus.OK
-      resultsMap.setCenter results[0].geometry.location
+      # Set currentLocation to lat and lng of address
       currentLocation = results[0].geometry.location
-      marker = new (google.maps.Marker)(
-        map: resultsMap
-        position: results[0].geometry.location)
+      # Call initializeMap function to build and display the map
+      initializeMap()
     else
-      alert 'Geocode was not successful for the following reason: ' + status
+      # If geocoder fails, notify
+      console.log 'Geocode was not successful for the following reason: ' + status
     return
   return
-
-searchPlace = (search_attr) ->
-  deleteMarkers()
-  infowindow = new (google.maps.InfoWindow)
+# Build and display initial map
+initializeMap = ->
+  # Set map options
+  mapOptions = 
+    zoom: 14
+    center:
+      lat: currentLocation.lat()
+      lng: currentLocation.lng()
+  # Initiate map
+  map = new (google.maps.Map)(document.getElementById('map-canvas'), mapOptions)
+  # Set property marker
+  marker = new (google.maps.Marker)(
+      map: map
+      position: currentLocation)
+  # Initiate service object
   service = new (google.maps.places.PlacesService)(map)
+# Function to find places based on search criteria
+searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
-    radius: currentRadius
+    radius: distance
     name: [ search_attr ]
   }, callback
   return
 
-searchPetrol = ->
-  search = 'gas_station'
-  deleteMarkers()
-  infowindow = new (google.maps.InfoWindow)
-  service = new (google.maps.places.PlacesService)(map)
-  service.nearbySearch {
-    location: currentLocation
-    radius: currentRadius
-    type: [ search ]
-  }, callbackGreen
-  return
-
-searchFood = ->
-  search = 'food'
-  deleteMarkers()
-  infowindow = new (google.maps.InfoWindow)
-  service = new (google.maps.places.PlacesService)(map)
-  service.nearbySearch {
-    location: currentLocation
-    radius: currentRadius
-    type: [ search ]
-  }, callbackOrange
-  return
-
-searchSchool = ->
-  search = 'school'
-  deleteMarkers()
-  infowindow = new (google.maps.InfoWindow)
-  service = new (google.maps.places.PlacesService)(map)
-  service.nearbySearch {
-    location: currentLocation
-    radius: currentRadius
-    type: [ search ]
-  }, callbackBlue
+deleteMarkers = ->
+  markers = []
+  clearMarkers()
   return
 
 callback = (results, status, search) ->
   if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addMarker results[i].geometry.location
-      i++
-  return
-
-callbackBlue = (results, status, search) ->
-  if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addBlueMarker results[i].geometry.location
-      i++
-  return
-
-callbackGreen = (results, status, search) ->
-  if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addMarkerGreen results[i].geometry.location
-      i++
-  return
-
-callbackOrange = (results, status, search) ->
-  if status == google.maps.places.PlacesServiceStatus.OK
-    i = 0
-    while i < results.length
-      addMarkerOrange results[i].geometry.location
-      i++
+    switch (colour)
+      when '1'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
+      when '2'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
+      when '3'
+        i = 0
+        while i < results.length
+          addBlueMarker results[i].geometry.location
+          i++
   return
 
 # Adds a marker to the map and push to the array.
-
 addMarkerGreen = (location) ->
   marker = new (google.maps.Marker)(
     position: location
@@ -171,6 +106,7 @@ addMarkerOrange = (location) ->
   return
 
 addBlueMarker = (location) ->
+  console.log 'add marker'
   marker = new (google.maps.Marker)(
     position: location
     map: map
@@ -178,47 +114,22 @@ addBlueMarker = (location) ->
   markers.push marker
   return
 
-addMarker = (location) ->
-  console.log  'adding marker'
-  marker = new (google.maps.Marker)(
-    position: location
-    map: map
-    icon: null)
-  markers.push marker
-  return
-
-# Sets the map on all markers in the array.
-
-setMapOnAll = (map) ->
-  i = 0
-  while i < markers.length
-    markers[i].setMap map
-    i++
-  return
-
-# Removes the markers from the map, but keeps them in the array.
-
 clearMarkers = ->
-  console.log 'clearing markers'
   setMapOnAll null
   return
 
 # Shows any markers currently in the array.
-
 showMarkers = ->
   setMapOnAll map
   return
-
-# Deletes all markers in the array by removing references to them.
-
-deleteMarkers = ->
-  console.log 'deleting markers'
-  clearMarkers()
-  markers = []
+# Sets the map on all markers in the array.
+setMapOnAll = (map) ->
+  i = 0
+  if !markers == undefined
+    while i < markers.length
+      markers[i].setMap map
+      i++
+    return
   return
-
-
-# Turbolinking only runs the $(document).ready on initial page load. 
-# So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 
 $(document).ready ready
