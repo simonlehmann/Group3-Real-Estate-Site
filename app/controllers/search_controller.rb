@@ -4,14 +4,45 @@ class SearchController < ApplicationController
 	include SellHelper
 
 	def index
+		# --------- Get search terms from params list
 		@search_suburbs = params[:suburb]
 		@search_prices = params[:price]
 		@search_property = params[:property]
 		@search_feature = params[:feature]
 		
-		#get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
+		# --------- Get the @suburbs, @price_tags, @property_tags & @feature_tags for the view _searchconfig.html.erb
+		#
+		# get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
 		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
 
+		# format the search params for the tags so we can send them to the search config sidebar
+		# Price Tags
+		if @search_prices
+			@price_tags = []
+			# Don't do any conversion as @search_prices contains an array of integers, just set
+			# @price_tags to @search_prices (sorted small to high)
+			@price_tags = @search_prices.sort { |a, b| a.to_i <=> b.to_i }
+		end
+		# Property tags (House Type, bedrooms, Bathrooms ...)
+		if @search_property
+			@property_tags = []
+			# Split the search_property stuff and store the category and value
+			@search_property.each do |prop|
+				temp_split = prop.split("_")
+				@property_tags << [ temp_split.first, temp_split.last ]
+			end
+		end
+		# Feature tags (Alarms, NBN...)
+		if @search_feature
+			@feature_tags = []
+			# Don't need to do anything with the feature tags as they are just single strings so just
+			# make @feature_tags == @search_feature
+			@feature_tags = @search_feature
+		end
+
+
+		# --------- Sanitize the parameters so we can perform search with them
+		# 
 		# If we have prices, then build an array of prices to search between
 		# i.e. [400000, 500000] will be used to search for properties with price between $400,000 - 500,000
 		price_range = []
@@ -74,6 +105,8 @@ class SearchController < ApplicationController
 			property_search_string += property_search_string.length != 0 ? " AND #{parking_string}" : "#{parking_string}"
 		end
 
+		# --------- Actually perform the database query
+		# 
 		# Now we can perform our search query and include the house_type array and suburbs if they exist
 		if @search_suburbs
 			# We have suburbs so lets include them in the search and handle the extras
