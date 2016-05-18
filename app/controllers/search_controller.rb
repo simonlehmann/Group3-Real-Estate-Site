@@ -9,7 +9,8 @@ class SearchController < ApplicationController
 		@search_prices = params[:price]
 		@search_property = params[:property]
 		@search_feature = params[:feature]
-		
+		@no_query = false # A variable used in the view for when there's no query
+
 		# --------- Get the @suburbs, @price_tags, @property_tags & @feature_tags for the view _searchconfig.html.erb
 		#
 		# get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
@@ -120,11 +121,25 @@ class SearchController < ApplicationController
 		else
 			# We don't have any suburbs so lets just handle the extras
 			if house_type.length != 0
-				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				# only search these if the property search string is not empty
+				if property_search_string != ""
+					# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query
+					@listings = Listing.where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				else
+					# Only search via house type
+					@listings = Listing.where(listing_type: house_type).order('listing_created_at DESC')
+				end
+			# only search these if the property search string is not empty
 			else
-				# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(property_search_string).order('listing_created_at DESC')
+				if property_search_string != ""
+					# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
+					@listings = Listing.where(property_search_string).order('listing_created_at DESC')
+				# We've gone down the rabit hole and have no query strings now so.. return all listings
+				else
+					# Currently limited to 10 as we'll add infinite scroll/pagination soon
+					@no_query = true
+					@listings = Listing.order('listing_created_at DESC').limit(10)
+				end
 			end
 		end
 	end
