@@ -5,28 +5,57 @@
 			<% @suburbs.each do |sub| %>
 				<%= content_tag :div, class: "ui property-feature-tag label suburb-label", data: {subid: sub.id, suburb: sub.suburb} do %>
 					<%= sub.suburb %>
-					<i class='delete icon'></i>
+					<i class="delete icon"></i>
 				<% end %>
 			<% end %>
 		<% end %>
 	</div>
+
+	<%# Get the property tags from the search query, with the property category (Bedrooms...)
+	and qty (1, 2, ...), but display the tag QTY Category%>
 	<div id="property">
-		<h5>Property:</h5>
-		<div class="ui property-feature-tag label">House<i class="delete icon"></i></div>
-		<div class="ui property-feature-tag label">2 Bedrooms<i class="delete icon"></i></div>
-		<div class="ui property-feature-tag label">1 to 3 Bathrooms<i class="delete icon"></i></div>
+		<% if @property_tags %>
+			<h5>Property:</h5>
+			<% @property_tags.each do |tag| %>
+				<%= content_tag :div, class: "ui property-feature-tag label", data: { category: tag.first, qty: tag.last } do %>
+					<% if tag.first != "House Type" %>
+						<%# Display as QTY (last) and Category (last) %>
+						<%= "#{tag.last} #{tag.first}" %>
+					<% else %>
+						<%# Display just the house type (tag.last) %>
+						<%= "#{tag.last}" %>
+					<% end %>
+					<i class="delete icon"></i>
+				<% end %>
+			<% end %>
+		<% end %>
 	</div>
+	
+	<%# Get feature tags from the search query, with the tag text only as a data term %>
 	<div id="features">
-		<h5>Features:</h5>
-		<div class="ui sell-feature-tag label">Home Theatre<i class="delete icon"></i></div>
-		<div class="ui sell-feature-tag label">NBN<i class="delete icon"></i></div>
-		<div class="ui sell-feature-tag label">Pool<i class="delete icon"></i></div>
-		<div class="ui sell-feature-tag label">Front Garden<i class="delete icon"></i></div>
-		<div class="ui sell-feature-tag label">Back Garden<i class="delete icon"></i></div>
+		<% if @feature_tags %>
+			<h5>Features:</h5>
+			<% @feature_tags.each do |tag| %>
+				<%= content_tag :div, class: "ui sell-feature-tag label", data: { feature: tag.to_s } do %>
+					<%= tag.to_s %>
+					<i class="delete icon"></i>
+				<% end %>
+			<% end %>
+		<% end %>
 	</div>
+
+	<%# Get the price tags from the search query, with the tag price in the data (as an integer),
+	it will be displayed as a currency though %>
 	<div id="price">
-		<h5>Price:</h5>
-		<div class="ui price-feature-tag tag label">Maximum $650,000<i class="delete icon"></i></div>
+		<% if @price_tags %>
+			<h5>Price:</h5>
+			<% @price_tags.each do |tag| %>
+				<%= content_tag :div, class: "ui price-feature-tag tag label", data: { price: tag.to_i } do %>
+					<%= number_to_currency(tag.to_i, precision: 0) %>
+					<i class="delete icon"></i>
+				<% end %>
+			<% end %>
+		<% end %>
 	</div>
 </div>
 <button class="large ui right labeled icon button">
