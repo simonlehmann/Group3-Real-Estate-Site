@@ -75,13 +75,11 @@ ready = ->
 
 	#So this is erdals attempt at doing the coffee script for favouriting a property
 	#no where near done
-	$('.fav-property').click (->
+	$('.fav-property').click ->
 		listing_id = $(this).data 'id'
 		if $(this).children('i').hasClass('favd')
-			console.log 'Im inside and I have the class favd'
 			is_favourited = "true"
 		else
-			console.log 'Im inside and I dont have the class favd'
 			is_favourited = "false"
 
 		if listing_id.length != 0 and is_favourited.length != 0
@@ -93,9 +91,9 @@ ready = ->
 						listing_id: listing_id
 						is_favourited: is_favourited
 					success: (response) ->
-						console.log 'Im inside success'
-						console.log $(this)
-						$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd'))
+						$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
+		else
+			alert 'You must be logged in to be able to favourite a property.'
 
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)

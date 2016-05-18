@@ -130,7 +130,8 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	.circle
 		+circle(135px, $transparent, solid, 4px, $blue-primary)
 //twitter section
-.twitter-feed	
+.twitter-feed
+	margin-top: 0 !important
 	.ui .items
 		background-color: #F3F3F3
 		padding: 0px
@@ -140,16 +141,19 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		min-width: 370px
 	.header-tweet
 		margin-top: 5px
-	#tweetImage
-	position: relative
-	left: 2%
-	margin-top: 2%
-	width: 60px
-	height: 60px
+	.header-tweet:hover
+		color: $green-secondary !important
+	.tweetImage
+		position: relative
+		left: 2%
+		margin-top: 2% !important
+		max-width: 80px !important
+		height: auto
 	.tweet
 		padding-top: 3px
 	.meta
-		padding: 5px
+		padding: 4px
+	.header
 
 .feature-property-container
 	.left
