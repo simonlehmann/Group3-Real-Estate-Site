@@ -1,5 +1,10 @@
+# Created: Michael White
+# Date: 16/05/2016
+# 
+# The following coffeescript is for the map to be used in the property page
+# 
 # Declare current location variable for use
-distance = 5000
+distance = 1000
 places = undefined
 currentLocation = undefined
 map = undefined
@@ -9,16 +14,24 @@ colour = undefined
 
 # On page ready, continue with this code
 ready = ->
+  # Initiate places dropdown
   $('.map-buttons #places-dropdown').dropdown
+    # When a selection is changed, do the following
     onChange: (value, text, $choice) ->
+      # Delete and clear current markers
       deleteMarkers()
       colour = value
-      searchPlace(text)
-      console.log value
+      console.log $choice.context.attributes[0].value
+      places = $choice.context.attributes[0].value
+      searchPlace(places)
       return
+  # Initiate distance dropdown
   $('.map-buttons #distance-dropdown').dropdown
+    # When a selection is changed, do the following
     onChange: (value, text, $choice) ->
       distance = value
+      deleteMarkers()
+      searchPlace(places)
       return
   # Check if a map canvas exists
   if $('#map-canvas').length
@@ -70,19 +83,29 @@ processResults = (results, status, pagination) ->
         i = 0
         # Do for each marker
         while i < results.length
-          addBlueMarker results[i].geometry.location
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addBlueMarker results[i].geometry.location
           i++
       when '2'
         i = 0
         # Do for each marker
         while i < results.length
-          addMarkerGreen results[i].geometry.location
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addMarkerOrange results[i].geometry.location
           i++
       when '3'
         i = 0
         # Do for each marker
         while i < results.length
-          addMarkerOrange results[i].geometry.location
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addMarkerGreen results[i].geometry.location
+          i++
+      else
+        i = 0
+        # Do for each marker
+        while i < results.length
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addMarkerGreen results[i].geometry.location
           i++
     # If there is more than 20 results, next page.
     if pagination.hasNextPage
@@ -92,15 +115,17 @@ processResults = (results, status, pagination) ->
 searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
-    radius: distance
+    # radius: distance
+    rankBy: google.maps.places.RankBy.DISTANCE
     name: [ search_attr ]
   }, processResults
   return
 # Function to delete markers
 deleteMarkers = ->
+  # Clear markers from the map
   clearMarkers()
+  # Clear markers array
   markers = []
-  console.log markers
   return
 # Adds a green marker to the map and push to the array
 addMarkerGreen = (location) ->
@@ -141,5 +166,18 @@ setMapOnAll = (map) ->
     markers[i].setMap map
     i++
   return
+rad = (x) ->
+  x * Math.PI / 180
+
+getDistance = (p1, p2) ->
+  R = 6378137
+  # Earth’s mean radius in meter
+  dLat = rad(p2.lat() - p1.lat())
+  dLong = rad(p2.lng() - p1.lng())
+  a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong / 2) * Math.sin(dLong / 2)
+  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  d = R * c
+  d
+  # returns the distance in meter
 
 $(document).ready ready
