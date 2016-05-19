@@ -6,6 +6,13 @@ set :repo_url, 'git@github.com:slehmann36/Group3-Real-Estate-Site.git'
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+
+# set :keep_releases, 5
+# set :ssh_options, {
+#   forward_agent: true,
+#   port: 22002
+# }
+
 #default_run_options[:pty] = true
 
 # Default branch is :master
