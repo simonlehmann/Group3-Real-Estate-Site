@@ -45,6 +45,24 @@
 			max-width: 1125px
 			height: auto
 	//under image header section
+
+	.fav-property
+		border-color: $transparent
+		i
+			color: $grey-lighter
+		.favd
+			color: $yellow-primary
+	.fav-property:hover
+		border-color: $transparent
+		i
+			color: $grey-light
+			cursor: pointer !important
+		.favd
+			color: $yellow-hover
+
+
+
+
 	.property-details-section
 		margin-top: 11px !important
 		//property inforleft column
@@ -70,6 +88,7 @@
 				margin-bottom: 6px !important
 			//description and more text button
 			.description-area
+				white-space: pre-line
 				height: 255px
 				display: block
 				padding: 7px

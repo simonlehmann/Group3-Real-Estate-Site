@@ -1,17 +1,49 @@
 class SearchController < ApplicationController
-	
+
 	include ApplicationHelper
 	include SellHelper
 
 	def index
+		# --------- Get search terms from params list
 		@search_suburbs = params[:suburb]
 		@search_prices = params[:price]
 		@search_property = params[:property]
 		@search_feature = params[:feature]
-		
-		#get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
+		@no_query = false # A variable used in the view for when there's no query
+
+		# --------- Get the @suburbs, @price_tags, @property_tags & @feature_tags for the view _searchconfig.html.erb
+		#
+		# get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
 		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
 
+		# format the search params for the tags so we can send them to the search config sidebar
+		# Price Tags
+		if @search_prices
+			@price_tags = []
+			# Don't do any conversion as @search_prices contains an array of integers, just set
+			# @price_tags to @search_prices (sorted small to high)
+			@price_tags = @search_prices.sort { |a, b| a.to_i <=> b.to_i }
+		end
+		# Property tags (House Type, bedrooms, Bathrooms ...)
+		if @search_property
+			@property_tags = []
+			# Split the search_property stuff and store the category and value
+			@search_property.each do |prop|
+				temp_split = prop.split("_")
+				@property_tags << [ temp_split.first, temp_split.last ]
+			end
+		end
+		# Feature tags (Alarms, NBN...)
+		if @search_feature
+			@feature_tags = []
+			# Don't need to do anything with the feature tags as they are just single strings so just
+			# make @feature_tags == @search_feature
+			@feature_tags = @search_feature
+		end
+
+
+		# --------- Sanitize the parameters so we can perform search with them
+		# 
 		# If we have prices, then build an array of prices to search between
 		# i.e. [400000, 500000] will be used to search for properties with price between $400,000 - 500,000
 		price_range = []
@@ -64,7 +96,7 @@ class SearchController < ApplicationController
 		# Now, because we were a bit cheeky, we can combine all of these (they're either blank or contain valid sql) and have one search query
 		# but only if the strings aren't empty as we need to put AND between the non empty strings
 		property_search_string = price_range_string != "" ? "#{price_range_string}" : ""
-		if bathrooms_string != "" 
+		if bathrooms_string != ""
 			property_search_string += property_search_string.length != 0 ? " AND #{bathrooms_string}" : "#{bathrooms_string}"
 		end
 		if bedrooms_string != ""
@@ -74,24 +106,47 @@ class SearchController < ApplicationController
 			property_search_string += property_search_string.length != 0 ? " AND #{parking_string}" : "#{parking_string}"
 		end
 
+		# --------- Actually perform the database query
+		# 
 		# Now we can perform our search query and include the house_type array and suburbs if they exist
 		if @search_suburbs
 			# We have suburbs so lets include them in the search and handle the extras
 			if house_type.length != 0
-				# We want to search via house type as well, so lets include that, along with our suburbs, and the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				# We want to search via house type as well, so lets include that, along with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
+				if property_search_string != ""
+					@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				else
+					@listings = Listing.where(listing_suburb: @search_suburbs).where(listing_type: house_type).order('listing_created_at DESC')
+				end
 			else
-				# We don't want to search via house type as well, so only search with our suburbs, and the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).order('listing_created_at DESC')
+				# We don't want to search via house type as well, so only search with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
+				if property_search_string != ""
+					@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).order('listing_created_at DESC')
+				else
+					@listings = Listing.where(listing_suburb: @search_suburbs).order('listing_created_at DESC')
+				end
 			end
 		else
 			# We don't have any suburbs so lets just handle the extras
 			if house_type.length != 0
-				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query if it exists
+				if property_search_string != ""
+					@listings = Listing.where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+				else
+					@listings = Listing.where(listing_type: house_type).order('listing_created_at DESC')
+				end
+			# only search these if the property search string is not empty
 			else
 				# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
-				@listings = Listing.where(property_search_string).order('listing_created_at DESC')
+				if property_search_string != ""
+					@listings = Listing.where(property_search_string).order('listing_created_at DESC')
+				
+				# We've gone down the rabit hole and have no query strings now so.. return all listings
+				else
+					# Currently limited to 10 as we'll add infinite scroll/pagination soon
+					@no_query = true
+					@listings = Listing.order('listing_created_at DESC').limit(10)
+				end
 			end
 		end
 	end
@@ -135,7 +190,7 @@ class SearchController < ApplicationController
 		@price_data = ActiveSupport::JSON.decode(params[:price_values])
 		@property_data = ActiveSupport::JSON.decode(params[:property_values])
 		@feature_data = ActiveSupport::JSON.decode(params[:feature_values])
-		
+
 		#build the query for suburbs, price, property and features
 		suburb_query = build_query(@search_data, "suburb")
 		price_query = build_query(@price_data, "price")
@@ -198,7 +253,7 @@ class SearchController < ApplicationController
 			return "#{type}[]=#{term.gsub(/\s/, '+')}&"
 		end
 	end
-	
+
 	#combine query terms method
 	#add suburbs to query
 	def combine_query(suburbs, prices, properties, features)
@@ -252,7 +307,7 @@ class SearchController < ApplicationController
 				query << "#{features}"
 			end
 		end
-		
+
 		#return full configured query (build_query)
 		return query
 	end
@@ -272,10 +327,19 @@ class SearchController < ApplicationController
 					favourite = Favourite.create(favourite_listing_id: listing_id, favourite_user_id: user.id)
 				end
 			end
-			
+
+			# Re-count listing favourites and update database
+			listing = Listing.find_by_listing_id(listing_id)
+			numOfFavs = listing.favourites.count
+			puts numOfFavs
+			listing.listing_favourites = numOfFavs
+			listing.save()
+
 		end
+
 		respond_to do |format|
 			format.js
 		end
+
 	end
 end

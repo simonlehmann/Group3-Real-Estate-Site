@@ -22,11 +22,11 @@ ready = ->
 			# Changed from value='choiceVal' to data-cat='Price||Property||Features' to simplify feature search function
 			switch choiceVal
 				when 'Price'
-					$('<a class="ui tag orange label" data-catid="' + choiceVal + '_' + text + '" data-cat="Price">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
+					$('<div class="ui price-feature-tag tag label" data-catid="' + choiceVal + '_' + text + '" data-cat="Price">' + text + '<i class="delete icon"></i></div>').appendTo(criteria_tag_field)
 				when 'House Type', 'Bedrooms', 'Bathrooms', 'Parking'
-					$('<a class="ui blue label" data-catid="' + choiceVal + '_' + text + '" data-cat="Property">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
+					$('<div class="ui property-feature-tag label suburb-label" data-catid="' + choiceVal + '_' + text + '" data-cat="Property">' + text + '<i class="delete icon"></i></div>').appendTo(criteria_tag_field)
 				when 'Appliances', 'Eco Friendly', 'Heating Cooling', 'Indoor Features', 'Leisure', 'Outdoor Features'
-					$('<a class="ui purple label" data-catid="' + choiceVal + '_' + text + '" data-cat="Features">' + text + '<i class="delete icon"></i></a>').appendTo(criteria_tag_field)
+					$('<div class="ui label sell-feature-tag" data-catid="' + choiceVal + '_' + text + '" data-cat="Features">' + text + '<i class="delete icon"></i></div>').appendTo(criteria_tag_field)
 
 			setTimeout (->
 				# Refresh the dropdown with the newly added criteria

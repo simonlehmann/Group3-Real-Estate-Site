@@ -1,5 +1,11 @@
 body
 	height: 100%
+::-moz-selection
+	color: $white-primary
+	background: rgba(18, 176, 92, 0.75)
+::selection
+	color: $white-primary
+	background: rgba(18, 176, 92, 0.75)
 //star icon
 .star
 	color: $yellow-primary
@@ -27,6 +33,23 @@ header
 	height: 0px
 	visibility: hidden
 	margin-top: 1.5em
+//favourite button property page & search results
+.fav-property
+	border-color: $transparent !important
+	i
+		color: $grey-lighter
+		left: -0.2em !important
+		top: 0.3em !important
+		font-size: 2em !important
+	.favd
+		color: $yellow-primary
+.fav-property:hover
+	border-color: $transparent
+	i
+		color: darken($grey-lighter, 25%)
+		cursor: pointer !important
+	.favd
+		color: $yellow-hover
 //tag labels for property features
 .sell-feature-tag,
 	background-color: $purple-primary !important

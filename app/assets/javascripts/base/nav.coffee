@@ -17,7 +17,6 @@ ready = ->
 		$('header').addClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
-		$('.main-nav a.buy-item').addClass 'active'
 	else if loc.includes('sell')
 		# Grab top sell element and see if it is the sell-banner (needs clear nav-menu with delay) or there's no banner
 		if $('.sell-top').hasClass 'sell-banner'
@@ -27,14 +26,12 @@ ready = ->
 		$('header').removeClass 'nav-buy'
 		$('header').addClass 'nav-sell'
 		$('header').removeClass 'nav-dashboard'
-		$('.main-nav a.sell-item').addClass 'active'
 	#dashboard
 	else if loc.includes 'dashboard'
 		nav_delay = false
 		$('header').removeClass 'nav-buy'
 		$('header').removeClass 'nav-sell'
 		$('header').addClass 'nav-dashboard'
-		$('.main-nav a.activity-item').addClass 'active'
 	# User sign-up/login pages to match the buy style, but with no delay
 	else if loc == '/' or loc.includes('login') or loc.includes('password') or loc.includes('cancel') or loc.includes('sign_up') or loc.includes('edit')
 		nav_delay = false
