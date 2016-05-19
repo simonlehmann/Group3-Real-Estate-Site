@@ -15,7 +15,7 @@ colour = undefined
 # On page ready, continue with this code
 ready = ->
   # Hide map unavailable
-  $('.map-unavailable').hide()
+  $('#map-unavailable').hide()
   # Initiate places dropdown
   $('.map-buttons #places-dropdown').dropdown
     # When a selection is changed, do the following
@@ -55,7 +55,11 @@ geocodeAddress = (address, geocoder) ->
     else
       # If geocoder fails, notify
       console.log 'Geocode was not successful for the following reason: ' + status
-      $('.map-unavailable').show()
+      # Hide dropdowns 
+      $('#places-dropdown').hide()
+      $('#distance-dropdown').hide()
+      # Show map unavailable div
+      $('#map-unavailable').show()
     return
   return
 # Build and display initial map
