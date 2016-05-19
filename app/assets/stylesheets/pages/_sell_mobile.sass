@@ -1,0 +1,27 @@
+// Created: Daniel Swain
+// Date: 05/04/2016
+// 
+// The following styles are for all sales pages for mobile responsiveness
+
+
+@media only screen and (max-width: 991px) and (min-width: 768px)
+	// Set the container to full width on mobiles
+	.sell-mobile-container
+		width: 100% !important
+	// Fix the form so each field is on a new row on mobiles
+	.ui.form.sell-form
+		.fields
+			display: flex !important
+			flex-wrap: wrap !important
+			.field
+				min-width: 100% !important
+				flex: 1
+			// Fix the left margin on the wrapped elements (only happens to the not first-child elements)
+			.field:not(:first-child)
+				margin-left: -0.5em
+				padding-right: 0.5em
+		// Turn this off for grouped fields as that doesn't need the fix
+		.grouped.fields
+			.field:not(:first-child)
+				margin-left: 0em
+				padding-right: 0em
