@@ -25,8 +25,8 @@ ready = ->
 				sub = 'suburb_' + $(this).data('subid')
 				search_tags.push sub
 
-		# Get the extra search criteria added via the 'Add Search Criteria' dropdown
-		additional_criteria_tags = $('.criteria-tag-field a')
+		# Get the extra search criteria added via the 'Add Search Criteria' dropdown (id = tag_dropdown, and they all should have the .label class)
+		additional_criteria_tags = $('#tag_dropdown .label')
 		if additional_criteria_tags.length
 			# Split these into tag arrays based on their type
 			additional_criteria_tags.each ->
