@@ -127,6 +127,10 @@ URL: `https://mail.slehmann36.com/owa`
 Username: `PropertyDome@slehmann36.com` (Case insensitive)  
 Password: `sJ2PVZ2cbvYqMMN` 
 
+### Temporary Production Environment
+Username: `pdappuser`  
+Password: `M9P2c525Gyqk2Jd`  
+
 :exclamation:Don't you bastards break my server!
 
 This server will have the following capabilities:

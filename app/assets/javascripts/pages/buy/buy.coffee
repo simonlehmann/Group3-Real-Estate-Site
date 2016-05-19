@@ -9,8 +9,14 @@
 ready = ->
 	# Add initial header image
 	$('.search-section').addClass 'wa-img'
+	
 	#search dropdown
-	$('.search-section .ui.dropdown').dropdown allowAdditions: true, fullTextSearch: true
+	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
+
+	#fix for semantic remove text when suburb is selected and user has typed in some text and clicked on suburb by mouse :D
+	$('#search-input-buy input').change ->
+		$(this).val('')
+	
 	# Update the search dropdown options based upon the choice of state when it's changed via an ajax call
 	$('#search-state-field').change ->
 		# Get the state 
@@ -30,9 +36,17 @@ ready = ->
 			success: (response) ->
 				# Update the default text as it has been cleared (the options are already there on a success call, they were updated via
 				# update_search_suburbs.js.erb)
-				$('#search-field').siblings('.default.text').text('Search by suburb, address or keyword;')
+				$('#search-field').siblings('.default.text').text('Search by suburbs;')
+
+	
+	#when the search button is clicked search is changed to loading icon
+	$('#buy-search-submit').click( ->
+		$('.search-action').text('')
+		$('.search-action').html("<i class='loading sun icon search-loading'></i>"))
+	
 	#remove nav active class
 	$('.main-nav a').removeClass('active')
+	
 	#add slick-carousel
 	$(".favouritesSlide").slick(
 		dots: true,
@@ -40,6 +54,7 @@ ready = ->
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 4000)
+	
 	#dot carousel, fix for when you click on a dot and its still focused/in an active state
 	$(document).on 'click', '.slick-dots li button, .slick-prev, .slick-next, .slick-slide, .slick-current, .slick-active', (e) ->
 		e.target.blur()
