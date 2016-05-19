@@ -52,7 +52,7 @@ role :db,  %w{pdappuser@slehmann36.com}
 server 'app.slehmann36.com',
   user: 'pdappuser',
   port: 22002,
-  roles: %w{web app},
+  roles: %w{web app db},
   ssh_options: {
     #user: 'user_name', # overrides user setting above
     keys: %w(/home/user_name/.ssh/id_rsa),
