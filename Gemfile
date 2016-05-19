@@ -41,7 +41,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Loads environmental variables from '.env'
-gem 'dotenv-rails'
+gem 'dotenv-rails', :groups => [:development, :test, :production]
 # Gem for twitter api
 gem 'twitter', '~> 5.16.0'
 # Handles file uploads
@@ -68,20 +68,6 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
-  # gem 'puma', '~> 3.4'
-
-  # Deployment helper
-  # gem 'capistrano', '~> 3.4.0'
-  # gem 'capistrano-bundler', '~> 1.1.2'
-  # gem 'capistrano-rails', '~> 1.1.1'
-  # gem 'capistrano-passenger', '~> 0.2.0'
-  #gem 'capistrano3-puma', '~> 1.2'
-  # Add this if you're using rbenv
-  # gem 'capistrano-rbenv', github: "capistrano/rbenv"
-
-  # Add this if you're using rvm
-  # gem 'capistrano-rvm', github: "capistrano/rvm"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
