@@ -19,8 +19,9 @@
 			<% @property_tags.each do |tag| %>
 				<%= content_tag :div, class: "ui property-feature-tag label", data: { category: tag.first, qty: tag.last } do %>
 					<% if tag.first != "House Type" %>
-						<%# Display as QTY (last) and Category (last) %>
-						<%= "#{tag.last} #{tag.first}" %>
+						<%# Display as QTY (last) and Category (last)%>
+						<%#	But singularise it if it's 1 Bathrooms (i.e. if last char == "s" chop it, else keep it as is as qty is != 1) %>
+						<%= (tag.last.to_i == 1 and tag.first[-1, 1] == "s") ? "#{tag.last} #{tag.first.chop!}" : "#{tag.last} #{tag.first}" %>
 					<% else %>
 						<%# Display just the house type (tag.last) %>
 						<%= "#{tag.last}" %>
