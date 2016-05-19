@@ -51,6 +51,7 @@ role :db,  %w{pdappuser@slehmann36.com}
 # ------------------------------------
 server 'app.slehmann36.com',
   user: 'pdappuser',
+  port: 22002,
   roles: %w{web app},
   ssh_options: {
     #user: 'user_name', # overrides user setting above
