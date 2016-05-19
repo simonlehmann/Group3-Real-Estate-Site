@@ -40,10 +40,10 @@ gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-# Gem for twitter api
-gem 'twitter', '~> 5.16.0'
 # Loads environmental variables from '.env'
 gem 'dotenv-rails'
+# Gem for twitter api
+gem 'twitter', '~> 5.16.0'
 # Handles file uploads
 gem "paperclip", "~> 4.2"
 # Required for NTLM SMTP authentication type
