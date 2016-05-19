@@ -11,16 +11,16 @@
 	<% # site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block %>
 	<body class="site">
 		<%= render "layouts/sidebar" %>
-  		<div class="pusher">
+		<div class="pusher">
+			<div id="sticky-nav">
+				<%= render "layouts/header" %>
+			</div>
 			<div class="site-content">
-			<% if @top_nav %>
-				<div id="top-nav">
-					<%= render "layouts/header" %>
-				</div>
-			<% end %>
-				<div id="sticky-nav">
-					<%= render "layouts/header" %>
-				</div>
+				<% if @top_nav %>
+					<div id="top-nav">
+						<%= render "layouts/header" %>
+					</div>
+				<% end %>
 				<%= render "layouts/user_modal" %>
 				<%= yield %>
 			</div>
