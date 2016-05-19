@@ -4,7 +4,7 @@
 # The following coffeescript is for the map to be used in the property page
 # 
 # Declare current location variable for use
-distance = 1000
+distance = 2000
 places = undefined
 currentLocation = undefined
 map = undefined
@@ -21,7 +21,6 @@ ready = ->
       # Delete and clear current markers
       deleteMarkers()
       colour = value
-      console.log $choice.context.attributes[0].value
       places = $choice.context.attributes[0].value
       searchPlace(places)
       return
@@ -31,7 +30,8 @@ ready = ->
     onChange: (value, text, $choice) ->
       distance = value
       deleteMarkers()
-      searchPlace(places)
+      if places != undefined
+        searchPlace(places)
       return
   # Check if a map canvas exists
   if $('#map-canvas').length
@@ -83,6 +83,7 @@ processResults = (results, status, pagination) ->
         i = 0
         # Do for each marker
         while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
             addBlueMarker results[i].geometry.location
           i++
@@ -90,6 +91,7 @@ processResults = (results, status, pagination) ->
         i = 0
         # Do for each marker
         while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
             addMarkerOrange results[i].geometry.location
           i++
@@ -97,6 +99,7 @@ processResults = (results, status, pagination) ->
         i = 0
         # Do for each marker
         while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
             addMarkerGreen results[i].geometry.location
           i++
@@ -104,6 +107,7 @@ processResults = (results, status, pagination) ->
         i = 0
         # Do for each marker
         while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
             addMarkerGreen results[i].geometry.location
           i++
@@ -115,7 +119,7 @@ processResults = (results, status, pagination) ->
 searchPlace = (search_attr) ->
   service.nearbySearch {
     location: currentLocation
-    # radius: distance
+    # Show first 60 based on distance from property
     rankBy: google.maps.places.RankBy.DISTANCE
     name: [ search_attr ]
   }, processResults
@@ -166,12 +170,13 @@ setMapOnAll = (map) ->
     markers[i].setMap map
     i++
   return
+# Do some math to do some stuff
 rad = (x) ->
   x * Math.PI / 180
-
+# Check if the distance between the two locations is within the specified value
 getDistance = (p1, p2) ->
-  R = 6378137
   # Earth’s mean radius in meter
+  R = 6378137
   dLat = rad(p2.lat() - p1.lat())
   dLong = rad(p2.lng() - p1.lng())
   a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong / 2) * Math.sin(dLong / 2)
