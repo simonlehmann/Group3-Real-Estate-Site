@@ -3,19 +3,33 @@
 		<i class="dropdown icon"></i>
 		<div class="default text">Distance</div>
 		<div class="menu">
-			<div class="item" data-value="1">5km</div>
-			<div class="item" data-value="2">10km</div>
+			<div class="item" data-value="1000">1km</div>
+			<div class="item" data-value="2000">2km</div>
+			<div class="item" data-value="3000">3km</div>
+			<div class="item" data-value="4000">4km</div>
+			<div class="item" data-value="5000">5km</div>
+			<div class="item" data-value="6000">6km</div>
+			<div class="item" data-value="7000">7km</div>
+			<div class="item" data-value="8000">8km</div>
+			<div class="item" data-value="9000">9km</div>
+			<div class="item" data-value="10000">10km</div>
 		</div>
 	</div>
 	<div id="places-dropdown" class="ui selection dropdown">
 		<i class="dropdown icon"></i>
 		<div class="default text">Places</div>
 		<div class="menu">
-			<div class="item" data-value="1">Schools</div>
-			<div class="item" data-value="1">Food</div>
-			<div class="item" data-value="1">Petrol Stations</div>
+			<div class="item" data-value="1" data-type="school">Schools</div>
+			<div class="item" data-value="2" data-type="shopping_mall">Shopping Centres</div>
+			<div class="item" data-value="3" data-type="airport">Airports</div>
+			<div class="item" data-value="4" data-type="hospital">Hospitals</div>
+			<div class="item" data-value="5" data-type="food">Food/Take out</div>
+			<div class="item" data-value="6" data-type="gas_station">Petrol Stations</div>
 		</div>
 	</div>
 </div>
 <div id="map-canvas" data-addr="<%= @listing.listing_address %>, <%= @listing.listing_suburb %>, <%= @listing.listing_state %>">
+</div>
+<div class=".map-unavailable" id="map-unavailable">
+	<p>Map Unavailable</p>
 </div>
