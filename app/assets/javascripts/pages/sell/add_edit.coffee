@@ -114,6 +114,23 @@ ready = ->
 	additional_input = $('#add-edit-additional-tags-input')
 	additional_button = $('#add-edit-additional-tags-button')
 
+	# Limit the additional_input dropdown to be 1 for tags that can only have 1 qty
+	additional_dropdown.on 'change', ->
+		# Get the selection from the dropdown
+		selection = additional_dropdown.find('option:selected').text()
+		# If the selection is in the following list then disable the qty dropdown so it stays as 1
+		switch selection
+			# NB, need to lead with a ',' to prevent the new line causing an unexpected indentation in coffeescript
+			when 'Airconditioning', 'Ducted Cooling', 'Ducted Heating', 'Evaporative AC', 'Gas Heating', 'Reverse Cycle', 'Split System'
+			,	'Grey Water', 'Solar', 'Solar Hot Water', 'Pay TV', 'Satelite TV', 'Ocean Views', 'NBN', 'Established Home', 'New Home'
+			,	'Pet Friendly', 'Wheelchair Access'
+				# ADD the Semantic class 'disabled' to the div containing the dropdown class to disable it
+				$('.add-edit-additional-tags-input.dropdown').addClass 'disabled'
+			else
+				# For the remaining selections mulitples are allowed so lets remove the Semantic class 'disabled' from the div containing the dropdown class to
+				# re-enable it.
+				$('.add-edit-additional-tags-input.dropdown').removeClass 'disabled'
+
 	# Add a click function to the add tag button
 	additional_button.on 'click', ->
 		# Get the input quantity and the dropdown selection text and value
@@ -217,12 +234,18 @@ ready = ->
 				type: 'empty'
 				prompt: 'Please select a listing type'
 			}]
-		address: # Can't be empty
+		address: # Can't be empty, or over 256 characters
 			identifier: 'listing[listing_address]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a street address'
-			}]
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a street address'
+				},
+				{
+					type: 'maxLength[256]'
+					prompt: 'Please enter less than 256 characters'
+				}
+			]
 		state: # Can't be empty
 			identifier: 'listing[listing_state]'
 			rules: [{
@@ -241,66 +264,129 @@ ready = ->
 				type: 'empty'
 				prompt: 'Please select a postcode'
 			}]
-		bedrooms: # Can't be empty
+		bedrooms: # Can't be empty, or greater than 50
 			identifier: 'listing[listing_bedrooms]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter the number of bedrooms'
-			}]
-		bathrooms: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter the number of bedrooms'
+				},
+				{
+					type: 'integer[1..50]'
+					prompt: 'Please enter a number between 1 and 50'
+				}
+			]
+		bathrooms: # Can't be empty, or greater than 50
 			identifier: 'listing[listing_bathrooms]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter the number of bathrooms'
-			}]
-		parking: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter the number of bathrooms'
+				},
+				{
+					type: 'integer[1..50]'
+					prompt: 'Please enter a number between 1 and 50'
+				}
+			]
+		parking: # Can't be empty, or greater than 50
 			identifier: 'listing[listing_parking]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter the number of parking spots'
-			}]
-		lot_size: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter the number of parking spots'
+				},
+				{
+					type: 'integer[1..50]'
+					prompt: 'Please enter a number between 1 and 50'
+				}
+			]
+		lot_size: # Can't be empty, or greater than 100000
 			identifier: 'listing[listing_land_size]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter the lot size'
-			}]
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter the lot size'
+				},
+				{
+					type: 'integer[1..100000]'
+					prompt: 'Please enter a number between 1 and 100,000'
+				}
+			]
 		price_type: # Can't be empty
 			identifier: 'listing[listing_price_type]'
 			rules: [{
 				type: 'empty'
 				prompt: 'Please select a price type'
 			}]
-		price_min: # Can't be empty
+		price_min: # Can't be empty, or not a number, or not a number greater than 10 characters
 			identifier: 'listing[listing_price_min]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a price'
-			}]
-		price_max: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a price'
+				},
+				{
+					type: 'number'
+					prompt: 'Please enter a number for the minimum price'
+				},
+				{
+					type: 'maxLength[10]'
+					prompt: 'Please enter a number with 10 or less digits'
+				}
+			]
+		price_max: # Can't be empty, or not a number, or not a number greater than 10 characters
 			identifier: 'listing[listing_price_max]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a maximum price'
-			}]
-		description: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a maximum price'
+				},
+				{
+					type: 'number'
+					prompt: 'Please enter a number for the maximum price'
+				},
+				{
+					type: 'maxLength[10]'
+					prompt: 'Please enter a number with 10 or less digits'
+				}
+			]
+		description: # Can't be empty, or more than 2000 characters (actual database limit is between 21,844 and 65,535 due to the size limits in MySQL 
+			#varying for a text area column, depending on how many bytes per character [for UTF-8 that can be 1 - 3 bytes per character, hence 21,844 - 65,535])
 			identifier: 'listing[listing_description]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a description'
-			}]
-		title: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a description'
+				},
+				{
+					type: 'maxLength[2000]'
+					prompt: 'Please enter less than 2,000 characters'
+				}
+			]
+		title: # Can't be empty, or more than 64 characters
 			identifier: 'listing[listing_title]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a title'
-			}]
-		subtitle: # Can't be empty
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a title'
+				},
+				{
+					type: 'maxLength[64]'
+					prompt: 'Please enter less than 64 characters'
+				}
+			]
+		subtitle: # Can't be empty, or more than 128 characters
 			identifier: 'listing[listing_subtitle]'
-			rules: [{
-				type: 'empty'
-				prompt: 'Please enter a subtitle'
-			}]
+			rules: [
+				{
+					type: 'empty'
+					prompt: 'Please enter a subtitle'
+				},
+				{
+					type: 'maxLength[128]'
+					prompt: 'Please enter less than 128 characters'
+				}
+			]
 	
 	# ---- Set up form using validation rules above, plus additional settings
 	# 
@@ -336,7 +422,8 @@ ready = ->
 		# Enter key (submit handler)	
 		if key.which == 13
 			# If the key press target (i.e. what was active) didn't have the class dropdown then submit the form
-			if !$('key.target').hasClass('dropdown')
+			# Also, disable the enter key to submit when in the listing_description textarea to enable multiple line descriptions
+			if !$('key.target').hasClass('dropdown') and $(key.target).prop('id') != 'listing_listing_description'
 				# Only submit the form if it's valid
 				if $('#add-edit-listing-form').form 'is valid'
 					$('#add-edit-listing-form').form 'submit'
@@ -491,7 +578,35 @@ ready = ->
 			if $(this).prop('checked') == true and is_lpn_checked == true
 				# Set the listing-premium-none checked property to false
 				$('#listing-extra-checkboxes input[name="listing-premium-none"]').prop 'checked', false
-			
+	
+	# --------- Previews tab code
+	# 
+	# Show or hide the property listing preview on the button click
+	$('#show-search-preview').click ->
+		# Toggle display of the preview partial
+		$('#search-result-preview').toggleClass 'toggle-display'
+		# Change the text of the show preview button and toggle the sell-red-button class on and off to make it more obvious
+		if $(this).text() == 'Show Search Preview'
+			$(this).text 'Hide Search Preview'
+			$(this).toggleClass 'sell-red-button'
+		else
+			$(this).text 'Show Search Preview'
+			$(this).toggleClass 'sell-red-button'
+
+	# Show or hide the property listing preview on the button click
+	$('#show-listing-preview').click ->
+		# Toggle display of the preview partial
+		$('#property-listing-preview').toggleClass 'toggle-display'
+		# Change the text of the show preview button and toggle the sell-red-button class on and off to make it more obvious
+		if $(this).text() == 'Show Listing Preview'
+			$(this).text 'Hide Listing Preview'
+			$(this).toggleClass 'sell-red-button'
+		else
+			$(this).text 'Show Listing Preview'
+			$(this).toggleClass 'sell-red-button'
+
+
+
 
 	return
 

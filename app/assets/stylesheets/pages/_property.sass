@@ -1,8 +1,29 @@
 // Created: Jayden Spencer
-// Date: 30/04/2016
+// Date: 7/05/2016
 // 
 // The following styles are for all property pages.
 .property-container
+	//header nav links
+	#header-nav-links
+		width: 100%
+		padding-bottom: 5px
+	#back-search-link
+		float: left
+	#next-prev-links
+		float: right
+	//favourite corner section
+	.ui.left.corner.label,
+	.ui.left.corner.label:after
+		left: 0.59em !important
+	//favourite corner icon
+	.ui.left.corner.label .icon
+		left: -3px !important
+	//status ribbon
+	.status-ribbon
+		left: calc(100% + -1rem + 1em ) !important
+		width: 300px
+		z-index: 5
+	//slick photoslider
 	.slick-slider
 		margin-bottom: 0px !important
 	.propertySlide
@@ -14,18 +35,69 @@
 			li button
 				background: rgba(185, 185, 185, .75) !important
 			li.slick-active button
-				background-color: rgba(18, 175, 92, 1) !important
+				background-color: rgba(0, 151, 167, 1) !important
 			li button:hover,
 			li button:focus
-				background-color: rgba(18, 175, 92, 0.75) !important
+				background-color: rgba(0, 151, 167, 0.75) !important
+		//image inside of property slide
 		img
 			width: 100%
 			max-width: 1125px
-			height auto
-	#toppic-links
-		width: 100%
-		padding-bottom: 5px
-	#back-search-link
-		float: left
-	#next-prev-links
-		float: right
+			height: auto
+	//under image header section
+	.property-details-section
+		margin-top: 11px !important
+		//property inforleft column
+		.property-information
+			padding-left: 1.3rem !important
+			padding-right: 35px !important
+			h1
+				font-size: 1.85em
+				margin-bottom: 6px
+			h2
+				font-size: 1.6em
+				margin-top: 0
+			.property-bbb
+				font-size: 1.3rem
+				float: right
+			.shower img
+				width: 30px !important
+				height: auto
+			span
+				font-weight: bolder
+				padding-right: 15px
+			.tag-field > div > div 
+				margin-bottom: 6px !important
+		//realestate right column
+		.realestate-section
+			background-color: $grey-contact
+			color: $white-primary
+			right: 14px
+			ul#realestateDetails
+				padding-left: 0
+				list-style-type: none
+				position: relative
+				img
+					margin: 0 auto
+					margin-top: -105px
+					padding-bottom: 10px
+				a
+					color: $white-primary
+					font-weight: bolder
+					span
+						padding-top: 10px
+				a:hover
+					color: $white-hover-secondary
+				span
+					font-weight: bold
+					font-size: 1.2em
+				li:nth-child(2)
+					padding-top: 10px
+				li:nth-child(3)
+					padding-top: 15px
+				li:not(:last-child)
+					padding-bottom: 15px
+				button
+					width: 200px
+	.map-section
+		padding-top: 60px

@@ -22,11 +22,7 @@
 	<div class="ui center aligned container">
 		<h1 class="ui inverted header">LOOKING TO BUY A HOME?</h1>
 		<%= render "buy/search" %>
-		<% #search criteria dropdown button %>
-		<button class="big ui right labeled icon button">
-			<i class="right add icon"></i>
-			Add Search Criteria
-		</button>
+		<%= render partial: "buy/criteria" %>
 	</div>
 </div>
 <% #render favourites section when logged in %>
@@ -54,4 +50,5 @@
 		<%= render partial: "buy/twitter" %>
 	</div>
 </section>
-<%= render partial: "layouts/to_top_button" %>
+<% # Render the to top button with the blank colour_class local to keep it green %>
+<%= render partial: "layouts/to_top_button", locals: { colour_class: ""} %>

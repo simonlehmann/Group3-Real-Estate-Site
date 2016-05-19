@@ -67,16 +67,30 @@ ready = ->
 					$('#manage-filter-method').blur()
 
 	#--------- Sticky Code
-	# make the manage property table header sticky, it sticks to the ui.cards which is the next element
-	$('.manage-table-header.ui.sticky').sticky
-		offset: 60
-		context: '.ui.cards'	
-	# Refresh the manage property table header sticky if the page contains sell as it was not getting sized correctly.
-	if window.location.pathname.includes('sell')
-		$('.manage-table-header.ui.sticky').sticky 'refresh'
+	# No longer using the semantic Sticky method, but using the visibility fixed method as this works better when the page content is small
+	$('.manage-table-header').visibility
+		type: 'fixed'
+		offset: 60 # Offset = page offset so the header sticks to the bottom of the header when it gets the fixed class applied
 	
+	# -------- Manage Listing Card Code
 	# Popup tooltip for the approval corner label in the manage table cards when you hover over the label
 	$('.manage-listing-card #listing-approval-label').popup	hoverable: true
+
+	# Cut of extra large descriptions so they only show the first 500 characters (change max_description_length to use a different max length)
+	max_description_length = 500
+	@cut_off_description_field = ->
+		$('.description-field').each ->
+			# Get the text from the description field
+			description_text = $(this).text()
+			if description_text.length < max_description_length
+				# Do nothing as the description field text is less than the specified maximum
+				return
+			else
+				# Slice the extra characters off the end of the description text to the specified lenght and show an elipsis to show it's been truncated
+				$(this).html(description_text.slice(0, max_description_length) + '...')
+	
+	# Call the function on initial page load
+	cut_off_description_field()
 
 	return
 

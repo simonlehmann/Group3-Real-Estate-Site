@@ -128,22 +128,22 @@
 			<div class="required field">
 				<label>Bedrooms</label>
 				<% # The bedrooms for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_bedrooms, min: 1, placeholder: "Bedrooms" %>
+				<%= f.number_field :listing_bedrooms, in: 1..50, placeholder: "Bedrooms" %>
 			</div>
 			<div class="required field">
 				<label>Bathrooms</label>
 				<% # The bathrooms for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_bathrooms, min: 1, placeholder: "Bathrooms" %>
+				<%= f.number_field :listing_bathrooms, in: 1..50, placeholder: "Bathrooms" %>
 			</div>
 			<div class="required field">
 				<label>Parking</label>
 				<% # The parking for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_parking, min: 1, placeholder: "Parking" %>
+				<%= f.number_field :listing_parking, in: 1..50, placeholder: "Parking" %>
 			</div>
 			<div class="required field">
 				<label>Lot Size (sqm)</label>
 				<% # The lot size for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_land_size, min: 1, placeholder: "Lot Size" %>
+				<%= f.number_field :listing_land_size, in: 1..100000, placeholder: "Lot Size" %>
 			</div>
 		</div>
 
@@ -161,12 +161,12 @@
 			<div class="field" id="price-field-min">
 				<label>Minimum</label>
 				<% # The minimum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_min, min: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
+				<%= f.number_field :listing_price_min, in: 1..9999999999, step: 1, placeholder: "Minimum Price", id: "price-field-min-input" %>
 			</div>
 			<div class="field" id="price-field-max">
 				<label>Maximum</label>
 				<% # The maximum price for the @listing if it exists, otherwise a blank field with min 1 %>
-				<%= f.number_field :listing_price_max, min: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
+				<%= f.number_field :listing_price_max, in: 1..9999999999, step: 1, placeholder: "Maximum Price", id: "price-field-max-input" %>
 			</div>
 		</div>
 
@@ -175,7 +175,7 @@
 			<label>Description</label>
 			<% # The text area will grab the description from the @listing object if it exists, otherwise it'll be the placeholder. %>
 			<% # NB. I've input two linebreaks here into the placeholder so the placeholder is formatted nicer. %>
-			<%= f.text_area :listing_description, placeholder: "Enter a description for your property.\n\nAvoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing." %>
+			<%= f.text_area :listing_description, placeholder: "Enter a description for your property.\n\nAvoid long descriptions or duplicating features in your descriptions and additional tags to ensure a clean, effective and informative listing.", maxlength: 2000 %>
 		</div>
 	</div>
 
@@ -229,32 +229,28 @@
 				<% # The tag type dropdown %>
 				<% if @tags %>
 					<% # Get the tag type objects for the desired categories, but only get tags that aren't already in the users tags list, to avoid duplication %>
-					<% indoor_tags = add_edit_get_unused_tag_types(@tags, "Indoor Features") %>
-					<% outdoor_tags = add_edit_get_unused_tag_types(@tags, "Outdoor Features") %>
+					<% additional_tags = add_edit_get_unused_tag_types(@tags, ["Appliances", "Eco Friendly", "Heating Cooling", "Indoor Features", "Leisure", "Outdoor Features"]) %>
 				<% else %>
 					<% # If we don't have any tags then just get all of the tags for the categories %>
-					<% indoor_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
-					<% outdoor_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
+					<% additional_tags = add_edit_get_tag_types_for_category(["Appliances", "Eco Friendly", "Heating Cooling", "Indoor Features", "Leisure", "Outdoor Features"]) %>
 				<% end %>
-				<select class="ui search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
+
+				<select class="ui fluid search selection add-edit-additional-tags dropdown" id="add-edit-additional-tags-dropdown">
 					<option value="">Additional Feature</option>
 					<% # Add tags to the dropdown from the database, storing the value as label_category so we can properly add tags to the database from the selections%>
-					<% if indoor_tags %>
+
+					<% # All the Tags %>
+					<% if additional_tags %>
 						<% # Indoor tags first %>
-						<% indoor_tags.each do |tag| %>
+						<% additional_tags.each do |tag| %>
 							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
 						<% end %>
 					<% end %>
-					<% if outdoor_tags %>
-						<% # Outdoor tags next %>
-						<% outdoor_tags.each do |tag| %>
-							<option value="<%= tag.tag_type_label %>_<%= tag.tag_type_category %>"><%= tag.tag_type_label %></option>
-						<% end %>
-					<% end %>
+
 				</select>
 				<% # The tag value input field, done as a dropdown (NB. Added 'fluid' as field wasn't full width) %>
 				<% # Using a form_helper select_tag, if you want to change the options, edit the array in options_for_select. prompt: adds a default selection with the given placeholder text %>
-				<%= select_tag "additional-tag-input", options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], "1"), class: "ui fluid selection add-edit-additional-tags-input dropdown", id: "add-edit-additional-tags-input", prompt: "Enter Qty For Additional Feature" %>
+				<%= select_tag "additional-tag-input", options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], "1"), class: "ui selection add-edit-additional-tags-input dropdown", id: "add-edit-additional-tags-input", prompt: "Enter Qty For Additional Feature" %>
 				<% # The add tag button %>
 				<div class="ui icon button" id="add-edit-additional-tags-button">
 					<i class="plus icon"></i>
