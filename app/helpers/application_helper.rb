@@ -285,4 +285,11 @@ module ApplicationHelper
 			return false
 		end
 	end
+
+	def load_current_featured_property()
+
+		featured_object = Listing.where(listing_is_featured: true).limit(3)
+		
+		return featured_object
+	end
 end
