@@ -41,7 +41,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Loads environmental variables from '.env'
-gem 'dotenv-rails', :groups => [:development, :test, :production]
+gem 'dotenv-rails'
 # Gem for twitter api
 gem 'twitter', '~> 5.16.0'
 # Handles file uploads
