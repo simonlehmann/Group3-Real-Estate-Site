@@ -1,0 +1,31 @@
+// Created: Jayden Spencer
+// Date: 20/05/2016
+// 
+// The following styles are for the header navigation
+
+//computer screens
+@media only screen and (min-width: 992px)
+	.mobile-nav
+		display: none !important
+//mobile and tablet view
+@media only screen and (max-width: 991px)
+	.main-nav,
+	.user-nav,
+	.user-login,
+	.user-signup,
+	.alert-badge
+		display: none !important
+	//icon, create button
+	.mobile-nav
+		cursor: pointer
+		background-color: transparent
+		span
+			font-weight: bold
+			padding-right: 5px
+	//had to overwrite semantic as it toggled to and from the dimmed nav it would remove scroll-y
+	.pusher.dimmed
+		overflow: hidden !important
+		min-height: 100% !important
+	.pusher
+		overflow: visible !important
+		min-height: initial !important
