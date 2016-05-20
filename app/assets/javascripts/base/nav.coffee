@@ -10,6 +10,11 @@ ready = ->
 	#get page location (changed from href to pathname to check for root url during testing. In prod will probably change back to href)
 	loc = window.location.pathname
 	console.log loc
+
+	#sidebar toggle for mobile
+	$('.mobile-nav, pusher dimmed').click( ->
+		$('.ui.sidebar').sidebar 'toggle')
+
 	#switch between buy, sell activity header classes
 		#for buy or root '/'
 	if loc.includes('buy')
