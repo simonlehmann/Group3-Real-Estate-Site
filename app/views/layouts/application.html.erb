@@ -10,21 +10,21 @@
 </head>
 	<% # site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block %>
 	<body class="site">
+		<%# The sidebar has had the pusher removed as it broke flex grow for flex footer when on pages not full width.
+		Using transition now to animate the sidebar into view %>
 		<%= render "layouts/sidebar" %>
-		<div class="pusher">
-			<div id="sticky-nav">
-				<%= render "layouts/header" %>
-			</div>
-			<div class="site-content">
-				<% if @top_nav %>
-					<div id="top-nav">
-						<%= render "layouts/header" %>
-					</div>
-				<% end %>
-				<%= render "layouts/user_modal" %>
-				<%= yield %>
-			</div>
-			<%= render "layouts/footer" %>
+		<div id="sticky-nav">
+			<%= render "layouts/header" %>
 		</div>
+		<div class="site-content">
+			<% if @top_nav %>
+				<div id="top-nav">
+					<%= render "layouts/header" %>
+				</div>
+			<% end %>
+			<%= render "layouts/user_modal" %>
+			<%= yield %>
+		</div>
+		<%= render "layouts/footer" %>
 	</body>
 </html>
