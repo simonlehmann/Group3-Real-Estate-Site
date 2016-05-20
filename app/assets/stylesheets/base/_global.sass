@@ -9,7 +9,7 @@ body
 //star icon
 .star
 	color: $yellow-primary
-//set header on top
+//set header on top (Can't go over 100 or it will draw over sidebar)
 header
 	z-index: 100
 // Margin and padding for elements
@@ -66,3 +66,16 @@ header
 // Slick carousel override for the ajax-loader.gif
 .slick-loading .slick-list
 	background: #fff url(image_path('ajax-loader.gif')) center center no-repeat !important
+// Sidebar size fix due to fact we're using transitions
+.ui.sidebar
+	width: 15rem !important
+	z-index: 102 // Put sidebar above header and dimmer
+// Custom dimmer needed as we're not able to use Semantic-UI's pusher due to it breaking our flex-footer on not full screen pages
+.the-dimmer
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	background-color: rgba(0,0,0,.85)
+	z-index: 101

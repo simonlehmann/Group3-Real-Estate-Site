@@ -22,10 +22,4 @@
 		span
 			font-weight: bold
 			padding-right: 5px
-	//had to overwrite semantic as it toggled to and from the dimmed nav it would remove scroll-y
-	.pusher.dimmed
-		overflow: hidden !important
-		min-height: 100% !important
-	.pusher
-		overflow: visible !important
-		min-height: initial !important
+	// Removed pusher as it broke flex footer on sites with less than full page width.
