@@ -19,9 +19,9 @@
 		<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>
 		<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 	<% else %>
-		<%# If user is logged out display contact us, login and join %>
+		<%# If user is logged out display contact us, login and join, using the dedicated pages, not the modal %>
 		<%= link_to "Contact Us", contact_path, class: "item" %>
-		<%= link_to "Login", buy_path, class: "item" %>
-		<%= link_to "Join", buy_path, class: "item" %>
+		<%= link_to "Login", new_user_session_path, class: "item" %>
+		<%= link_to "Join", new_user_registration_path, class: "item" %>
 	<% end %>
 </div>

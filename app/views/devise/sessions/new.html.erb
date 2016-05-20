@@ -35,20 +35,23 @@
 				<div class="ui six wide column devise-form">
 					<% # Devise errors %>
 					<% if flash %>
-						<div class="ui negative message">
-							<% # The close icon %>
-							<i class="close icon"></i>
-							<% # The error title %>
-							<div class="header">Please fix the following errors and try again.</div>
-							<% # Display the error list %>
-							<div class="ui list">
-								<% flash.each do |name, msg| %>
-									<% if name == "alert" %>
-										<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+						<% # only show these errors if there are actual errors %>
+						<% if flash.count != 0 %>
+							<div class="ui negative message">
+								<% # The close icon %>
+								<i class="close icon"></i>
+								<% # The error title %>
+								<div class="header">Please fix the following errors and try again.</div>
+								<% # Display the error list %>
+								<div class="ui list">
+									<% flash.each do |name, msg| %>
+										<% if name == "alert" %>
+											<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+										<% end %>
 									<% end %>
-								<% end %>
+								</div>
 							</div>
-						</div>
+						<% end %>
 					<% end %>
 					<% # error class required to show devise_error_messages (they only show if they exist) %>
 					<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui form error" }) do |f| %>
