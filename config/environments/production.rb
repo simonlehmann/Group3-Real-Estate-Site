@@ -77,7 +77,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'app.slehmann36.com', port: 3000 }
 
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
@@ -95,5 +95,5 @@ Rails.application.configure do
     user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
     password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
   }
-  
+
 end
