@@ -19,11 +19,40 @@ ready = ->
 		#get each :selected tag and push their value into the search_tags array
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
+
+		# Get the search location tags when on the search results page
 		if $('#location div').length
 			#iterate through suburb tags
 			$('#location .suburb-label').each ->
 				sub = 'suburb_' + $(this).data('subid')
 				search_tags.push sub
+
+		# Get the additional feature tags from the search config panel so the search can be changed
+		# Property tags first
+		if $('#property div').length
+			$('#property div').each ->
+				# Get the qty and category
+				qty = $(this).data 'qty'
+				category = $(this).data 'category'
+				# Pluralise the category if it was singular and not parking
+				if qty == 1 and category != 'Parking'
+					category = category + 's'
+				# add the property to the property_tags array
+				property = category + '_' + qty
+				property_tags.push property
+		# Then the feature tags
+		if $('#features div').length
+			$('#features div').each ->
+				# We don't need any processing so lets just add the feature to the feature_tags array
+				feature = $(this).data 'feature'
+				feature_tags.push feature
+		# Then the price tags
+		if $('#price div').length
+			$('#price div').each ->
+				# Grab the inner text as it's formatted like $100,000 which is what the search needs. (Remove all spaces/new line characters)
+				# And append it to the price_tags array
+				price = $(this).text().replace(/\r?\n|\r|\s+/gm,'')
+				price_tags.push price
 
 		# Get the extra search criteria added via the 'Add Search Criteria' dropdown (id = tag_dropdown, and they all should have the .label class)
 		additional_criteria_tags = $('#tag_dropdown .label')
@@ -44,7 +73,6 @@ ready = ->
 						property_tags.push tag_label
 
 		#there is length to the seach thats perform ajax action to search page and query
-		# This doesn't actually do anything atm. It will allow a blank search
 		if search_tags
 			$.ajax
 				type: 'POST'
