@@ -52,6 +52,7 @@ ready = ->
 	
 	#add slick-carousel
 	$(".favouritesSlide").slick(
+		slidesToShow: 4,
 		dots: true,
 		speed: 800,
 		infinite: true,
@@ -69,15 +70,13 @@ ready = ->
 
 	#checkWidth of page
 	checkWidth = ->
-		windowsize = $window.width()
+		windowsize = $(window).width()
 		#if page width is 650px show only 2 favourites on slide
 		if windowsize < 650
-			$(".favouritesSlide").slick(
-				slidesToShow: 2)
+			$('.favouritesSlide').data('slick', "{'slidesToShow': 2, 'slidesToScroll': 1}")
 		#if page width is 440px show only 1 favourites on slide
 		if windowsize < 440
-			$(".favouritesSlide").slick(
-				slidesToShow: 1)
+			$('.favouritesSlide').data('slick', "{'slidesToShow': 1, 'slidesToScroll': 1}")
 	#When page is loaded
 	checkWidth()
 	#Event listener

@@ -45,8 +45,12 @@
 			<% if @listings %>
 				<p class="ui dividing header search-divider">
 					<% if !@no_query %>
-						<%# If there's a query then show how many results %>
-						<%= "showing #{@listings.length} exact results" %>
+						<%# If there's a query then show how many results, if 1 dont pluralize %>
+						<% @listings.size == 1 %>
+							<%= "showing 1 exact result" %>
+						<% else %>
+							<%= "showing #{@listings.length} exact results" %>
+						<% end %>
 					<% else %>
 						<%# There's no query so the showing text should say different %>
 						showing most recent listings as no query was entered
