@@ -147,8 +147,12 @@ addMarkerGreen = (place) ->
     position: place.geometry.location
     map: map
     icon: 'http://i63.tinypic.com/mc3r7c.jpg')
+  # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
-    infoWindow.setContent place.name + place.rating + place.vicinity + place.formatted_address + place.website
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
     infoWindow.open map, marker
     return
   markers.push marker
@@ -159,8 +163,12 @@ addMarkerOrange = (place) ->
     position: place.geometry.location
     map: map
     icon: 'http://i66.tinypic.com/23w4ppc.png')
+  # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
-    infoWindow.setContent place.name + place.rating + place.vicinity + place.formatted_address + place.website
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
     infoWindow.open map, marker
     return
   markers.push marker
@@ -171,10 +179,13 @@ addBlueMarker = (place) ->
     position: place.geometry.location
     map: map
     icon: 'http://i63.tinypic.com/fdv806.png')
+  pano = undefined
+  # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
-    console.log place.name
-    console.log place.rating
-    infoWindow.setContent place.name + place.rating + place.vicinity + place.formatted_address + place.website
+    # Set content string for marker infoWindow
+    contentString = "<p>"+place.name+"</p>"
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
     infoWindow.open map, marker
     return
   markers.push marker
