@@ -1,0 +1,46 @@
+<%
+#   Created: Daniel Swain
+#   Date: 21/06/2016
+#   
+#   Show all the listings for the user (provide user id i.e. /sell/:id)
+#   
+#   Collection: 
+#   	listings: an array of all the listings for a provided user
+#   
+#   Partials:
+#   	* /search/_propertyresult.html.erb: used to show all the users properties
+%>
+
+<% # The container with all the listings %>
+<div class="ui container nobanner-container sell-top sell-mobile-container">
+	<% if @listings %>
+		<% # The header for the seller listings %>
+		<div class="ui center aligned fluid card manage-table-header visibility manage-properties">
+			<div class="center aligned content">
+				<% # If there's a user object then try and show the user profile picture and username/full name/email %>
+				<% if @user %>
+					<% # Try and show the user image %>
+					<% if @user.avatar %>
+						<%= image_tag @user.avatar.url(:thumb), class: "ui mini circular image" %>
+					<% end %>
+
+					<% # Show the username/full_name/email and explanation text %>
+					<span>Showing listings for </span>
+					<span class="sell-red-text">
+						<% if @user.username %>
+							<%= @user.username %>
+						<% elsif @user.first_name and @user.last_name %>
+							<%= "#{@user.first_name} #{@user.last_name}" %>
+						<% else %>
+							<%= @user.email %>
+						<% end %>
+					</span>
+				<% end %>
+			</div>
+		</div>
+		<% @listings.each do |listing| %>
+			<% # Render the search results partial using the local listing variable %>
+			<%= render partial: "search/propertyresult", locals: { listing: listing } %>
+		<% end %>
+	<% end %>
+</div>

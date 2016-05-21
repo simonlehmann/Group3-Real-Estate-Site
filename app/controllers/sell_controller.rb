@@ -27,7 +27,7 @@ class SellController < ApplicationController
 	include ApplicationHelper
 
 	# define a before_action filter for these actions
-	before_action :require_login, except: [:index]
+	before_action :require_login, except: [:index, :show]
 
 	# Show the main sell page view
 	# 
@@ -72,6 +72,28 @@ class SellController < ApplicationController
 			@top_nav = true
 			# No properties so render the index template
 			render "sell/index"
+		end
+	end
+
+	# Show the listings for a specified user via a user ID
+	# 
+	# Method: GET
+	# URL: /sell/:id
+	# Helper: sell_path(:id)
+	def show
+		if params[:id]
+			# try and get the listings for the provided user id
+			@listings = Listing.where(listing_user_id: params[:id].to_i)
+			if @listings.count == 0
+				flash[:listing_error] = "No listings were found for that user, please try another."
+				redirect_to action: :index
+			else
+				# Try and get the user from the params[:id] as we should have a valid seller
+				@user = User.find_by_id(params[:id].to_i)
+			end
+		else
+			flash[:listing_error] = "No valid seller was provided, unable to show any listings."
+			redirect_to action: :index
 		end
 	end
 

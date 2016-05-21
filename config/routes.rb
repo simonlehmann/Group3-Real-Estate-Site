@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   match '/send_mail', to: 'contact#send_mail', via: 'post'
 
   # Sell Pages routes (done as a resources routs to get 6 of the 7 resource actions)
-  resources :sell, except: [:show] do
+  resources :sell do
     member do
       # This creates an extra put action for the sell resources to update the status using the update_status action
       put 'status' => 'sell#update_status'
