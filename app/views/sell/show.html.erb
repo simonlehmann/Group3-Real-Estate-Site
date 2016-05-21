@@ -27,9 +27,9 @@
 					<% # Show the username/full_name/email and explanation text %>
 					<span>Showing listings for: </span>
 					<span class="sell-red-text">
-						<% if @user.username %>
+						<% if @user.username.length != 0 %>
 							<%= @user.username %>
-						<% elsif @user.first_name and @user.last_name %>
+						<% elsif @user.first_name.length != 0 and @user.last_name.length != 0 %>
 							<%= "#{@user.first_name} #{@user.last_name}" %>
 						<% else %>
 							<%= @user.email %>
