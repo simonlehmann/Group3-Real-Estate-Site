@@ -145,7 +145,7 @@ deleteMarkers = ->
 addMarkerGreen = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
-    map: map
+    map: map)
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
@@ -161,7 +161,7 @@ addMarkerGreen = (place) ->
 addMarkerOrange = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
-    map: map
+    map: map)
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
@@ -177,7 +177,7 @@ addMarkerOrange = (place) ->
 addBlueMarker = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
-    map: map
+    map: map)
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
