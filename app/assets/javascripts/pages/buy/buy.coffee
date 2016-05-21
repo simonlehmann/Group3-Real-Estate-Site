@@ -66,5 +66,21 @@ ready = ->
 	if myTag.length > 15
 		truncated = myTag.trim().substring(0, 50) + '…'
 		$('.truncate').text truncated
+
+	#checkWidth of page
+	checkWidth = ->
+		windowsize = $window.width()
+		#if page width is 650px show only 2 favourites on slide
+		if windowsize < 650
+			$(".favouritesSlide").slick(
+				slidesToShow: 2)
+		#if page width is 440px show only 1 favourites on slide
+		if windowsize < 440
+			$(".favouritesSlide").slick(
+				slidesToShow: 1)
+	#When page is loaded
+	checkWidth()
+	#Event listener
+	$(window).resize(checkWidth)
 		
 $(document).ready ready
