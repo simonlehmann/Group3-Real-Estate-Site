@@ -80,7 +80,7 @@ initializeMap = ->
   # Initiate service object
   service = new (google.maps.places.PlacesService)(map)
   # Initiate infoWindow object
-  infowindow = new (google.maps.InfoWindow) 
+  infoWindow = new (google.maps.InfoWindow) 
 # Function to process places result and call add marker functions
 processResults = (results, status, pagination) ->
   # Check if Places Service is OK
@@ -172,6 +172,8 @@ addBlueMarker = (place) ->
     map: map
     icon: 'http://i63.tinypic.com/fdv806.png')
   google.maps.event.addListener marker, 'click', ->
+    console.log place.name
+    console.log place.rating
     infoWindow.setContent place.name + place.rating + place.vicinity + place.formatted_address + place.website
     infoWindow.open map, marker
     return
