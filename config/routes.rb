@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   # Had to move the /:id route to last as it was overriding the sell routes
-  get '/:id' => 'property#index'
+  get '/:id' => 'property#index', as: :property
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

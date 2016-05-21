@@ -83,8 +83,9 @@ class SellController < ApplicationController
 	def show
 		if params[:id]
 			# try and get the listings for the provided user id
-			@listings = Listing.where(listing_user_id: params[:id].to_i)
+			@listings = Listing.where(listing_approved: true).where(listing_user_id: params[:id].to_i)
 			if @listings.count == 0
+				# No listings for that user so redirect to sell/index with a flash error message
 				flash[:listing_error] = "No listings were found for that user, please try another."
 				redirect_to action: :index
 			else
@@ -92,6 +93,7 @@ class SellController < ApplicationController
 				@user = User.find_by_id(params[:id].to_i)
 			end
 		else
+			# No params so show an error on the index page
 			flash[:listing_error] = "No valid seller was provided, unable to show any listings."
 			redirect_to action: :index
 		end
