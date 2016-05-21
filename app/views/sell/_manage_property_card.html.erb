@@ -12,7 +12,6 @@
 #   
 #   Todo:
 #   	* Style the Prompt/Dialog/Modal for the delete button
-#   	* Change the bathroom count icon from a bed to a bath when Jayden designs it.
 %>
 
 <% # A property listing management card. %>
@@ -153,10 +152,9 @@
 									<%= listing.listing_comments %> Comments
 								</span>
 								<% # The time left until expiry %>
-								<% # TODO make this get from database %>
 								<span>
 									<%= content_tag(:i, "", class:"wait icon") %>
-									6 Weeks Until Expired
+									Expires: <%= listing_get_time_until_expiry(listing.listing_to_end_at) %>
 								</span>
 							</div>
 						</div>

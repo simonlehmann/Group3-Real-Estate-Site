@@ -2,11 +2,17 @@
 	<div id="header-nav-links">
 		<%# Back Link %>
 		<%= link_to url_for("javascript:history.back()"), id:"back-search-link" do %>
+			<%= puts "-------perv_loc" %>
+			<%= puts @prev_loc %>
 			<% case @prev_loc
 				when /search/ %>
 					< back to search results
 				<% when /buy/ %>
 					< back to homepage
+				<%# Match a url like /sell/100 which is where a user sees all the users listings %>
+				<% when /sell\/\d*$/ %>
+					< back to user property list
+				<%# Match a url that is like /sell which is the manage listing page %>
 				<% when /sell/ %>
 					< back to manage properties
 				<% when /dashboard/ %>
