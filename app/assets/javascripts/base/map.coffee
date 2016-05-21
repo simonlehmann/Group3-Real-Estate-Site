@@ -154,6 +154,7 @@ addMarkerGreen = (place) ->
     infoWindow.setContent contentString
     infoWindow.open map, marker
     return
+  console.log 'pushing marker: ' marker
   markers.push marker
   return
 # Adds a orange marker to the map and push to the array
@@ -169,6 +170,7 @@ addMarkerOrange = (place) ->
     infoWindow.setContent contentString
     infoWindow.open map, marker
     return
+  console.log 'pushing marker: ' marker
   markers.push marker
   return
 # Adds a blue marker to the map and push to the array
@@ -184,6 +186,7 @@ addBlueMarker = (place) ->
     infoWindow.setContent contentString
     infoWindow.open map, marker
     return
+  console.log 'pushing marker: ' marker
   markers.push marker
   return
 # Clear markers from the map
