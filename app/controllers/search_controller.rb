@@ -114,16 +114,16 @@ class SearchController < ApplicationController
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(listing_type: house_type).order('listing_created_at DESC')
 				end
 			else
 				# We don't want to search via house type as well, so only search with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs).where(property_search_string).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).order('listing_created_at DESC')
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).order('listing_created_at DESC')
 				end
 			end
 		else
@@ -131,21 +131,21 @@ class SearchController < ApplicationController
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
 				else
-					@listings = Listing.where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_type: house_type, listing_approved: true).order('listing_created_at DESC')
 				end
 			# only search these if the property search string is not empty
 			else
 				# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
 				if property_search_string != ""
-					@listings = Listing.where(property_search_string).order('listing_created_at DESC')
+					@listings = Listing.where(listing_approved: true).where(property_search_string).order('listing_created_at DESC')
 				
 				# We've gone down the rabit hole and have no query strings now so.. return all listings
 				else
 					# Currently limited to 10 as we'll add infinite scroll/pagination soon
 					@no_query = true
-					@listings = Listing.order('listing_created_at DESC').limit(10)
+					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').limit(10)
 				end
 			end
 		end
