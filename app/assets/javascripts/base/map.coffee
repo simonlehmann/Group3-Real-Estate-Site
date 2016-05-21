@@ -146,7 +146,6 @@ addMarkerGreen = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
     map: map
-    icon: 'http://i63.tinypic.com/mc3r7c.jpg')
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
@@ -162,7 +161,6 @@ addMarkerOrange = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
     map: map
-    icon: 'http://i66.tinypic.com/23w4ppc.png')
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
@@ -178,8 +176,6 @@ addBlueMarker = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
     map: map
-    icon: 'http://i63.tinypic.com/fdv806.png')
-  pano = undefined
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
