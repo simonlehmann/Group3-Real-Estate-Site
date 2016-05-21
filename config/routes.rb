@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   # Specific pages
   get '/buy' => 'buy#index'
   get '/search' => 'search#index'
-  get '/map' => 'map#index'
   get '/dashboard' => 'dashboard#index'
   get '/dashboard/activity' => 'dashboard#activity'
   get '/dashboard/messages' => 'dashboard#messages'
