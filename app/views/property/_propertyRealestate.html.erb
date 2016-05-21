@@ -1,8 +1,8 @@
 <%# USER image/link %>
-<%# profile path will need to change for profile/:id %>
 <ul id="realestateDetails">
 	<li>
-		<%= link_to url_for("#{@listing.listing_user.email}") do %>
+		<%# Link to the users list or properties %>
+		<%= link_to sell_path(@listing.listing_user_id) do %>
 			<%= image_tag @listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %>
 			<%# Username %>
 			<% if @listing.listing_user.username.length != 0 %>
