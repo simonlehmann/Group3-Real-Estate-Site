@@ -4,13 +4,14 @@
 # The following coffeescript is for the map to be used in the property page
 # 
 # Declare current location variable for use
-distance = 2000
+distance = 1000
 places = undefined
 currentLocation = undefined
 map = undefined
 markers = []
 service = undefined
 colour = undefined
+infoWindow = undefined
 
 # On page ready, continue with this code
 ready = ->
@@ -78,6 +79,8 @@ initializeMap = ->
       position: currentLocation)
   # Initiate service object
   service = new (google.maps.places.PlacesService)(map)
+  # Initiate infoWindow object
+  infoWindow = new (google.maps.InfoWindow) 
 # Function to process places result and call add marker functions
 processResults = (results, status, pagination) ->
   # Check if Places Service is OK
@@ -92,7 +95,7 @@ processResults = (results, status, pagination) ->
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addBlueMarker results[i].geometry.location
+            addBlueMarker results[i]
           i++
       when '2'
         i = 0
@@ -100,7 +103,7 @@ processResults = (results, status, pagination) ->
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerOrange results[i].geometry.location
+            addMarkerOrange results[i]
           i++
       when '3'
         i = 0
@@ -108,7 +111,7 @@ processResults = (results, status, pagination) ->
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerGreen results[i].geometry.location
+            addMarkerGreen results[i]
           i++
       else
         i = 0
@@ -116,7 +119,7 @@ processResults = (results, status, pagination) ->
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerGreen results[i].geometry.location
+            addMarkerGreen results[i]
           i++
     # If there is more than 20 results, next page.
     if pagination.hasNextPage
@@ -139,27 +142,52 @@ deleteMarkers = ->
   markers = []
   return
 # Adds a green marker to the map and push to the array
-addMarkerGreen = (location) ->
+addMarkerGreen = (place) ->
   marker = new (google.maps.Marker)(
-    position: location
+    position: place.geometry.location
     map: map
     icon: 'http://i63.tinypic.com/mc3r7c.jpg')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
   markers.push marker
   return
 # Adds a orange marker to the map and push to the array
-addMarkerOrange = (location) ->
+addMarkerOrange = (place) ->
   marker = new (google.maps.Marker)(
-    position: location
+    position: place.geometry.location
     map: map
     icon: 'http://i66.tinypic.com/23w4ppc.png')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
   markers.push marker
   return
 # Adds a blue marker to the map and push to the array
-addBlueMarker = (location) ->
+addBlueMarker = (place) ->
   marker = new (google.maps.Marker)(
-    position: location
+    position: place.geometry.location
     map: map
     icon: 'http://i63.tinypic.com/fdv806.png')
+  pano = undefined
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = "<p>"+place.name+"</p>"
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
   markers.push marker
   return
 # Clear markers from the map
