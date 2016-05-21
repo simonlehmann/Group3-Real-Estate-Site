@@ -53,11 +53,37 @@ ready = ->
 	#add slick-carousel
 	$(".favouritesSlide").slick(
 		slidesToShow: 4,
+		slidesToScroll: 1,
 		dots: true,
 		speed: 800,
 		infinite: true,
 		autoplay: true,
-		autoplaySpeed: 4000)
+		autoplaySpeed: 4000,
+		responsive: [
+			{
+				breakpoint: 693,
+				settings:
+					slidesToShow: 1,
+					slidesToScroll: 1
+			},
+			{
+				breakpoint: 893,
+				settings:
+					slidesToShow: 2,
+					slidesToScroll: 2
+			},
+			{
+				breakpoint: 1093,
+				settings:
+					slidesToShow: 3,
+					slidesToScroll: 3
+			},
+			{
+				breakpoint: 1293,
+				settings:
+					slidesToShow: 4,
+					slidesToScroll: 4
+			}])
 	
 	#dot carousel, fix for when you click on a dot and its still focused/in an active state
 	$(document).on 'click', '.slick-dots li button, .slick-prev, .slick-next, .slick-slide, .slick-current, .slick-active', (e) ->
@@ -71,12 +97,23 @@ ready = ->
 	#checkWidth of page
 	checkWidth = ->
 		windowsize = $(window).width()
-		#if page width is 650px show only 2 favourites on slide
-		if windowsize < 650
-			$('.favouritesSlide').data('slick', "{'slidesToShow': 2, 'slidesToScroll': 1}")
 		#if page width is 440px show only 1 favourites on slide
-		if windowsize < 440
-			$('.favouritesSlide').data('slick', "{'slidesToShow': 1, 'slidesToScroll': 1}")
+		if windowsize < 693
+			$('.favouritesSlide').addClass('slide-1')
+			$('.favouritesSlide').removeClass('slide-2 slide-3 slide-4')
+			return
+		#if page width is 650px show only 2 favourites on slide
+		else if windowsize < 893
+			$('.favouritesSlide').addClass('slide-2')
+			$('.favouritesSlide').removeClass('slide-1 slide-3 slide-4')
+			return
+		else if windowsize < 1093
+			$('.favouritesSlide').addClass('slide-3')
+			$('.favouritesSlide').removeClass('slide-1 slide-2 slide-4')
+			return
+		else
+			$('.favouritesSlide').addClass('slide-4')
+			$('.favouritesSlide').removeClass('slide-1 slide-2 slide-3')
 	#When page is loaded
 	checkWidth()
 	#Event listener
