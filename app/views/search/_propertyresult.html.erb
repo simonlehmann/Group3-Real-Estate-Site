@@ -224,7 +224,7 @@
 					<%# num of favourites on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
 					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> 
-					<% listing.listing_favourites.to_i == 1 %>
+					<% if listing.listing_favourites.to_i == 1 %>
 						favourite
 					<% else %>
 						favourites
@@ -234,7 +234,7 @@
 					<%# num of comments on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
 					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> 
-					<% listing.listing_comments.to_i == 1 %>
+					<% if listing.listing_comments.to_i == 1 %>
 						comment
 					<% else %>
 						comments

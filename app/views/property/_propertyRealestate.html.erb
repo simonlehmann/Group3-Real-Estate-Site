@@ -26,6 +26,6 @@
 	</li>
 	<li>
 		<%# User Email %>
-		<%= button_to @listing.listing_user.email, url_for("mailto:#{@listing.listing_user.email}?Subject=#{@listing.listing_address},%#{@listing.listing_suburb},%#{get_state_short(@listing.listing_state)}%#{@listing.listing_post_code}"), class:"ui inverted green button" %>
+		<%= button_to @listing.listing_user.email, url_for("mailto:#{@listing.listing_user.email}?Subject=#{@listing.listing_address}&body="), class:"ui inverted green button" %>
 	</li>
 </ul>
