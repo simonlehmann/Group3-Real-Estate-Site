@@ -108,6 +108,13 @@ class SellController < ApplicationController
 		# Store the first image as the cover image (This is replaced below after we've actually got images)
 		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
 
+		# Set the listing_to_end_at date equal to 8 weeks from the creation date
+		# DateTime allows us to add days, so we're adding 8 * 7 days to the date to make the expiry date equal to 8 weeks from today
+		current_date = DateTime.now()
+		expiry_date = current_date + (8 * 7) 
+		# Add it to the listing object (which will be saved when listing.save() is called)
+		@listing.listing_to_end_at = expiry_date
+
 		# ***************** DELETE WHEN ADMIN INTERFACE IS BUILT
 		# Temporary code 
 		# Set listing as approved
