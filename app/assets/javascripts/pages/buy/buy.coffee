@@ -8,7 +8,8 @@
 #
 ready = ->
 	# Add initial header image
-	$('.search-section').addClass 'wa-img'
+	state_inital = $('#search-state-field :selected').val()
+	changeImage(state_inital)
 	
 	#search dropdown
 	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
