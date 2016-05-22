@@ -6,6 +6,8 @@
 //computer screens
 @media only screen and (min-width: 992px)
 	.mobile-nav,
+	.logo-header-tablet
+		display: none !important
 	.logo-header-mobile
 		display: none !important
 //mobile and tablet view
@@ -15,15 +17,29 @@
 	.user-login,
 	.user-signup,
 	.alert-badge,
-	.logo-header
+	.logo-header,
 		display: none !important
 	//icon, create button
 	.mobile-nav
 		cursor: pointer
 		background-color: transparent
+		padding-top: 20px !important
 		span
 			font-weight: bold
 	.mobile-nav:hover
 		span
 			color: $white-hover
-	// Removed pusher as it broke flex footer on sites with less than full page width.
+
+//logo mobile view
+@media only screen and (max-width: 768px)
+	.logo-header-tablet
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 991px) and (min-width: 768px)
+	.logo-header-mobile
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 328px)
+	.mobile-nav
+		span
+			display: none

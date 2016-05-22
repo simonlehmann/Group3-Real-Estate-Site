@@ -48,10 +48,6 @@
 							<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
-						<% #company logo mobile %>
-						<div class="logo-header-mobile">
-							<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
-						</div>
 					</div>
 					<% # number of alerts %>
 					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do %>
@@ -62,6 +58,14 @@
 					<button class="ui button user-login">Login</button>
 					<button class="ui inverted white button user-signup">Join</button>
 				<% end %>
+				<% #company logo tablet %>
+				<div class="logo-header-tablet">
+					<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
+				</div>
+				<% #company logo mobile %>
+				<div class="logo-header-mobile">
+					<%= link_to image_tag("propertydome-logo-mobile.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
+				</div>
 			</div>
 		</div>
 	</div>
