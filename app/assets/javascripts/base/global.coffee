@@ -7,36 +7,27 @@
 
 # Function used for changing the header image based on state
 @changeImage = (state) ->
+	$('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	if state == 'Western Australia'
 		$('.search-section').addClass 'wa-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	else if state == 'Victoria'
 		$('.search-section').addClass 'vic-img'
-		$('.search-section').removeClass 'wa-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	else if state == 'Queensland'
 		$('.search-section').addClass 'qld-img'
-		$('.search-section').removeClass 'vic-img wa-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	else if state == 'Australian Capital Territory'
 		$('.search-section').addClass 'act-img'
-		$('.search-section').removeClass 'vic-img qld-img wa-img nsw-img sa-img nt-img tas-img ot-img'
 	else if state == 'New South Wales'
 	 	$('.search-section').addClass 'nsw-img'
-	 	$('.search-section').removeClass 'vic-img qld-img act-img wa-img sa-img nt-img tas-img ot-img'
 	else if state == 'South Australia'
 		$('.search-section').addClass 'sa-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img wa-img nt-img tas-img ot-img'
 	else if state == 'Northern Territory'
 		$('.search-section').addClass 'nt-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img sa-img wa-img tas-img ot-img'
 	else if state == 'Tasmania'
 		$('.search-section').addClass 'tas-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img sa-img nt-img wa-img ot-img'
 	else if state == 'Other Territories'
 		$('.search-section').addClass 'ot-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img sa-img nt-img tas-img wa-img'
 	else
 		$('.search-section').addClass 'wa-img'
-		$('.search-section').removeClass 'vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	return
 # Function used to remove current applied state classes except the selected state
 @remove_classes = (state) ->
