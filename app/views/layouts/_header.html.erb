@@ -1,8 +1,13 @@
 <header class="following bar">
 	<div class="ui center aligned container">
 		<div class="ui centered three column grid">
+			<%# Mobile Side Bar %>
+				<div class="ui left floated mobile-nav column">
+					<span>Menu</span>
+					<i class="big sidebar icon"></i>
+				</div>
 			<% #company logo %>
-			<div class="left floated column">
+			<div class="ui left floated column logo-header">
 				<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
 			</div>
 			<% #main header slections buy, sell, activity/contact %>
@@ -53,10 +58,13 @@
 					<button class="ui button user-login">Login</button>
 					<button class="ui inverted white button user-signup">Join</button>
 				<% end %>
-				<%# Mobile Side Bar %>
-				<div class="mobile-nav">
-					<span>Menu</span>
-					<i class="big sidebar icon"></i>
+				<% #company logo tablet %>
+				<div class="logo-header-tablet">
+					<%= link_to image_tag("propertydome-logo.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
+				</div>
+				<% #company logo mobile %>
+				<div class="logo-header-mobile">
+					<%= link_to image_tag("propertydome-logo-mobile.png", alt:"Property Dome Logo", class: "propertydome-logo"), buy_path %>
 				</div>
 			</div>
 		</div>

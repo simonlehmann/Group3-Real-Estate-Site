@@ -13,7 +13,7 @@
 	//state dropdown
 	.state-slection
 		height: 50px
-		min-width: 80px !important
+		min-width: 89px !important
 		font-size: 1.3em
 	//search section header
 	.ui.inverted.header
@@ -31,6 +31,8 @@
 	//search input button:hover
 	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	#buy-search-submit
+		min-width: 89px
 	//search loading icon
 	.search-loading
 		margin-left: 10px
@@ -114,9 +116,16 @@
 		i.dropdown.icon
 			display: none
 	#tag_dropdown
+		margin-top: 15px
+		max-width: 512px
 		cursor: default
 		.label i
 			cursor: pointer
+		.label
+			padding: 0.55em 0.71428571em !important
+		.price-feature-tag
+			margin-left: 12px
+			padding: 0.557143em 1.1em !important
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
@@ -128,9 +137,9 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	margin-top: 12px
 //favourites section
 .favourites-section
-	height: 30vh
-	min-height: 305px
-	padding-top: 1%
+	height: auto
+	padding-top: 18px
+	padding-bottom: 15px
 	background-color: $grey-primary
 	h2
 		color: $white-primary !important
@@ -143,6 +152,13 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		img
 			width: 100%
 			height: auto
+	//address favourites
+	.address
+		color: white
+		background-color: $grey-fav
+		width: 100%
+		padding-top: 10px
+		padding-bottom: 10px
 //stats section
 .stats-section
 	@extend .favourites-section
@@ -168,6 +184,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 //twitter section
 .twitter-feed
 	margin-top: 0 !important
+	min-width: 373px
 	.ui .items
 		background-color: #F3F3F3
 		padding: 0px
@@ -191,8 +208,12 @@ div.lead-in.ui.one.wide.column.triangle-lead
 			color: $green-secondary !important
 	.meta
 		padding: 4px
-
+.feature-list
+	min-width: 511px
+	width: 100%
+	max-width: 647px
 .feature-property-container
+	max-width: 555px
 	.left
 		float: left
 		margin: 0px 15px 35px 0px
@@ -201,23 +222,15 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		margin-bottom: 10px
 	.picture-div
 		img
-			width: 100%
+			max-width: 245px
 			height: auto
 	.tags
 		float: bottom
 	.top
 		height: 70%
+		min-width: 200px
 	.bottom
 		height: 30%
-
-
-.favouritesSlide
-	.address
-		color: white
-		background-color: $grey-fav
-		width: 100%
-		padding-top: 10px
-		padding-bottom: 10px
 //Header images for geolocater
 .wa-img
 	background: url(image_path('landing-header.png')) no-repeat

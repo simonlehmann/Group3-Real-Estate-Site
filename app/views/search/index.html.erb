@@ -45,8 +45,12 @@
 			<% if @listings %>
 				<p class="ui dividing header search-divider">
 					<% if !@no_query %>
-						<%# If there's a query then show how many results (using the Kanimari method total_count as these are now paginated) %>
-						<%= "showing #{@listings.total_count} exact results " %>
+						<% if @listings.total_count == 1 %>
+							<%= "showing 1 exact result" %>
+						<% else %>
+							<%# If there's a query then show how many results (using the Kanimari method total_count as these are now paginated) %>
+							<%= "showing #{@listings.total_count} exact results " %>
+						<% end %>
 					<% else %>
 						<%# There's no query so the showing text should say different %>
 						showing most recent listings as no query was entered
