@@ -123,6 +123,17 @@ ready = ->
 		else
 			alert 'You must be logged in to be able to favourite a property.'
 
+	$('.search-results-container').infinitePages
+		# buffer: -250
+		# Change the state of the pagination link on loading and error.
+		loading: ->
+			# Change the link text
+			$(this).text 'Loading more'
+		error: ->
+			# Change the link text
+			$(this).text 'There was an error retrieving more search results, please try again'
+
+	return
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready
