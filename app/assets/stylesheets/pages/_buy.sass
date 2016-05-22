@@ -137,9 +137,9 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	margin-top: 12px
 //favourites section
 .favourites-section
-	height: 30vh
-	min-height: 305px
-	padding-top: 1%
+	height: auto
+	padding-top: 18px
+	padding-bottom: 15px
 	background-color: $grey-primary
 	h2
 		color: $white-primary !important
@@ -152,19 +152,13 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		img
 			width: 100%
 			height: auto
-	.favouritesSlide.slide-1
-		img
-			width: 50%
-			height: auto
-			max-height: 185px
-	.favouritesSlide.slide-2
-		img
-			width: 70%
-			height: auto
-	.favouritesSlide.slide-3
-		img
-			width: 90%
-			height: auto
+	//address favourites
+	.address
+		color: white
+		background-color: $grey-fav
+		width: 100%
+		padding-top: 10px
+		padding-bottom: 10px
 //stats section
 .stats-section
 	@extend .favourites-section
@@ -237,15 +231,6 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		min-width: 200px
 	.bottom
 		height: 30%
-
-
-.favouritesSlide
-	.address
-		color: white
-		background-color: $grey-fav
-		width: 100%
-		padding-top: 10px
-		padding-bottom: 10px
 //Header images for geolocater
 .wa-img
 	background: url(image_path('landing-header.png')) no-repeat

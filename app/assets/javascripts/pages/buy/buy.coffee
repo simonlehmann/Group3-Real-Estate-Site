@@ -61,16 +61,18 @@ ready = ->
 		autoplaySpeed: 4000,
 		responsive: [
 			{
-				breakpoint: 693,
+				breakpoint: 710,
 				settings:
 					slidesToShow: 1,
-					slidesToScroll: 1
+					slidesToScroll: 1,
+					dots: false
 			},
 			{
-				breakpoint: 893,
+				breakpoint: 911,
 				settings:
 					slidesToShow: 2,
 					slidesToScroll: 2
+					dots: false
 			},
 			{
 				breakpoint: 1093,
@@ -93,30 +95,5 @@ ready = ->
 	if myTag.length > 15
 		truncated = myTag.trim().substring(0, 50) + '…'
 		$('.truncate').text truncated
-
-	#checkWidth of page
-	checkWidth = ->
-		windowsize = $(window).width()
-		#if page width is 440px show only 1 favourites on slide
-		if windowsize < 693
-			$('.favouritesSlide').addClass('slide-1')
-			$('.favouritesSlide').removeClass('slide-2 slide-3 slide-4')
-			return
-		#if page width is 650px show only 2 favourites on slide
-		else if windowsize < 893
-			$('.favouritesSlide').addClass('slide-2')
-			$('.favouritesSlide').removeClass('slide-1 slide-3 slide-4')
-			return
-		else if windowsize < 1093
-			$('.favouritesSlide').addClass('slide-3')
-			$('.favouritesSlide').removeClass('slide-1 slide-2 slide-4')
-			return
-		else
-			$('.favouritesSlide').addClass('slide-4')
-			$('.favouritesSlide').removeClass('slide-1 slide-2 slide-3')
-	#When page is loaded
-	checkWidth()
-	#Event listener
-	$(window).resize(checkWidth)
 		
 $(document).ready ready
