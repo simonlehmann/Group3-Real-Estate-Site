@@ -63,6 +63,9 @@ header
 .price-feature-tag,
 	background-color: $red-primary !important
 	color: $white-primary !important
+// Fix for dashboard settings sticky z-index putting it over everything in the site
+.ui.sticky
+	z-index: 101 !important
 // Slick carousel override for the ajax-loader.gif
 .slick-loading .slick-list
 	background: #fff url(image_path('ajax-loader.gif')) center center no-repeat !important

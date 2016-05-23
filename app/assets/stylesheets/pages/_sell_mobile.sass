@@ -3,25 +3,27 @@
 // 
 // The following styles are for all sales pages for mobile responsiveness
 
+// NOTE I've Commented out container width stuff as the meta tag should be specifying this now.
+// Other classes, likely still required to fix mobile issues
 
-@media only screen and (max-width: 991px) and (min-width: 768px)
+// @media only screen and (max-width: 991px) and (min-width: 768px)
 	// Set the container to full width on mobiles
-	.sell-mobile-container
-		width: 100% !important
+	// .sell-mobile-container
+	// 	width: 100% !important
 	// Fix the form so each field is on a new row on mobiles
-	.ui.form.sell-form
-		.fields
-			display: flex !important
-			flex-wrap: wrap !important
-			.field
-				min-width: 100% !important
-				flex: 1
-			// Fix the left margin on the wrapped elements (only happens to the not first-child elements)
-			.field:not(:first-child)
-				margin-left: -0.5em
-				padding-right: 0.5em
-		// Turn this off for grouped fields as that doesn't need the fix
-		.grouped.fields
-			.field:not(:first-child)
-				margin-left: 0em
-				padding-right: 0em
+	// .ui.form.sell-form
+	// 	.fields
+	// 		display: flex !important
+	// 		flex-wrap: wrap !important
+	// 		.field
+	// 			min-width: 100% !important
+	// 			flex: 1
+	// 		// Fix the left margin on the wrapped elements (only happens to the not first-child elements)
+	// 		.field:not(:first-child)
+	// 			margin-left: -0.5em
+	// 			padding-right: 0.5em
+	// 	// Turn this off for grouped fields as that doesn't need the fix
+	// 	.grouped.fields
+	// 		.field:not(:first-child)
+	// 			margin-left: 0em
+	// 			padding-right: 0em
