@@ -51,33 +51,104 @@ ready = ->
 			), 0.1
 			# If it's the first tag in the dropdown, it won't be visible, so make it visible
 			if !criteria_tag_field.dropdown 'is visible'
-				criteria_tag_field.show()
+				if loc.includes('buy')
+					criteria_tag_field.show()
 			# Hide this option from the criteria dropdown
 			$choice.hide()
-		
+		#get qty of dropdown selection into search config data tag
 		searchQty = (text) ->
 			return text.split(' ')[0]
 
 	# When the delete icon on the label is clicked, do this
 	$(document).on 'click', '#tag_dropdown .delete.icon', (e) ->
-    	e.preventDefault()
-    	# Get text of the option selected
-    	toSearch = $(this).parent().text()
-    	# Search for the option in the criteria dropdown
-    	$('.criteria-selection .item').each (index) ->
-    		if $(this).text() == toSearch
-    			# Show the option in criteria dropdown
-    			$(this).show()
-    			# Remove the active state from the item when it is re-added to criteria dropdown
-    			$(this).removeClass('selected')
-    			$(this).removeClass('active')
-    	# Remove the label
-    	$(this).parent().remove()
-    	# Check if there are any labels left in the dropdown
-    	if criteria_tag_field.find('div').length < 1
-    		# Hide the label dropdown
-    		criteria_tag_field.hide()
-    # Initially, hide the criteria dropdown
+		e.preventDefault()
+		# Get text of the option selected
+		toSearch = $(this).parent().text()
+		# Search for the option in the criteria dropdown
+		$('.criteria-selection .item').each (index) ->
+			if $(this).text() == toSearch
+				# Show the option in criteria dropdown
+				$(this).show()
+				# Remove the active state from the item when it is re-added to criteria dropdown
+				$(this).removeClass('selected')
+				$(this).removeClass('active')
+		# Remove the label
+		$(this).parent().remove()
+		# Check if there are any labels left in the dropdown
+		if criteria_tag_field.find('div').length < 1
+			# Hide the label dropdown
+			criteria_tag_field.hide()
+	# Initially, hide the criteria dropdown
 	criteria_tag_field.hide()
+
+	#remove search criteria thats already been selected
+	scourDropdown = ->
+		#if on search page
+		if loc.includes('search')
+			#loop through property selections
+			#property types
+			$('#property div').each (index) ->
+				propertyTag = $.trim($(this).text())
+				#bathrooms
+				$('.criteria-selection .bathrooms .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#bedrooms
+				$('.criteria-selection .bedrooms .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#parking
+				$('.criteria-selection .parking .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#house
+				$('.criteria-selection .housetype .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+			#price
+			$('#price div').each (index) ->
+				propertyTag = $.trim($(this).text())
+				$('.criteria-selection .price .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+			$('#features div').each (index) ->
+				propertyTag = $.trim($(this).text())
+				#appliances
+				$('.criteria-selection .appliances .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#eco-friendly
+				$('.criteria-selection .ecof .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#heating and cooling
+				$('.criteria-selection .heatingcooling .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#indoor features
+				$('.criteria-selection .indoorfeatures .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#leisure
+				$('.criteria-selection .leisure .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+				#outdoor features
+				$('.criteria-selection .outdoorfeatures .item').each ->
+					if propertyTag == $(this).text()
+						$(this).remove()
+						return
+
+	scourDropdown()
 
 $(document).ready ready
