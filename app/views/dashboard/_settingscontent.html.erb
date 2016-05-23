@@ -164,60 +164,63 @@
 
 
 	<% # Normal form fields below here %>
-	<div class="two fields margin-top-half">
-		<% # First name field %>
+	<section class="input-valadation">
+		<% # Username field %>
 		<div class="field">
-			<label>First Name</label>
-			<%= f.text_field :first_name, autofocus: true, placeholder: "John" %>
+			<label>Username</label>
+			<%= f.text_field :username, placeholder: "Account Name" %>
 		</div>
 
-		<% # Lat name field %>
-		<div class="field">
-			<label>Last Name</label>
-			<%= f.text_field :last_name, placeholder: "Smith" %>
+		<div class="two fields margin-top-half">
+			<% # First name field %>
+			<div class="field">
+				<label>First Name</label>
+				<%= f.text_field :first_name, autofocus: true, placeholder: "First Name" %>
+			</div>
+
+			<% # Last name field %>
+			<div class="field">
+				<label>Last Name</label>
+				<%= f.text_field :last_name, placeholder: "Last Name" %>
+			</div>
 		</div>
-	</div>
 
-	<% # Username field %>
-	<div class="field">
-		<label>Username</label>
-		<%= f.text_field :username, placeholder: "johnsmith646" %>
-	</div>
+		<% # Email field %>
+		<div class="required field">
+			<label>Email</label>
+			<%= f.email_field :email, placeholder: "email@address.com" %>
+		</div>
 
-	<% # Email field %>
-	<div class="required field">
-		<label>Email</label>
-		<%= f.email_field :email, placeholder: "email@address.com" %>
-	</div>
+		<div class="ui error message"></div>
 
-	<% # Devise checker %>
-	<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-		<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-	<% end %>
+		<% # Devise checker %>
+		<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+			<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+		<% end %>
 
-	<% # New Password Field %>
-	<div class="field">
-		<label>New Password <i>(leave blank if you don't want to change it)</i></label>
-		<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
-	</div>
+		<% # New Password Field %>
+		<div class="field">
+			<label>New Password <i>(leave blank if you don't want to change it)</i></label>
+			<%= f.password_field :password, autocomplete: "off", placeholder: "Enter your new password", class: "password-popup" %>
+		</div>
 
-	<% # Confirm new password field %>
-	<div class="field">
-		<label>Confirm New Password</label>
-		<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
-	</div>
+		<% # Confirm new password field %>
+		<div class="field">
+			<label>Confirm New Password</label>
+			<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm your new password" %>
+		</div>
 
-	<% # Old Password field %>
-	<div class="required field">
-		<label>Current Password <i>(we need your current password to confirm your changes)</i></label>
-		<%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter your current password" %>
-	</div>
+		<% # Old Password field %>
+		<div class="required field">
+			<label>Current Password <i>(we need your current password to confirm your changes)</i></label>
+			<%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter your current password", id:"message"%>
+		</div>
 
-	<% # Update/Submit action %>
-	<div class="actions">
-		<%= f.submit "Update", class: "ui dashboard-settings button" %>
-	</div>
-
+		<% # Update/Submit action %>
+		<div class="actions">
+			<%= f.submit "Update", class: "ui dashboard-settings button", id: "sendButton" %>
+		</div>
+	</section>
 <% end %>
 
 <% # Delete account option %>
