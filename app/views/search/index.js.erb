@@ -42,7 +42,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 		<%# Add the broadening search suburbs to the search-config section %>
 		<% if @surrounding_suburbs %>
 			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
-			<% if @surrounding_suburbs.length < 8 %>
+			<% if @surrounding_suburbs.length <= 8 %>
 				<% @surrounding_suburbs.each do |suburb| %>
 					<%# Build the label for the new suburb %>
 					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
@@ -104,7 +104,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 		<%# Add the broadening search suburbs to the search-config section %>
 		<% if @surrounding_suburbs %>
 			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
-			<% if @surrounding_suburbs.length < 8 %>
+			<% if @surrounding_suburbs.length <= 8 %>
 				<% @surrounding_suburbs.each do |suburb| %>
 					<%# Build the label for the new suburb %>
 					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
@@ -122,4 +122,3 @@ $('.search-results-container #loading-animation').css('display', 'block');
 		<% end %>
 	<% end %>
 <% end %>
-
