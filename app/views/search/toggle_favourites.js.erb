@@ -1,0 +1,22 @@
+<%
+#   Created: Erdal Erkilic
+#   Updated: Daniel Swain
+#   
+#   This is to update the favourites count when a user favourites a property (this is so the view partial gets the correct value)
+#   
+#   Collections:
+#   	@num_of_favs: The number of favourites for the listing
+#   	@listing_id: the id of the listing we're working with
+%>
+
+<% if @listing_id and @num_of_favs %>
+	<%# Live update the search-preview-favourites-total to match the new total from the database 
+	(which we get from the toggle-favourites method in search_controller.rb) %>
+	<% if @num_of_favs > 1 or @num_of_favs == 0 %>
+		<%# @num_of_favs is > 1 or equal to 0 so we want to say 'x favourites' (NB: '0 favourites' works better than '0 favourite') %>
+		$('#search-result-for-' + <%= @listing_id.to_s %> + ' #search-preview-favourites-total').text(<%= @num_of_favs.to_s %> + ' favourites');
+	<% else %>
+		<%# @num_of_favs is = 1 so we want to say '1 favourite' %>
+		$('#search-result-for-' + <%= @listing_id.to_s %> + ' #search-preview-favourites-total').text(<%= @num_of_favs.to_s %> + ' favourite');
+	<% end %>
+<% end %>
