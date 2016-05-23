@@ -24,6 +24,9 @@
 //= require base/nav
 //= require base/user_login
 //
+// Admin Page specific files
+//= require pages/admin/admin
+//
 // Buy Page specific files
 //= require pages/buy/buy
 // Geocoding for header
@@ -42,7 +45,7 @@
 // Property Page specific files
 //= require pages/property/property
 //
-// Dashboard Page specific files 
+// Dashboard Page specific files
 //= require pages/dashboard/dashboard
 //
 // Contact Page specific files
