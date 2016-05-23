@@ -95,11 +95,11 @@ ready = ->
 	$('.search-container .search-filter').dropdown
 		allowCategorySelection: true
 	#remove label in nav menu when the x is clicked
-	$('.search-submenu .delete.icon').click( ->
+	$(document).on 'click', '.search-submenu .delete.icon', ->
 		#remove from navbar
 		$(this).parent().remove()
 		#perform click on search, to reload the page without the new tag
-		doSearch())	
+		doSearch()
 
 	# Toggle the property as favourited when clicked (either on or off)
 	# Changed trigger to be document wide so it will work on fav-property buttons that are loaded asynchronously via infinite scroll
