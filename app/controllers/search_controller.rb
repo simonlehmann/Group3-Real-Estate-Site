@@ -1,7 +1,8 @@
 class SearchController < ApplicationController
-
+	# Include our helper methods
 	include ApplicationHelper
 	include SellHelper
+	include SearchHelper
 
 	def index
 		# --------- Get search terms from params list
@@ -15,6 +16,11 @@ class SearchController < ApplicationController
 		#
 		# get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
 		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
+		# Get the locations from the locations.json so we can get the surrounding suburbs (using ApplicationHelper and SearchHelper methods)
+		# It's sorted by postcode
+		locations_by_postcode = get_locations().sort_by { |hash| hash["postcode"].to_i }
+		@surrounding_suburbs = get_search_surrounding_suburbs(@suburbs, locations_by_postcode)
+		puts @surrounding_suburbs
 
 		# format the search params for the tags so we can send them to the search config sidebar
 		# Price Tags
