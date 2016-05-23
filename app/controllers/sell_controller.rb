@@ -27,7 +27,7 @@ class SellController < ApplicationController
 	include ApplicationHelper
 
 	# define a before_action filter for these actions
-	before_action :require_login, except: [:index]
+	before_action :require_login, except: [:index, :show]
 
 	# Show the main sell page view
 	# 
@@ -75,6 +75,30 @@ class SellController < ApplicationController
 		end
 	end
 
+	# Show the listings for a specified user via a user ID
+	# 
+	# Method: GET
+	# URL: /sell/:id
+	# Helper: sell_path(:id)
+	def show
+		if params[:id]
+			# try and get the listings for the provided user id
+			@listings = Listing.where(listing_approved: true).where(listing_user_id: params[:id].to_i)
+			if @listings.count == 0
+				# No listings for that user so redirect to sell/index with a flash error message
+				flash[:listing_error] = "No listings were found for that user, please try another."
+				redirect_to action: :index
+			else
+				# Try and get the user from the params[:id] as we should have a valid seller
+				@user = User.find_by_id(params[:id].to_i)
+			end
+		else
+			# No params so show an error on the index page
+			flash[:listing_error] = "No valid seller was provided, unable to show any listings."
+			redirect_to action: :index
+		end
+	end
+
 	# Show the add/edit form ready for user input and adding a new property
 	# 
 	# Method: GET
@@ -107,6 +131,13 @@ class SellController < ApplicationController
 
 		# Store the first image as the cover image (This is replaced below after we've actually got images)
 		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
+
+		# Set the listing_to_end_at date equal to 8 weeks from the creation date
+		# DateTime allows us to add days, so we're adding 8 * 7 days to the date to make the expiry date equal to 8 weeks from today
+		current_date = DateTime.now()
+		expiry_date = current_date + (8 * 7) 
+		# Add it to the listing object (which will be saved when listing.save() is called)
+		@listing.listing_to_end_at = expiry_date
 
 		# ***************** DELETE WHEN ADMIN INTERFACE IS BUILT
 		# Temporary code 

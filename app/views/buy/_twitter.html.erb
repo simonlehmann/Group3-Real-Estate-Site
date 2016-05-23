@@ -16,7 +16,7 @@
 			<div class="item">
 				<div class="ui tiny circular image tweetImage">
 					<% # Get twitter users profile image to display %>
-					<img src="<%= split_twitter_image(tweet.user.profile_image_url) %>">
+					<img src="<%= split_twitter_image(tweet.user.profile_image_url) %>" id="twitter-image">
 				</div>
 				<div class="content tweet">
 					<% # Set href to the tweet, 'target=_blank' to open in new tab, text displayed is the accounts username %>

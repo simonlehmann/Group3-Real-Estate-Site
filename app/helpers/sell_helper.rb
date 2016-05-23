@@ -92,6 +92,13 @@ module SellHelper
 		end
 	end
 
+	# Return a string properly formatted to display the time left until the listing expires
+	def listing_get_time_until_expiry(date)
+		# Return the date in the form "04 Apr, 2016"
+		return expiry_date = Date.parse(date.to_s).strftime("%d %b, %Y")
+	end
+
+
 	# Return the tag_type objects for a particular category
 	def add_edit_get_tag_types_for_category(category)
 		tags = TagType.where(tag_type_category: category).order(tag_type_label: :asc)

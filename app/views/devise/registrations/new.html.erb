@@ -32,7 +32,7 @@
 			
 			<% # The Devise form (Do Not Touch Form Actions) %>
 			<div class="ui centered one column grid">
-				<div class="ui six wide column devise-form">
+				<div class="ui six wide computer sixteen wide mobile sixteen wide mobile column devise-form">
 					<% # error class required to show devise_error_messages (they only show if they exist) %>
 					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui form error" }) do |f| %>
 						<div class="field">

@@ -45,8 +45,12 @@
 			<% if @listings %>
 				<p class="ui dividing header search-divider">
 					<% if !@no_query %>
-						<%# If there's a query then show how many results %>
-						<%= "showing #{@listings.length} exact results" %>
+						<% if @listings.total_count == 1 %>
+							<%= "showing 1 exact result" %>
+						<% else %>
+							<%# If there's a query then show how many results (using the Kanimari method total_count as these are now paginated) %>
+							<%= "showing #{@listings.total_count} exact results " %>
+						<% end %>
 					<% else %>
 						<%# There's no query so the showing text should say different %>
 						showing most recent listings as no query was entered
@@ -55,18 +59,71 @@
 				<%# if results found display result partial otherwise display no results found! %>
 				<% if @listings.length > 0 %>
 					<% # Jayden, I've moved the loop here as I wasn't able to refer to your partial on my end as I don't have a @listings collection to pass to it %>
-					<% @listings.each do |listing| %>
-						<% # Render the search results partial using the local listing variable %>
-						<%= render partial: "search/propertyresult", locals: {listing: listing} %>
-					<% end %>
+					<div class="search-results-container">
+						<div id="search-results-table">
+							<% @listings.each do |listing| %>
+								<% # Render the search results partial using the local listing variable %>
+								<%= render partial: "search/propertyresult", locals: { listing: listing } %>
+							<% end %>
+						</div>
+						<% # The link to the next batch of search results. %>	
+						<div class="ui centered grid margin-top" id="pagination-block">
+							<p class="pagination">
+								<%# Build the search query to be the correct format initially so we get infinite scrolling with our entered query %>
+								<% query = build_search_pagination_link_text(@search_suburbs, @search_prices, @search_property, @search_feature) %>
+								<% if query %>
+									<%= link_to("Show More Search Results", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next') %>
+								<% end %>
+							</p>
+							<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>
+							<div id="loading-animation" style="display: none; margin-top: -40px;">
+								<%= render partial: 'layouts/loading_no_text' %>
+							</div>
+						</div>
+					</div>
 
-					<%# Only show search broadening when there's a query %>
+					<%# Only show search broadening when there's a query, it's initially hidden though and will only appear when reached the end of the infinite scrolling, added loading icon to it as this section will disapear when the search broadening begins%>
 					<% if !@no_query %>
-						<p class="ui dividing header search-divider">broadening search with no pool</p>
-						<p class="ui dividing header search-divider">broadening search with more bathrooms</p>
+						<div id="search-broadening-section" class="margin-top-half" style="display: none;">
+							<p class="ui dividing header search-divider" id="search-broadening-caption">broadening search within the surrounding suburbs</p>
+							<div id="loading-animation" style="margin-top: -30px;">
+								<%= render partial: 'layouts/loading_no_text' %>
+							</div>
+						</div>
 					<% end %>
 				<% else %>
-					<h2 class="ui header">No Results Found!</h2>
+					<%# We have no initial results with that query so lets say that %>
+					<h2 class="ui header" id="search-no-results-header">No Results Found!</h2>
+					<%# However, if we have a search with @suburbs, then we can broaden our search. So lets put in an infinite scrolling table and pagination link
+					to start the broadening search results functionality %>
+					<% if @suburbs %>
+						<div class="search-results-container">
+							<div id="search-results-table">
+							</div>
+							<% # The link to the next batch of search results. %>	
+							<div class="ui centered grid margin-top" id="pagination-block">
+								<p class="pagination">
+									<%# Build the search query to be the correct format initially so we get infinite scrolling with our entered query 
+									(this likely won't trigger initially as it will be too far from the bottom of the page) %>
+									<% query = build_search_pagination_link_text(@search_suburbs, @search_prices, @search_property, @search_feature) %>
+									<% if query %>
+										<%= link_to("Broaden search to include surrounding suburbs?", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next', class: "ui green button") %>
+									<% end %>
+								</p>
+								<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>
+								<div id="loading-animation" style="display: none; margin-top: -40px;">
+									<%= render partial: 'layouts/loading_no_text' %>
+								</div>
+							</div>
+						</div>
+						<%# The broadening search section that is displayed when the user clicks the broaden search link %>
+						<div id="search-broadening-section" class="margin-top-half" style="display: none;">
+							<p class="ui dividing header search-divider" id="search-broadening-caption">broadening search within the surrounding suburbs</p>
+							<div id="loading-animation" style="margin-top: -30px;">
+								<%= render partial: 'layouts/loading_no_text' %>
+							</div>
+						</div>
+					<% end %>
 				<% end %>
 			<% end %>
 		</div>

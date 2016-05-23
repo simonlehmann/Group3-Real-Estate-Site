@@ -7,6 +7,7 @@
 
 # Function used for changing the header image based on state
 @changeImage = (state) ->
+	$('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
 	if state == 'Western Australia'
 		$('.search-section').addClass 'wa-img'
 	else if state == 'Victoria'
@@ -110,7 +111,6 @@ ready = ->
 		content: 'Your password must be at least 8 characters long and include: 1 capital letter, 1 lowercase letter and either 1 symbol or 1 number.'
 	
 	return
-
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready

@@ -211,4 +211,25 @@ ready = ->
 		$('#avatar-crop-preview-image').css 'display', 'none'
 
 
+	checkField = undefined
+	#checking the length of the value of message and assigning to a variable(checkField) on load
+	checkField = $('input#message').val().length
+
+	enableDisableButton = ->
+		if checkField > 0
+			$('#sendButton').removeAttr 'disabled'
+		else
+			$('#sendButton').attr 'disabled', 'disabled'
+		return
+
+	#calling enableDisableButton() function on load
+	enableDisableButton()
+	$('input#message').keyup ->
+		#checking the length of the value of message and assigning to the variable(checkField) on keyup
+		checkField = $('input#message').val().length
+		#calling enableDisableButton() function on keyup
+		enableDisableButton()
+		return
+	return
+
 $(document).ready ready

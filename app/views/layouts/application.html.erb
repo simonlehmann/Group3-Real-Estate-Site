@@ -6,25 +6,29 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'favicon.png', type: 'image/png' %>
   <%= csrf_meta_tags %>
+  <%# Google Maps API %>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN97vIMbPrdzFRBtV1RvTtWHf2ruG4J34&libraries=places"></script>
+  <%# This line is to enable responsiveness from Semantic-UI %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 	<% # site and site-content classes used to correctly possition footer at bottom. Footer needs to be outsite site-content block %>
 	<body class="site">
+		<%# The sidebar has had the pusher removed as it broke flex grow for flex footer when on pages not full width.
+		Using transition now to animate the sidebar into view %>
 		<%= render "layouts/sidebar" %>
-		<div class="pusher">
-			<div id="sticky-nav">
-				<%= render "layouts/header" %>
-			</div>
-			<div class="site-content">
-				<% if @top_nav %>
-					<div id="top-nav">
-						<%= render "layouts/header" %>
-					</div>
-				<% end %>
-				<%= render "layouts/user_modal" %>
-				<%= yield %>
-			</div>
-			<%= render "layouts/footer" %>
+		<%#  %>
+		<div id="sticky-nav" <% if @top_nav %>class="sticky-nav-mobile-fix"<% end %>>
+			<%= render "layouts/header" %>
 		</div>
+		<div class="site-content">
+			<% if @top_nav %>
+				<div id="top-nav">
+					<%= render "layouts/header" %>
+				</div>
+			<% end %>
+			<%= render "layouts/user_modal" %>
+			<%= yield %>
+		</div>
+		<%= render "layouts/footer" %>
 	</body>
 </html>
