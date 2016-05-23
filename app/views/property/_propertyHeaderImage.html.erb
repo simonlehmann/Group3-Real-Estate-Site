@@ -21,9 +21,9 @@
 	<% end %>
 
 	<%# Status "click here to set a status" means if it doesnt have a stus dont have ribbon %>
-			<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
-				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>
-			<% end %>
+	<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
+		<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>
+	<% end %>
 	<%# Property Images %>
 	<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
 		<div>

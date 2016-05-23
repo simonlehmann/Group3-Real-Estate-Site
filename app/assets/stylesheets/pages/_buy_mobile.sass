@@ -13,6 +13,11 @@
 		display: none !important
 	#search-input-buy
 		min-width: 402px
+	// Set the add-criteria-button menu z-index to be greater than that of the navbar (100) so it can be clicked)
+	// I had an instance where it drew upwards, which meant some were under the navbar, this fixes that
+	#criteria_dropdown
+		.menu
+			z-index: 101
 //mobie view
 @media only screen and (max-width: 767px)
 	.tweets
