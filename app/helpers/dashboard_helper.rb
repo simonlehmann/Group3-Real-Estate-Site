@@ -1,10 +1,11 @@
 module DashboardHelper
-	def get_favourites_address
+	def get_favourites_object_array
 		user = current_user
 		favourites = Favourite.where(favourite_user_id: current_user)
-		if favourites.length > 0
-			address = Listing.where(listing_id: favourites[0].favourite_listing_id)
-			return address[0].listing_address
-		end
+		return favourites
+	end
+	def get_favourites_listing_details_address(fav_listing_id)
+		address = Listing.where(listing_id: fav_listing_id)
+		return address[0].listing_address
 	end
 end
