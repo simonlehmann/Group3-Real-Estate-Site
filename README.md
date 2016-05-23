@@ -113,6 +113,16 @@ Username: `admin`
 Password: `MhalliF123`
 
 ###:e-mail: Mail Server
+#### Email Accounts
+
+##### Default
+Username: `PropertyDome@lehmann36.com`  
+Password: `sJ2PVZ2cbvYqMMN`  
+
+##### Moderator
+Username: `Moderator@slehmann36.com`  
+Password: `4Uk6tG49rW3Ym6x`  
+
 ####Application Access  
 SMTP Server: `mail.slehmann36.com`  
 Port: `587`  
