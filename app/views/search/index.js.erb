@@ -11,6 +11,7 @@
 #    	@listings: The listing information
 #    	@search_string: the string used to build the pagination link so it can hold the existing search query
 #    	@search_suburbs, @search_prices, @search_property, @search_feature: Arrays of search query vals from controller (used to build @search_string)
+#    	@suburbs: the array of suburbs that were in the initial search query
 #    	@surrounding_suburbs: an array of hashes of surrounding suburbs, used to broaden the search suburb pool
 #    	
 #   Variables:
@@ -93,3 +94,32 @@ $('.search-results-container #loading-animation').css('display', 'block');
 	<%# We now have our search string (which ends in a '&'), so lets add that to the pagination link so the next page can be rendered %>
 	$('.pagination').html("<%=j link_to('Show More Search Results', '/search?' + @search_string + 'page=' + (@listings.current_page + 1).to_s, remote: true, rel: 'next') %>");
 <% end %>
+
+<%# Separate search broadening section here in case no initial results %>
+<% if !@listings %>
+	<% if @suburbs %>
+		$('#search-no-results-header').css('display', 'none');
+		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
+		$('#search-broadening-section').css('display', 'block');
+		<%# Add the broadening search suburbs to the search-config section %>
+		<% if @surrounding_suburbs %>
+			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
+			<% if @surrounding_suburbs.length < 8 %>
+				<% @surrounding_suburbs.each do |suburb| %>
+					<%# Build the label for the new suburb %>
+					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
+					<%# Append the label to the location field (only if it's not there already) %>
+					if (!$('#location div[data-subid="<%=j suburb["id"] %>"').length) {
+						$('#location').append("<%=j @label_string.html_safe %>");
+					}
+				<% end %>
+				<%# call doSearch to actually do the search %>
+				doSearch();
+			<% else %>
+				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
+				$('#search-broadening-section').css('display', 'none');
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+
