@@ -12,8 +12,12 @@
 		<% favourites.each do |fav| %>
 			<% listing = get_listing_details(fav.favourite_listing_id) %>
 				<div class="item">
-					<div class="image">
-					<%# image_tag listing[0].listing_cover_image.image.url(:medium) %>
+					<div id="fav-image" class="image">
+					<% if listing[0].listing_cover_image %>
+						<%= image_tag listing[0].listing_cover_image.image.url(:medium) %>
+					<% else %>
+						<%= image_tag "placeholder_w.png" %>
+					<% end %>
 					</div>
 					<div class="content">
 						<a class="header"><%= listing[0].listing_address %></a>
