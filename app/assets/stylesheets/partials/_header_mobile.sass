@@ -12,6 +12,11 @@
 		display: none !important
 //mobile and tablet view
 @media only screen and (max-width: 991px)
+	// Fix for sticky nav off screen (but only on pages with a top-nav as this only occurs when there's a top-nav and sticky-nav)
+	// i.e. this is a fix for just the buy and sell pages
+	#sticky-nav.sticky-nav-mobile-fix
+		.container
+			max-width: 86% !important
 	.main-nav,
 	.user-nav,
 	.user-login,
