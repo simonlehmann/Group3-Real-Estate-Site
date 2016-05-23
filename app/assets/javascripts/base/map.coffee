@@ -24,7 +24,7 @@ ready = ->
       # Delete and clear current markers
       deleteMarkers()
       colour = value
-      places = $choice.context.attributes[0].value
+      places = $choice.data 'type' # Needed to grab the data-type not the $choice.context.attributes[0].value
       searchPlace(places)
       return
   # Initiate distance dropdown
@@ -95,7 +95,7 @@ processResults = (results, status, pagination) ->
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addBlueMarker results[i]
+            addBlueMarker(results[i])
           i++
       when '2'
         i = 0
@@ -178,7 +178,7 @@ addBlueMarker = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
     map: map
-    icon: 'http://i63.tinypic.com/fdv806.png')
+    icon: 'http://i66.tinypic.com/23w4ppc.png')
   pano = undefined
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->

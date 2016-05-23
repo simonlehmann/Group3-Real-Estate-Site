@@ -1,7 +1,8 @@
 class SearchController < ApplicationController
-
+	# Include our helper methods
 	include ApplicationHelper
 	include SellHelper
+	include SearchHelper
 
 	def index
 		# --------- Get search terms from params list
@@ -15,6 +16,11 @@ class SearchController < ApplicationController
 		#
 		# get id and suburb name and get it to the nav bar...i need to get both of these together and unfortunately its a db call
 		@suburbs = Location.select('id', 'suburb').where(suburb: @search_suburbs)
+		# Get the locations from the locations.json so we can get the surrounding suburbs (using ApplicationHelper and SearchHelper methods)
+		# It's sorted by postcode
+		locations_by_postcode = get_locations().sort_by { |hash| hash["postcode"].to_i }
+		# Get the surrounding suburbs as an array of suburb hashses from locations.json
+		@surrounding_suburbs = get_search_surrounding_suburbs(@suburbs, locations_by_postcode)
 
 		# format the search params for the tags so we can send them to the search config sidebar
 		# Price Tags
@@ -114,16 +120,16 @@ class SearchController < ApplicationController
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				end
 			else
 				# We don't want to search via house type as well, so only search with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).order('listing_created_at DESC')
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).order('listing_created_at DESC').page(params[:page])
 				end
 			end
 		else
@@ -131,21 +137,21 @@ class SearchController < ApplicationController
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC')
+					@listings = Listing.where(listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_type: house_type, listing_approved: true).order('listing_created_at DESC')
+					@listings = Listing.where(listing_type: house_type, listing_approved: true).order('listing_created_at DESC').page(params[:page])
 				end
 			# only search these if the property search string is not empty
 			else
 				# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
 				if property_search_string != ""
-					@listings = Listing.where(listing_approved: true).where(property_search_string).order('listing_created_at DESC')
+					@listings = Listing.where(listing_approved: true).where(property_search_string).order('listing_created_at DESC').page(params[:page])
 				
 				# We've gone down the rabit hole and have no query strings now so.. return all listings
 				else
 					# Currently limited to 10 as we'll add infinite scroll/pagination soon
 					@no_query = true
-					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').limit(10)
+					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').limit(10).page(params[:page])
 				end
 			end
 		end
@@ -313,33 +319,33 @@ class SearchController < ApplicationController
 	end
 
 	def toggle_favourites
-		listing_id = params[:listing_id].to_i
+		@listing_id = params[:listing_id].to_i
 		is_favourited = params[:is_favourited]
 		user = current_user
 
-		if listing_id and is_favourited and user
-			favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(listing_id, user.id)
+		if @listing_id and is_favourited and user
+			favourite = Favourite.find_by_favourite_listing_id_and_favourite_user_id(@listing_id, user.id)
 
 			if is_favourited == "true"
 				favourite.destroy() if favourite
 			else
 				if !favourite
-					favourite = Favourite.create(favourite_listing_id: listing_id, favourite_user_id: user.id)
+					favourite = Favourite.create(favourite_listing_id: @listing_id, favourite_user_id: user.id)
 				end
 			end
 
 			# Re-count listing favourites and update database
-			listing = Listing.find_by_listing_id(listing_id)
-			numOfFavs = listing.favourites.count
-			puts numOfFavs
-			listing.listing_favourites = numOfFavs
+			# Using instance variable so toggle_favourites.js.erb can update the count on the listing with the correct number
+			listing = Listing.find_by_listing_id(@listing_id)
+			@num_of_favs = listing.favourites.count
+			listing.listing_favourites = @num_of_favs
 			listing.save()
-
 		end
 
+		# Respons with toggle_favourites.js.erb which uses @listing_id and @num_of_favs to update the counter on the search results card
+		# to match the new favourite amount
 		respond_to do |format|
 			format.js
 		end
-
 	end
 end

@@ -22,10 +22,10 @@
 	</li>
 	<li>
 		<%# User Phone %>
-		<button class="ui inverted green button">Call</button>
+		<%= button_to "04 123 456 78", url_for("callto://0412345678"), class:"ui inverted green button" %>
 	</li>
 	<li>
 		<%# User Email %>
-		<button class="ui inverted green button">Email</button>
+		<%= button_to @listing.listing_user.email, url_for("mailto:#{@listing.listing_user.email}?Subject=#{@listing.listing_address}&body="), class:"ui inverted green button" %>
 	</li>
 </ul>

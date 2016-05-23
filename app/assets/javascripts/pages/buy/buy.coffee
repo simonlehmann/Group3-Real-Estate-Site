@@ -8,7 +8,8 @@
 #
 ready = ->
 	# Add initial header image
-	$('.search-section').addClass 'wa-img'
+	state_inital = $('#search-state-field :selected').val()
+	changeImage(state_inital)
 	
 	#search dropdown
 	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
@@ -52,11 +53,40 @@ ready = ->
 	
 	#add slick-carousel
 	$(".favouritesSlide").slick(
+		slidesToShow: 4,
+		slidesToScroll: 1,
 		dots: true,
 		speed: 800,
 		infinite: true,
 		autoplay: true,
-		autoplaySpeed: 4000)
+		autoplaySpeed: 4000,
+		responsive: [
+			{
+				breakpoint: 710,
+				settings:
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					dots: false
+			},
+			{
+				breakpoint: 911,
+				settings:
+					slidesToShow: 2,
+					slidesToScroll: 2
+					dots: false
+			},
+			{
+				breakpoint: 1093,
+				settings:
+					slidesToShow: 3,
+					slidesToScroll: 3
+			},
+			{
+				breakpoint: 1293,
+				settings:
+					slidesToShow: 4,
+					slidesToScroll: 4
+			}])
 	
 	#dot carousel, fix for when you click on a dot and its still focused/in an active state
 	$(document).on 'click', '.slick-dots li button, .slick-prev, .slick-next, .slick-slide, .slick-current, .slick-active', (e) ->

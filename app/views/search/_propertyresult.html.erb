@@ -5,13 +5,17 @@
 #   
 #   Note, this is also used in the add_edit_preview page to render a listing search result preview and therefore has some addition
 #   	logic to handle having a listing object with nil values (which is what is there when a new listing is being created)
+#   	
+#   	A lot of spans have id's like "search-preview-favourites-total"... this is so we can live update them with valid totals as required
+#   	(For example, the search-preview-favourites block gets updated with the correct favourites value when a user clicks the favourite button)
 #   
 #   Local collections:
 #   	listing: this represents a listing object from the search result or add/edit listing view
 %>
 
 <% # Render a property result using the local variable 'listing' which represents a listing object from the @listings collection %>
-<div class="ui fluid card property-card">
+<%# If there's a listing_id then give this card an id so we can specifically target it for things like remotely updating favourites quantity (and comments later) %>
+<div class="ui fluid card property-card" <% if listing.listing_id %>id="search-result-for-<%= listing.listing_id %>"<% end %>>
 	<div class="content">
 		<h3 class="ui header">
 			<span class="house-type">
@@ -223,12 +227,28 @@
 				<span>
 					<%# num of favourites on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> favourites
+					<i class="star icon"></i>
+					<span id="search-preview-favourites-total">
+						<%= listing.listing_favourites %> 
+						<% if listing.listing_favourites.to_i == 1 %>
+							favourite
+						<% else %>
+							favourites
+						<% end %>
+					</span>
 				</span>
 				<span>
 					<%# num of comments on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> comments
+					<i class="comment icon"></i>
+					<span id="search-preview-comments-total">
+						<%= listing.listing_comments %> 
+						<% if listing.listing_comments.to_i == 1 %>
+							comment
+						<% else %>
+							comments
+						<% end %>
+					</span>
 				</span>
 			</span>
 		</div>

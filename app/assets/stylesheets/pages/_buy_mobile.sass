@@ -1,0 +1,46 @@
+// Created: Jayden Spencer
+// Date: 22/05/2016
+// 
+// The following styles are for the buy page
+//Tablet view
+@media only screen and (max-width: 991px) and (min-width: 768px)
+	.search-section
+		.state-slection
+			margin-left: -13px !important
+//mobile and tablet view
+@media only screen and (max-width: 991px)
+	.slick-arrow
+		display: none !important
+	#search-input-buy
+		min-width: 402px
+	// Set the add-criteria-button menu z-index to be greater than that of the navbar (100) so it can be clicked)
+	// I had an instance where it drew upwards, which meant some were under the navbar, this fixes that
+	#criteria_dropdown
+		.menu
+			z-index: 101
+//mobie view
+@media only screen and (max-width: 767px)
+	.tweets
+		max-width: 609px
+	.tweet
+		margin-left: 93px !important
+		margin-top: -91px !important
+	img#twitter-image
+		width: 60px !important
+	.tweetImage
+		margin: 0 !important
+//stats different size views
+@media only screen and (max-width: 560px)
+	.stats-section
+		.circle.last
+			display: none
+@media only screen and (max-width: 500px)
+	.stats-section
+		.subtitle
+			margin-top: 5px
+		ul
+			margin-bottom: 0px
+@media only screen and (max-width: 355px)
+	.stats-section
+		.circle.second
+			display: none
