@@ -11,27 +11,29 @@
 	<% if favourites %>
 		<% favourites.each do |fav| %>
 			<% listing = get_listing_details(fav.favourite_listing_id) %>
+			<% if listing %>
 				<div class="item">
 					<div id="fav-image" class="image">
-					<% if listing[0].listing_cover_image %>
-						<%= image_tag listing[0].listing_cover_image.image.url(:medium) %>
+					<% if listing.listing_cover_image %>
+						<%= image_tag listing.listing_cover_image.image.url(:medium) %>
 					<% else %>
 						<%= image_tag "placeholder_w.png" %>
 					<% end %>
 					</div>
 					<div class="content">
-						<a class="header"><%= listing[0].listing_address %></a>
+						<a class="header"><%= listing.listing_address %></a>
 						<div class="meta">
 							<span>Description</span>
 						</div>
 						<div class="description">
-							<p><%= listing[0].listing_description %></p>
+							<p><%= listing.listing_description %></p>
 						</div>
 						<div class="extra">
 							Additional Details
 						</div>
 					</div>
 				</div>
+			<% end %>
 		<% end %>
 	<% end %>
 </div>
