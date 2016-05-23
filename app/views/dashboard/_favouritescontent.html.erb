@@ -10,24 +10,24 @@
 	<% favourites = get_favourites_object_array %>
 	<% if favourites %>
 		<% favourites.each do |fav| %>
-			<% listing = get_favourites_listing_details_address(fav.favourite_listing_id) %>
+			<% listing = get_listing_details(fav.favourite_listing_id) %>
 				<div class="item">
 					<div class="image">
-						<img src="">
+					<%# image_tag listing[0].listing_cover_image.image.url(:medium) %>
 					</div>
 					<div class="content">
-						<a class="header"><%= listing %></a>
+						<a class="header"><%= listing[0].listing_address %></a>
 						<div class="meta">
 							<span>Description</span>
 						</div>
 						<div class="description">
-							<p></p>
+							<p><%= listing[0].listing_description %></p>
 						</div>
 						<div class="extra">
 							Additional Details
 						</div>
 					</div>
 				</div>
-			<% end %>
 		<% end %>
+	<% end %>
 </div>
