@@ -24,11 +24,18 @@ ready = ->
 			if loc.includes('search')
 				switch choiceVal
 					when 'Price'
+						if $('#price div').length < 1
+							$('#price').append('<h5>Price:</h5>')
 						$('<div class="ui price-feature-tag tag label" data-price="' + choiceVal + '_' + text + '" data-cat="Price">' + text + '<i class="delete icon"></i></div>').appendTo('#price')
 					when 'House Type', 'Bedrooms', 'Bathrooms', 'Parking'
+						if $('#property div').length < 1
+							$('#property').append('<h5>Property:</h5>')
 						$('<div class="ui property-feature-tag label suburb-label" data-category="' + choiceVal + '_' + text + '" data-cat="Property" data-qty="' + searchQty(text) + '">' + text + '<i class="delete icon"></i></div>').appendTo('#property')
 					when 'Appliances', 'Eco Friendly', 'Heating Cooling', 'Indoor Features', 'Leisure', 'Outdoor Features'
+						if $('#features div').length < 1
+							$('#features').append('<h5>Features:</h5>')
 						$('<div class="ui label sell-feature-tag" data-feature="' + choiceVal + '_' + text + '" data-cat="Features">' + text + '<i class="delete icon"></i></div>').appendTo('#features')
+				doSearch()
 			else
 				switch choiceVal
 					when 'Price'
