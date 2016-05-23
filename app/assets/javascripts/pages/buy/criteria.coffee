@@ -85,69 +85,59 @@ ready = ->
 	scourDropdown = ->
 		#if on search page
 		if loc.includes('search')
-			#loop through property selections
+			#loop through property selections and remove if selected
 			#property types
 			$('#property div').each (index) ->
 				propertyTag = $.trim($(this).text())
 				#bathrooms
 				$('.criteria-selection .bathrooms .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#bedrooms
 				$('.criteria-selection .bedrooms .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#parking
 				$('.criteria-selection .parking .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#house
 				$('.criteria-selection .housetype .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
-			#price
+						return $(this).remove()
+			#price tags loop through a delete selected
 			$('#price div').each (index) ->
 				propertyTag = $.trim($(this).text())
 				$('.criteria-selection .price .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
+			#feature tags, loop through a delete selected
 			$('#features div').each (index) ->
 				propertyTag = $.trim($(this).text())
 				#appliances
 				$('.criteria-selection .appliances .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#eco-friendly
 				$('.criteria-selection .ecof .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#heating and cooling
 				$('.criteria-selection .heatingcooling .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#indoor features
 				$('.criteria-selection .indoorfeatures .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#leisure
 				$('.criteria-selection .leisure .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 				#outdoor features
 				$('.criteria-selection .outdoorfeatures .item').each ->
 					if propertyTag == $(this).text()
-						$(this).remove()
-						return
+						return $(this).remove()
 
 	scourDropdown()
 
