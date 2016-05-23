@@ -1,7 +1,7 @@
 <section class="search-section"></section>
 <section class="contact-container">
 	<h1 id="welcome" class="bold-text">Get In Touch</h1>
-	<div class="ui grid nice">
+	<div class="ui grid stackable nice">
 		<section id="contact-section-1" class="eight wide column">
 			<%= form_tag send_mail_path, class: "ui inverted form" do %>
 				<h1 class="bold-text">Send a Message</h1>
@@ -29,15 +29,10 @@
 						<label>Text</label>
 						<%= text_area_tag :message, nil, placeholder: "Write in here to send us your thoughts" %>
 					</div>
-					<div>
-						<button class="ui big circular icon button" id="contact-submit-button">
-							<i class="send outline icon"></i>
-						</button>
-						<%= button_tag type: "submit", class: "ui big circular icon button", id: "contact-submit-button" do %>
-							<%= content_tag(:i, "", class: "send outline icon") %>
-						<% end %>
-					</div>
 				</div>
+				<%= button_tag type: "submit", class: "ui big button", id: "contact-submit-button" do %>
+						Send
+					<% end %>
 				<div class="ui error message"></div>
 			<% end %>
 		</section>

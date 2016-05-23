@@ -1,0 +1,45 @@
+// Created: Jayden Spencer
+// Date: 20/05/2016
+// 
+// The following styles are for the header navigation
+
+//computer screens
+@media only screen and (min-width: 992px)
+	.mobile-nav,
+	.logo-header-tablet
+		display: none !important
+	.logo-header-mobile
+		display: none !important
+//mobile and tablet view
+@media only screen and (max-width: 991px)
+	.main-nav,
+	.user-nav,
+	.user-login,
+	.user-signup,
+	.alert-badge,
+	.logo-header,
+		display: none !important
+	//icon, create button
+	.mobile-nav
+		cursor: pointer
+		background-color: transparent
+		padding-top: 20px !important
+		span
+			font-weight: bold
+	.mobile-nav:hover
+		span
+			color: $white-hover
+
+//logo mobile view
+@media only screen and (max-width: 768px)
+	.logo-header-tablet
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 991px) and (min-width: 769px)
+	.logo-header-mobile
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 328px)
+	.mobile-nav
+		span
+			display: none

@@ -4,15 +4,15 @@
 #   
 #   Template for the meet the team page page
 %>
-
-<% # Everything inside a nobanner-container and middle aligned grid container to fix alignment and place under header %>
-<div class="ui container nobanner-container">
-	<% # Middle aligned container to properly centre content %>
-	<div class="ui centered fourteen wide column">
-		<% # The cards container, this will set the about us card to be only 3 per row %>
+<h1>Meet the Team!</h1>
+<%# Everything inside a nobanner-container and middle aligned grid container to fix alignment and place under header %>
+<div class="ui container nobanner-container team-cards">
+	<%# Middle aligned container to properly centre content %>
+	<div class="ui three column doubling stackable grid container">
+		<%# The cards container, this will set the about us card to be only 3 per row %>
 		<div class="ui three cards">
-			<% # Daniel's Card %>
-			<div class="ui card">
+			<%# Daniel's Card %>
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "Daniel.png", class: "visible content" %>
 					<%= image_tag "Daniel.gif", class: "hidden content" %>
@@ -22,25 +22,25 @@
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular github icon button" href="https://github.com/ulternate">
+							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/ulternate" target="_blank">
 								<i class="github icon"></i>
 							</a>
 
-							<a class="ui tiny circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui tiny circular facebook icon button" href="https://www.facebook.com/daniel.c.swain">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
 								<i class="facebook plus icon"></i>
 							</a>
 
-							<a class="ui tiny circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer">
+							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
 								<i class="google plus icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com">www.danielcswain.com</a>
+							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
 						</div>
 						<div class="left aligned row margin-top-half">
 							<% # Put the role and blurb here %>
@@ -52,41 +52,41 @@
 				</div>
 			</div>
 
-			<% # Jayden's Card %>
-			<div class="ui card">
+			<%# Jayden's Card %>
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
-					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "cat.gif", class: "hidden content" %>
+					<%= image_tag "Jayden.png", class: "visible content" %>
+					<%= image_tag "Jayden.gif", class: "hidden content" %>
 				</div>
 				<div class="content">
 					<div class="header">Jayden Spencer</div>
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular github icon button" href="https://github.com/jayden2">
+							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/jayden2" target="_blank">
 								<i class="github icon"></i>
 							</a>
 
-							<a class="ui tiny circular linkedin icon button" href="https://au.linkedin.com/in/jaydenspencer">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/jaydenspencer" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://jaydenspencer.com/">jaydenspencer.com</a>
+							<a href="http://jaydenspencer.com/" target="_blank">jaydenspencer.com</a>
 						</div>
 
 						<div class="left aligned row margin-top-half">
 							<% # Put the role and blurb here %>
-							<h4 class="role-header">Team Leader, Lead Designer, Developer </h4>
-							<p>Jayden Spencer is a freelance web &amp; applications developer. Who loves working on an assortment of projects espcially in JavasScript and Rails, and likes to get creative and work on both the front end back end. If you know what i mean ;)</p>
+							<h4 class="role-header">Team Leader, Lead Designer &amp; Developer </h4>
+							<p>Jayden Spencer is a freelance web &amp; applications developer. Who loves working on an assortment of projects espcially in JavasScript and Rails, and likes to get creative and work on both the front end back end.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<% # Michael's Card %>
-			<div class="ui card">
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
 					<%= image_tag "cat.gif", class: "hidden content" %>
@@ -96,14 +96,14 @@
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular github icon button" href="https://github.com/doritobandito">
+							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/doritobandito" target="_blank">
 								<i class="github icon"></i>
 							</a>
 							
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://otirod.com/">otirod.com/</a>
+							<a href="http://otirod.com/" target="_blank">otirod.com/</a>
 						</div>
 
 						<div class="left aligned row margin-top-half">
@@ -116,7 +116,7 @@
 			</div>
 
 			<% # Erdal's Card %>
-			<div class="ui card">
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
 					<%= image_tag "cat.gif", class: "hidden content" %>
@@ -126,21 +126,21 @@
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui tiny circular facebook icon button" href="https://www.facebook.com/daniel.c.swain">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
 								<i class="facebook plus icon"></i>
 							</a>
 
-							<a class="ui tiny circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer">
+							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
 								<i class="google plus icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com">www.danielcswain.com</a>
+							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
 						</div>
 
 						<div class="left aligned row margin-top-half">
@@ -153,7 +153,7 @@
 			</div>
 
 			<% # Simon's Card %>
-			<div class="ui card">
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
 					<%= image_tag "cat.gif", class: "hidden content" %>
@@ -163,21 +163,21 @@
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular github icon button" href="https://github.com/slehmann36">
+							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/slehmann36" target="_blank">
 								<i class="github icon"></i>
 							</a>
 
-							<a class="ui tiny circular linkedin icon button" href="https://au.linkedin.com/in/slehmann36">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/slehmann36" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui tiny circular facebook icon button" href="https://www.facebook.com/slehmann36">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/slehmann36" target="_blank">
 								<i class="facebook plus icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://simonlehmann.net">simonlehmann.net</a>
+							<a href="http://simonlehmann.net" target="_blank">simonlehmann.net</a>
 						</div>
 
 						<div class="left aligned row margin-top-half">
@@ -190,7 +190,7 @@
 			</div>
 
 			<% # Tylden's Card %>
-			<div class="ui card">
+			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
 					<%= image_tag "cat.gif", class: "hidden content" %>
@@ -200,21 +200,21 @@
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui tiny circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui tiny circular facebook icon button" href="https://www.facebook.com/daniel.c.swain">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
 								<i class="facebook plus icon"></i>
 							</a>
 
-							<a class="ui tiny circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer">
+							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
 								<i class="google plus icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com">www.danielcswain.com</a>
+							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
 						</div>
 
 						<div class="left aligned row margin-top-half">

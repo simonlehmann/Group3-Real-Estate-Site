@@ -10,6 +10,24 @@ ready = ->
 	#get page location (changed from href to pathname to check for root url during testing. In prod will probably change back to href)
 	loc = window.location.pathname
 	console.log loc
+	
+	# sidebar toggle for mobile (Using transition as the pusher div breaks our flex footer on pages not full screen height)
+	$('.mobile-nav').click ->
+		# Animate sitebar into view
+		$('.hamburger-menu').transition
+			animation: 'slide down'
+			duration: '200ms'
+		# animate the dimmer into view
+		$('.the-dimmer').transition 'fade'
+	
+	# Hide the sidebar on the main page or dimmer click
+	$('.site-content, .the-dimmer').click ->
+		if $('.hamburger-menu').hasClass 'visible'
+			$('.hamburger-menu').transition
+				animation: 'slide down'
+				duration: '200ms'
+			$('.the-dimmer').transition 'fade'
+
 	#switch between buy, sell activity header classes
 		#for buy or root '/'
 	if loc.includes('buy')

@@ -10,6 +10,7 @@
 		border-radius: 5px
 	#search-sticky
 		padding-top: 50px
+		z-index: 100
 		.segment
 			background: $transparent
 		#tag-searchfield
@@ -50,7 +51,9 @@
 //card moved back so it's not nested inside .search-container so it can be used properly in the manage-listing-preview
 .property-card
 	width: 90%
-	//left corner fav selection
+	// title link
+	.title-link
+		color: $grey-primary
 	.title-link:hover
 		color: $green-secondary
 	//shower icon

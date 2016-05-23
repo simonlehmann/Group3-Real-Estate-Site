@@ -1,0 +1,35 @@
+<%
+#   Created: Jayden Spencer
+#   Edited: Daniel Swain
+#   
+#   Partial for a hamburger-menu that will transition into view on a menu button click or out of view on click of .site-content or .the-dimmer elements
+%>
+<div class="ui sidebar inverted vertical menu hamburger-menu transition hidden">
+	<%#if logged in show my activity button/path %>
+	<% if user_signed_in? %>
+		<%# Activity Paths if logged in %>
+		<%= link_to dashboard_activity_path do %>
+			<%= link_to dashboard_activity_path, class: "item" do %>
+				<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %> My Activity
+			<% end %>
+			<%= link_to "My Messages", dashboard_messages_path, class: "item" %>
+			<%= link_to "My Favourites", dashboard_favourites_path, class: "item" %>
+		<% end %>
+	<% end %>
+	<%# Buy %>
+	<%= link_to "Buy", buy_path, class: "item " %>
+	<%# Sell %>
+	<%= link_to "Sell", sell_index_path, class: "item" %>
+	<%# If user logged in show account settings and logout path %>
+	<% if user_signed_in? %>
+		<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>
+		<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
+	<% else %>
+		<%# If user is logged out display contact us, login and join, using the dedicated pages, not the modal %>
+		<%= link_to "Contact Us", contact_path, class: "item" %>
+		<%= link_to "Login", new_user_session_path, class: "item" %>
+		<%= link_to "Join", new_user_registration_path, class: "item" %>
+	<% end %>
+</div>
+<% # Dimmer for the page needed now we're not using the pusher class %>
+<div class="the-dimmer transition hidden"></div>

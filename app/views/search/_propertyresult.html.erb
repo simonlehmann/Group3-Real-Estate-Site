@@ -27,11 +27,14 @@
 			<%# address %>
 			<% # Logic added to only include url if the page is the search page as the add edit listing page shouldn't use a url %>
 			<% # Also, added logic to support showing a preview on a new listing, which has a @listing object, but all fields are nil %>
-			<%= puts controller_name %>
 			<% if listing.listing_address %>
-				<%# We have a listing address so lets check the controller and if it's the search page, show a link, else just the address %>
+				<%# We have a listing address so lets check the controller and if it's the search page or the show action from the sell controller, show a link, else just the address %>
 				<% if controller_name == "search" %>
-					<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
+					<%= link_to property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link" do %>
+						<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
+					<% end %>
+				<% elsif controller_name == "sell" and action_name == "show" %>
+					<%= link_to property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}"), class: "title-link-sell" do %>
 						<%= "#{listing.listing_address}, #{listing.listing_suburb}, #{get_state_short(listing.listing_state)} #{listing.listing_post_code}" %>
 					<% end %>
 				<% else %>
@@ -97,7 +100,7 @@
 			<% # We have a listing with valid data so lets either make this image a link (search controller) or just show the image (all other controllers) %>
 			<% if controller_name == "search" %>	
 				<% # Got here via search, lets make this a link %>
-				<%= link_to url_for("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
+				<%= link_to property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") do %>
 					<% if listing.listing_cover_image %>
 						<%# Get the cover image if it exists %>
 						<%= image_tag listing.listing_cover_image.image.url(:large_w), alt: "Property Image" %>
@@ -154,7 +157,8 @@
 				<ul>
 					<li><%= image_tag listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %></li>
 					<li>
-						<%= link_to url_for("#{listing.listing_user.email}") do %>
+						<%# Link to the sell#show page showing the user's active listings %>
+						<%= link_to sell_path(listing.listing_user_id) do %>
 							<%# Username %>
 							<% if listing.listing_user.username.length != 0 %>
 									<span><%= listing.listing_user.username %></span>
@@ -219,12 +223,22 @@
 				<span>
 					<%# num of favourites on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> favourites
+					<i class="star icon"></i><span id="search-preview-favourites"><%= listing.listing_favourites %></span> 
+					<% if listing.listing_favourites.to_i == 1 %>
+						favourite
+					<% else %>
+						favourites
+					<% end %>
 				</span>
 				<span>
 					<%# num of comments on property %>
 					<% # Placeholder for the add/edit new preview (added span id for live preview on add/edit page) %>
-					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> comments
+					<i class="comment icon"></i><span id="search-preview-comments"><%= listing.listing_comments %></span> 
+					<% if listing.listing_comments.to_i == 1 %>
+						comment
+					<% else %>
+						comments
+					<% end %>
 				</span>
 			</span>
 		</div>
