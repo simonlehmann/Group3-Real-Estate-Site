@@ -107,7 +107,7 @@
 									(this likely won't trigger initially as it will be too far from the bottom of the page) %>
 									<% query = build_search_pagination_link_text(@search_suburbs, @search_prices, @search_property, @search_feature) %>
 									<% if query %>
-										<%= link_to("Broaden search with surrounding suburbs?", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next') %>
+										<%= link_to("Broaden search to include surrounding suburbs?", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next', class: "ui green button") %>
 									<% end %>
 								</p>
 								<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>
