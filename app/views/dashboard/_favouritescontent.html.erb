@@ -13,15 +13,15 @@
 			<% listing = get_listing_details(fav.favourite_listing_id) %>
 			<% if listing %>
 				<div class="item">
-					<div id="fav-image" class="image">
-					<% if listing.listing_cover_image %>
-						<%= image_tag listing.listing_cover_image.image.url(:medium) %>
-					<% else %>
-						<%= image_tag "placeholder_w.png" %>
-					<% end %>
+					<div class="image">
+						<% if listing.listing_cover_image %>
+							<%= image_tag listing.listing_cover_image.image.url(:medium), alt: "Property Image" %>
+						<% else %>
+							<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+						<% end %>
 					</div>
 					<div class="content">
-						<a class="header"><%= listing.listing_address %></a>
+						<a href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>" class="header"><%= listing.listing_address %></a>
 						<div class="meta">
 							<span>Description</span>
 						</div>
