@@ -82,9 +82,15 @@
 						</div>
 					</div>
 
-					<%# Only show search broadening when there's a query, it's initially hidden though and will only appear when reached the end of the infinite scrolling %>
+					<%# Only show search broadening when there's a query, it's initially hidden though and will only appear when reached the end of the infinite scrolling, added loading icon to it as this section will disapear when the search broadening begins%>
 					<% if !@no_query %>
-						<p class="ui dividing header search-divider" id="search-broadening-caption" style="display: none;">broadening search within the surrounding suburbs</p>
+						<div id="search-broadening-section" class="margin-top-half" style="display: none;">
+							<p class="ui dividing header search-divider" id="search-broadening-caption">broadening search within the surrounding suburbs</p>
+							<div id="loading-animation" style="margin-top: -30px;">
+								<%= render partial: 'layouts/loading_no_text' %>
+							</div>
+						</div>
+						
 					<% end %>
 				<% else %>
 					<h2 class="ui header">No Results Found!</h2>

@@ -12,7 +12,8 @@ ready = ->
 	$('#buy-search-submit').click ->
 		doSearch()
 
-	doSearch = ->
+	# Changed doSearch to @doSearch so it can be called from .js.erb files
+	@doSearch = ->
 		#initialise array for search suburbs, price tags, property tags and feature tags
 		search_tags = []
 		property_tags = []
