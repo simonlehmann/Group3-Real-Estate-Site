@@ -8,7 +8,7 @@
 %>
 
 <h1 class="ui center aligned">Favourites</h1>
-<div class="ui items">
+<div class="ui divided items">
 	<% favourites = get_favourites_object_array %>
 	<% if favourites %>
 		<% favourites.each do |fav| %>
@@ -25,7 +25,7 @@
 					<div class="content">
 						<a href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>" class="header"><%= listing.listing_address %></a>
 						<div class="meta">
-							<span>Description</span>
+							<span>Property Description</span>
 						</div>
 						<div class="description">
 							<p><%= listing.listing_description %></p>
