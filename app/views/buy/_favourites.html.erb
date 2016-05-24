@@ -19,7 +19,7 @@
 		<% if favourites %>
 			<% favourites.each do |fav| %>
 				<!-- Get the listing object -->
-				<% listing = get_listing_details(fav.favourite_listing_id) %>
+				<% listing = listing = fav.favourite_listing %>
 				<!-- If there is a listing, continue -->
 				<% if listing %>
 					<!-- Create the div and make it clickable with the property path -->
