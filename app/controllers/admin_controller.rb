@@ -15,43 +15,52 @@ class AdminController < ApplicationController
 			# Parameters: {"page"=>"2", "sort_type"=>"4", "is_sort"=>"true", "_"=>"1462789142490"}
 			#
 			# We need to pass these parameters back through so we can continue retreiving sorted results in our infinite scrolling method using manage.js.erb
-			if params[:sort_type] and params[:is_sort] == "true"
-				# Reconnect with the params so they get sent through again.
-				@sort_type = params[:sort_type].to_i # The sort type (1, 2, 3, 4 or 5) see update_sort for a description of the choices
-				@sort_method = params[:sort_method].to_s # The sort method (asc or desc (desc = default))
-				@is_sort = true # Change from a string (sent in params) to the boolean required
-				@page = params[:page] # The current active page for the data (so if we've loaded 3/5 pages we still have 10 listings in the server we need to load)
-				# Get a new set of the listings based on the selected sort method
-				@listings = get_sorted_listings(user, @sort_type, @sort_method, params[:page])
-			else
-				# Get the listings through the user_listings association on the currently logged in user object
-				@listings = user.user_listings.order(:listing_created_at).page(params[:page])
-			end
-			# Set the user_has_property boolean to true if the query returns listings.
-			user_has_property = true if @listings.size > 0
+
+      # Check is user is admin
+      if @user_type == "Admin"
+
+        if params[:sort_type] and params[:is_sort] == "true"
+  				# Reconnect with the params so they get sent through again.
+  				@sort_type = params[:sort_type].to_i # The sort type (1, 2, 3, 4 or 5) see update_sort for a description of the choices
+  				@sort_method = params[:sort_method].to_s # The sort method (asc or desc (desc = default))
+  				@is_sort = true # Change from a string (sent in params) to the boolean required
+  				@page = params[:page] # The current active page for the data (so if we've loaded 3/5 pages we still have 10 listings in the server we need to load)
+  				# Get a new set of the listings based on the selected sort method
+  				@listings = get_sorted_listings(user, @sort_type, @sort_method, params[:page])
+  			else
+  				# Get the listings through the user_listings association on the currently logged in user object
+  				@listings = user.user_listings.order(:listing_created_at).page(params[:page])
+  			end
+  			# Set the user_has_property boolean to true if the query returns listings.
+  			user_has_property = true if @listings.size > 0
+
+        # render the appropriate view depending on whether the user has listings or not.
+    		if user_is_admin
+    			# Render the manage view for the user with their listings
+    			render "admin/manage"
+    		else
+    			#white top nav in header image as there is a banner image
+    			@top_nav = true
+    			# No properties so render the index template
+    			render "admin/index"
+    		end
+      else
+        render "admin/permission_error"
+      end
 		end
 
-		# render the appropriate view depending on whether the user has listings or not.
-		if user_is_admin
-			# Render the manage view for the user with their listings
-			render "admin/manage"
-		else
-			#white top nav in header image as there is a banner image
-			@top_nav = true
-			# No properties so render the index template
-			render "admin/index"
-		end
+
 	end
 
-  def get_user_details
-  	user = current_user
-  	if user
-      @user_type = user.user_type if user.user_type != ""
-  		@username = user.username if user.username != ""
-  		@first_name = user.first_name if user.first_name != ""
-  		@last_name = user.last_name if user.last_name != ""
-  		@email = user.email
-  	end
-  end
+  # def get_user_details
+  # 	user = current_user
+  # 	if user
+  #     @user_type = user.user_type if user.user_type != ""
+  # 		@username = user.username if user.username != ""
+  # 		@first_name = user.first_name if user.first_name != ""
+  # 		@last_name = user.last_name if user.last_name != ""
+  # 		@email = user.email
+  # 	end
+  # end
 
 end

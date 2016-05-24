@@ -1,22 +1,22 @@
 <%
 #   Created: Daniel Swain
 #   Date: 04/04/2016
-#   
+#
 #   Main Manage page template the user will see when they are logged in and have a property.
-#   
+#
 #   This contains a table whos header is a sticky element fixed to the bottom of the nav bar
 #   A table of cards containing each property is shown under the header.
-#   
+#
 #   Partials:
 #   	* manage_property_card: Used to generate each property to be managed
-#   
+#
 #   Collections:
 #   	* @listings: A collection of listings from the database
-#   	
-#   Notes: 
+#
+#   Notes:
 #   	For pagination (infinite-scroll) the amount of listings displayed per page is configured in the listing.rb file in models.
 #   	For pagination/sort please look at manage.js.erb. It is used to change the sort/filter method and to allow infinite scrolling of a users listings
-#   	
+#
 #   Todo:
 %>
 
@@ -27,20 +27,20 @@
 			<div class="ui centered middle aligned three column grid">
 				<% # Table header %>
 				<div class="left floated left aligned column">
-					<h1>Manage Your Properties</h1>
+					<h1>Manage Properties</h1>
 				</div>
 
 				<% # Sort/Filter action (choose sort column and asc/desc filter method) %>
 				<div class="center aligned column">
 					<% # The sort choices (i.e. what columns to sort via) %>
 					<%= select_tag :listing_filter, options_for_select([ [ "Comments", 1 ], [ "Date Modified", 2 ], [ "Expiry", 3 ], [ "Popularity", 4 ], [ "Views", 5 ] ]), { prompt: "Sort Listings", include_blank: false, class: "ui floating labelled icon button dropdown", id: "manage-filter" } %>
-					
+
 					<% # The filter_method button. Used to switch between Ascending and Descending (desc == default) %>
 					<button class="ui button" id="manage-filter-method" data-filter-method="desc">
 						<i class="sort content descending icon"></i>
 					</button>
 				</div>
-				
+
 				<% # Add Property Button %>
 				<div class="right floated right aligned column">
 					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
@@ -75,13 +75,13 @@
 			</div>
 		</div>
 	<% end %>
-	
+
 	<% # The property listings the user has. Now using infinite scroll%>
 	<div class="infinite-table">
 		<div class="ui cards" id="manage-property-card-table">
 			<%= render partial: 'sell/manage_property_card', object: @listings %>
 		</div>
-		<% # The link to the next batch of listings. %>	
+		<% # The link to the next batch of listings. %>
 		<div class="ui centered grid margin-top">
 			<p class="pagination">
 				<%= link_to_next_page(@listings, 'Show More Listings', remote: true) %>
