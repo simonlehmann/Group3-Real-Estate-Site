@@ -10,7 +10,7 @@
 	<% favourites = get_favourites_object_array %>
 	<% if favourites %>
 		<% favourites.each do |fav| %>
-			<% listing = get_listing_details(fav.favourite_listing_id) %>
+			<% listing = fav.favourite_listing %>
 			<% if listing %>
 				<div class="item">
 					<div class="image">
