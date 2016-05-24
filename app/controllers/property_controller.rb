@@ -11,6 +11,6 @@ class PropertyController < ApplicationController
 		#get property by id from DB
 		@listing = Listing.find_by_listing_id(property_id)
 		@prev_loc = save_my_previous_url()
-		puts @prev_loc
+		@searching = false # Variable to stop infinite scroll working on the property page
 	end
 end
