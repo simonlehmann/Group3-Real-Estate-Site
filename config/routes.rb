@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get '/dashboard/messages' => 'dashboard#messages'
   get '/dashboard/favourites' => 'dashboard#favourites'
   get '/dashboard/settings' => 'dashboard#settings'
+  get '/admin' => 'admin#index'
   # get '/dashboard/settings/crop' => 'dashboard#crop' # This url has been turned off as we're using a modal now for this action.
   get '/contact' => 'contact#index'
 

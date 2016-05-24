@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 			store_location_for(:user, request.fullpath)
 		end
 	end
-	
+
 	def save_my_previous_url
 		# session[:previous_url] is a Rails built-in variable to save last url.
 		session[:my_previous_url] = URI(request.referer || '').path
@@ -44,6 +44,7 @@ end
 def get_user_details
 	user = current_user
 	if user
+		@user_type = user.user_type
 		@username = user.username if user.username != ""
 		@first_name = user.first_name if user.first_name != ""
 		@last_name = user.last_name if user.last_name != ""

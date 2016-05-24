@@ -18,6 +18,10 @@
 					<% #if logged in show my activity button/path %>
 					<% if user_signed_in? %>
 						<%= link_to "My Activity", dashboard_activity_path, class: "activity-item item" %>
+						<% #if logged in user is Admin show admin button/path %>
+						<% if @user_type == "Admin" %>
+							<%= link_to "Admin", admin_path, class: "admin-item item" %>
+						<% end %>
 					<% #if logged out show contact us button/path %>
 					<% else %>
 						<%= link_to "Contact Us", contact_path, class: "activity-item item" %>
@@ -49,11 +53,10 @@
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
-					<%# number of alerts
-					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do 
-						<i class="alarm icon"></i>2 
-					<% end
-					%>
+					<% # number of alerts %>
+					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do %>
+						<i class="alarm icon"></i>2
+					<% end %>
 				<% #user is logged out login/signup selection %>
 				<% else %>
 					<button class="ui button user-login">Login</button>
