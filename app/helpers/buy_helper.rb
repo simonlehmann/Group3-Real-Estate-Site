@@ -27,4 +27,11 @@ module BuyHelper
 	def split_twitter_image image_url
 		return image_url.to_s.rpartition('_').first + "_400x400.jpg"
 	end
+
+	# Method to get the favourites object array
+	def get_favourites_object_array
+		user = current_user
+		favourites = Favourite.where(favourite_user_id: current_user)
+		return favourites
+	end
 end

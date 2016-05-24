@@ -210,5 +210,22 @@ ready = ->
 		$('#file-upload-preview-image').css 'display', 'block'
 		$('#avatar-crop-preview-image').css 'display', 'none'
 
+	enableDisableButton = ->
+		checkField = $('input#message').val().length
+		if checkField > 0
+			$('#sendButton').removeAttr 'disabled'
+		else
+			$('#sendButton').attr 'disabled', 'disabled'
+		return
+
+	#calling enableDisableButton() function on load
+	if window.location.pathname.includes('dashboard/settings')
+		enableDisableButton()
+	$('input#message').keyup ->
+		#calling enableDisableButton() function on keyup
+		enableDisableButton()
+		return
+
+	return
 
 $(document).ready ready

@@ -4,10 +4,10 @@
 #   
 #   Template for the meet the team page page
 %>
-<h1>Meet the Team!</h1>
 <%# Everything inside a nobanner-container and middle aligned grid container to fix alignment and place under header %>
 <div class="ui container nobanner-container team-cards">
 	<%# Middle aligned container to properly centre content %>
+	<h1 class="ui header team-header">Meet the Team!</h1>
 	<div class="ui three column doubling stackable grid container">
 		<%# The cards container, this will set the about us card to be only 3 per row %>
 		<div class="ui three cards">
@@ -118,24 +118,20 @@
 			<% # Erdal's Card %>
 			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
-					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "cat.gif", class: "hidden content" %>
+					<%= image_tag "Erdal.jpg", class: "visible content" %>
+					<%= image_tag "Erdal.gif", class: "hidden content" %>
 				</div>
 				<div class="content">
 					<div class="header">Erdal Erkilic</div>
 					<div class="center aligned meta">
 						<div class="row margin-top-half">
 							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
+							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/erdal-erkilic-33571411b" target="_blank">
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/erdal.erkilic" target="_blank">
 								<i class="facebook plus icon"></i>
-							</a>
-
-							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
-								<i class="google plus icon"></i>
 							</a>
 						</div>
 						<div class="row margin-top-half">
@@ -156,7 +152,7 @@
 			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "cat.gif", class: "hidden content" %>
+					<%= image_tag "Simon.gif", class: "hidden content" %>
 				</div>
 				<div class="content">
 					<div class="header">Simon Lehmann</div>
@@ -193,7 +189,7 @@
 			<div class="ui centered card column">
 				<div class="ui slide masked reveal image">
 					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "cat.gif", class: "hidden content" %>
+					<%= image_tag "Tylden.gif", class: "hidden content" %>
 				</div>
 				<div class="content">
 					<div class="header">Tylden Horan</div>
@@ -204,13 +200,10 @@
 								<i class="linkedin icon"></i>
 							</a>
 							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
+							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/tylden.horan" target="_blank">
 								<i class="facebook plus icon"></i>
 							</a>
 
-							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
-								<i class="google plus icon"></i>
-							</a>
 						</div>
 						<div class="row margin-top-half">
 							<% # Personal Link here %>
