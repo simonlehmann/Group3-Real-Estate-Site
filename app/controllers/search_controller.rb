@@ -158,6 +158,7 @@ class SearchController < ApplicationController
 
 		# Respond to js requests with the search_infinite_scroll.js.erb file
 		respond_to do |format|
+			format.html
 			format.js { render :search_infinite_scroll }
 		end
 	end
