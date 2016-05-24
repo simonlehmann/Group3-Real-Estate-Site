@@ -4,222 +4,227 @@
 #   
 #   Template for the meet the team page page
 %>
+
+
 <%# Everything inside a nobanner-container and middle aligned grid container to fix alignment and place under header %>
-<div class="ui container nobanner-container team-cards">
+<div class="ui container nobanner-container">
 	<%# Middle aligned container to properly centre content %>
 	<div class="ui center aligned container">
 		<h1 class="ui header team-header">Meet the Team!</h1>
 	</div>
-	<div class="ui three column doubling stackable grid container">
-		<%# The cards container, this will set the about us card to be only 3 per row %>
-		<div class="ui three cards">
-			<%# Daniel's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "Daniel.png", class: "visible content" %>
-					<%= image_tag "Daniel.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Daniel Swain</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/ulternate" target="_blank">
-								<i class="github icon"></i>
-							</a>
+	<div class="team-cards">
+		<div class="ui three column doubling stackable grid container">
+			<%# The cards container, this will set the about us card to be only 3 per row %>
+			<div class="ui three cards">
+				<%# Daniel's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "Daniel.png", class: "visible content" %>
+						<%= image_tag "Daniel.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Daniel Swain</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/ulternate" target="_blank">
+									<i class="github icon"></i>
+								</a>
 
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
-								<i class="linkedin icon"></i>
-							</a>
-							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
-								<i class="facebook plus icon"></i>
-							</a>
+								<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
+									<i class="linkedin icon"></i>
+								</a>
+								
+								<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/daniel.c.swain" target="_blank">
+									<i class="facebook plus icon"></i>
+								</a>
 
-							<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
-								<i class="google plus icon"></i>
-							</a>
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
-						</div>
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Scrum Master &amp; Developer</h4>
-							<p>Daniel Swain is a freelance developer based in Western Australia. Currently enamoured with Ruby and Rails, he's released Android and Enterprise applications and also built various responsive websites using Django and Ruby on Rails.</p>
-							<p> On PropertyDome, Daniel was responsible for the design and construction of all the /sell pages and their functionality. He also built the user login/sign-up screens and implemented infinite scrolling.</p>
+								<a class="ui big mobile tablet medium computer circular google plus icon button" href="https://www.google.com/+DanielSwainEngineer" target="_blank">
+									<i class="google plus icon"></i>
+								</a>
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
+							</div>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Scrum Master &amp; Developer</h4>
+								<p>Daniel Swain is a freelance developer based in Western Australia. Currently enamoured with Ruby and Rails, he's released Android and Enterprise applications and also built various responsive websites using Django and Ruby on Rails.</p>
+								<p> On PropertyDome, Daniel was responsible for the design and construction of all the /sell pages and their functionality. He also built the user login/sign-up screens and implemented infinite scrolling.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<%# Jayden's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "Jayden.png", class: "visible content" %>
-					<%= image_tag "Jayden.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Jayden Spencer</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/jayden2" target="_blank">
-								<i class="github icon"></i>
-							</a>
+				<%# Jayden's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "Jayden.png", class: "visible content" %>
+						<%= image_tag "Jayden.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Jayden Spencer</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/jayden2" target="_blank">
+									<i class="github icon"></i>
+								</a>
 
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/jaydenspencer" target="_blank">
-								<i class="linkedin icon"></i>
-							</a>
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://jaydenspencer.com/" target="_blank">jaydenspencer.com</a>
-						</div>
+								<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/jaydenspencer" target="_blank">
+									<i class="linkedin icon"></i>
+								</a>
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://jaydenspencer.com/" target="_blank">jaydenspencer.com</a>
+							</div>
 
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Team Leader, Lead Designer &amp; Developer </h4>
-							<p>Jayden Spencer is a freelance web &amp; applications developer. Who loves working on an assortment of projects espcially in JavasScript and Rails, and likes to get creative and work on both the front end back end.</p>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Team Leader, Lead Designer &amp; Developer </h4>
+								<p>Jayden Spencer is a freelance web &amp; applications developer. Who loves working on an assortment of projects espcially in JavasScript and Rails, and likes to get creative and work on both the front end back end.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<% # Michael's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "cat.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Michael White</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/doritobandito" target="_blank">
-								<i class="github icon"></i>
-							</a>
-							
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://otirod.com/" target="_blank">otirod.com/</a>
-						</div>
+				<% # Michael's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "300x300.png", class: "visible content" %>
+						<%= image_tag "cat.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Michael White</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/doritobandito" target="_blank">
+									<i class="github icon"></i>
+								</a>
+								
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://otirod.com/" target="_blank">otirod.com/</a>
+							</div>
 
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Developer</h4>
-							<p>Michael is a applications developer who loves working with object orientated languages and enjoys long strolls down the path of finding creative solutions for exciting projects.</p>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Developer</h4>
+								<p>Michael is a applications developer who loves working with object orientated languages and enjoys long strolls down the path of finding creative solutions for exciting projects.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<% # Erdal's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "Erdal.jpg", class: "visible content" %>
-					<%= image_tag "Erdal.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Erdal Erkilic</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/erdal-erkilic-33571411b" target="_blank">
-								<i class="linkedin icon"></i>
-							</a>
-							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/erdal.erkilic" target="_blank">
-								<i class="facebook plus icon"></i>
-							</a>
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
-						</div>
+				<% # Erdal's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "Erdal.jpg", class: "visible content" %>
+						<%= image_tag "Erdal.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Erdal Erkilic</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/erdal-erkilic-33571411b" target="_blank">
+									<i class="linkedin icon"></i>
+								</a>
+								
+								<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/erdal.erkilic" target="_blank">
+									<i class="facebook plus icon"></i>
+								</a>
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
+							</div>
 
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Developer</h4>
-							<p>Erdal Erkilic is a aspiring software developer, fresh to the industry but enthusiastic and eager to learn. Erdal has a number of private projects he hopes to accomplish one day, but first hopes to find a place suitable for polishing his new skill set.</p>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Developer</h4>
+								<p>Erdal Erkilic is a aspiring software developer, fresh to the industry but enthusiastic and eager to learn. Erdal has a number of private projects he hopes to accomplish one day, but first hopes to find a place suitable for polishing his new skill set.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<% # Simon's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "Simon.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Simon Lehmann</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/slehmann36" target="_blank">
-								<i class="github icon"></i>
-							</a>
+				<% # Simon's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "300x300.png", class: "visible content" %>
+						<%= image_tag "Simon.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Simon Lehmann</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular github icon button" href="https://github.com/slehmann36" target="_blank">
+									<i class="github icon"></i>
+								</a>
 
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/slehmann36" target="_blank">
-								<i class="linkedin icon"></i>
-							</a>
-							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/slehmann36" target="_blank">
-								<i class="facebook plus icon"></i>
-							</a>
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://simonlehmann.net" target="_blank">simonlehmann.net</a>
-						</div>
+								<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/slehmann36" target="_blank">
+									<i class="linkedin icon"></i>
+								</a>
+								
+								<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/slehmann36" target="_blank">
+									<i class="facebook plus icon"></i>
+								</a>
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://simonlehmann.net" target="_blank">simonlehmann.net</a>
+							</div>
 
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Developer</h4>
-							<p>Simon is a full-stack developer in-training based in Perth, Western Australia. He has been playing with computers from the very beginning and is now Technology Director at a software development company he founded in early 2016.</p>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Developer</h4>
+								<p>Simon is a full-stack developer in-training based in Perth, Western Australia. He has been playing with computers from the very beginning and is now Technology Director at a software development company he founded in early 2016.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<% # Tylden's Card %>
-			<div class="ui centered card column">
-				<div class="ui slide masked reveal image">
-					<%= image_tag "300x300.png", class: "visible content" %>
-					<%= image_tag "Tylden.gif", class: "hidden content" %>
-				</div>
-				<div class="content">
-					<div class="header">Tylden Horan</div>
-					<div class="center aligned meta">
-						<div class="row margin-top-half">
-							<% # Social links as icons %>
-							<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
-								<i class="linkedin icon"></i>
-							</a>
-							
-							<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/tylden.horan" target="_blank">
-								<i class="facebook plus icon"></i>
-							</a>
+				<% # Tylden's Card %>
+				<div class="ui centered card column">
+					<div class="ui slide masked reveal image">
+						<%= image_tag "300x300.png", class: "visible content" %>
+						<%= image_tag "Tylden.gif", class: "hidden content" %>
+					</div>
+					<div class="content">
+						<div class="header">Tylden Horan</div>
+						<div class="center aligned meta">
+							<div class="row margin-top-half">
+								<% # Social links as icons %>
+								<a class="ui big mobile tablet medium computer circular linkedin icon button" href="https://au.linkedin.com/in/danielcswain" target="_blank">
+									<i class="linkedin icon"></i>
+								</a>
+								
+								<a class="ui big mobile tablet medium computer circular facebook icon button" href="https://www.facebook.com/tylden.horan" target="_blank">
+									<i class="facebook plus icon"></i>
+								</a>
 
-						</div>
-						<div class="row margin-top-half">
-							<% # Personal Link here %>
-							<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
-						</div>
+							</div>
+							<div class="row margin-top-half">
+								<% # Personal Link here %>
+								<a href="http://www.danielcswain.com" target="_blank">www.danielcswain.com</a>
+							</div>
 
-						<div class="left aligned row margin-top-half">
-							<% # Put the role and blurb here %>
-							<h4 class="role-header">Developer</h4>
-							<p>lazy poop</p>
+							<div class="left aligned row margin-top-half">
+								<% # Put the role and blurb here %>
+								<h4 class="role-header">Developer</h4>
+								<p>lazy poop</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	
 	</div>
 </div>
