@@ -91,35 +91,59 @@ processResults = (results, status, pagination) ->
     switch (colour)
       when '1'
         i = 0
-        # Do for each marker
+        # Do for each marker - School
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addBlueMarker(results[i])
+            addSchoolMarker(results[i])
           i++
       when '2'
         i = 0
-        # Do for each marker
+        # Do for each marker - Shopping Mall
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerOrange results[i]
+            addShoppingMarker results[i]
           i++
       when '3'
         i = 0
-        # Do for each marker
+        # Do for each marker - Airport
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerGreen results[i]
+            addAirportMarker results[i]
+          i++
+      when '4'
+        i = 0
+        # Do for each marker - Hospital
+        while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addHospitalMarker results[i]
+          i++
+      when '5'
+        i = 0
+        # Do for each marker - Food
+        while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addFoodMarker results[i]
+          i++
+      when '6'
+        i = 0
+        # Do for each marker - Petrol Station
+        while i < results.length
+          # Check if the distance of the place is within the amount specified from the property
+          if getDistance(currentLocation, results[i].geometry.location) <= distance
+            addPetrolMarker results[i]
           i++
       else
         i = 0
-        # Do for each marker
+        # Do for each marker - Default
         while i < results.length
           # Check if the distance of the place is within the amount specified from the property
           if getDistance(currentLocation, results[i].geometry.location) <= distance
-            addMarkerGreen results[i]
+            addDefaultMarker results[i]
           i++
     # If there is more than 20 results, next page.
     if pagination.hasNextPage
@@ -141,49 +165,111 @@ deleteMarkers = ->
   # Clear markers array
   markers = []
   return
-# Adds a green marker to the map and push to the array
-addMarkerGreen = (place) ->
+# Adds a Airport marker to the map and push to the array
+addAirportMarker = (place) ->
   marker = new (google.maps.Marker)(
     position: place.geometry.location
     map: map
-    icon: 'http://i63.tinypic.com/mc3r7c.jpg')
-  # Add listener for marker click
-  google.maps.event.addListener marker, 'click', ->
-    # Set content string for marker infoWindow
-    contentString = place.name
-    # set infoWindow content and open the map on the marker
-    infoWindow.setContent contentString
-    infoWindow.open map, marker
-    return
-  markers.push marker
-  return
-# Adds a orange marker to the map and push to the array
-addMarkerOrange = (place) ->
-  marker = new (google.maps.Marker)(
-    position: place.geometry.location
-    map: map
-    icon: 'http://i66.tinypic.com/23w4ppc.png')
-  # Add listener for marker click
-  google.maps.event.addListener marker, 'click', ->
-    # Set content string for marker infoWindow
-    contentString = place.name
-    # set infoWindow content and open the map on the marker
-    infoWindow.setContent contentString
-    infoWindow.open map, marker
-    return
-  markers.push marker
-  return
-# Adds a blue marker to the map and push to the array
-addBlueMarker = (place) ->
-  marker = new (google.maps.Marker)(
-    position: place.geometry.location
-    map: map
-    icon: 'http://i66.tinypic.com/23w4ppc.png')
-  pano = undefined
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/airport_marker.png?raw=1')
   # Add listener for marker click
   google.maps.event.addListener marker, 'click', ->
     # Set content string for marker infoWindow
     contentString = "<p>"+place.name+"</p>"
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a Default marker to the map and push to the array
+addDefaultMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map)
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a Shopping marker to the map and push to the array
+addShoppingMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/shopping_marker.png?raw=1')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a School marker to the map and push to the array
+addSchoolMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/school_marker.png?raw=1')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = "<p>"+place.name+"</p>"
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a Hospital marker to the map and push to the array
+addHospitalMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/hospital_marker.png?raw=1')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a Food marker to the map and push to the array
+addFoodMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/food_marker.png?raw=1')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
+    # set infoWindow content and open the map on the marker
+    infoWindow.setContent contentString
+    infoWindow.open map, marker
+    return
+  markers.push marker
+  return
+# Adds a Petrol marker to the map and push to the array
+addPetrolMarker = (place) ->
+  marker = new (google.maps.Marker)(
+    position: place.geometry.location
+    map: map
+    icon: 'https://dl.dropboxusercontent.com/u/902818/markers/petrol_marker.png?raw=1')
+  # Add listener for marker click
+  google.maps.event.addListener marker, 'click', ->
+    # Set content string for marker infoWindow
+    contentString = place.name
     # set infoWindow content and open the map on the marker
     infoWindow.setContent contentString
     infoWindow.open map, marker
