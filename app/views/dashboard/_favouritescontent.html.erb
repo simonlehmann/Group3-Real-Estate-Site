@@ -1,7 +1,9 @@
 <% 
 #   Created: Daniel Swain
 #   Date: 27/04/2016
-#   
+#
+#   Developed By: Michael White, 23/04/2016
+#
 #   Partial to display the favourites for the user
 %>
 
@@ -13,7 +15,7 @@
 			<% listing = fav.favourite_listing %>
 			<% if listing %>
 				<div class="item">
-					<div class="image">
+					<div class="ui small image">
 						<% if listing.listing_cover_image %>
 							<%= image_tag listing.listing_cover_image.image.url(:medium), alt: "Property Image" %>
 						<% else %>
@@ -29,7 +31,9 @@
 							<p><%= listing.listing_description %></p>
 						</div>
 						<div class="extra">
-							Additional Details
+							<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+								<p><%= listing_get_status_readable(listing) %></p>
+							<% end %>
 						</div>
 					</div>
 				</div>
