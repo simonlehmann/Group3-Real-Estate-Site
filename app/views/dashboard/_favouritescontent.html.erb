@@ -1,19 +1,21 @@
 <% 
 #   Created: Daniel Swain
 #   Date: 27/04/2016
-#   
+#
+#   Developed By: Michael White, 23/04/2016
+#
 #   Partial to display the favourites for the user
 %>
 
 <h1 class="ui center aligned">Favourites</h1>
-<div class="ui items">
+<div class="ui divided items">
 	<% favourites = get_favourites_object_array %>
 	<% if favourites %>
 		<% favourites.each do |fav| %>
 			<% listing = fav.favourite_listing %>
 			<% if listing %>
 				<div class="item">
-					<div class="image">
+					<div class="ui small image">
 						<% if listing.listing_cover_image %>
 							<%= image_tag listing.listing_cover_image.image.url(:medium), alt: "Property Image" %>
 						<% else %>
@@ -23,13 +25,14 @@
 					<div class="content">
 						<a href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>" class="header"><%= listing.listing_address %></a>
 						<div class="meta">
-							<span>Description</span>
+							<span>
+								<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+									<p><%= listing_get_status_readable(listing) %></p>
+								<% end %>
+							</span>
 						</div>
 						<div class="description">
 							<p><%= listing.listing_description %></p>
-						</div>
-						<div class="extra">
-							Additional Details
 						</div>
 					</div>
 				</div>
