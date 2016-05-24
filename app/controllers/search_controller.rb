@@ -11,6 +11,7 @@ class SearchController < ApplicationController
 		@search_property = params[:property]
 		@search_feature = params[:feature]
 		@no_query = false # A variable used in the view for when there's no query
+		@searching = true # A variable used to try and stop the property page triggering infinite scrolling
 
 		# --------- Get the @suburbs, @price_tags, @property_tags & @feature_tags for the view _searchconfig.html.erb
 		#

@@ -24,108 +24,110 @@
 
 <%# We are not sorting, or we are on the next page so we don't clear the table %>
 <%# Append new data to the infinit-table cards list as we're not sorting %>
-<% @listings.each do |listing| %>
-	$('#search-results-table').append("<%=j render(partial: 'search/propertyresult', locals: { listing: listing }) %>");
-<% end %>
+<% if @searching %>
+	<% @listings.each do |listing| %>
+		$('#search-results-table').append("<%=j render(partial: 'search/propertyresult', locals: { listing: listing }) %>");
+	<% end %>
 
-<%# Show the loading animation as we're loading the next page %>
-$('.search-results-container #loading-animation').css('display', 'block');
+	<%# Show the loading animation as we're loading the next page %>
+	$('.search-results-container #loading-animation').css('display', 'block');
 
-<%# Update the pagination link in a way that works for both infinite scrolling and search %>
-<% if @listings.last_page? %>
-	console.log('LP: have listings and are on last page');
-	<%# We've reached the end of our @listings collection so lets hide the pagination block (containing the link and the loading animation) %>
-	$('.pagination').html("No more results to show");
-	$('#pagination-block').css('display', 'none');
-	<% if @suburbs %>
-		console.log('LP: we are on last page and have suburbs, about to potentially broaden');
-		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
-		$('#search-broadening-section').css('display', 'block');
-		<%# Add the broadening search suburbs to the search-config section %>
-		<% if @surrounding_suburbs %>
-			console.log('LP: have surrounding suburbs and about to broaden as were on the last page');
-			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
-			<% if @surrounding_suburbs.length <= 8 %>
-				console.log('LP: adding suburbs to broadening section');
-				<% @surrounding_suburbs.each do |suburb| %>
-					<%# Build the label for the new suburb %>
-					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
-					<%# Append the label to the location field (only if it's not there already) %>
-					if (!$('#location div[data-subid="<%=j suburb["id"] %>"').length) {
-						$('#location').append("<%=j @label_string.html_safe %>");
-					}
+	<%# Update the pagination link in a way that works for both infinite scrolling and search %>
+	<% if @listings.last_page? %>
+		console.log('LP: have listings and are on last page');
+		<%# We've reached the end of our @listings collection so lets hide the pagination block (containing the link and the loading animation) %>
+		$('.pagination').html("No more results to show");
+		$('#pagination-block').css('display', 'none');
+		<% if @suburbs %>
+			console.log('LP: we are on last page and have suburbs, about to potentially broaden');
+			<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
+			$('#search-broadening-section').css('display', 'block');
+			<%# Add the broadening search suburbs to the search-config section %>
+			<% if @surrounding_suburbs %>
+				console.log('LP: have surrounding suburbs and about to broaden as were on the last page');
+				<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
+				<% if @surrounding_suburbs.length <= 8 %>
+					console.log('LP: adding suburbs to broadening section');
+					<% @surrounding_suburbs.each do |suburb| %>
+						<%# Build the label for the new suburb %>
+						<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
+						<%# Append the label to the location field (only if it's not there already) %>
+						if (!$('#location div[data-subid="<%=j suburb["id"] %>"').length) {
+							$('#location').append("<%=j @label_string.html_safe %>");
+						}
+					<% end %>
+					<%# call doSearch to actually do the search %>
+					console.log('LP: about to call search again');
+					doSearch();
+				<% else %>
+					<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
+					$('#search-broadening-section').css('display', 'none');
 				<% end %>
-				<%# call doSearch to actually do the search %>
-				console.log('LP: about to call search again');
-				doSearch();
-			<% else %>
-				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
-				$('#search-broadening-section').css('display', 'none');
 			<% end %>
 		<% end %>
-	<% end %>
-<% else %>
-	<%# Empty search string that we will build based upon our rails instance variables %>
-	<% @search_string = "" %>
-	<%# Suburbs first %>
-	<% if @search_suburbs %>
-		<% @search_suburbs.each do |suburb| %>
-			<% @search_string << "suburb[]=#{suburb}&" %>
+	<% else %>
+		<%# Empty search string that we will build based upon our rails instance variables %>
+		<% @search_string = "" %>
+		<%# Suburbs first %>
+		<% if @search_suburbs %>
+			<% @search_suburbs.each do |suburb| %>
+				<% @search_string << "suburb[]=#{suburb}&" %>
+			<% end %>
 		<% end %>
-	<% end %>
-	<%# Prices next %>
-	<% if @search_prices %>
-		<%# loop through and add the price queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
-		<% @search_prices.each do |price| %>
-			<% @search_string << "price[]=#{price}&" %>
+		<%# Prices next %>
+		<% if @search_prices %>
+			<%# loop through and add the price queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
+			<% @search_prices.each do |price| %>
+				<% @search_string << "price[]=#{price}&" %>
+			<% end %>
 		<% end %>
-	<% end %>
-	<%# Property next %>
-	<% if @search_property %>
-		<%# loop through and add the property queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
-		<% @search_property.each do |property| %>
-			<% @search_string << "property[]=#{property}&" %>
+		<%# Property next %>
+		<% if @search_property %>
+			<%# loop through and add the property queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
+			<% @search_property.each do |property| %>
+				<% @search_string << "property[]=#{property}&" %>
+			<% end %>
 		<% end %>
-	<% end %>
-	<%# Features next %>
-	<% if @search_feature %>
-		<%# loop through and add the feature queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
-		<% @search_feature.each do |feature| %>
-			<% @search_string << "feature[]=#{feature}&" %>
+		<%# Features next %>
+		<% if @search_feature %>
+			<%# loop through and add the feature queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
+			<% @search_feature.each do |feature| %>
+				<% @search_string << "feature[]=#{feature}&" %>
+			<% end %>
 		<% end %>
+
+		console.log('Not last Page: building pagination link');
+		<%# We now have our search string (which ends in a '&'), so lets add that to the pagination link so the next page can be rendered %>
+		$('.pagination').html("<%=j link_to('Show More Search Results', '/search?' + @search_string + 'page=' + (@listings.current_page + 1).to_s, remote: true, rel: 'next') %>");
 	<% end %>
 
-	console.log('Not last Page: building pagination link');
-	<%# We now have our search string (which ends in a '&'), so lets add that to the pagination link so the next page can be rendered %>
-	$('.pagination').html("<%=j link_to('Show More Search Results', '/search?' + @search_string + 'page=' + (@listings.current_page + 1).to_s, remote: true, rel: 'next') %>");
-<% end %>
-
-<%# Separate search broadening section here in case no initial results %>
-<% if !@listings %>
-	console.log('NL: theres no listings, so lets get the broadening');
-	<% if @suburbs %>
-		console.log('NL: have suburbs, but no listings');
-		$('#search-no-results-header').css('display', 'none');
-		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
-		$('#search-broadening-section').css('display', 'block');
-		<%# Add the broadening search suburbs to the search-config section %>
-		<% if @surrounding_suburbs %>
-			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
-			<% if @surrounding_suburbs.length <= 8 %>
-				<% @surrounding_suburbs.each do |suburb| %>
-					<%# Build the label for the new suburb %>
-					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
-					<%# Append the label to the location field (only if it's not there already) %>
-					if (!$('#location div[data-subid="<%=j suburb["id"] %>"').length) {
-						$('#location').append("<%=j @label_string.html_safe %>");
-					}
+	<%# Separate search broadening section here in case no initial results %>
+	<% if !@listings %>
+		console.log('NL: theres no listings, so lets get the broadening');
+		<% if @suburbs %>
+			console.log('NL: have suburbs, but no listings');
+			$('#search-no-results-header').css('display', 'none');
+			<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
+			$('#search-broadening-section').css('display', 'block');
+			<%# Add the broadening search suburbs to the search-config section %>
+			<% if @surrounding_suburbs %>
+				<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
+				<% if @surrounding_suburbs.length <= 8 %>
+					<% @surrounding_suburbs.each do |suburb| %>
+						<%# Build the label for the new suburb %>
+						<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
+						<%# Append the label to the location field (only if it's not there already) %>
+						if (!$('#location div[data-subid="<%=j suburb["id"] %>"').length) {
+							$('#location').append("<%=j @label_string.html_safe %>");
+						}
+					<% end %>
+					<%# call doSearch to actually do the search %>
+					console.log('NL: do search for broadening with no listings')
+					doSearch();
+				<% else %>
+					<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
+					$('#search-broadening-section').css('display', 'none');
 				<% end %>
-				<%# call doSearch to actually do the search %>
-				console.log('NL: do search for broadening with no listings')
-				doSearch();
-			<% else %>
-				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
-				$('#search-broadening-section').css('display', 'none');
 			<% end %>
 		<% end %>
 	<% end %>
