@@ -11,7 +11,6 @@ class SearchController < ApplicationController
 		@search_property = params[:property]
 		@search_feature = params[:feature]
 		@no_query = false # A variable used in the view for when there's no query
-		@searching = true # A variable used to try and stop the property page triggering infinite scrolling
 
 		# --------- Get the @suburbs, @price_tags, @property_tags & @feature_tags for the view _searchconfig.html.erb
 		#
@@ -155,6 +154,12 @@ class SearchController < ApplicationController
 					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').limit(10).page(params[:page])
 				end
 			end
+		end
+
+		# Respond to js requests with the search_infinite_scroll.js.erb file
+		respond_to do |format|
+			format.html
+			format.js { render :search_infinite_scroll }
 		end
 	end
 
