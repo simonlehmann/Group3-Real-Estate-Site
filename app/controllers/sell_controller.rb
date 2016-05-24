@@ -3,6 +3,7 @@
 #   
 #   Controller Actions:
 # 		* index: show the main sell page /sell
+# 		* show: show the listings for a particular user (i.e. all an agents listings). uses the search/propertyresult.html.erb partial
 # 		* new: create a new property /sell/new
 # 		* create: the POST call to /sell upon successful property
 # 		* edit: return a html form to edit the property post
@@ -16,7 +17,6 @@
 # 		* require_login: check if a the requesting caller is logged in, if not then redirect to the login path
 # 		* listing_params: Ensure only the params we want can be saved when calling update_attributes on a listing object (helps to minimise malicious actions)
 # 		* status_params: Ensure only the params we want can be saved when calling update_attributes on a status object (helps to minimise malicious actions)
-# 	
 # 	
 # 	To do:
 # 		* DELETE SETTING OF LISTING AS APPROVED IN CREATE METHOD WHEN ADMIN CONSOLE IS UP
