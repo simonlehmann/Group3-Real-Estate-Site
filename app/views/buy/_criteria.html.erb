@@ -19,7 +19,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Appliances</span>
-				<div class="menu">
+				<div class="menu appliances">
 					<% additional_tags = add_edit_get_tag_types_for_category("Appliances") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -34,7 +34,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Bathrooms</span>
-				<div class="menu">
+				<div class="menu bathrooms">
 					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
 					<% (1..10).each do |n| %>
 						<% if n == 1 %>
@@ -50,7 +50,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Bedrooms</span>
-				<div class="menu">
+				<div class="menu bedrooms">
 					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
 					<% (1..10).each do |n| %>
 						<% if n == 1 %>
@@ -66,7 +66,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Eco Friendly</span>
-				<div class="menu">
+				<div class="menu ecof">
 					<% additional_tags = add_edit_get_tag_types_for_category("Eco Friendly") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -81,7 +81,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Heating Cooling</span>
-				<div class="menu">
+				<div class="menu heatingcooling">
 					<% additional_tags = add_edit_get_tag_types_for_category("Heating Cooling") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -96,7 +96,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">House Type</span>
-				<div class="menu">
+				<div class="menu housetype">
 					<div value="House Type" class="item">Apartment</div>
 					<div value="House Type" class="item">House</div>
 					<div value="House Type" class="item">Land</div>
@@ -107,7 +107,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Indoor Features</span>
-				<div class="menu">
+				<div class="menu indoorfeatures">
 					<% additional_tags = add_edit_get_tag_types_for_category("Indoor Features") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -122,7 +122,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Leisure</span>
-				<div class="menu">
+				<div class="menu leisure">
 					<% additional_tags = add_edit_get_tag_types_for_category("Leisure") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -137,7 +137,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Outdoor Features</span>
-				<div class="menu">
+				<div class="menu outdoorfeatures">
 					<% additional_tags = add_edit_get_tag_types_for_category("Outdoor Features") %>
 					<% if additional_tags %>
 						<% # Create a menu item for each tag_type %>
@@ -152,7 +152,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Parking</span>
-				<div class="menu">
+				<div class="menu parking">
 					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
 					<% (1..10).each do |n| %>
 						<% if n == 1 %>
@@ -168,7 +168,7 @@
 			<div class="item">
 				<i class="dropdown icon"></i>
 				<span class="text">Price</span>
-				<div class="menu">
+				<div class="menu price">
 					<%# Loop through and create a menu item for this category, using the Rails content_tag and the category value %>
 					<% (1..10).each do |n| %>
 						<%= content_tag(:div, number_to_currency(n * 100000, precision: 0), { class: "item", value: "Price" }) %>

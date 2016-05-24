@@ -42,18 +42,6 @@
 		margin-top: 2.4em
 		background-color: $blue-primary
 		margin-left: -15px
-	.ui.dropdown.button
-		color: $white-primary
-		margin-top: 2.4em
-		background-color: $blue-primary
-		margin-left: -15px
-		i
-			color: $white-primary
-		span
-			color: $white-primary
-		div
-			background-color: $blue-primary
-			color: $white-primary
 	//search input, search icon:hover
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
@@ -86,46 +74,6 @@
 	.ui.row.search-row .column
 		padding-left: 0.25em
 		padding-right: 0.25em
-	//dropdown button
-	#criteria_dropdown.active
-		border-radius: 4px 4px 0px 0px
-		i.right.add.icon
-			display: none
-		//dropdown menu
-		.menu.visible
-			margin-top: -1px
-			border-color: transparent
-			border-radius: 0px 0px 4px 4px
-			//individual items - first dropdown
-			div
-				background-color: lighten($blue-primary, 1%)
-				color: $white-primary
-				border-color: transparent
-			div:hover
-				background-color: darken($blue-primary, 2%)
-			//includes all items in both dropdowns and puts a divider inbetween them (besides the last element)
-			div:not(:last-child)
-				border-bottom: 1px solid darken($blue-primary, 2%)
-			.menu
-				margin-top: -1px !important
-				div
-					background-color: lighten($blue-primary, 3%)
-				div:hover
-					background-color: darken($blue-primary, 3%)
-	#criteria_dropdown:not(.active)
-		i.dropdown.icon
-			display: none
-	#tag_dropdown
-		margin-top: 15px
-		max-width: 512px
-		cursor: default
-		.label i
-			cursor: pointer
-		.label
-			padding: 0.55em 0.71428571em !important
-		.price-feature-tag
-			margin-left: 12px
-			padding: 0.557143em 1.1em !important
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
@@ -218,10 +166,11 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		float: left
 		margin: 0px 15px 35px 0px
 	.main-divs
-		background-color: $white-primary
+		background-color: darken($white-primary, 2%)
 		margin-bottom: 10px
 	.main-divs:hover
-		background-color: $white-grey
+		background-color: darken($white-primary, 5%)
+		cursor: pointer
 	.picture-div
 		img
 			max-width: 245px
