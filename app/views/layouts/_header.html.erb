@@ -35,11 +35,11 @@
 						<% end %>
 						<% #user profile name %>
 						<% if @username %>
-						    <%= link_to "#{@username}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@username}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% elsif @first_name and @last_name %>
-						    <%= link_to "#{@first_name} #{@last_name}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@first_name} #{@last_name}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% else %>
-						    <%= link_to "#{@email}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@email}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% end %>
 						<div class="menu">
 							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>
@@ -49,10 +49,11 @@
 							<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "item" %>
 						</div>
 					</div>
-					<% # number of alerts %>
-					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do %>
+					<%# number of alerts
+					<%= link_to dashboard_activity_path, class: "ui circular label alert-badge" do 
 						<i class="alarm icon"></i>2 
-					<% end %>
+					<% end
+					%>
 				<% #user is logged out login/signup selection %>
 				<% else %>
 					<button class="ui button user-login">Login</button>
