@@ -39,11 +39,11 @@
 						<% end %>
 						<% #user profile name %>
 						<% if @username %>
-						    <%= link_to "#{@username}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@username}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% elsif @first_name and @last_name %>
-						    <%= link_to "#{@first_name} #{@last_name}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@first_name} #{@last_name}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% else %>
-						    <%= link_to "#{@email}", dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
+						    <%= link_to truncate("#{@email}", :length => 18), dashboard_activity_path, class: "nav-username" %> <i class="dropdown icon"></i>
 						<% end %>
 						<div class="menu">
 							<%= link_to "My Activity", dashboard_activity_path, class: "item" %>

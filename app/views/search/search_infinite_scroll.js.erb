@@ -13,9 +13,6 @@
 #    	@search_suburbs, @search_prices, @search_property, @search_feature: Arrays of search query vals from controller (used to build @search_string)
 #    	@suburbs: the array of suburbs that were in the initial search query
 #    	@surrounding_suburbs: an array of hashes of surrounding suburbs, used to broaden the search suburb pool
-#    	
-#   Variables:
-#   	tba
 #   	
 #   ToDo:
 #   	* add sort to this
@@ -51,8 +48,10 @@ $('.search-results-container #loading-animation').css('display', 'block');
 						$('#location').append("<%=j @label_string.html_safe %>");
 					}
 				<% end %>
-				<%# call doSearch to actually do the search %>
-				doSearch();
+				<%# call doSearch to actually do the search, but only on the search page %>
+				if (window.location.pathname.includes('search')){
+					doSearch();
+				}
 			<% else %>
 				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
 				$('#search-broadening-section').css('display', 'none');
@@ -79,7 +78,6 @@ $('.search-results-container #loading-animation').css('display', 'block');
 	<% if @search_property %>
 		<%# loop through and add the property queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
 		<% @search_property.each do |property| %>
-			console.log('going through the @search_property loop');
 			<% @search_string << "property[]=#{property}&" %>
 		<% end %>
 	<% end %>
@@ -113,8 +111,10 @@ $('.search-results-container #loading-animation').css('display', 'block');
 						$('#location').append("<%=j @label_string.html_safe %>");
 					}
 				<% end %>
-				<%# call doSearch to actually do the search %>
-				doSearch();
+				<%# call doSearch to actually do the search, but only on the search page %>
+				if (window.location.pathname.includes('search')){
+					doSearch();
+				}
 			<% else %>
 				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
 				$('#search-broadening-section').css('display', 'none');

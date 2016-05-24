@@ -155,6 +155,12 @@ class SearchController < ApplicationController
 				end
 			end
 		end
+
+		# Respond to js requests with the search_infinite_scroll.js.erb file
+		respond_to do |format|
+			format.html
+			format.js { render :search_infinite_scroll }
+		end
 	end
 
 	#split suburbs from suburb_0000 to 0000
