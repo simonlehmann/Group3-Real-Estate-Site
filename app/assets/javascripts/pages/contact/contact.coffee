@@ -6,13 +6,13 @@
 ready = ->
 	$('.contact-container .ui.form').form fields:
 		firstName:
-	    	identifier: 'first-name'
+	    	identifier: 'first_name'
 	    	rules: [ {
 	      		type: 'empty'
 	      		prompt: 'Please enter your first name'
 	    	} ]
 	  	lastName:
-	    	identifier: 'last-name'
+	    	identifier: 'last_name'
 	    	rules: [ {
 	     		type: 'empty'
 	     		prompt: 'Please enter your last name'

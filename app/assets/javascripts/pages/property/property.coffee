@@ -16,8 +16,8 @@ ready = ->
 		autoplay: true,
 		autoplaySpeed: 4000)
 	#add slick-lightbox
-	$('.property-slick-slide').slickLightbox(
-		itemSelector: '> a')
+	$('.propertySlide').slickLightbox(
+		itemSelector: 'div > a')
 
 	#more description button click
 	$('.more-description').click (e) ->
@@ -33,7 +33,7 @@ ready = ->
 			$(this).children('i').removeClass('chevron down icon')
 			$(this).children('i').addClass('chevron up icon')
 			$(this).children('span').text('Show Less')
-
+			
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready

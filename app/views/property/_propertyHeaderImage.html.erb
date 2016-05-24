@@ -21,13 +21,19 @@
 	<% end %>
 
 	<%# Status "click here to set a status" means if it doesnt have a stus dont have ribbon %>
-			<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
-				<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>
-			<% end %>
+	<% if listing_get_status_readable(@listing) != "Click here to set a status" %>
+		<a class="ui red right ribbon label status-ribbon"><%= listing_get_status_readable(@listing) %></a>
+	<% end %>
 	<%# Property Images %>
 	<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
 		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			<% if @listing.listing_cover_image %>
+				<%# Get the cover image if it exists %>
+				<%= link_to image_tag(@listing.listing_cover_image.image.url(:large_w), alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			<% else %>
+				<%# Placeholder image incase there's no main image  %>
+				<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+			<% end %>
 		</div>
 		<div>
 			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>

@@ -5,21 +5,46 @@
 
 //computer screens
 @media only screen and (min-width: 992px)
-	.mobile-nav
+	.mobile-nav,
+	.logo-header-tablet
+		display: none !important
+	.logo-header-mobile
 		display: none !important
 //mobile and tablet view
 @media only screen and (max-width: 991px)
+	// Fix for sticky nav off screen (but only on pages with a top-nav as this only occurs when there's a top-nav and sticky-nav)
+	// i.e. this is a fix for just the buy and sell pages
+	#sticky-nav.sticky-nav-mobile-fix
+		.container
+			max-width: 86% !important
 	.main-nav,
 	.user-nav,
 	.user-login,
 	.user-signup,
-	.alert-badge
+	.alert-badge,
+	.logo-header,
 		display: none !important
 	//icon, create button
 	.mobile-nav
 		cursor: pointer
 		background-color: transparent
+		padding-top: 20px !important
 		span
 			font-weight: bold
-			padding-right: 5px
-	// Removed pusher as it broke flex footer on sites with less than full page width.
+	.mobile-nav:hover
+		span
+			color: $white-hover
+
+//logo mobile view
+@media only screen and (max-width: 768px)
+	.logo-header-tablet
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 991px) and (min-width: 769px)
+	.logo-header-mobile
+		display: none !important
+//logo tablet view
+@media only screen and (max-width: 432px)
+	.mobile-nav
+		span
+			display: none

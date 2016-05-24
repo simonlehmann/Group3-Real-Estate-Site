@@ -63,13 +63,16 @@ header
 .price-feature-tag,
 	background-color: $red-primary !important
 	color: $white-primary !important
+// Fix for dashboard settings sticky z-index putting it over everything in the site
+.ui.sticky
+	z-index: 101 !important
 // Slick carousel override for the ajax-loader.gif
 .slick-loading .slick-list
 	background: #fff url(image_path('ajax-loader.gif')) center center no-repeat !important
 // Sidebar size fix due to fact we're using transitions
 .ui.sidebar
 	width: 15rem !important
-	z-index: 102 // Put sidebar above header and dimmer
+	z-index: 105 // Put sidebar above header and dimmer
 // Custom dimmer needed as we're not able to use Semantic-UI's pusher due to it breaking our flex-footer on not full screen pages
 .the-dimmer
 	position: fixed
@@ -78,4 +81,63 @@ header
 	left: 0
 	right: 0
 	background-color: rgba(0,0,0,.85)
-	z-index: 101
+	z-index: 103
+//dropdown button
+#criteria_dropdown.active
+	border-radius: 4px 4px 0px 0px
+	i.right.add.icon
+		display: none
+	//dropdown menu
+	.menu.visible
+		margin-top: -1px
+		border-color: transparent
+		border-radius: 0px 0px 4px 4px
+		//individual items - first dropdown
+		div
+			background-color: lighten($blue-primary, 1%)
+			color: $white-primary
+			border-color: transparent
+		div:hover
+			background-color: darken($blue-primary, 2%)
+		//includes all items in both dropdowns and puts a divider inbetween them (besides the last element)
+		div:not(:last-child)
+			border-bottom: 1px solid darken($blue-primary, 2%)
+		.menu
+			margin-top: -1px !important
+			div
+				background-color: lighten($blue-primary, 3%)
+			div:hover
+				background-color: darken($blue-primary, 3%)
+#criteria_dropdown
+	color: $white-primary
+	margin-top: 2.4em
+	background-color: $blue-primary
+	margin-left: -15px
+	i
+		color: $white-primary
+	span
+		color: $white-primary
+	div
+		background-color: $blue-primary
+		color: $white-primary
+#criteria_dropdown:not(.active)
+	i.dropdown.icon
+		display: none
+#tag_dropdown
+	margin-top: 15px
+	max-width: 512px
+	cursor: default
+	.label i
+		cursor: pointer
+	.label
+		padding: 0.55em 0.71428571em !important
+	.price-feature-tag
+		margin-left: 12px
+		padding: 0.557143em 1.1em !important
+#tag_dropdown[class*="right labeled"].icon.button
+	color: $white-primary
+	margin-top: 2.4em
+	background-color: $blue-primary
+	margin-left: -15px
+#criteria_dropdown:hover
+	background-color: $blue-secondary

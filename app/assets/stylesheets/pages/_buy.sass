@@ -13,7 +13,7 @@
 	//state dropdown
 	.state-slection
 		height: 50px
-		min-width: 80px !important
+		min-width: 89px !important
 		font-size: 1.3em
 	//search section header
 	.ui.inverted.header
@@ -31,6 +31,8 @@
 	//search input button:hover
 	.ui.action.input > .button:hover
 		background-color: $green-secondary
+	#buy-search-submit
+		min-width: 89px
 	//search loading icon
 	.search-loading
 		margin-left: 10px
@@ -40,18 +42,6 @@
 		margin-top: 2.4em
 		background-color: $blue-primary
 		margin-left: -15px
-	.ui.dropdown.button
-		color: $white-primary
-		margin-top: 2.4em
-		background-color: $blue-primary
-		margin-left: -15px
-		i
-			color: $white-primary
-		span
-			color: $white-primary
-		div
-			background-color: $blue-primary
-			color: $white-primary
 	//search input, search icon:hover
 	.ui[class*="right labeled"].icon.button:hover
 		background-color: $blue-secondary
@@ -84,39 +74,6 @@
 	.ui.row.search-row .column
 		padding-left: 0.25em
 		padding-right: 0.25em
-	//dropdown button
-	#criteria_dropdown.active
-		border-radius: 4px 4px 0px 0px
-		i.right.add.icon
-			display: none
-		//dropdown menu
-		.menu.visible
-			margin-top: -1px
-			border-color: transparent
-			border-radius: 0px 0px 4px 4px
-			//individual items - first dropdown
-			div
-				background-color: lighten($blue-primary, 1%)
-				color: $white-primary
-				border-color: transparent
-			div:hover
-				background-color: darken($blue-primary, 2%)
-			//includes all items in both dropdowns and puts a divider inbetween them (besides the last element)
-			div:not(:last-child)
-				border-bottom: 1px solid darken($blue-primary, 2%)
-			.menu
-				margin-top: -1px !important
-				div
-					background-color: lighten($blue-primary, 3%)
-				div:hover
-					background-color: darken($blue-primary, 3%)
-	#criteria_dropdown:not(.active)
-		i.dropdown.icon
-			display: none
-	#tag_dropdown
-		cursor: default
-		.label i
-			cursor: pointer
 //triangle under stats/favs section
 div.lead-in.ui.one.wide.column.triangle-lead
 	padding-left: 0px
@@ -128,9 +85,9 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	margin-top: 12px
 //favourites section
 .favourites-section
-	height: 30vh
-	min-height: 305px
-	padding-top: 1%
+	height: auto
+	padding-top: 18px
+	padding-bottom: 15px
 	background-color: $grey-primary
 	h2
 		color: $white-primary !important
@@ -143,6 +100,13 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		img
 			width: 100%
 			height: auto
+	//address favourites
+	.address
+		color: white
+		background-color: $grey-fav
+		width: 100%
+		padding-top: 10px
+		padding-bottom: 10px
 //stats section
 .stats-section
 	@extend .favourites-section
@@ -168,6 +132,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 //twitter section
 .twitter-feed
 	margin-top: 0 !important
+	min-width: 373px
 	.ui .items
 		background-color: #F3F3F3
 		padding: 0px
@@ -191,24 +156,35 @@ div.lead-in.ui.one.wide.column.triangle-lead
 			color: $green-secondary !important
 	.meta
 		padding: 4px
-
+.feature-list
+	min-width: 511px
+	width: 100%
+	max-width: 647px
 .feature-property-container
+	max-width: 555px
 	.left
 		float: left
 		margin: 0px 15px 35px 0px
 	.main-divs
-		background-color: $white-fav
+		background-color: darken($white-primary, 2%)
 		margin-bottom: 10px
+	.main-divs:hover
+		background-color: darken($white-primary, 5%)
+		cursor: pointer
 	.picture-div
 		img
-			width: 100%
+			max-width: 245px
 			height: auto
 	.tags
 		float: bottom
 	.top
 		height: 70%
+		min-width: 200px
 	.bottom
 		height: 30%
+	.shower img
+
+		height: 20px
 
 
 .favouritesSlide
@@ -218,6 +194,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 		width: 100%
 		padding-top: 10px
 		padding-bottom: 10px
+
 //Header images for geolocater
 .wa-img
 	background: url(image_path('landing-header.png')) no-repeat

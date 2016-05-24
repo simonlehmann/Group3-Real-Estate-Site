@@ -5,13 +5,15 @@
 .search-container
 	//submenu on left of results
 	.search-submenu
-		min-height: 40vh
+		height: auto
+		padding-bottom: 5px
 		background-color: $grey-blue-primary
 		border-radius: 5px
 	#search-sticky
 		padding-top: 50px
+		z-index: 100
 		.segment
-			background: $transparent
+			background-color: $grey-blue-primary
 		#tag-searchfield
 			h5:not(:first-child)
 				margin-top: 6px
@@ -29,6 +31,10 @@
 			margin-top: 2.4em
 			background-color: $blue-primary
 			margin-left: -15px
+		#criteria_dropdown
+			margin: 0 auto
+			font-size: 1em
+			margin-top: 15px
 	//filter dropdown button in divider
 	.search-filter
 		background: transparent
@@ -50,7 +56,9 @@
 //card moved back so it's not nested inside .search-container so it can be used properly in the manage-listing-preview
 .property-card
 	width: 90%
-	//left corner fav selection
+	// title link
+	.title-link
+		color: $grey-primary
 	.title-link:hover
 		color: $green-secondary
 	//shower icon

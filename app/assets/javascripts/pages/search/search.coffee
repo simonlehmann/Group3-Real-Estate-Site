@@ -4,13 +4,16 @@
 # The following coffeescript is for the search page
 # 
 # TODO:
-# add a false to search so it has a tool tip to add some criteria or sililar
+#    * add a false to search so it has a tool tip to add some criteria or sililar
+#    * Clean up the alert/tooltip for a logged out user when they click the add-favourites button
+
 ready = ->
 	#search button and call search toconfigure query
 	$('#buy-search-submit').click ->
 		doSearch()
 
-	doSearch = ->
+	# Changed doSearch to @doSearch so it can be called from .js.erb files
+	@doSearch = ->
 		#initialise array for search suburbs, price tags, property tags and feature tags
 		search_tags = []
 		property_tags = []
@@ -19,11 +22,40 @@ ready = ->
 		#get each :selected tag and push their value into the search_tags array
 		$('#search-field :selected').each ->
 			search_tags.push $(this).val()
+
+		# Get the search location tags when on the search results page
 		if $('#location div').length
 			#iterate through suburb tags
 			$('#location .suburb-label').each ->
 				sub = 'suburb_' + $(this).data('subid')
 				search_tags.push sub
+
+		# Get the additional feature tags from the search config panel so the search can be changed
+		# Property tags first
+		if $('#property div').length
+			$('#property div').each ->
+				# Get the qty and category
+				qty = $(this).data 'qty'
+				category = $(this).data 'category'
+				# Pluralise the category if it was singular and not parking
+				if qty == 1 and category != 'Parking'
+					category = category + 's'
+				# add the property to the property_tags array
+				property = category + '_' + qty
+				property_tags.push property
+		# Then the feature tags
+		if $('#features div').length
+			$('#features div').each ->
+				# We don't need any processing so lets just add the feature to the feature_tags array
+				feature = $(this).data 'feature'
+				feature_tags.push feature
+		# Then the price tags
+		if $('#price div').length
+			$('#price div').each ->
+				# Grab the inner text as it's formatted like $100,000 which is what the search needs. (Remove all spaces/new line characters)
+				# And append it to the price_tags array
+				price = $(this).text().replace(/\r?\n|\r|\s+/gm,'')
+				price_tags.push price
 
 		# Get the extra search criteria added via the 'Add Search Criteria' dropdown (id = tag_dropdown, and they all should have the .label class)
 		additional_criteria_tags = $('#tag_dropdown .label')
@@ -44,7 +76,6 @@ ready = ->
 						property_tags.push tag_label
 
 		#there is length to the seach thats perform ajax action to search page and query
-		# This doesn't actually do anything atm. It will allow a blank search
 		if search_tags
 			$.ajax
 				type: 'POST'
@@ -63,19 +94,16 @@ ready = ->
 		context: '#search-feed'
 	$('.search-container .search-filter').dropdown
 		allowCategorySelection: true
-	#fav a property by adding favd class toggle
-	#$('.property-card .fav-property').click( ->
-	#	$(this).children('i').toggleClass('favd'))
 	#remove label in nav menu when the x is clicked
-	$('.search-submenu .delete.icon').click( ->
+	$(document).on 'click', '.search-submenu .delete.icon', ->
 		#remove from navbar
 		$(this).parent().remove()
 		#perform click on search, to reload the page without the new tag
-		doSearch())	
+		doSearch()
 
-	#So this is erdals attempt at doing the coffee script for favouriting a property
-	#no where near done
-	$('.fav-property').click ->
+	# Toggle the property as favourited when clicked (either on or off)
+	# Changed trigger to be document wide so it will work on fav-property buttons that are loaded asynchronously via infinite scroll
+	$(document).on 'click', '.fav-property', ->
 		listing_id = $(this).data 'id'
 		if $(this).children('i').hasClass('favd')
 			is_favourited = "true"
@@ -91,10 +119,23 @@ ready = ->
 						listing_id: listing_id
 						is_favourited: is_favourited
 					success: (response) ->
+						# Toggle the favd class on the star
 						$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
 		else
 			alert 'You must be logged in to be able to favourite a property.'
 
+	# Infinite scroll code for search results
+	$('.search-results-container').infinitePages
+		# buffer: -250
+		# Change the state of the pagination link on loading and error.
+		loading: ->
+			# Change the link text
+			$(this).text 'Loading more'
+		error: ->
+			# Change the link text
+			$(this).text 'There was an error retrieving more search results, please try again'
+
+	return
 # Turbolinking only runs the $(document).ready on initial page load. 
 # So we need to assign 'ready' to both document.ready and page:load (which is a turboscript thing)
 $(document).ready ready
