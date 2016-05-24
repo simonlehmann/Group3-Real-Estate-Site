@@ -26,32 +26,16 @@
 	<% end %>
 	<%# Property Images %>
 	<div class="propertySlide" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
-		<div>
-			<% if @listing.listing_cover_image %>
-				<%# Get the cover image if it exists %>
-				<%= link_to image_tag(@listing.listing_cover_image.image.url(:large_w), alt:"Property Image"), "http://placekitten.com/1600/1300" %>
+			<% if @listing.listing_images %>
+				<% @listing.listing_images.each do |image| %>
+					<div>
+						<%# Get the cover image if it exists %>
+						<%= link_to image_tag(image.image.url(:large_w), alt:"Property Image"), "#{image.image.url(:original)}" %>
+					</div>
+				<% end %>
 			<% else %>
 				<%# Placeholder image incase there's no main image  %>
-				<%= image_tag "placeholder_w.png", alt: "Property Image" %>
+				<div><%= image_tag "placeholder_w.png", alt: "Property Image" %></div>
 			<% end %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1200/700" %>
-		</div>
-		<div>
-			<%= link_to image_tag("propertyImage.png", alt:"Property Image"), "http://placekitten.com/1600/1300" %>
-		</div>
 	</div>
 </div>

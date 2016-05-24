@@ -11,12 +11,12 @@
 <div class="ui center aligned container">
 	<!-- Section Header -->
 	<h2 class="ui header"><i class="star icon"></i>Your Favourites</h2>
-	<!-- Slick Carousel -->
-	<div class="favouritesSlide" data-slick=''>
-		<!-- Get favourites object array -->
-		<% favourites = get_favourites_object_array %>
-		<!-- If favourites exist, create a div for each one -->
-		<% if favourites %>
+	<!-- Get favourites object array -->
+	<% favourites = get_favourites_object_array %>
+	<!-- If favourites exist, create a div for each one -->
+	<% if favourites.length > 0 %>
+		<!-- Slick Carousel -->
+		<div class="favouritesSlide" data-slick=''>
 			<% favourites.each do |fav| %>
 				<!-- Get the listing object -->
 				<% listing = listing = fav.favourite_listing %>
@@ -36,6 +36,13 @@
 					</div>
 				<% end %>
 			<% end %>
+		</div>
+	<% else %>
+		<%= link_to search_path do %>
+			<i class="huge icons add-favourites">
+				<i class="big thin circle icon"></i>
+				<i class="plus icon"></i>
+			</i>
 		<% end %>
-	</div>
+	<% end %>
 </div>
