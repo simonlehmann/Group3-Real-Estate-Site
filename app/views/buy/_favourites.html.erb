@@ -23,7 +23,7 @@
 				<!-- If there is a listing, continue -->
 				<% if listing %>
 					<!-- Create the div and make it clickable with the property path -->
-					<div onclick="location.href='<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>';" style="cursor:pointer;">
+					<div class="favourite-element" onclick="location.href='<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>';">
 						<!-- If the listing has an image, use it -->
 						<% if listing.listing_cover_image %>
 							<%= image_tag listing.listing_cover_image.image.url(:medium_w), alt: "Favourite Image" %>
