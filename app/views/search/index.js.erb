@@ -33,16 +33,20 @@ $('.search-results-container #loading-animation').css('display', 'block');
 
 <%# Update the pagination link in a way that works for both infinite scrolling and search %>
 <% if @listings.last_page? %>
+	console.log('LP: have listings and are on last page');
 	<%# We've reached the end of our @listings collection so lets hide the pagination block (containing the link and the loading animation) %>
 	$('.pagination').html("No more results to show");
 	$('#pagination-block').css('display', 'none');
 	<% if @suburbs %>
+		console.log('LP: we are on last page and have suburbs, about to potentially broaden');
 		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
 		$('#search-broadening-section').css('display', 'block');
 		<%# Add the broadening search suburbs to the search-config section %>
 		<% if @surrounding_suburbs %>
+			console.log('LP: have surrounding suburbs and about to broaden as were on the last page');
 			<%# Only run this if the @surrounding suburbs array isn't too long (i.e. it will keep broadening search results otherwise) %>
 			<% if @surrounding_suburbs.length <= 8 %>
+				console.log('LP: adding suburbs to broadening section');
 				<% @surrounding_suburbs.each do |suburb| %>
 					<%# Build the label for the new suburb %>
 					<% @label_string = '<div class="ui property-feature-tag label suburb-label" data-subid="' + suburb["id"] + '" data-suburb="' + suburb["suburb"] + '">' + suburb["suburb"] + '<i class="delete icon"></i></div>' %>
@@ -52,6 +56,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 					}
 				<% end %>
 				<%# call doSearch to actually do the search %>
+				console.log('LP: about to call search again');
 				doSearch();
 			<% else %>
 				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>
@@ -79,7 +84,6 @@ $('.search-results-container #loading-animation').css('display', 'block');
 	<% if @search_property %>
 		<%# loop through and add the property queries (we don't need to check for an & because it's either a blank search_string or it ends with one from the others %>
 		<% @search_property.each do |property| %>
-			console.log('going through the @search_property loop');
 			<% @search_string << "property[]=#{property}&" %>
 		<% end %>
 	<% end %>
@@ -91,13 +95,16 @@ $('.search-results-container #loading-animation').css('display', 'block');
 		<% end %>
 	<% end %>
 
+	console.log('Not last Page: building pagination link');
 	<%# We now have our search string (which ends in a '&'), so lets add that to the pagination link so the next page can be rendered %>
 	$('.pagination').html("<%=j link_to('Show More Search Results', '/search?' + @search_string + 'page=' + (@listings.current_page + 1).to_s, remote: true, rel: 'next') %>");
 <% end %>
 
 <%# Separate search broadening section here in case no initial results %>
 <% if !@listings %>
+	console.log('NL: theres no listings, so lets get the broadening');
 	<% if @suburbs %>
+		console.log('NL: have suburbs, but no listings');
 		$('#search-no-results-header').css('display', 'none');
 		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
 		$('#search-broadening-section').css('display', 'block');
@@ -114,6 +121,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 					}
 				<% end %>
 				<%# call doSearch to actually do the search %>
+				console.log('NL: do search for broadening with no listings')
 				doSearch();
 			<% else %>
 				<%# hide the search-broadening-section again as we're now doing search again, with a wider search pool!!!! %>

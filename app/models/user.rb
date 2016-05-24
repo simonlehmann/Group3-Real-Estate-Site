@@ -67,19 +67,19 @@ class User < ActiveRecord::Base
 	has_many :user_listing_images, class_name: "ListingImage", inverse_of: :image_user, foreign_key: "listing_image_id", dependent: :destroy
 
 	# A user can have many messages to them, but will destroy them all when the user object is deleted
-	has_many :messages_to, class_name: "Message", inverse_of: :message_to_user, foreign_key: "message_id", dependent: :destroy
+	has_many :messages_to, class_name: "Message", inverse_of: :message_to_user, foreign_key: "message_to_user_id", dependent: :destroy
 
 	# A user can have many messages from them, but will destroy them all when the user object is deleted
-	has_many :messages_from, class_name: "Message", inverse_of: :message_from_user, foreign_key: "message_id", dependent: :destroy
+	has_many :messages_from, class_name: "Message", inverse_of: :message_from_user, foreign_key: "message_from_user_id", dependent: :destroy
 
 	# A user can have many favourites, but will destroy them all when the user object is deleted
-	has_many :user_favourites, class_name: "Favourite", inverse_of: :favourite_user, foreign_key: "favourite_id", dependent: :destroy
+	has_many :user_favourites, class_name: "Favourite", inverse_of: :favourite_user, foreign_key: "favourite_user_id", dependent: :destroy
 
 	# A user can have many blockages to them, but will destroy them all when the user object is deleted
-	has_many :blockages_to, class_name: "Blockage", inverse_of: :blockage_to_user, foreign_key: "blockage_id", dependent: :destroy
+	has_many :blockages_to, class_name: "Blockage", inverse_of: :blockage_to_user, foreign_key: "blockage_to_user_id", dependent: :destroy
 
 	# A user can have many blockages from them, but will destroy them all when the user object is deleted
-	has_many :blockages_from, class_name: "Blockage", inverse_of: :blockage_from_user, foreign_key: "blockage_id", dependent: :destroy
+	has_many :blockages_from, class_name: "Blockage", inverse_of: :blockage_from_user, foreign_key: "blockage_from_user_id", dependent: :destroy
 
 	# User avatar
 	has_attached_file :avatar, styles: {
