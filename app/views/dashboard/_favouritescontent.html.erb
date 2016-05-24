@@ -25,15 +25,14 @@
 					<div class="content">
 						<a href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>" class="header"><%= listing.listing_address %></a>
 						<div class="meta">
-							<span>Property Description</span>
+							<span>
+								<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+									<p><%= listing_get_status_readable(listing) %></p>
+								<% end %>
+							</span>
 						</div>
 						<div class="description">
 							<p><%= listing.listing_description %></p>
-						</div>
-						<div class="extra">
-							<% if listing_get_status_readable(listing) != "Click here to set a status" %>
-								<p><%= listing_get_status_readable(listing) %></p>
-							<% end %>
 						</div>
 					</div>
 				</div>
