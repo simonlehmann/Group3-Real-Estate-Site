@@ -24,7 +24,7 @@
 
 <%# We are not sorting, or we are on the next page so we don't clear the table %>
 <%# Append new data to the infinit-table cards list as we're not sorting %>
-<% if @searching %>
+<% if @searching == true %>
 	<% @listings.each do |listing| %>
 		$('#search-results-table').append("<%=j render(partial: 'search/propertyresult', locals: { listing: listing }) %>");
 	<% end %>
