@@ -74,8 +74,9 @@ ready = ->
 				$(this).removeClass('active')
 		# Remove the label
 		$(this).parent().remove()
-		# Check if there are any labels left in the dropdown
-		if criteria_tag_field.find('div').length < 1
+		# Check if there are any labels left in the dropdown 
+		# Need to select div.label to hide when all labels are gone, otherwise it won't hide as the criteria_tag_field contains a dropdown div
+		if criteria_tag_field.find('div.label').length < 1
 			# Hide the label dropdown
 			criteria_tag_field.hide()
 	# Initially, hide the criteria dropdown
