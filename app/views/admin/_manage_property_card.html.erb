@@ -83,12 +83,18 @@
 
 						<% # The bottom info bar showing a tag row, and a row of views, comments, favourites and expiry %>
 						<div class="manage-property-bottom">
-							<div class="ui horizontal list">
-								<div class="item"><%= number_to_currency(listing.listing_price_min, precision: 0) %> - <%= number_to_currency(listing.listing_price_max, precision: 0) %></div>
-								<div class="item"><%= listing.listing_bedrooms %></div>
-								<div class="item"><%= listing.listing_bathrooms %></div>
-								<div class="item"><%= listing.listing_parking %></div>
-								<div class="item"><%= listing.listing_land_size %></div>
+							<div class="ui horizontal list">								
+								<div class="item">
+									<% if listing.listing_price_type == "F" %>
+										<%= number_to_currency(listing.listing_price_min, { precision: 0 }) %>
+									<% else %>
+										<%= number_to_currency(listing.listing_price_min, { precision: 0 }) %> - <%= number_to_currency(listing.listing_price_max, { precision: 0, unit: "" }) %>
+									<% end %>
+								</div>
+								<div class="item"><%= listing.listing_bedrooms %> <i class="bed icon"></i></div>
+								<div class="item"><%= listing.listing_bathrooms %> <i class="shower"><%= image_tag "icon_shower_mini.png", alt: "shower icon" %></i></div>
+								<div class="item"><%= listing.listing_parking %> <i class="car icon"></i></div>
+								<div class="item"><%= listing.listing_land_size %> sqm</div>
 							</div>
 						</div>
 					</div>
