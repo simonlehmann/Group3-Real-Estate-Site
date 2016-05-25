@@ -165,13 +165,13 @@
 						<%= link_to sell_path(listing.listing_user_id) do %>
 							<%# Username %>
 							<% if listing.listing_user.username.length != 0 %>
-									<span><%= listing.listing_user.username %></span>
+									<span><%= truncate(listing.listing_user.username, length: 18) %></span>
 							<%# First name & Surname %>
 							<% elsif listing.listing_user.first_name.length != 0 and listing.listing_user.last_name.length != 0 %>
-									<span><%= listing.listing_user.first_name %> <%= listing.listing_user.last_name %></span>
+									<span><%= truncate(listing.listing_user.first_name + " " + listing.listing_user.last_name, length: 18) %></span>
 							<%# E-mail %>
 							<% else %>
-								<span><%= listing.listing_user.email %></span>
+								<span><%= truncate(listing.listing_user.email, length: 18) %></span>
 							<% end %>
 						<% end %>
 					</li>
@@ -200,9 +200,11 @@
 					<%= tag[0] %>
 				</div>
 			<% end %>
+			<%# 
 			<div class="ui location-feature-tag label">1.3km from your Work</div>
 			<div class="ui location-feature-tag label">5.1km from Schools</div>
 			<div class="ui location-feature-tag label">2.3km from Shopping Centre</div>
+			 %>
 		</div>
 	</div>
 	<div class="extra content">

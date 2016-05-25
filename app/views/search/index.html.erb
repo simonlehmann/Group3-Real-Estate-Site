@@ -12,6 +12,7 @@
 # => nav side bar is works with recieved content
 # => nav side bar label clear when clicked
  %>
+<% title "Propertydome Search" %>
 <section class="search-container nobanner-container ui container">
 	<div class="ui sixteen wide grid stackable">
 		<div class="ui rail four wide column" id="search-sticky">
@@ -24,6 +25,9 @@
 		</div>
 		<%# search results content %>
 		<div class="ui twelve wide column" id="search-feed">
+			<div class="search-section suburb-search-section suburb-section-hide">
+				<%= render "buy/search" %>
+			</div>
 			<%# search filter %>
 			<div class="ui dropdown button search-filter">
 				<span class="text">Recent</span>

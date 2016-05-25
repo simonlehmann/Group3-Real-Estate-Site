@@ -9,7 +9,8 @@
 ready = ->
 	# Add initial header image
 	state_inital = $('#search-state-field :selected').val()
-	changeImage(state_inital)
+	if window.location.pathname.includes 'buy'
+		changeImage(state_inital)
 	
 	#search dropdown
 	$('.search-section .ui.dropdown').dropdown fullTextSearch: true
@@ -25,7 +26,8 @@ ready = ->
 		# Clear the old data from the search dropdown
 		$('#search-field').empty()
 		$('#search-field').dropdown 'clear'
-		changeImage(state)
+		if window.location.pathname.includes 'buy'
+			changeImage(state)
 		remove_classes(state)
 		# Update the dropdown via an Ajax call to the server
 		$.ajax
