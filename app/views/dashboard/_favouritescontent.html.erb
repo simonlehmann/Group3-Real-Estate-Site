@@ -6,31 +6,46 @@
 #
 #   Partial to display the favourites for the user
 %>
-
+<!--Headerino-->
 <h1 class="ui center aligned">Favourites</h1>
+<!--Items container-->
 <div class="ui divided items">
+	<!--Get an array of favourites for the user-->
 	<% favourites = get_favourites_object_array %>
+	<!--If the user has favouritres, continue-->
 	<% if favourites %>
+		<!--For each favourite, display it as an item-->
 		<% favourites.each do |fav| %>
+			<!--Get the listing object for the favourite-->
 			<% listing = fav.favourite_listing %>
+			<!--If listing object exists-->
 			<% if listing %>
+				<!--Create item div-->
 				<div class="item">
+				<!--All the, small things... True care.. Truth bring..-->
 					<div class="ui small image">
+						<!--If the listing has an image set it-->
 						<% if listing.listing_cover_image %>
+							<!--Get image, set size to medium and apply alternative text-->
 							<%= image_tag listing.listing_cover_image.image.url(:medium), alt: "Property Image" %>
 						<% else %>
+							<!--If the listing has no image use the placeholder-->
 							<%= image_tag "placeholder_w.png", alt: "Property Image" %>
 						<% end %>
 					</div>
+					<!--Set the content for the item-->
 					<div class="content">
+						<!--Create a clickable header which links to the property page, set the text to the address-->
 						<a href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>" class="header"><%= listing.listing_address %></a>
 						<div class="meta">
 							<span>
+								<!--If the listing has a status, display it-->
 								<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 									<p><%= listing_get_status_readable(listing) %></p>
 								<% end %>
 							</span>
 						</div>
+						<!--Set the description for the item to the listings description-->
 						<div class="description">
 							<p><%= listing.listing_description %></p>
 						</div>
