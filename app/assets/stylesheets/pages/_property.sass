@@ -45,7 +45,6 @@
 	//favourite button
 	.fav-property
 		border-color: $transparent
-		left: 10px !important
 		top: 10px !important
 		i
 			color: $grey-lighter
@@ -58,6 +57,9 @@
 			cursor: pointer !important
 		.favd
 			color: $yellow-hover
+	//overwrite correctly on fav star
+	a.ui.left.corner.label.fav-property
+		left: 20px !important
 	// property details
 	.property-details-section
 		margin-top: 11px !important
