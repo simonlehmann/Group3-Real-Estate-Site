@@ -12,7 +12,12 @@
  %>
 <% #Main search input field on index root %>
 <div class="ui centered grid">
-	<div class="ui twelve wide two column row search-row stackable">
+	<% if current_page?(buy_path) %>
+		<div class="ui twelve wide two column row search-row stackable">
+	<% else %>
+		<div class="ui sixteen wide two column row search-row stackable">
+	<% end %>
+	
 		<% # The state selector dropdown %>
 		<div class="ui two wide column">
 			<% states_short_long = get_states_short_long() %>

@@ -8,6 +8,11 @@
 #    * Clean up the alert/tooltip for a logged out user when they click the add-favourites button
 
 ready = ->
+	
+	#remove header image from search section on search page (only needed for buy page)
+	if window.location.pathname.includes 'search'
+		$('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
+
 	#search button and call search toconfigure query
 	$('#buy-search-submit').click ->
 		doSearch()
@@ -123,6 +128,14 @@ ready = ->
 					$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
 		else
 			alert 'You must be logged in to be able to favourite a property.'
+
+	#click toggle search for more suburbs
+	$(document).on 'click', '.suburb-search-toggle', ->
+		$('.suburb-search-section').toggle('suburb-section-hide')
+		if $('> i', this).hasClass('plus')
+			$('> i', this).removeClass('plus icon').addClass('minus icon')
+		else
+			$('> i', this).removeClass('minus icon').addClass('plus icon')
 
 	# Infinite scroll code for search results
 	$('.search-results-container').infinitePages

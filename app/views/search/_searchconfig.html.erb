@@ -10,7 +10,6 @@
 			<% end %>
 		<% end %>
 	</div>
-
 	<%# Get the property tags from the search query, with the property category (Bedrooms...)
 	and qty (1, 2, ...), but display the tag QTY Category%>
 	<div id="property">
@@ -58,5 +57,9 @@
 			<% end %>
 		<% end %>
 	</div>
+</div>
+<div class="ui dropdown right labeled icon button suburb-search-toggle">
+	<span class="text" id="button-name">Add more suburbs</span>
+	<i class="right add icon"></i>
 </div>
 <%= render partial: "buy/criteria" %>
