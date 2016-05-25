@@ -111,16 +111,16 @@ ready = ->
 			is_favourited = "false"
 
 		if listing_id.length != 0 and is_favourited.length != 0
-				$.ajax
-					type: 'POST'
-					url: 'toggle-favourites'
-					data:
-						_method: 'PUT'
-						listing_id: listing_id
-						is_favourited: is_favourited
-					success: (response) ->
-						# Toggle the favd class on the star
-						$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
+			$.ajax
+				type: 'POST'
+				url: 'toggle-favourites'
+				data:
+					_method: 'PUT'
+					listing_id: listing_id
+					is_favourited: is_favourited
+				success: (response) ->
+					# Toggle the favd class on the star
+					$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
 		else
 			alert 'You must be logged in to be able to favourite a property.'
 
