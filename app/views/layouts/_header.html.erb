@@ -20,7 +20,7 @@
 						<%= link_to "My Activity", dashboard_activity_path, class: "activity-item item" %>
 						<% #if logged in user is Admin show admin button/path %>
 						<% if @user_type == "Admin" %>
-							<%= link_to "Admin", admin_path, class: "admin-item item" %>
+							<%= link_to "Admin", admin_index_path, class: "admin-item item" %>
 						<% end %>
 					<% #if logged out show contact us button/path %>
 					<% else %>
