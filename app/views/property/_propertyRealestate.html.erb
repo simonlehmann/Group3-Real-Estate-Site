@@ -18,11 +18,15 @@
 	</li>
 	<li>
 		<%# User Company %>
-		<span>Realestate Company Name</span>
+		<% if @listing.listing_user.company_name %>
+			<span><%= @listing.listing_user.company_name %></span>
+		<% end %>
 	</li>
 	<li>
 		<%# User Phone %>
-		<%= button_to "04 123 456 78", url_for("callto://0412345678"), class:"ui inverted green button" %>
+		<% if @listing.listing_user.contact_phone %>
+			<%= button_to @listing.listing_user.contact_phone, url_for("callto://#{@listing.listing_user.contact_phone}"), class:"ui inverted green button" %>
+		<% end %>
 	</li>
 	<li>
 		<%# User Email %>
