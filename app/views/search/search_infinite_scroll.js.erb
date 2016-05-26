@@ -33,7 +33,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 	<%# We've reached the end of our @listings collection so lets hide the pagination block (containing the link and the loading animation) %>
 	$('.pagination').html("No more results to show");
 	$('#pagination-block').css('display', 'none');
-	<% if @suburbs %>
+	<% if @suburbs.size > 0 %>
 		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
 		$('#search-broadening-section').css('display', 'block');
 		<%# Add the broadening search suburbs to the search-config section %>
@@ -95,7 +95,7 @@ $('.search-results-container #loading-animation').css('display', 'block');
 
 <%# Separate search broadening section here in case no initial results %>
 <% if !@listings %>
-	<% if @suburbs %>
+	<% if @suburbs.size > 0 %>
 		$('#search-no-results-header').css('display', 'none');
 		<%# Show the expanding search section with the caption and the loading icon (only if there were suburbs in the initial search query) %>
 		$('#search-broadening-section').css('display', 'block');
