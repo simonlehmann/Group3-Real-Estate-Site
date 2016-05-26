@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20160506141127) do
     t.string   "last_name",              limit: 32
     t.string   "username",               limit: 64
     t.string   "email",                  limit: 255, default: "",     null: false
-    t.integer  "contact_phone",          limit: 4
+    t.string   "contact_phone",          limit: 10
     t.string   "company_name",           limit: 64
     t.string   "user_type",              limit: 0,   default: "User", null: false
     t.string   "encrypted_password",     limit: 255, default: "",     null: false

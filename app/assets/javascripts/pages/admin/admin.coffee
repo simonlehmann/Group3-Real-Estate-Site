@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
-  $('.admin.tabular.menu .item').tab()
-  return
+	$('.admin.tabular.menu .item').tab()
+	
+	return
+	
 $(document).ready ready
