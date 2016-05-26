@@ -10,6 +10,8 @@
 # 		last_name: varchar(32), NULLABLE
 # 		username: varchar(64), NULLABLE
 # 		email: varchar(255)
+# 		contact_phone: int(10), NULLABLE
+# 		company_name: varchar(64), NULLABLE
 # 		user_type: set('User', 'Staff', 'Admin'): default:User
 #   	encrypted_password: varchar(255)
 #   	reset_password_token: varchar(255), NULLABLE

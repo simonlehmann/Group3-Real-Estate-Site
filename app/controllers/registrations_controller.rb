@@ -7,7 +7,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-	# Overide the devise update action so it redirects to dashboard_settings if there's an error thereby negating the need for the 
+	# Overide the devise update action so it redirects to dashboard_settings if there's an error thereby negating the need for the
 	# default devise registrations edit page
 	def update
 		self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
@@ -80,7 +80,7 @@ class RegistrationsController < Devise::RegistrationsController
 	# 		redirect_to :dashboard_settings
 	# 	end
 	# end
-	
+
 	protected
 
 	# Redirect to the dashboard settings page after successful sign up
@@ -107,7 +107,7 @@ class RegistrationsController < Devise::RegistrationsController
 	# Used when updating the user, we require the user object and permit the other
 	def account_update_params
 		# Edit this to include the params you need to include/permit when updating (devise will handle it)
-		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password,
+		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :contact_phone, :company_name, :password, :password_confirmation, :current_password,
 			:avatar_original_w, :avatar_original_h, :avatar_box_w, :avatar_aspect, :avatar_crop_x, :avatar_crop_y, :avatar_crop_w, :avatar_crop_h)
 	end
 
