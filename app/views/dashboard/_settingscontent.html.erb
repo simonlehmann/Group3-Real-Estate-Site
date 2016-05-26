@@ -184,23 +184,26 @@
 				<%= f.text_field :last_name, placeholder: "Last Name" %>
 			</div>
 		</div>
+		
+		<div class="two fields">
+			<% # Contact Phoone field %>
+			<div class="field">
+				<label>Contact Phone</label>
+				<%= f.text_field :contact_phone, placeholder: "Contact Phone" %>
+			</div>
+
+			<% # Company Name field %>
+			<div class="field">
+				<label>Company Name</label>
+				<%= f.text_field :company_name, placeholder: "Company Name" %>
+			</div>
+		</div>
+		
 
 		<% # Email field %>
 		<div class="required field">
 			<label>Email</label>
 			<%= f.email_field :email, placeholder: "email@address.com" %>
-		</div>
-
-		<% # Contact Phoone field %>
-		<div class="required field">
-			<label>Contact Phone</label>
-			<%= f.text_field :contact_phone, placeholder: "Contact Phone" %>
-		</div>
-
-		<% # Company Name field %>
-		<div class="required field">
-			<label>Company Name</label>
-			<%= f.text_field :company_name, placeholder: "Company Name" %>
 		</div>
 
 		<div class="ui error message"></div>

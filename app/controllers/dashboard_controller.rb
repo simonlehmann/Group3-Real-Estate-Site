@@ -38,12 +38,6 @@ class DashboardController < ApplicationController
 		render "dashboard/index"
 	end
 
-	def get_favourites_address
-		user = current_user
-		favourites = Favourite.where(favourite_user_id: current_user)
-		return favourites[0].favourite_listing_id
-	end
-
 	# Show the crop avatar page outside of uploading a new image
 	# (Turned off as this action isn't used for the time being.
 	# The crop action is now handled on dashboard/settings inside a modal)
@@ -51,8 +45,4 @@ class DashboardController < ApplicationController
 	# 	@user = current_user
 	# 	render "dashboard/crop"
 	# end
-	def get_listing_details(fav_listing_id)
-		listing = Listing.find_by_listing_id(fav_listing_id)
-		return listing
-	end
 end

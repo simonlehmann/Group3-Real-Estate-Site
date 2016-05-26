@@ -219,7 +219,7 @@ ready = ->
 		return
 
 	#calling enableDisableButton() function on load
-	if window.location.pathname.includes('dashboard/settings')
+	if window.location.pathname.includes('dashboard')
 		enableDisableButton()
 	$('input#message').keyup ->
 		#calling enableDisableButton() function on keyup
