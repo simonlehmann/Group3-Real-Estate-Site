@@ -27,8 +27,8 @@ ready = ->
 		$('#search-field').empty()
 		$('#search-field').dropdown 'clear'
 		if window.location.pathname.includes 'buy'
+			# Call the changeImage function with the state choice (this now removes images as well)
 			changeImage(state)
-		remove_classes(state)
 		# Update the dropdown via an Ajax call to the server
 		$.ajax
 			type: 'POST'
