@@ -24,7 +24,7 @@
 	</li>
 	<li>
 		<%# User Phone %>
-		<% if @listing.listing_user.company_name %>
+		<% if @listing.listing_user.contact_phone %>
 			<%= button_to @listing.listing_user.contact_phone, url_for("callto://#{@listing.listing_user.contact_phone}"), class:"ui inverted green button" %>
 		<% end %>
 	</li>
