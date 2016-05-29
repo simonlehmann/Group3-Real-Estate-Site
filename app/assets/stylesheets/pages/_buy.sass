@@ -163,14 +163,11 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	.meta
 		padding: 4px
 .feature-list
-	min-width: 511px
 	width: 100%
 	max-width: 647px
+// Featured property container
 .feature-property-container
 	max-width: 555px
-	.left
-		float: left
-		margin: 0px 15px 35px 0px
 	.main-divs
 		background-color: darken($white-primary, 2%)
 		margin-bottom: 10px
@@ -183,14 +180,20 @@ div.lead-in.ui.one.wide.column.triangle-lead
 			height: auto
 	.tags
 		float: bottom
-	.top
-		height: 70%
-		min-width: 200px
-	.bottom
-		height: 30%
+	// Use 1em size for shower image so it scales with other semantic icons
 	.shower img
-
-		height: 20px
+		height: 1em
+	// Properly fix the positioning of the bottom elements using flex
+	.featured-flex-column
+		height: auto
+		display: flex !important
+		flex-direction: column
+		.top
+			flex-grow: 1
+			padding-bottom: 1em
+		.bottom
+			i
+				margin-right: 1em
 
 .add-favourites
 	color: $white-primary

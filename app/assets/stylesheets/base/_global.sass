@@ -1,3 +1,4 @@
+// Global site styles
 body
 	height: 100%
 ::-moz-selection
@@ -20,12 +21,17 @@ header
 //For pages without a banner! -- Margin for a container to place it under header
 .nobanner-container
 	margin-top: 8em
+// Fix for the scroll right issue in safari, using .site-content overflow-x: hidden and
+// Hiding the scrollbar display
+::-webkit-scrollbar
+	display: none
 // The following fix the footer issues so the footer is on the bottom even if the site has less content
 .site
 	display: flex
 	flex-direction: column
 	min-height: 100% // Needs to be % not vh
 .site-content
+	overflow-x: hidden // Fix for safari right scroll issue
 	flex: 1 0 auto
 .site-content::after
 	content: '\00a0'
