@@ -21,17 +21,12 @@ header
 //For pages without a banner! -- Margin for a container to place it under header
 .nobanner-container
 	margin-top: 8em
-// Fix for the scroll right issue in safari, using .site-content overflow-x: hidden and
-// Hiding the scrollbar display
-::-webkit-scrollbar
-	display: none
 // The following fix the footer issues so the footer is on the bottom even if the site has less content
 .site
 	display: flex
 	flex-direction: column
 	min-height: 100% // Needs to be % not vh
 .site-content
-	overflow-x: hidden // Fix for safari right scroll issue
 	flex: 1 0 auto
 .site-content::after
 	content: '\00a0'
@@ -39,6 +34,21 @@ header
 	height: 0px
 	visibility: hidden
 	margin-top: 1.5em
+
+// Safari and chrome specific code to fix the safari scroll right issue 
+// (note, this is because this code breaks Firefox's overflow as you can't hide scrollbars in firefox)
+// This media query only targets webkit browsers (which Safari and Chrome are based upon) and will be ignored by Firefox (which doesn't need this problem fixed anyway)
+@media screen and (-webkit-min-device-pixel-ratio:0)
+	html
+		overflow-x: hidden // Hide the x overflow for the whole site (fyi, this will hide the sticky-nav unless we set the .site wrapper overflow-x to visible)
+	.site
+		overflow-x: visible // (needs to be visible here, or we can't see the sticky nav bar, .site-content class below stops it being visible on main site)
+	.site-content
+		overflow-x: hidden // (needs to rehide it here so it's not shown on the main site content and we can't scroll right)
+	// Hiding the scrollbar display just in Chrome and Safari
+	::-webkit-scrollbar
+		display: none
+
 //favourite button property page & search results
 .fav-property
 	border-color: $transparent !important
