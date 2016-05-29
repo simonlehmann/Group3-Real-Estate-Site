@@ -5,7 +5,6 @@
 #   Featured Property List Partial from /buy
 #
 #	TODO:
-#		* Insert Featured Properties
 #
  %>
 <div class="feature-property-container">
@@ -15,40 +14,29 @@
 		<% result = load_current_featured_property()%>
 		<% if result %>
 			<% result.each do |object| %>
-				<div class="main-divs ui grid" onclick="location.href='<%= property_path("#{object.listing_address.parameterize}-#{object.listing_suburb.parameterize}-#{get_state_short(object.listing_state).parameterize}-#{object.listing_post_code}-#{object.listing_id}") %>';">
-					<section class="picture-div eight wide column">
-						<%= image_tag object.listing_cover_image.image.url(:large_w)%>
+				<div class="ui two column stackable grid main-divs " onclick="location.href='<%= property_path("#{object.listing_address.parameterize}-#{object.listing_suburb.parameterize}-#{get_state_short(object.listing_state).parameterize}-#{object.listing_post_code}-#{object.listing_id}") %>';">
+					<section class="ui picture-div eight wide computer sixteen wide tablet sixteen wide mobile column">
+						<%= image_tag object.listing_cover_image.image.url(:large_w), class: "ui fluid image" %>
 					</section>
-						<section class="eight wide column">
-						<div class="top">
+					<section class="ui eight wide computer sixteen wide tablet sixteen wide mobile column featured-flex-column">
+						<div class="top ui row">
 							<h3> <%= object.listing_address + " " + object.listing_suburb + " " + object.listing_state + " " + object.listing_post_code.to_s%> </h3>
 							<p class="truncate"><%= object.listing_description %></p>
 						</div>
 						<div class="bottom">
-							<div>
-								<div class="ui bed icon left">
-								<p class=""><%= object.listing_bedrooms.to_s %>
-								<i class="bed icon"></i>
-								</div>
-							</div>
-							<div>
-								<div class="ui left">
-								<p class=""><%= object.listing_bathrooms.to_s %>
+							<div class="ui row">
+								<span><%= object.listing_bedrooms.to_s %> </span><i class="bed icon"></i>
+								<span><%= object.listing_bathrooms.to_s %> </span>
 								<i class="shower"><%= image_tag "icon_shower_dark_small.png", alt: "shower icon" %></i>
-								</div>
-							</div>
-							<div>
-								<div class="ui bed icon left">
-								<p class=""><%= object.listing_parking.to_s %>
+								<span><%= object.listing_parking.to_s %> </span>
 								<i class="car icon"></i>
-								</div>
 							</div>
 						</div>
 					</section>
 				</div>
 			<% end %>
 		<% else %>
-			<p>Something went wrong</p>
+			<p>Something went wrong loading the featured properties</p>
 		<% end %>
 	<% end %>
 </div>
