@@ -18,6 +18,9 @@ ready = ->
 			$('html, body').animate
 				scrollTop: offset.top
 				scrollLeft: offset.left
+			# Call the sticky refresh method to allow the sticky to correctly get the new context's size
+			# Useful for dashboard/favourites as otherwise the sticky disapears if MyActivity was smaller than MyFavourites (as the context size was smaller)
+			$('.ui.sticky.dashboard-submenu').sticky 'refresh'
 		)
 
 	# Show a preview of the profile picture you're about to save
