@@ -8,6 +8,19 @@ ready = ->
 		# On tab load, change the window history so the path mirrors the active tab (without redirecting the page)
 		onLoad: ->
 			window.history.replaceState('activeTab', '', '/dashboard/' + $('#activity-feed .tab.active').attr('data-tab'))
+			# Scroll the tab/window to the top of the page (minus some offset for the dashboard-submenu)
+			# This is for if the user clicked a tab on mobile and stops the menu initially covering the new tab
+			offset = $('#activity-feed .tab.active').offset()
+			# Take away from the top the height of the search sub-menu 
+			# (needed to correctly scroll to the input search bar on mobiles as the submenu covers it otherwise. This doesn't do any harm on desktops)
+			offset.top -= 275
+			# Scroll the top of the tab panel into view by animating the html, body to the calculated offset
+			$('html, body').animate
+				scrollTop: offset.top
+				scrollLeft: offset.left
+			# Call the sticky refresh method to allow the sticky to correctly get the new context's size
+			# Useful for dashboard/favourites as otherwise the sticky disapears if MyActivity was smaller than MyFavourites (as the context size was smaller)
+			$('.ui.sticky.dashboard-submenu').sticky 'refresh'
 		)
 
 	# Show a preview of the profile picture you're about to save
