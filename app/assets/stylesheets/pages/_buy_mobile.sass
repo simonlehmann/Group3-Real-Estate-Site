@@ -19,6 +19,10 @@
 		margin-bottom: 1em
 		.menu
 			z-index: 101
+	.lead-in.triangle-lead
+	// Fix for down arrow/triangle not coalescing into a point on mobile/tablet viewports 
+	// (Note, this might need to be assigned higher in the DOM tree than .triangle-lead as .one.wide.column might override it)
+		width: 0px !important 
 //mobie view
 @media only screen and (max-width: 767px)
 	.tweets
