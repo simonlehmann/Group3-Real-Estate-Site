@@ -39,13 +39,9 @@ header
 // (note, this is because this code breaks Firefox's overflow as you can't hide scrollbars in firefox)
 // This media query only targets webkit browsers (which Safari and Chrome are based upon) and will be ignored by Firefox (which doesn't need this problem fixed anyway)
 @media screen and (-webkit-min-device-pixel-ratio:0)
-	html
-		overflow-x: hidden // Hide the x overflow for the whole site (fyi, this will hide the sticky-nav unless we set the .site wrapper overflow-x to visible)
-	.site
-		overflow-x: visible // (needs to be visible here, or we can't see the sticky nav bar, .site-content class below stops it being visible on main site)
 	.site-content
-		overflow-x: hidden // (needs to rehide it here so it's not shown on the main site content and we can't scroll right)
-	// Hiding the scrollbar display just in Chrome and Safari
+		overflow-x: hidden // Hide the site content in the x-direction so you can't scroll right
+	// Hiding the scrollbar display just in Chrome and Safari as Safari seems to add padding for it (making the scroll right issue)
 	::-webkit-scrollbar
 		display: none
 
