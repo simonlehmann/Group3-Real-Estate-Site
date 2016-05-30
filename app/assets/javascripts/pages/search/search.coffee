@@ -133,7 +133,17 @@ ready = ->
 	$(document).on 'click', '.suburb-search-toggle', ->
 		$('.suburb-search-section').toggle('suburb-section-hide')
 		if $('> i', this).hasClass('plus')
+			# Search bar is now in view, so change the indicator on the show button to a minus (to signify the next click will hide it)
 			$('> i', this).removeClass('plus icon').addClass('minus icon')
+			# Get the offset for the .suburb-search-section so we can scroll it into view if it's off the page (i.e. you're down in the search results)
+			offset = $('.suburb-search-section').offset()
+			# Take away from the top the height of the search sub-menu 
+			# (needed to correctly scroll to the input search bar on mobiles as the submenu covers it otherwise. This doesn't do any harm on desktops)
+			offset.top -= 275
+			# Scroll the search bar into view by animating the html, body to the calculated offset
+			$('html, body').animate
+				scrollTop: offset.top
+				scrollLeft: offset.left
 		else
 			$('> i', this).removeClass('minus icon').addClass('plus icon')
 

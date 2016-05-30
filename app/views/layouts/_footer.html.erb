@@ -1,8 +1,14 @@
 <% #TODO: switch additional links to erb links and link to actual page %>
 <footer>
 	<div class="ui center aligned container">
-		<div class="ui centered three column grid footer-push">
-			<div class="left floated left aligned column">
+		<div class="ui centered three column stackable grid footer-push">
+			<% # Made the left aligned column only left aligned on tablets and computers %>
+			<div class="left floated left aligned computer only tablet only column">
+				<h5>About Us</h5>
+				<p>This is a realestate website, we allow our users to buy and sell properties in the best way possible.</p>
+			</div>
+			<% # on Mobiles, it will be center aligned %>
+			<div class="ui center aligned mobile only column">
 				<h5>About Us</h5>
 				<p>This is a realestate website, we allow our users to buy and sell properties in the best way possible.</p>
 			</div>
@@ -21,9 +27,20 @@
 					<i class="google plus icon"></i>
 				</button>
 			</div>
-			<div class="right floated right aligned column">
+			<% # Configured the right link column to only show in tablets and computers %>
+			<div class="right floated right aligned computer only tablet only column">
 				<h5>Additional Links</h5>
 				<div class="ui link list">
+					<%= link_to "Contact Us", contact_path, class: "item" %>
+					<%= link_to "Privacy Policy", privacy_path, class: "item"  %>
+					<%= link_to "Terms and Conditions", terms_path, class: "item"  %>
+					<%= link_to "Meet the Team", team_path, class: "item" %>
+				</div>
+			</div>
+			<% # This column only appears on mobile views %>
+			<div class="ui center aligned mobile only column">
+				<h5>Additional Links</h5>
+				<div class="ui link horizontal list">
 					<%= link_to "Contact Us", contact_path, class: "item" %>
 					<%= link_to "Privacy Policy", privacy_path, class: "item"  %>
 					<%= link_to "Terms and Conditions", terms_path, class: "item"  %>
