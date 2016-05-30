@@ -15,11 +15,11 @@
 	<% if current_page?(buy_path) %>
 		<div class="ui twelve wide two column row search-row stackable">
 	<% else %>
-		<div class="ui sixteen wide two column row search-row stackable">
+		<div class="ui sixteen wide two column row search-row stackable search-page-search-bar">
 	<% end %>
 	
 		<% # The state selector dropdown %>
-		<div class="ui two wide column">
+		<div class="ui two wide column state-selection-column">
 			<% states_short_long = get_states_short_long() %>
 			<% if states_short_long %>
 				<% # Fill a select tag with the state choices and WA selected as default %>
@@ -30,7 +30,7 @@
 			<% end %>
 		</div>
 		<% # The search by suburb, address or keyword dropdown and input field. Including the search button %>
-		<div id="search-input-buy" class="ui fourteen wide column">
+		<div id="search-input-buy" class="ui fourteen wide column suburb-selection-column">
 			<div class="ui big fluid right action labeled input">
 				<div class="ui label">
 					<i class="search icon"></i>

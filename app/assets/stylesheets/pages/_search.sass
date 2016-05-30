@@ -68,6 +68,15 @@
 	//divider inbetween search results
 	.search-divider
 		font-size: 1em !important
+
+// Fix for the height position of the search state/suburb bar that is animated into view (as well as the #search-feed)
+// (it currently uses the .search-container.search-section margin-top which incorrectly places it too high)
+// It was not matched up with the height of the search-submenu on the left (it is now)
+#search-feed
+	margin-top: 1em
+.search-page-search-bar
+	margin-top: 0.65em !important
+
 // Property search result card
 //card moved back so it's not nested inside .search-container so it can be used properly in the manage-listing-preview
 .property-card
@@ -124,5 +133,3 @@
 		font-weight: bold
 	a:hover
 		color: $green-secondary
-	
-	
