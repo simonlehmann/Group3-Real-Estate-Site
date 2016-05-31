@@ -19,12 +19,15 @@
 		margin-bottom: 1em
 		.menu
 			z-index: 101
+			min-height: 300px
+			.header
+				text-align: center // Align the mobile criteria view's headers in the center
 
 	// Fix for down arrow/triangle not coalescing into a point on mobile/tablet viewports 
 	// (Note, tried with just .triangle-lead, but one.wide.column overrides that definition)
 	.lead-in.ui.one.wide.column.triangle-lead
 		width: 0px !important 
-//mobie view
+//mobile view
 @media only screen and (max-width: 767px)
 	.tweets
 		max-width: 609px

@@ -24,5 +24,8 @@
 // Tablet view and large phones
 @media only screen and (max-width: 768px) and (min-width: 432px)
 
-// Mobile view only
-@media only screen and (max-width: 431px)
+// Small mobile view only
+@media only screen and (max-width: 340px)
+	// Reduce whitespace under .sell-banner on mobiles/tablets (need a larger amount for small phones like the iPhone 4/5)
+	.sell-banner
+		height: 55vh
