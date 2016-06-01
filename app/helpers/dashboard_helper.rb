@@ -12,4 +12,9 @@ module DashboardHelper
 		status_start_time = Time.parse(status_object.listing_status_start_time.to_s).strftime("%H:%M")
 		return status_start_time
 	end
+
+	def get_time_ago (status_update_time)
+		time_distance = time_ago_in_words(status_update_time)
+		return time_distance + " ago"
+	end
 end

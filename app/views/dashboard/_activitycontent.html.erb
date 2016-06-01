@@ -22,7 +22,7 @@
 							<a class="user" href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>"><%= listing.listing_address %></a>
 							<%= status_object.listing_status_label %>
 							<div class="date">
-								1 Hour Ago
+								<%= get_time_ago(status_object.updated_at) %>
 							</div>
 						</div>
 						<div class="extra text">
