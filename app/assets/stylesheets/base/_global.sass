@@ -35,15 +35,18 @@ header
 	visibility: hidden
 	margin-top: 1.5em
 
+// ************ Commented out this code which fixed the Safari scroll issue Because it introduces an extra scrollbar
+// ************ The cause for the safari issue is the NavBar is too wide 
 // Safari and chrome specific code to fix the safari scroll right issue 
 // (note, this is because this code breaks Firefox's overflow as you can't hide scrollbars in firefox)
 // This media query only targets webkit browsers (which Safari and Chrome are based upon) and will be ignored by Firefox (which doesn't need this problem fixed anyway)
-@media screen and (-webkit-min-device-pixel-ratio:0)
-	.site-content
-		overflow-x: hidden // Hide the site content in the x-direction so you can't scroll right
-	// Hiding the scrollbar display just in Chrome and Safari as Safari seems to add padding for it (making the scroll right issue)
-	::-webkit-scrollbar
-		display: none
+// @media screen and (-webkit-min-device-pixel-ratio:0)
+// 	.site-content
+// 		overflow-x: hidden // Hide the site content in the x-direction so you can't scroll right
+// 	// Hiding the scrollbar display just in Chrome and Safari as Safari seems to add padding for it (making the scroll right issue)
+// 	::-webkit-scrollbar
+// 		display: none
+// ************ End of Safari scroll-x fix code
 
 //favourite button property page & search results
 .fav-property
