@@ -28,4 +28,8 @@ module DashboardHelper
 		formatted_date = date.strftime('%B %d, %Y')
 		return formatted_date
 	end
+
+	def get_listing_owner (user_id)
+		return User.where(id: user_id)[0]
+	end
 end

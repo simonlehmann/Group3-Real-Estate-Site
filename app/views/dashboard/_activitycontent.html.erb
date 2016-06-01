@@ -15,7 +15,9 @@
 			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 				<div class="event">
 					<div class="label">
-						<%= image_tag "userprofile-header.png" %>
+						<% user_id = listing.listing_user_id %>
+						<% user = get_listing_owner(user_id) %>
+						<%= image_tag user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
 					</div>
 					<div class="content">
 						<div class="summary">
