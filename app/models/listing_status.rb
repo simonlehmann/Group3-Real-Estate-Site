@@ -9,6 +9,8 @@
 #   	listing_status_date: date NULLABLE
 #   	listing_status_start_time: time NULLABLE
 #   	listing_status_end_time: time NULLABLE
+#   	created_at: datetime (the date it was created, auto created by rails)
+#   	updated_at: datetime (the date it was edited, auto created by rails)
 #   	
 #   Relations: (how to use): If you have a status object (i.e. status = Status.find(1)) then the following methods will return the associated object
 #   	status.status_listing - will return the associated listing object

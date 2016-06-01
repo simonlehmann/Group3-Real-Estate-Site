@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506141127) do
+ActiveRecord::Schema.define(version: 20160601054309) do
 
   create_table "blockages", primary_key: "blockage_id", force: :cascade do |t|
     t.integer  "blockage_to_user_id",   limit: 4, null: false
@@ -44,10 +44,12 @@ ActiveRecord::Schema.define(version: 20160506141127) do
   add_index "listing_images", ["user_id"], name: "index_listing_images_on_user_id", using: :btree
 
   create_table "listing_status", primary_key: "listing_status_id", force: :cascade do |t|
-    t.string "listing_status_label",      limit: 0, null: false
-    t.date   "listing_status_date"
-    t.time   "listing_status_start_time"
-    t.time   "listing_status_end_time"
+    t.string   "listing_status_label",      limit: 0, null: false
+    t.date     "listing_status_date"
+    t.time     "listing_status_start_time"
+    t.time     "listing_status_end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "listings", primary_key: "listing_id", force: :cascade do |t|
