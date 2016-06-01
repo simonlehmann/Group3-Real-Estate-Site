@@ -1,6 +1,35 @@
-<% #Temp Data %>
+<% 
+#   Date: 27/04/2016
+#
+#   Developed By: Michael White, 01/06/2016
+#
+#   Partial to display the Activity Feed for the user
+%>
 <h1 class="ui center aligned">Activity Feed</h1>
 <div class="ui feed">
+	<% feedFavourites = get_favourites_object_array %>
+	<% if feedFavourites %>
+		<% feedFavourites.each do |item| %>
+			<% listing = item.favourite_listing %>
+			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+				<div class="event">
+					<div class="label">
+						<%= image_tag "userprofile-header.png" %>
+					</div>
+					<div class="content">
+						<div class="summary">
+							<a class="user" href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>"><%= listing.listing_address %></a>
+							<% if listing_get_status_object(listing).listing_status_label == "Home Open" %>
+								has a home open starting at 
+								<%= get_start_time(listing) %>
+							<% end %>
+						</div>
+					</div>
+
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
 	<div class="event">
 		<div class="label">
 			<%= image_tag "userprofile-header.png" %>
