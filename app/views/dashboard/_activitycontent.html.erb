@@ -32,6 +32,8 @@
 								This property has a home open on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %> and finishing at <%= get_end_time(listing) %>.
 							<% elsif status_object.listing_status_label == "Sold" %>
 								This property was sold on <%= convert_status_date(status_object.updated_at) %>.
+							<% elsif status_object.listing_status_label == "Auction" %>
+								This property has an auction on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %>.
 							<% end %>
 						</div>
 					</div>
