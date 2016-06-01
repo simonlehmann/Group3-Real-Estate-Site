@@ -12,6 +12,7 @@
 # => nav side bar is works with recieved content
 # => nav side bar label clear when clicked
  %>
+<% title "Propertydome Search" %>
 <section class="search-container nobanner-container ui container">
 	<div class="ui sixteen wide grid stackable">
 		<div class="ui rail four wide column" id="search-sticky">
@@ -24,8 +25,11 @@
 		</div>
 		<%# search results content %>
 		<div class="ui twelve wide column" id="search-feed">
-			<%# search filter %>
-			<div class="ui dropdown button search-filter">
+			<div class="search-section suburb-search-section suburb-section-hide">
+				<%= render "buy/search" %>
+			</div>
+			<%# search filter is not going to be functional in this current vesion. Commented out, but kept in for v2/later %>
+			<%# <div class="ui dropdown button search-filter">
 				<span class="text">Recent</span>
 				<i class="dropdown icon"></i>
 				<div class="menu">
@@ -39,7 +43,8 @@
 						<span class="text">Popular</span>
 					</div>
 				</div>
-			</div>
+			</div> %>
+			
 			<%# result amount header %>
 			<%# We need to check if @listings exists first now to check for no results %>
 			<% if @listings %>
@@ -72,7 +77,7 @@
 								<%# Build the search query to be the correct format initially so we get infinite scrolling with our entered query %>
 								<% query = build_search_pagination_link_text(@search_suburbs, @search_prices, @search_property, @search_feature) %>
 								<% if query %>
-									<%= link_to("Show More Search Results", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next') %>
+									<%= link_to("Show More Search Results", "/search?#{query}page=#{@listings.current_page + 1}", remote: true, rel: 'next', class: "ui green button") %>
 								<% end %>
 							</p>
 							<% # The loading animation partial. This default margin is 40px and is too much, I'm also setting display: none to hide this until the actual loading of the next page is called by the infinit-scroll plugin. %>

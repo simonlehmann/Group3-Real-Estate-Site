@@ -4,6 +4,17 @@
 // The following styles are for all search pages.
 .search-container
 	//submenu on left of results
+	.search-section
+		margin-top: -57px
+		min-height: auto
+		background-color: $transparent
+		background-size: auto
+		.ui.big.fluid.right.action.labeled.input
+			border: solid lightgray
+			border-width: 1px 0px 1px 1px
+			border-radius: 5px 0px 5px 5px
+	.suburb-section-hide
+		display: none
 	.search-submenu
 		height: auto
 		padding-bottom: 5px
@@ -15,6 +26,8 @@
 		.segment
 			background-color: $grey-blue-primary
 		#tag-searchfield
+			max-height: 450px
+			overflow-y: auto
 			h5:not(:first-child)
 				margin-top: 6px
 			h5
@@ -26,15 +39,18 @@
 		.ui.tag.labels .label:after, .ui.tag.label:after
 			background-color: $grey-blue-primary !important
 		//add features button -- needs to be moved to a more global name space
-		.ui[class*="right labeled"].icon.button
-			color: $white-primary
-			margin-top: 2.4em
-			background-color: $blue-primary
-			margin-left: -15px
 		#criteria_dropdown
 			margin: 0 auto
-			font-size: 1em
-			margin-top: 15px
+			font-size: 0.96em
+			margin-top: 10px
+		.suburb-search-toggle
+			color: $white-primary
+			margin-top: 2.4em
+			background-color: $green-primary
+			margin: 0 auto
+			margin-top: 10px
+		.suburb-search-toggle:hover
+			background-color: $green-secondary
 	//filter dropdown button in divider
 	.search-filter
 		background: transparent
@@ -52,6 +68,15 @@
 	//divider inbetween search results
 	.search-divider
 		font-size: 1em !important
+
+// Fix for the height position of the search state/suburb bar that is animated into view (as well as the #search-feed)
+// (it currently uses the .search-container.search-section margin-top which incorrectly places it too high)
+// It was not matched up with the height of the search-submenu on the left (it is now)
+#search-feed
+	margin-top: 1em
+.search-page-search-bar
+	margin-top: 0.65em !important
+
 // Property search result card
 //card moved back so it's not nested inside .search-container so it can be used properly in the manage-listing-preview
 .property-card
@@ -108,5 +133,3 @@
 		font-weight: bold
 	a:hover
 		color: $green-secondary
-	
-	

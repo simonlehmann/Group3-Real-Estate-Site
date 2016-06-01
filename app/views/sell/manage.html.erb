@@ -19,14 +19,18 @@
 #   	
 #   Todo:
 %>
-
+<% title "Propertydome Manage Property" %>
 <div class="ui container nobanner-container sell-top sell-mobile-container">
 	<% # Manage Properties table header%>
-	<div class="ui center aligned fluid card manage-table-header visibility manage-properties">
+	<div class="ui center aligned fluid card manage-table-header visibility manage-properties manage-properties-header-fix">
 		<div class="content">
-			<div class="ui centered middle aligned three column grid">
-				<% # Table header %>
-				<div class="left floated left aligned column">
+			<div class="ui centered middle aligned three column stackable grid">
+				<% # Table header (only shown on computers and tablets) %>
+				<div class="left floated left aligned computer only tablet only column">
+					<h1>Manage Your Properties</h1>
+				</div>
+				<% # Mobile version of the Table Header (center aligned rather than left aligned) %>
+				<div class="ui center aligned mobile only column">
 					<h1>Manage Your Properties</h1>
 				</div>
 
@@ -41,8 +45,15 @@
 					</button>
 				</div>
 				
-				<% # Add Property Button %>
-				<div class="right floated right aligned column">
+				<% # Add Property Button (only shown on computers and tablets) %>
+				<div class="right floated right aligned computer only tablet only column">
+					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
+						<%= content_tag(:i, "", class: "plus icon") %>
+						Add Your Property
+					<% end %>
+				</div>
+				<% # This is the Mobile version of the Add Property Button (center aligned rather than left aligned) %>
+				<div class="ui center aligned mobile only column">
 					<%= link_to new_sell_path, class: "ui right labeled icon button sell-red-button" do  %>
 						<%= content_tag(:i, "", class: "plus icon") %>
 						Add Your Property

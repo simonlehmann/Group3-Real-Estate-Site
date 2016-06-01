@@ -1,7 +1,7 @@
 <%
 #   Created: Jayden Spencer
 #   Edited: Daniel Swain
-#   
+#
 #   Partial for a hamburger-menu that will transition into view on a menu button click or out of view on click of .site-content or .the-dimmer elements
 %>
 <div class="ui sidebar inverted vertical menu hamburger-menu transition hidden">
@@ -20,6 +20,10 @@
 	<%= link_to "Buy", buy_path, class: "item " %>
 	<%# Sell %>
 	<%= link_to "Sell", sell_index_path, class: "item" %>
+	<% #if logged in user is Admin show admin button/path %>
+	<% if @user_type == "Admin" %>
+		<%= link_to "Admin", admin_index_path, class: "admin-item item" %>
+	<% end %>
 	<%# If user logged in show account settings and logout path %>
 	<% if user_signed_in? %>
 		<%= link_to "Account Settings", dashboard_settings_path, class: "item" %>

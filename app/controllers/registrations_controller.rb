@@ -7,13 +7,17 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-	# Overide the devise update action so it redirects to dashboard_settings if there's an error thereby negating the need for the 
+	# Overide the devise update action so it redirects to dashboard_settings if there's an error thereby negating the need for the
 	# default devise registrations edit page
 	def update
 		self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 		prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-		resource_updated = update_resource(resource, account_update_params)
+		# Validate phone number (really only checking if it's between 10 and 8 digits at the moment)
+		phone_valid = check_phone_number(account_update_params[:contact_phone])
+
+		# Update the user (but only if check_phone_number returned true)
+		resource_updated = update_resource(resource, account_update_params) if phone_valid
 		yield resource if block_given?
 		if resource_updated
 			if is_flashing_format?
@@ -26,8 +30,10 @@ class RegistrationsController < Devise::RegistrationsController
 		else
 			clean_up_passwords resource
 			flash[:errors] = flash[:notice].to_a.concat resource.errors.full_messages
+			# Add an error message for an in valid phone number if check_phone_number returned false
+			flash[:errors] << "You didn't enter a valid phone number, please enter either a mobile or landline, i.e. 0412345678 or 98765432" if !phone_valid
 			redirect_to :dashboard_settings
-		end
+		end				
 	end
 
 	# Overriding the default devise method for user creation so we can create a default user avatar for the user
@@ -80,8 +86,31 @@ class RegistrationsController < Devise::RegistrationsController
 	# 		redirect_to :dashboard_settings
 	# 	end
 	# end
-	
+
 	protected
+
+	# Check for the "validation" of the entered phone number (this isn't a complete method as of yet)
+	def check_phone_number(number)
+		# Only continue if the number is less than the database size limit of 10
+		if number.to_s.length <= 10
+			# Get the last eight-nine digits (for mobiles it's 9 digits after the 0, otherwise this will grab the last 8 for a land line)
+			# If length is < 8 then just grab the number as the regex match would fail otherwise
+			phone_num = number.to_s.length > 8 ? number.match(/(\d{8,9})$/) : number.to_i
+			if phone_num == nil or phone_num == 0
+				# We didn't get a match so the phone_num was nil or it was equal to 0 (if blank) so lets save a blank phone number in the db
+				return true
+			elsif phone_num.to_s.length > 10 or phone_num.to_s.length < 8
+				# The phone number wasn't of the correct length from our simple regex so we won't save the update (i.e. > 10 or < 8)
+				return false
+			else
+				# The entered number had at least 8 - 10 numbers in it so we'll say it's valid for now
+				return true
+			end
+		else
+			# Number was too big for the database
+			return false
+		end
+	end
 
 	# Redirect to the dashboard settings page after successful sign up
 	# This method takes a path 'path/to/url' or a path helper symbol.
@@ -107,7 +136,7 @@ class RegistrationsController < Devise::RegistrationsController
 	# Used when updating the user, we require the user object and permit the other
 	def account_update_params
 		# Edit this to include the params you need to include/permit when updating (devise will handle it)
-		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :password, :password_confirmation, :current_password,
+		params.require(:user).permit(:avatar, :username, :first_name, :last_name, :email, :contact_phone, :company_name, :password, :password_confirmation, :current_password,
 			:avatar_original_w, :avatar_original_h, :avatar_box_w, :avatar_aspect, :avatar_crop_x, :avatar_crop_y, :avatar_crop_w, :avatar_crop_h)
 	end
 

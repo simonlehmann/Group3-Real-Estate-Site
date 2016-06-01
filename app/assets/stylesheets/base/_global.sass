@@ -1,3 +1,4 @@
+// Global site styles
 body
 	height: 100%
 ::-moz-selection
@@ -33,6 +34,17 @@ header
 	height: 0px
 	visibility: hidden
 	margin-top: 1.5em
+
+// Safari and chrome specific code to fix the safari scroll right issue 
+// (note, this is because this code breaks Firefox's overflow as you can't hide scrollbars in firefox)
+// This media query only targets webkit browsers (which Safari and Chrome are based upon) and will be ignored by Firefox (which doesn't need this problem fixed anyway)
+@media screen and (-webkit-min-device-pixel-ratio:0)
+	.site-content
+		overflow-x: hidden // Hide the site content in the x-direction so you can't scroll right
+	// Hiding the scrollbar display just in Chrome and Safari as Safari seems to add padding for it (making the scroll right issue)
+	::-webkit-scrollbar
+		display: none
+
 //favourite button property page & search results
 .fav-property
 	border-color: $transparent !important
@@ -134,10 +146,11 @@ header
 	.price-feature-tag
 		margin-left: 12px
 		padding: 0.557143em 1.1em !important
-#tag_dropdown[class*="right labeled"].icon.button
+#tag_dropdown
 	color: $white-primary
 	margin-top: 2.4em
 	background-color: $blue-primary
 	margin-left: -15px
 #criteria_dropdown:hover
 	background-color: $blue-secondary
+	

@@ -23,6 +23,9 @@
 #   	
 
 module ApplicationHelper
+	def title(page_title)
+		content_for :title, page_title.to_s
+	end
 	# The following allow us to use the devise forms outside of the devise controller
 	def resource_name
 		:user

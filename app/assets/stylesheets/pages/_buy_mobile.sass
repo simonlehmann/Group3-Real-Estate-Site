@@ -12,13 +12,22 @@
 	.slick-arrow
 		display: none !important
 	#search-input-buy
-		min-width: 402px
+		min-width: 340px // Needed to be smaller for small screen phones (i.e. iphones)
 	// Set the add-criteria-button menu z-index to be greater than that of the navbar (100) so it can be clicked)
 	// I had an instance where it drew upwards, which meant some were under the navbar, this fixes that
 	#criteria_dropdown
+		margin-bottom: 1em
 		.menu
 			z-index: 101
-//mobie view
+			min-height: 300px
+			.header
+				text-align: center // Align the mobile criteria view's headers in the center
+
+	// Fix for down arrow/triangle not coalescing into a point on mobile/tablet viewports 
+	// (Note, tried with just .triangle-lead, but one.wide.column overrides that definition)
+	.lead-in.ui.one.wide.column.triangle-lead
+		width: 0px !important 
+//mobile view
 @media only screen and (max-width: 767px)
 	.tweets
 		max-width: 609px

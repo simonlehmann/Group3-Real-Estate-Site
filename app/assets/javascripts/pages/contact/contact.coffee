@@ -27,7 +27,7 @@ ready = ->
 	    	identifier: 'email'
 	    	rules: [ {
 	      		type: 'regExp[/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$/]',
-	      		prompt: 'Please write your email to us'
+	      		prompt: 'Please enter a valid email'
 	    	} ]
 
 	$('#contact-type-selector').dropdown()

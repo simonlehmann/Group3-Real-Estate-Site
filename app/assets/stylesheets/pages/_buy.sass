@@ -10,8 +10,9 @@
 	min-height: 70vh
 	background-color: $grey-primary
 	background-size: auto 120%
-	//state dropdown
+	//state dropdown (Display: block is a fix for mobile search bar input issue)
 	.state-slection
+		display: block !important
 		height: 50px
 		min-width: 89px !important
 		font-size: 1.3em
@@ -33,6 +34,12 @@
 		background-color: $green-secondary
 	#buy-search-submit
 		min-width: 89px
+	#tag_dropdown
+		background-color: darken($white-primary, 5%)
+		border: none
+		//label triangle was off
+		.ui.tag.label:before
+			top: 45% !important
 	//search loading icon
 	.search-loading
 		margin-left: 10px
@@ -132,7 +139,7 @@ div.lead-in.ui.one.wide.column.triangle-lead
 //twitter section
 .twitter-feed
 	margin-top: 0 !important
-	min-width: 373px
+	min-width: 340px // Needed to be smaller for small screen phones (i.e. iphones)
 	.ui .items
 		background-color: #F3F3F3
 		padding: 0px
@@ -157,19 +164,16 @@ div.lead-in.ui.one.wide.column.triangle-lead
 	.meta
 		padding: 4px
 .feature-list
-	min-width: 511px
 	width: 100%
 	max-width: 647px
+// Featured property container
 .feature-property-container
 	max-width: 555px
-	.left
-		float: left
-		margin: 0px 15px 35px 0px
 	.main-divs
-		background-color: darken($white-primary, 2%)
+		background-color: darken($white-primary, 5%)
 		margin-bottom: 10px
 	.main-divs:hover
-		background-color: darken($white-primary, 5%)
+		background-color: darken($white-primary, 15%)
 		cursor: pointer
 	.picture-div
 		img
@@ -177,14 +181,20 @@ div.lead-in.ui.one.wide.column.triangle-lead
 			height: auto
 	.tags
 		float: bottom
-	.top
-		height: 70%
-		min-width: 200px
-	.bottom
-		height: 30%
+	// Use 1em size for shower image so it scales with other semantic icons
 	.shower img
-
-		height: 20px
+		height: 1em
+	// Properly fix the positioning of the bottom elements using flex
+	.featured-flex-column
+		height: auto
+		display: flex !important
+		flex-direction: column
+		.top
+			flex-grow: 1
+			padding-bottom: 1em
+		.bottom
+			i
+				margin-right: 1em
 
 .add-favourites
 	color: $white-primary
@@ -200,30 +210,31 @@ div.lead-in.ui.one.wide.column.triangle-lead
 
 //Header images for geolocater
 .wa-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('waHeader.jpg')) no-repeat
 	background-size: auto 120%
 .vic-img
-	background: url(image_path('sell-header.png')) no-repeat
+	background: url(image_path('vicHeader.jpg')) no-repeat
+	background-size: auto 120%
 .qld-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('qldHeader.jpg')) no-repeat
 	background-size: auto 120%
 .act-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('actHeader.jpg')) no-repeat
 	background-size: auto 120%
 .nsw-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('sydneyHeader.jpg')) no-repeat
 	background-size: auto 120%
 .sa-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('saHeader.jpg')) no-repeat
 	background-size: auto 120%
 .nt-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('ntHeader.jpg')) no-repeat
 	background-size: auto 120%
 .tas-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('tasHeader.jpg')) no-repeat
 	background-size: auto 120%
 .ot-img
-	background: url(image_path('landing-header.png')) no-repeat
+	background: url(image_path('tasHeader.jpg')) no-repeat
 	background-size: auto 120%
 .favourite-element
 	cursor: pointer

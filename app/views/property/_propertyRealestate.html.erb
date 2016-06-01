@@ -6,23 +6,27 @@
 			<%= image_tag @listing.listing_user.avatar.url(:medium), alt: "User Profile Image", class: "ui small circular image" %>
 			<%# Username %>
 			<% if @listing.listing_user.username.length != 0 %>
-					<span><%= @listing.listing_user.username %></span>
+					<span><%= truncate(@listing.listing_user.username, length: 18) %></span>
 			<%# First name & Surname %>
 			<% elsif @listing.listing_user.first_name.length != 0 and @listing.listing_user.last_name.length != 0 %>
-					<span><%= @listing.listing_user.first_name %> <%= @listing.listing_user.last_name %></span>
+					<span><%= truncate(@listing.listing_user.first_name + " " + @listing.listing_user.last_name, length: 18) %></span>
 			<%# E-mail %>
 			<% else %>
-				<span><%= @listing.listing_user.email %></span>
+				<span><%= truncate(@listing.listing_user.email, length: 18) %></span>
 			<% end %>
 		<% end %>
 	</li>
 	<li>
 		<%# User Company %>
-		<span>Realestate Company Name</span>
+		<% if @listing.listing_user.company_name %>
+			<span><%= @listing.listing_user.company_name %></span>
+		<% end %>
 	</li>
 	<li>
 		<%# User Phone %>
-		<%= button_to "04 123 456 78", url_for("callto://0412345678"), class:"ui inverted green button" %>
+		<% if @listing.listing_user.contact_phone %>
+			<%= button_to @listing.listing_user.contact_phone, url_for("callto://#{@listing.listing_user.contact_phone}"), class:"ui inverted green button" %>
+		<% end %>
 	</li>
 	<li>
 		<%# User Email %>

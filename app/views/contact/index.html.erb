@@ -1,4 +1,5 @@
-<section class="search-section"></section>
+<% title "Propertydome Contact" %>
+<section class="search-section wa-img"></section>
 <section class="contact-container">
 	<h1 id="welcome" class="bold-text">Get In Touch</h1>
 	<div class="ui grid stackable nice">
@@ -25,7 +26,7 @@
 					<%= select_tag :subject, options_for_select(["General Enquiry", "Report Bug", "Other", "Sales", "Security", "Disputes"], "General Enquiry"), { class: "ui dropdown", id: "contact-type-selector" } %>
 				</div>
 				<div class="fields">
-					<div class="fourteen wide field required field">
+					<div class="sixteen wide field required field">
 						<label>Text</label>
 						<%= text_area_tag :message, nil, placeholder: "Write in here to send us your thoughts" %>
 					</div>

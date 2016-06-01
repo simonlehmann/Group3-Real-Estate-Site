@@ -7,50 +7,41 @@
 
 # Function used for changing the header image based on state
 @changeImage = (state) ->
-	$('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
-	if state == 'Western Australia'
-		$('.search-section').addClass 'wa-img'
-	else if state == 'Victoria'
-		$('.search-section').addClass 'vic-img'
-	else if state == 'Queensland'
-		$('.search-section').addClass 'qld-img'
-	else if state == 'Australian Capital Territory'
-		$('.search-section').addClass 'act-img'
-	else if state == 'New South Wales'
-	 	$('.search-section').addClass 'nsw-img'
-	else if state == 'South Australia'
-		$('.search-section').addClass 'sa-img'
-	else if state == 'Northern Territory'
-		$('.search-section').addClass 'nt-img'
-	else if state == 'Tasmania'
-		$('.search-section').addClass 'tas-img'
-	else if state == 'Other Territories'
-		$('.search-section').addClass 'ot-img'
-	else
-		$('.search-section').addClass 'wa-img'
-	return
-# Function used to remove current applied state classes except the selected state
-@remove_classes = (state) ->
-	classes = [
-		['wa-img', 'Western Australia'],
-		['vic-img', 'Victoria'],
-		['qld-img', 'Queensland'],
-		['sa-img', 'South Australia'],
-		['nt-img', 'Northern Territory'],
-		['tas-img', 'Tasmania'],
-		['act-img', 'Australian Capital Territory'],
-		['ot-img', 'Other Territories'],
-		['nsw-img', 'New South Wales']
-		]
-	i = 0
-	while i < classes.length
-		j = 0
-		while j < classes[i].length
-			if state != classes[i][1]
-				$('.search-section').removeClass(classes[i][0])
-			j++
-		i++
-	return
+	# $('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
+	switch state
+		# Change the state background image on .search-section for the chosen state
+		# 1st: Add the appropriate state class so the image is there
+		# 2nd: Change the class list of the search-section to only be 'search-section' and the appropriate class so the image will show (this removes old image classes)
+		when 'Australian Capital Territory'
+			$('.search-section').addClass 'act-img'
+			$('.search-section').attr 'class', 'search-section act-img'
+		when 'New South Wales'
+			$('.search-section').addClass 'nsw-img'
+			$('.search-section').attr 'class', 'search-section nsw-img'
+		when 'Northern Territory'
+			$('.search-section').addClass 'nt-img'
+			$('.search-section').attr 'class', 'search-section nt-img'
+		when 'Other Territories'
+			$('.search-section').addClass 'ot-img'
+			$('.search-section').attr 'class', 'search-section ot-img'
+		when 'Queensland'
+			$('.search-section').addClass 'qld-img'
+			$('.search-section').attr 'class', 'search-section qld-img'
+		when 'South Australia'
+			$('.search-section').addClass 'sa-img'
+			$('.search-section').attr 'class', 'search-section sa-img'
+		when 'Tasmania'
+			$('.search-section').addClass 'tas-img'
+			$('.search-section').attr 'class', 'search-section tas-img'
+		when 'Victoria'
+			$('.search-section').addClass 'vic-img'
+			$('.search-section').attr 'class', 'search-section vic-img'
+		when 'Western Australia'
+			$('.search-section').addClass 'wa-img'
+			$('.search-section').attr 'class', 'search-section wa-img'
+		else
+			$('.search-section').addClass 'wa-img'
+			$('.search-section').attr 'class', 'search-section wa-img'
 
 # Utility function to pluralise a string
 @get_plural = (string) ->

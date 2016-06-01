@@ -8,6 +8,11 @@
 #    * Clean up the alert/tooltip for a logged out user when they click the add-favourites button
 
 ready = ->
+	
+	#remove header image from search section on search page (only needed for buy page)
+	if window.location.pathname.includes 'search'
+		$('.search-section').removeClass 'wa-img vic-img qld-img act-img nsw-img sa-img nt-img tas-img ot-img'
+
 	#search button and call search toconfigure query
 	$('#buy-search-submit').click ->
 		doSearch()
@@ -111,18 +116,36 @@ ready = ->
 			is_favourited = "false"
 
 		if listing_id.length != 0 and is_favourited.length != 0
-				$.ajax
-					type: 'POST'
-					url: 'toggle-favourites'
-					data:
-						_method: 'PUT'
-						listing_id: listing_id
-						is_favourited: is_favourited
-					success: (response) ->
-						# Toggle the favd class on the star
-						$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
+			$.ajax
+				type: 'POST'
+				url: 'toggle-favourites'
+				data:
+					_method: 'PUT'
+					listing_id: listing_id
+					is_favourited: is_favourited
+				success: (response) ->
+					# Toggle the favd class on the star
+					$('a[data-id="' + listing_id + '"]').children('i').toggleClass('favd')
 		else
 			alert 'You must be logged in to be able to favourite a property.'
+
+	#click toggle search for more suburbs
+	$(document).on 'click', '.suburb-search-toggle', ->
+		$('.suburb-search-section').toggle('suburb-section-hide')
+		if $('> i', this).hasClass('plus')
+			# Search bar is now in view, so change the indicator on the show button to a minus (to signify the next click will hide it)
+			$('> i', this).removeClass('plus icon').addClass('minus icon')
+			# Get the offset for the .suburb-search-section so we can scroll it into view if it's off the page (i.e. you're down in the search results)
+			offset = $('.suburb-search-section').offset()
+			# Take away from the top the height of the search sub-menu 
+			# (needed to correctly scroll to the input search bar on mobiles as the submenu covers it otherwise. This doesn't do any harm on desktops)
+			offset.top -= 275
+			# Scroll the search bar into view by animating the html, body to the calculated offset
+			$('html, body').animate
+				scrollTop: offset.top
+				scrollLeft: offset.left
+		else
+			$('> i', this).removeClass('minus icon').addClass('plus icon')
 
 	# Infinite scroll code for search results
 	$('.search-results-container').infinitePages

@@ -4,7 +4,7 @@
 # The following coffeescript is for the map to be used in the property page
 # 
 # Declare current location variable for use
-distance = 1000
+distance = 5000
 places = undefined
 currentLocation = undefined
 map = undefined

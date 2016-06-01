@@ -3,8 +3,13 @@
 // 
 // The following styles are for the footer
 
-//Mobile View
-@media only screen and (max-width: 555px)
+// Tablet and large, wide screen phone view
+@media only screen and (max-width: 991px) and (min-width: 432px)
 	footer
-		height: 25vh
-		min-height: 230px
+		min-height: 15em // Fix the min-height so the colouring of the footer is there under the links
+
+// Small tiny iphone view and general mobile view
+@media only screen and (max-width: 431px)
+	footer
+		min-height: 24em // Fix the min-height so the colouring of the footer is there under the links
+		

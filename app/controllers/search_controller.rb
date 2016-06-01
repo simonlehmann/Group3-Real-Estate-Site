@@ -29,6 +29,8 @@ class SearchController < ApplicationController
 			# Don't do any conversion as @search_prices contains an array of integers, just set
 			# @price_tags to @search_prices (sorted small to high)
 			@price_tags = @search_prices.sort { |a, b| a.to_i <=> b.to_i }
+			# Remove any duplicates from the resulting tag array
+			@price_tags.uniq! if @price_tags.uniq! != nil
 		end
 		# Property tags (House Type, bedrooms, Bathrooms ...)
 		if @search_property
@@ -38,6 +40,8 @@ class SearchController < ApplicationController
 				temp_split = prop.split("_")
 				@property_tags << [ temp_split.first, temp_split.last ]
 			end
+			# Remove any duplicates from the resulting tag array
+			@property_tags.uniq! if @property_tags.uniq! != nil
 		end
 		# Feature tags (Alarms, NBN...)
 		if @search_feature
@@ -45,8 +49,9 @@ class SearchController < ApplicationController
 			# Don't need to do anything with the feature tags as they are just single strings so just
 			# make @feature_tags == @search_feature
 			@feature_tags = @search_feature
+			# Remove any duplicates from the resulting tag array
+			@feature_tags.uniq! if @feature_tags.uniq! != nil
 		end
-
 
 		# --------- Sanitize the parameters so we can perform search with them
 		# 

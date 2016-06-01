@@ -3,7 +3,7 @@
 #   Date: 27/04/2016
 #
 #   Partial to display the user settings
-#   
+#
 #   Note:
 #   	* There's some hidden fields here that are required for image cropping. They don't show and are filled/cleared by dashboard.coffee
 #   	They default to hidden, with no height.
@@ -69,7 +69,7 @@
 			<%= image_tag(current_user.avatar.url(:thumb)) %>
 		</div>
 	</div>
-	
+
 	<% # Avatar Crop preview field %>
 	<% # This is set to display: none on page load and is brought into view (with the file-upload-preview above being hidden) only when you've selected a crop %>
 	<div class="field" id="avatar-crop-preview-image" style="display: none;">
@@ -79,7 +79,7 @@
 			<%= f.crop_preview :avatar, :width => 100 %>
 		</div>
 	</div>
-	
+
 	<% # Avatar upload field %>
 	<div class="row">
 		<% # The file field will be hidden and the label_tag below will replace it's functionality %>
@@ -90,7 +90,7 @@
 			<span>Change Avatar</span>
 		<% end %>
 	</div>
-	
+
 	<% # Show a link to crop the image if one exists already for the given user %>
 	<% if current_user.avatar.url(:thumb) %>
 		<div class="row margin-top-half">
@@ -101,7 +101,7 @@
 			<% end %>
 		</div>
 	<% end %>
-	
+
 
 	<% # -------------------- Start of Hidden Image Cropping Data fields -------------- %>
 	<section style="visibility: hidden; height: 0px;">
@@ -112,7 +112,7 @@
 				<label>Real Width</label>
 				<input type="number" id="img-real-width">
 			</div>
-			
+
 			<div class="field">
 				<label>Real Height</label>
 				<input type="number" id="img-real-height">
@@ -127,7 +127,7 @@
 				<label>Crop Window Height</label>
 				<input type="number" id="img-crop-window-height">
 			</div>
-			
+
 			<div class="field">
 				<label>Real Image Aspect</label>
 				<input type="number" id="img-real-aspect">
@@ -139,7 +139,7 @@
 			</div>
 		</div>
 
-		<% # These four fields hold the crop values that are sent to the server and are required to crop the user image. %>	
+		<% # These four fields hold the crop values that are sent to the server and are required to crop the user image. %>
 		<% # Please don't delete them from the form. They are hidden from view. %>
 		<div class="four fields" id="avatar-crop-values">
 			<div class="field">
@@ -184,6 +184,21 @@
 				<%= f.text_field :last_name, placeholder: "Last Name" %>
 			</div>
 		</div>
+		
+		<div class="two fields">
+			<% # Contact Phoone field %>
+			<div class="field">
+				<label>Contact Phone</label>
+				<%= f.text_field :contact_phone, placeholder: "Contact Phone" %>
+			</div>
+
+			<% # Company Name field %>
+			<div class="field">
+				<label>Company Name</label>
+				<%= f.text_field :company_name, placeholder: "Company Name" %>
+			</div>
+		</div>
+		
 
 		<% # Email field %>
 		<div class="required field">
