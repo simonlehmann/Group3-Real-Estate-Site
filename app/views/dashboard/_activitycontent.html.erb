@@ -34,6 +34,8 @@
 								This property was sold on <%= convert_status_date(status_object.updated_at) %>.
 							<% elsif status_object.listing_status_label == "Auction" %>
 								This property has an auction on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %>.
+							<% elsif status_object.listing_status_label == "Under Offer" %>
+								This property is officially under offer as of <%= convert_status_date(status_object.updated_at) %>.
 							<% end %>
 						</div>
 					</div>
