@@ -27,7 +27,7 @@
 						</div>
 						<div class="extra text">
 							<% if status_object.listing_status_label == "Home Open" %>
-								This property has a home open on the ---- starting at <%= get_start_time(listing) %>
+								This property has a home open on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %> and finishing at <%= get_end_time(listing) %>.
 							<% end %>
 						</div>
 					</div>
