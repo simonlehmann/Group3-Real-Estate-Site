@@ -520,6 +520,24 @@ ready = ->
 				# Render the preview image using the created reader
 				reader.readAsDataURL image
 				return
+
+			# If there are more than 10 images then warn the user
+			listing_preview_cards = $('#listing-photos-list')
+			if files and files.length > 10
+				# If you're uploading more than 10 then warn the user
+				$('#add-edit-images-warning').css 'display', 'block'
+				$('#add-edit-submit-button').attr 'disabled', 'disabled'
+			else
+				if listing_preview_cards.find('.card').length > 10
+					# Else, if you now have more than 10 images previewed, warn the user
+					$('#add-edit-images-warning').css 'display', 'block'
+					$('#add-edit-submit-button').attr 'disabled', 'disabled'
+				else
+					# otherwise, both of these failed so we can enable the button and hide the warning
+					$('#add-edit-images-warning').css 'display', 'none'
+					$('#add-edit-submit-button').removeAttr 'disabled'
+
+
 			return
 		return
 
@@ -534,6 +552,18 @@ ready = ->
 		# Hide the card 
 		# We hide rather than remove so that the hidden checkbox remains otherwise we won't actually delete it
 		card_to_hide.css 'display', 'none'
+		# Check if to warn the user of the amount of images left still
+		listing_preview_cards = $('#listing-photos-list')
+		# As the cards aren't deleted until the form is submitted, we need to count the visible images
+		if listing_preview_cards.find('.card[style*="display: block"]').length > 10
+			# If you now have more than 10 images previewed, warn the user
+			$('#add-edit-images-warning').css 'display', 'block'
+			$('#add-edit-submit-button').attr 'disabled', 'disabled'
+		else
+			# Otherwise, so we can enable the button and hide the warning
+			$('#add-edit-images-warning').css 'display', 'none'
+			$('#add-edit-submit-button').removeAttr 'disabled'
+
 		# Return False as the button actually submits the form otherwise (which we don't want to happen)
 		return false
 
