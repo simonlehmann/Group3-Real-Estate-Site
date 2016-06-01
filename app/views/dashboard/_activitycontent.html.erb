@@ -11,6 +11,7 @@
 	<% if feedFavourites %>
 		<% feedFavourites.each do |item| %>
 			<% listing = item.favourite_listing %>
+			<% status_object = listing_get_status_object(listing) %>
 			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
 				<div class="event">
 					<div class="label">
@@ -19,188 +20,21 @@
 					<div class="content">
 						<div class="summary">
 							<a class="user" href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>"><%= listing.listing_address %></a>
+							<%= status_object.listing_status_label %>
 							<% if listing_get_status_object(listing).listing_status_label == "Home Open" %>
 								has a home open starting at 
 								<%= get_start_time(listing) %>
 							<% end %>
+							<div class="date">
+								1 Hour Ago
+							</div>
+						</div>
+						<div class="extra text">
+							Hello Extra Text
 						</div>
 					</div>
-
 				</div>
 			<% end %>
 		<% end %>
 	<% end %>
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Elliot Fu
-				</a> added you as a friend
-				<div class="date">
-					1 Hour Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 4 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Helen Troy</a> added <a>2 new illustrations</a>
-				<div class="date">
-					4 days ago
-				</div>
-			</div>
-			<div class="extra images">
-				<%= image_tag "300x300.png", class:"small image" %>
-				<%= image_tag "300x300.png", class:"small image" %>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 1 Like
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Jenny Hess
-				</a> added you as a friend
-				<div class="date">
-					2 Days Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 8 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-  
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Joe Henderson</a> posted on his page
-				<div class="date">
-					3 days ago
-				</div>
-			</div>
-			<div class="extra text">
-				Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 5 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Elliot Fu
-				</a> added you as a friend
-				<div class="date">
-					1 Hour Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 4 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Helen Troy</a> added <a>2 new illustrations</a>
-				<div class="date">
-					4 days ago
-				</div>
-			</div>
-			<div class="extra images">
-				<%= image_tag "300x300.png", class:"small image" %>
-				<%= image_tag "300x300.png", class:"small image" %>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 1 Like
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Jenny Hess
-				</a> added you as a friend
-				<div class="date">
-					2 Days Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 8 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-  
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Joe Henderson</a> posted on his page
-				<div class="date">
-					3 days ago
-				</div>
-			</div>
-			<div class="extra text">
-				Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 5 Likes
-				</a>
-			</div>
-		</div>
-	</div>
 </div>
