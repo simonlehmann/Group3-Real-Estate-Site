@@ -13,9 +13,15 @@
 
 <% # These buttons are pulled into the add/edit page as the code is the same for all tabs and performs the same actions. %>
 <div class="ui right aligned column">
-	<% # Cancel button %>
-	<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
+	<div class="ui row">
+		<p class="sell-red-text" id="add-edit-images-warning" style="display: none;">You are uploading more than 10 images, this is a premium option and not currently supported. Please choose 10 or less images.</p>
+	</div>
+	
+	<div class="ui row margin-top-half">
+		<% # Cancel button %>
+		<%= link_to "Cancel", sell_index_path, data: { confirm: "Are you sure you want to cancel and discard your changes?" }, class: "ui button" %>
 
-	<% # Post button, the submit action is triggered onClick of this button in add_edit.coffee %>
-	<button class="ui button sell-red-button" id="add-edit-submit-button"><%= @action %></button>
+		<% # Post button, the submit action is triggered onClick of this button in add_edit.coffee %>
+		<button class="ui button sell-red-button" id="add-edit-submit-button"><%= @action %></button>
+	</div>		
 </div>

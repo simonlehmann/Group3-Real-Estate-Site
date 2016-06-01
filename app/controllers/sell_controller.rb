@@ -166,8 +166,13 @@ class SellController < ApplicationController
 		# --------- Create and save the new images
 		# Handle the uploading of the new images via Paperclip
 		if params[:images]
+			# Count the images and only save the first 10 images (There is a front end check too)
+			count = 1
 			params[:images].each do |image|
-				ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+				if count <= 10
+					ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+					count += 1
+				end
 			end
 		end
 
@@ -241,8 +246,13 @@ class SellController < ApplicationController
 
 			# Handle the uploading of the new images via Paperclip
 			if params[:images]
+				# Count the images and only save the first 10 images (There is a front end check too)
+				count = 1
 				params[:images].each do |image|
-					ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+					if count <= 10
+						ListingImage.create(image: image, listing_image_listing_id: @listing_id, user_id: current_user.id)
+						count += 1
+					end
 				end
 			end
 
