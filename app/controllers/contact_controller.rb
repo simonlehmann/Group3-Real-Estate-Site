@@ -11,12 +11,15 @@ class ContactController < ApplicationController
     body = params[:message]
 
     # Deliver the email
-    ContactMailer.send_contact_email(first_name, last_name, email, subject, body).deliver
+    ContactMailer.send_contact_email(first_name, last_name, email, subject, body).deliver_now
 
-    # Dliver confirmation email
-    ContactMailer.send_contact_confirmation_email(first_name, last_name, email, subject, body).deliver
+    # Deliver confirmation email
+    ContactMailer.send_contact_confirmation_email(first_name, last_name, email, subject, body).deliver_now
+
+    # Send Flash message to confirm
+    flash[:notice] = "Message successfully sent"
 
     # Show message sent message
-    redirect_to contact_path, notice: 'Message sent'
+    redirect_to contact_path #, notice: 'Message sent'
   end
 end
