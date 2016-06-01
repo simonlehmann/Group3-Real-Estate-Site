@@ -21,16 +21,14 @@
 						<div class="summary">
 							<a class="user" href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>"><%= listing.listing_address %></a>
 							<%= status_object.listing_status_label %>
-							<% if listing_get_status_object(listing).listing_status_label == "Home Open" %>
-								has a home open starting at 
-								<%= get_start_time(listing) %>
-							<% end %>
 							<div class="date">
 								1 Hour Ago
 							</div>
 						</div>
 						<div class="extra text">
-							Hello Extra Text
+							<% if status_object.listing_status_label == "Home Open" %>
+								This property has a home open on the ---- starting at <%= get_start_time(listing) %>
+							<% end %>
 						</div>
 					</div>
 				</div>
