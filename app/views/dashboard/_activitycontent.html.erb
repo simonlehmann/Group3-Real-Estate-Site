@@ -1,177 +1,72 @@
-<% #Temp Data %>
+<% 
+#   Date: 27/04/2016
+#
+#   Developed By: Michael White, 01/06/2016
+#
+#   Partial to display the Activity Feed for the user
+%>
+<% #Header %>
 <h1 class="ui center aligned">Activity Feed</h1>
+<% #Container div for feed %>
 <div class="ui feed">
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Elliot Fu
-				</a> added you as a friend
-				<div class="date">
-					1 Hour Ago
+	<% #Get favourites %>
+	<% feedFavourites = get_favourites_object_array %>
+	<% #If the user has favourites add activity feed %>
+	<% if feedFavourites %>
+		<% #For each favourite, add it's status feed %>
+		<% feedFavourites.each do |item| %>
+			<% #Get the listing object for the current favourite %>
+			<% listing = item.favourite_listing %>
+			<% #Get the status object for the current listing %>
+			<% status_object = listing_get_status_object(listing) %>
+			<% #If the listing has a status, continue to add it to the feed %>
+			<% if listing_get_status_readable(listing) != "Click here to set a status" %>
+				<div class="event">
+				<% #Create the label for the activity %>
+					<div class="label">
+						<% #Get the user id of the owner of the listing %>
+						<% user_id = listing.listing_user_id %>
+						<% #Get the user object %>
+						<% user = get_listing_owner(user_id) %>
+						<% #Set the thumbnail to the users avatar %>
+						<%= image_tag user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+					</div>
+					<% #Create the content for the activity %>
+					<div class="content">
+						<div class="summary">
+							<% #Set the label name to the property address and make it a clickable link %>
+							<a class="user" href="<%= property_path("#{listing.listing_address.parameterize}-#{listing.listing_suburb.parameterize}-#{get_state_short(listing.listing_state).parameterize}-#{listing.listing_post_code}-#{listing.listing_id}") %>"><%= listing.listing_address %></a>
+							<% #Add the status of the activity to the label %>
+							<%= status_object.listing_status_label %>
+							<% #Set the date for the activity %>
+							<div class="date">
+								<% #Returns the formatted date of how long ago the activity happened %>
+								<%= get_time_ago(status_object.updated_at) %>
+							</div>
+						</div>
+						<% #Set the content of the activity %>
+						<div class="extra text">
+							<% #If the activity is a home open %>
+							<% if status_object.listing_status_label == "Home Open" %>
+								<% #Set generic text and get the date the home is open, then the starting time and then the ending time. %>
+								This property has a home open on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %> and finishing at <%= get_end_time(listing) %>.
+							<% #If the activity is a sold %>
+							<% elsif status_object.listing_status_label == "Sold" %>
+								<% #Set generic text and add the date at which the property was sold %>
+								This property was sold on <%= convert_status_date(status_object.updated_at) %>.
+							<% #If the activity is an auction %>
+							<% elsif status_object.listing_status_label == "Auction" %>
+								<% #Set generic text and add the date of the auction and the start time %>
+								This property has an auction on <%= convert_status_date(status_object.listing_status_date) %> starting at <%= get_start_time(listing) %>.
+							<% #If the activity is under offer %>
+							<% elsif status_object.listing_status_label == "Under Offer" %>
+								<% #Set generic text and add the date the property went under offer %>
+								This property is officially under offer as of <%= convert_status_date(status_object.updated_at) %>.
+							<% end %>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 4 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Helen Troy</a> added <a>2 new illustrations</a>
-				<div class="date">
-					4 days ago
-				</div>
-			</div>
-			<div class="extra images">
-				<%= image_tag "300x300.png", class:"small image" %>
-				<%= image_tag "300x300.png", class:"small image" %>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 1 Like
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Jenny Hess
-				</a> added you as a friend
-				<div class="date">
-					2 Days Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 8 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-  
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Joe Henderson</a> posted on his page
-				<div class="date">
-					3 days ago
-				</div>
-			</div>
-			<div class="extra text">
-				Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 5 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Elliot Fu
-				</a> added you as a friend
-				<div class="date">
-					1 Hour Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 4 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Helen Troy</a> added <a>2 new illustrations</a>
-				<div class="date">
-					4 days ago
-				</div>
-			</div>
-			<div class="extra images">
-				<%= image_tag "300x300.png", class:"small image" %>
-				<%= image_tag "300x300.png", class:"small image" %>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 1 Like
-				</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a class="user">
-					Jenny Hess
-				</a> added you as a friend
-				<div class="date">
-					2 Days Ago
-				</div>
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 8 Likes
-				</a>
-			</div>
-		</div>
-	</div>
-  
-	<div class="event">
-		<div class="label">
-			<%= image_tag "userprofile-header.png" %>
-		</div>
-		<div class="content">
-			<div class="summary">
-				<a>Joe Henderson</a> posted on his page
-				<div class="date">
-					3 days ago
-				</div>
-			</div>
-			<div class="extra text">
-				Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
-			</div>
-			<div class="meta">
-				<a class="like">
-					<i class="like icon"></i> 5 Likes
-				</a>
-			</div>
-		</div>
-	</div>
+			<% end %>
+		<% end %>
+	<% end %>
 </div>
