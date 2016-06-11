@@ -119,22 +119,24 @@ class SearchController < ApplicationController
 
 		# --------- Actually perform the database query
 		# 
+		# First, get the date for the search query so we only show results that haven't expired (i.e. listing_to_end_at > current_date
+		current_date = DateTime.now()
 		# Now we can perform our search query and include the house_type array and suburbs if they exist
 		if @search_suburbs
 			# We have suburbs so lets include them in the search and handle the extras
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where("listing_to_end_at > ?", current_date).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where("listing_to_end_at > ?", current_date).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				end
 			else
 				# We don't want to search via house type as well, so only search with our suburbs, and the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where(property_search_string).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where("listing_to_end_at > ?", current_date).where(property_search_string).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_suburb: @search_suburbs, listing_approved: true).where("listing_to_end_at > ?", current_date).order('listing_created_at DESC').page(params[:page])
 				end
 			end
 		else
@@ -142,21 +144,21 @@ class SearchController < ApplicationController
 			if house_type.length != 0
 				# We want to search via house type as well, so lets include that, along with the price|bathrooms|bedrooms|parking query if it exists
 				if property_search_string != ""
-					@listings = Listing.where(listing_approved: true).where(property_search_string).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_approved: true).where(property_search_string).where("listing_to_end_at > ?", current_date).where(listing_type: house_type).order('listing_created_at DESC').page(params[:page])
 				else
-					@listings = Listing.where(listing_type: house_type, listing_approved: true).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_type: house_type, listing_approved: true).where("listing_to_end_at > ?", current_date).order('listing_created_at DESC').page(params[:page])
 				end
 			# only search these if the property search string is not empty
 			else
 				# We don't want to search via house type as well, so only search with the price|bathrooms|bedrooms|parking query
 				if property_search_string != ""
-					@listings = Listing.where(listing_approved: true).where(property_search_string).order('listing_created_at DESC').page(params[:page])
+					@listings = Listing.where(listing_approved: true).where(property_search_string).where("listing_to_end_at > ?", current_date).order('listing_created_at DESC').page(params[:page])
 				
 				# We've gone down the rabit hole and have no query strings now so.. return all listings
 				else
 					# Currently limited to 10 as we'll add infinite scroll/pagination soon
 					@no_query = true
-					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').limit(10).page(params[:page])
+					@listings = Listing.where(listing_approved: true).order('listing_created_at DESC').where("listing_to_end_at > ?", current_date).limit(10).page(params[:page])
 				end
 			end
 		end
