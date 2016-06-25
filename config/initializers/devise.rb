@@ -6,13 +6,14 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '5a99e152d0048270c0cfb9148714330a19d5eca8029121546d8af124923bedaae150c5a24c108f7b7f7bbb9fdb4943e85e52a2c5ba21dd9f1ed6682f51c339db'
+  config.secret_key = ENV["DEVISE_SECRET_KEY"]
+
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'PropertyDome@slehmann36.com' # <- Change this to new domain for deployment
+  config.mailer_sender = 'PropertyDome@group3.centralapp.com.au' # <- Change this to new domain for deployment
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

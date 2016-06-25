@@ -43,7 +43,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # <- Change host to site's production domain name and port to 80 for deployment e.g { host: 'propertydome.com', port: 80 }
 
   # Programatically configure Paperclip to hopefully work on OS X and Windows
-  # This is done by checking for the windows directory for the FILE binary folder 
+  # This is done by checking for the windows directory for the FILE binary folder
   # installed when Paperclip and ImageMagick are set up. If the folder exists, then use Windows.
   # Otherwise, use OS X config variables
   if File.directory?('C:\Program Files (x86)\GnuWin32\bin')
@@ -55,8 +55,8 @@ Rails.application.configure do
     Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
     Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
     puts "------------- Paperclip configured using '/opt/ImageMagick/bin' -------------"
-  end  
-  
+  end
+
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
 
@@ -65,13 +65,13 @@ Rails.application.configure do
 
   # Define mail server connection parameters
   config.action_mailer.smtp_settings = {
-    address: "mail.slehmann36.com",
+    address: ENV["TEST_SMTP_HOST"],
     port: 587,
     domain: "slehmann36.com",
     authentication: "ntlm", # <- Change this to required authentication type for deployment!
     enable_starttls_auto: false, # <- Change this back to true for deployment!
-    user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
-    password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
+    user_name: ENV["TEST_SMTP_USER"], # ENV[“GMAIL_USERNAME”]
+    password: ENV["TEST_SMTP_PASS"]
   }
 
 end

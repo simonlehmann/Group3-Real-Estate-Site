@@ -48,13 +48,13 @@ Rails.application.configure do
 
   # Define mail server connection parameters
   config.action_mailer.smtp_settings = {
-    address: "mail.slehmann36.com",
+    address: ENV["TEST_SMTP_HOST"],
     port: 587,
     domain: "slehmann36.com",
     authentication: "ntlm", # <- Change this to required authentication type for deployment!
     enable_starttls_auto: false, # <- Change this back to true for deployment!
-    user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
-    password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
+    user_name: ENV["TEST_SMTP_USER"], # ENV[“GMAIL_USERNAME”]
+    password: ENV["TEST_SMTP_PASS"]
   }
 
 end

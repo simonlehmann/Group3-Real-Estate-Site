@@ -77,7 +77,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'app.slehmann36.com', port: 80 }
+  config.action_mailer.default_url_options = { host: 'group3.centralapp.com.au', port: 80 }
 
   # For mail delivery debugging
   config.action_mailer.raise_delivery_errors = true
@@ -87,13 +87,13 @@ Rails.application.configure do
 
   # Define mail server connection parameters
   config.action_mailer.smtp_settings = {
-    address: "mail.slehmann36.com",
-    port: 587,
-    domain: "slehmann36.com",
-    authentication: "ntlm", # <- Change this to required authentication type for deployment!
-    enable_starttls_auto: false, # <- Change this back to true for deployment!
-    user_name: "PropertyDome@slehmann36.com", # ENV[“GMAIL_USERNAME”]
-    password: "sJ2PVZ2cbvYqMMN" # ENV[“GMAIL_PASSWORD”]
+    address: ENV["PROD_SMTP_HOST"],
+    #port: 587,
+    domain: "group3.centralapp.com.au",
+    authentication: "plain", # <- Change this to required authentication type for deployment!
+    enable_starttls_auto: true, # <- Change this back to true for deployment!
+    user_name: ENV["PROD_SMTP_USER"],
+    password: ENV["PROD_SMTP_PASS"]
   }
 
 end
