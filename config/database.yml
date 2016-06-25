@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV['PROD_DB_HOST'] %>
+  host: localhost #<%= ENV['PROD_DB_HOST'] %>
   database: group3_prod
   username: <%= ENV['PROD_DB_USER'] %>
   password: <%= ENV['PROD_DB_PASS'] %>
