@@ -20,7 +20,8 @@ gem 'coffee-script-source', '1.8.0'
 # To enable installation on TAFE computers. open Git bash (as you need git) and run the following:
 # export PATH=$PATH:/c/Ruby22-x64/bin
 # You can then use bundle install from the git bash (when you're in the project directory) it'll then work.
-gem 'semantic-ui-sass', git: 'https://www.github.com/doabit/semantic-ui-sass'
+#gem 'semantic-ui-sass', git: 'https://www.github.com/doabit/semantic-ui-sass'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 # Gem for bower-rails. Used to install bower components (JS,CSS,JQuery) in the project in /vendor/assets/bower-components
 gem "bower-rails", "~> 0.10.0"
