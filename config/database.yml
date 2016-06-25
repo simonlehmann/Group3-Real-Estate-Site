@@ -13,13 +13,13 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  host: <%= ENV['TEST_DB_HOST'] %>
-  username: <%= ENV['TEST_DB_USER'] %>
-  password: <%= ENV['TEST_DB_PASS'] %>
 
 development:
   <<: *default
   database: propertydome_db
+  host: <%= ENV['TEST_DB_HOST'] %>
+  username: <%= ENV['TEST_DB_USER'] %>
+  password: <%= ENV['TEST_DB_PASS'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -28,6 +28,9 @@ development:
 test:
   <<: *default
   database: propertydome_db
+  host: <%= ENV['TEST_DB_HOST'] %>
+  username: <%= ENV['TEST_DB_USER'] %>
+  password: <%= ENV['TEST_DB_PASS'] %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
