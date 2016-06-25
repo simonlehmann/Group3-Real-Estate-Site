@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: pdappuser
-  password: MhalliF123
-  host: db.slehmann36.com
+  host: <%= ENV['TEST_DB_HOST'] %>
+  username: <%= ENV['TEST_DB_USER'] %>
+  password: <%= ENV['TEST_DB_PASS'] %>
 
 development:
   <<: *default
@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: propertydome_db
-  username: pdappuser
-  password: MhalliF123 #<%= ENV['MYSQL-RAILS-TEST_DATABASE_PASSWORD'] %>
+  host: <%= ENV['PROD_DB_HOST'] %>
+  database: group3_prod
+  username: <%= ENV['PROD_DB_USER'] %>
+  password: <%= ENV['PROD_DB_PASS'] %>
