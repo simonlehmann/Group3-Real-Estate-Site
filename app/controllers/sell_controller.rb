@@ -129,9 +129,6 @@ class SellController < ApplicationController
 		@status = ListingStatus.create(listing_status_label: "None")
 		@listing.listing_status_id = @status.listing_status_id
 
-		# Store the first image as the cover image (This is replaced below after we've actually got images)
-		@listing.listing_cover_image_id = ListingImage.first.listing_image_id
-
 		# Set the listing_to_end_at date equal to 8 weeks from the creation date
 		# DateTime allows us to add days, so we're adding 8 * 7 days to the date to make the expiry date equal to 8 weeks from today
 		current_date = DateTime.now()
@@ -176,7 +173,7 @@ class SellController < ApplicationController
 			end
 		end
 
-		# --------- Update the cover image to be the first of the images we've just added
+		# --------- Update the cover image to be the first of the images we've just added (if any were added, otherwise it will be NULL)
 		first_image = ListingImage.where(listing_image_listing_id: @listing_id).first
 		if first_image
 			@listing.listing_cover_image_id = first_image.listing_image_id
