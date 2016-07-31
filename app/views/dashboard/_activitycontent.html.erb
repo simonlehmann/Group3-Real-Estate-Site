@@ -29,7 +29,7 @@
 						<% #Get the user object %>
 						<% user = get_listing_owner(user_id) %>
 						<% #Set the thumbnail to the users avatar %>
-						<%= image_tag user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+						<%= image_tag user.avatar.url(:original), alt: "User Profile Image", class: "ui avatar image" %>
 					</div>
 					<% #Create the content for the activity %>
 					<div class="content">

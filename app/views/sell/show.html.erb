@@ -21,7 +21,7 @@
 				<% if @user %>
 					<% # Try and show the user image %>
 					<% if @user.avatar %>
-						<%= image_tag @user.avatar.url(:thumb), class: "ui mini circular image" %>
+						<%= image_tag @user.avatar.url(:original), class: "ui mini circular image" %>
 					<% end %>
 
 					<% # Show the username/full_name/email and explanation text %>
