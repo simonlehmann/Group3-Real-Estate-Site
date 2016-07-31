@@ -93,7 +93,8 @@ Rails.application.configure do
     authentication: "plain", # <- Change this to required authentication type for deployment!
     enable_starttls_auto: true, # <- Change this back to true for deployment!
     user_name: ENV["PROD_SMTP_USER"],
-    password: ENV["PROD_SMTP_PASS"]
+    password: ENV["PROD_SMTP_PASS"],
+    openssl_verify_mode: "none" # Remove this line when we get a valid Certificate for the site.
   }
 
 end
