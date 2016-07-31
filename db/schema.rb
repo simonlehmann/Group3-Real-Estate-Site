@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160601054309) do
   add_index "listing_images", ["user_id"], name: "index_listing_images_on_user_id", using: :btree
 
   create_table "listing_status", primary_key: "listing_status_id", force: :cascade do |t|
-    t.string   "listing_status_label",      limit: 32, null: false
+    t.string   "listing_status_label",      limit: 0, null: false
     t.date     "listing_status_date"
     t.time     "listing_status_start_time"
     t.time     "listing_status_end_time"
@@ -54,10 +54,10 @@ ActiveRecord::Schema.define(version: 20160601054309) do
 
   create_table "listings", primary_key: "listing_id", force: :cascade do |t|
     t.integer  "listing_cover_image_id", limit: 4
-    t.string   "listing_type",           limit: 32,                              default: "House", null: false
+    t.string   "listing_type",           limit: 0,                              default: "House", null: false
     t.string   "listing_address",        limit: 256,                                              null: false
     t.string   "listing_suburb",         limit: 32,                                               null: false
-    t.string   "listing_state",          limit: 3,                                                null: false
+    t.string   "listing_state",          limit: 0,                                                null: false
     t.integer  "listing_post_code",      limit: 4,                                                null: false
     t.integer  "listing_bedrooms",       limit: 4,                                                null: false
     t.integer  "listing_bathrooms",      limit: 4,                                                null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160601054309) do
     t.string   "listing_title",          limit: 64,                                               null: false
     t.string   "listing_subtitle",       limit: 128,                                              null: false
     t.text     "listing_description",    limit: 65535,                                            null: false
-    t.string   "listing_price_type",     limit: 1,                              default: "F",     null: false
+    t.string   "listing_price_type",     limit: 0,                              default: "F",     null: false
     t.decimal  "listing_price_min",                    precision: 12, scale: 2,                   null: false
     t.decimal  "listing_price_max",                    precision: 12, scale: 2,                   null: false
     t.integer  "listing_status_id",      limit: 4
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20160601054309) do
     t.string   "email",                  limit: 255, default: "",     null: false
     t.string   "contact_phone",          limit: 10
     t.string   "company_name",           limit: 64
-    t.string   "user_type",              limit: 32,   default: "User", null: false
+    t.string   "user_type",              limit: 0,   default: "User", null: false
     t.string   "encrypted_password",     limit: 255, default: "",     null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
