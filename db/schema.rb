@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160601054309) do
     t.string   "listing_type",           limit: 32,                              default: "House", null: false
     t.string   "listing_address",        limit: 256,                                              null: false
     t.string   "listing_suburb",         limit: 32,                                               null: false
-    t.string   "listing_state",          limit: 3,                                                null: false
+    t.string   "listing_state",          limit: 32,                                               null: false
     t.integer  "listing_post_code",      limit: 4,                                                null: false
     t.integer  "listing_bedrooms",       limit: 4,                                                null: false
     t.integer  "listing_bathrooms",      limit: 4,                                                null: false
