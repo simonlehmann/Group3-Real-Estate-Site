@@ -136,12 +136,6 @@ class SellController < ApplicationController
 		# Add it to the listing object (which will be saved when listing.save() is called)
 		@listing.listing_to_end_at = expiry_date
 		@listing.listing_created_at = current_date
-
-		# ***************** DELETE WHEN ADMIN INTERFACE IS BUILT
-		# Temporary code 
-		# Set listing as approved
-		@listing.listing_approved = true
-		# ***************** END DELETE
 		
 		# Save the listing
 		@listing.save
