@@ -66,7 +66,7 @@
 		<label>Avatar</label>
 		<div class="ui image avatar-target">
 			<% # This image is replaced by the live preview %>
-			<%= image_tag(current_user.avatar.url(:thumb)) %>
+			<%= image_tag(current_user.avatar.url(:original)) %>
 		</div>
 	</div>
 
@@ -92,7 +92,7 @@
 	</div>
 
 	<% # Show a link to crop the image if one exists already for the given user %>
-	<% if current_user.avatar.url(:thumb) %>
+	<% if current_user.avatar.url(:original) %>
 		<div class="row margin-top-half">
 			<% # Link to the view %>
 			<%= label_tag "crop-button", class: "ui medium crop-label open-crop-modal button" do %>
