@@ -35,7 +35,7 @@
 					<div class="ui simple dropdown item user-nav">
 						<% # Profile image as link to dashboard as well %>
 						<%= link_to dashboard_activity_path do %>
-							<%= image_tag current_user.avatar.url(:thumb), alt: "User Profile Image", class: "ui avatar image" %>
+							<%= image_tag current_user.avatar.url(:original), alt: "User Profile Image", class: "ui avatar image" %>
 						<% end %>
 						<% #user profile name %>
 						<% if @username %>
