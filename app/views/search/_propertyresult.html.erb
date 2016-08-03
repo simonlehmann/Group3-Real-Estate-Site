@@ -164,14 +164,22 @@
 						<%# Link to the sell#show page showing the user's active listings %>
 						<%= link_to sell_path(listing.listing_user_id) do %>
 							<%# Username %>
-							<% if listing.listing_user.username.length != 0 %>
-									<span><%= truncate(listing.listing_user.username, length: 18) %></span>
+							<% if @listing.listing_user.username %>
+								<% if @listing.listing_user.username.length != 0 %>
+									<span><%= truncate(@listing.listing_user.username, length: 18) %></span>
+								<% else %>
+									<span><%= truncate(@listing.listing_user.email, length: 18) %></span>
+								<% end %>
 							<%# First name & Surname %>
-							<% elsif listing.listing_user.first_name.length != 0 and listing.listing_user.last_name.length != 0 %>
-									<span><%= truncate(listing.listing_user.first_name + " " + listing.listing_user.last_name, length: 18) %></span>
+							<% elsif @listing.listing_user.first_name and @listing.listing_user.last_name %>
+								<% if @listing.listing_user.first_name.length != 0 and @listing.listing_user.last_name.length != 0 %>
+									<span><%= truncate(@listing.listing_user.first_name + " " + @listing.listing_user.last_name, length: 18) %></span>
+								<% else %>
+									<span><%= truncate(@listing.listing_user.email, length: 18) %></span>
+								<% end %>
 							<%# E-mail %>
 							<% else %>
-								<span><%= truncate(listing.listing_user.email, length: 18) %></span>
+								<span><%= truncate(@listing.listing_user.email, length: 18) %></span>
 							<% end %>
 						<% end %>
 					</li>
