@@ -88,7 +88,7 @@ You can confirm the install using the same commands as for windows in your termi
 
 ## :globe_with_meridians: Live Site
  The `master` branch will be live available at:  
- URL: http://app.slehmann36.com
+ URL: http://group3.centralapp.com.au
  > **Note:** There may be a delay of up to 5 mins between merging to `master` and when your changes are live.  
  > **Warning:** Because the hosting solution is temporary and for testing purposes only, the site will NOT be secured with SSL.
  
@@ -102,17 +102,17 @@ Password: ```Password123```
 During the development of the application, the database will be hosted on ~~the Web24 VPS provided by Central Institute of Technology~~ Simon's infrustructure. 
 ###:key: MySQL Database Server Information
 #### Application Access
-URL: `db.slehmann36.com`  
+URL: `group3.centralapp.com.au`  
 Username: `pdappuser`  
-Password: `MhalliF123`  
+Password: `***`  
 Require SSL `True`
 
 ####PhpMyAdmin Access
-URL: `https://db.slehmann36.com/phpmyadmin/`  
+URL: `https://group3.centralapp.com.au/phpmyadmin/`  
 Username: `admin`  
-Password: `MhalliF123`
+Password: `***`
 
-:exclamation:Don't you bastards break my server!
+:exclamation: Don't you break my server!
 
 This server will have the following capabilities:
 * Web Server (to host the application)
